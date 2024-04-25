@@ -44,18 +44,16 @@ public class DAOClienteImp implements DAOCliente {
 	}
 	
 	JSONObject loadData() throws Exception {
+		JSONObject jo = new JSONObject();
 		try {
 			// Obtenemos los clientes del fichero JSON.
 			InputStream is = new FileInputStream(new File("Cliente/resources/Cliente.json"));
-			JSONObject jo = new JSONObject(new JSONTokener(is));
-			JSONArray ja = jo.getJSONArray("Clientes");
-			
+			jo = new JSONObject(new JSONTokener(is));
 		}
 		catch(Exception e) {
 			throw new IOException(e.getMessage());
 		}
-		
-		
+		return jo;
 	}
 
 }
