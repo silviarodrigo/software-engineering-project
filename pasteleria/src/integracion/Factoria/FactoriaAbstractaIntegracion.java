@@ -10,14 +10,14 @@ public abstract class FactoriaAbstractaIntegracion {
 
 	private static FactoriaAbstractaIntegracion instancia = null;
 
-	public static FactoriaAbstractaIntegracion getInstace() { // creacion perezosa
+	public static FactoriaAbstractaIntegracion getInstance() { // creacion perezosa
 		if (instancia == null) {
 			instancia = new FactoriaIntegracion();
 		}
 		return instancia;
 	}
 
-	// metodos para crear DAOS
+	// metodos para crear DAOSS
 
 	public abstract DAOFactura crearDAOFactura();
 	public abstract DAOLineaFactura crearDAOLineaFactura();
