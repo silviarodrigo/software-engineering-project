@@ -1,5 +1,8 @@
 package negocio.Producto;
 
+import java.util.Collection;
+
+
 public class SAProductoImp implements SAProducto {
 
 	@Override

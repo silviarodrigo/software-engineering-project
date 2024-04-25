@@ -1,5 +1,7 @@
 package presentacion.GUIProducto;
 
-public class VistaActualizarProducto {
+import javax.swing.JDialog;
+
+public class VistaActualizarProducto extends JDialog {
 
 }
