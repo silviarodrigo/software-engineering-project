@@ -1,6 +1,7 @@
 package integracion.Producto;
 
 import java.util.Collection;
+import negocio.Producto.TProducto;
 
 public class DAOProductoImp implements DAOProducto {
 
