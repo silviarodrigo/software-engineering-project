@@ -2,10 +2,9 @@ package integracion.Facturas;
 
 import java.util.Collection;
 import java.io.BufferedReader;
-import negFactura.TFactura;
-import negFactura.TLineaFactura;
+import negocio.Facturas.TFactura;
+import negocio.Facturas.TLineaFactura;
 import org.json.*;
-
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.File;

@@ -1,8 +1,7 @@
 package integracion.Facturas;
 
 import java.util.Collection;
-
-import negFactura.TLineaFactura;
+import negocio.Facturas.TLineaFactura;
 
 public class DAOLineaFacturaImp implements DAOLineaFactura{
 

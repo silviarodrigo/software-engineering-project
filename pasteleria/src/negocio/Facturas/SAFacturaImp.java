@@ -1,9 +1,9 @@
-package negFactura;
+package negocio.Facturas;
 
 import java.util.Collection;
 
-import factorias.FactoriaAbstractaIntegracion;
-import intFactura.DAOFactura;
+import integracion.Factoria.FactoriaAbstractaIntegracion;
+import integracion.Facturas.*;
 
 public class SAFacturaImp implements SAFactura {
 
