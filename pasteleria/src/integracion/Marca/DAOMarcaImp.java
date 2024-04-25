@@ -14,7 +14,6 @@ import negocio.Marca.TMarca;
 
 //Integracion inserta el cliente cogiendo sus datos del JSON/base de datos y lo devuelve
 
-
 public class DAOMarcaImp implements DAOMarca {
 
 	@Override
