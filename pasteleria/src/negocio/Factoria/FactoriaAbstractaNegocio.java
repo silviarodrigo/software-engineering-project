@@ -1,17 +1,19 @@
 package negocio.Factoria;
 
-import negFactura.SAFactura;
+import negocio.Facturas.SAFactura;
 
 public abstract class FactoriaAbstractaNegocio {
 
 private static FactoriaAbstractaNegocio instance = null;
 	
-	public static FactoriaAbstractaNegocio getInstace() {
+	public static FactoriaAbstractaNegocio getInstance() {
 		if(instance == null) {
 			instance = new FactoriaNegocio();
 		}
 		return instance;
 	}
 	public abstract SAFactura crearSAFactura();
+	public abstract SAMarca crearMarca();
+
 
 }
