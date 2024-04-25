@@ -1,4 +1,4 @@
-package integracion;
+package integracion.Factoria;
 
 import intFactura.DAOFactura;
 import intFactura.DAOFacturaImp;

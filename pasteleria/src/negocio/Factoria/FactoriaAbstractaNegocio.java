@@ -1,4 +1,4 @@
-package negocio;
+package negocio.Factoria;
 
 import negFactura.SAFactura;
 
