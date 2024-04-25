@@ -1,8 +1,10 @@
 package integracion.Factoria;
 
-import intFactura.DAOFactura;
-import intFactura.DAOLineaFactura;
-import negFactura.SAFactura;
+import integracion.Marca.DAOMarca;
+import integracion.Marca.DAOMarcaProveedor;
+import integracion.Facturas.DAOFactura;
+import integracion.Facturas.DAOLineaFactura;
+import negocio.Facturas.SAFactura;
 
 public abstract class FactoriaAbstractaIntegracion {
 
@@ -19,4 +21,6 @@ public abstract class FactoriaAbstractaIntegracion {
 
 	public abstract DAOFactura crearDAOFactura();
 	public abstract DAOLineaFactura crearDAOLineaFactura();
+	public abstract DAOMarca crearDAOMarca();
+	public abstract DAOMarcaProveedor crearDAOMarcaProveedor();
 }

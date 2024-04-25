@@ -9,4 +9,9 @@ public class FactoriaNegocio extends FactoriaAbstractaNegocio {
 	public SAFactura crearSAFactura() {
 		return new SAFacturaImp();
 	}
+	
+	public SAMarca crearMarca() {
+		return new SAMarcaImp();
+	}
+
 }
