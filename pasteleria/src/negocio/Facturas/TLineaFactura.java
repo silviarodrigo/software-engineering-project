@@ -1,4 +1,4 @@
-package negFactura;
+package negocio.Facturas;
 
 public class TLineaFactura {
 	private String id_producto;

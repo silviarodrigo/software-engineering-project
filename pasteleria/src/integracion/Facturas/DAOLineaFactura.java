@@ -2,7 +2,7 @@ package integracion.Facturas;
 
 import java.util.Collection;
 
-import negFactura.TLineaFactura;
+import negocio.Facturas.TLineaFactura;
 
 public interface DAOLineaFactura {
 	public boolean modificarLineaFactura(TLineaFactura f);

@@ -1,4 +1,4 @@
-package negFactura;
+package negocio.Facturas;
 
 import java.util.ArrayList;
 
