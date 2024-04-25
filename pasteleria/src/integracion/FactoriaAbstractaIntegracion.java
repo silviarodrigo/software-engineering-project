@@ -2,6 +2,7 @@ package integracion;
 
 import intFactura.DAOFactura;
 import intFactura.DAOLineaFactura;
+import integracion.Cliente.DAOCliente;
 import negFactura.SAFactura;
 
 public abstract class FactoriaAbstractaIntegracion {
@@ -19,4 +20,5 @@ public abstract class FactoriaAbstractaIntegracion {
 
 	public abstract DAOFactura crearDAOFactura();
 	public abstract DAOLineaFactura crearDAOLineaFactura();
+	public abstract DAOCliente crearDAOCliente();
 }
