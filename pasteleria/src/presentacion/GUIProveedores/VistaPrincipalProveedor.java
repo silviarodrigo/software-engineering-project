@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
-public class MainWindowProveedor extends JFrame{
+public class VistaPrincipalProveedor extends JFrame{
 
 	//vamos a tener un botón por cada vista
 	//cuando los pulsemos se abrirá su JDialog correspondiente

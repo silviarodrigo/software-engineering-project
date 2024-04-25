@@ -4,7 +4,6 @@ import integracion.Marca.DAOMarca;
 import integracion.Marca.DAOMarcaProveedor;
 import integracion.Facturas.DAOFactura;
 import integracion.Facturas.DAOLineaFactura;
-import negocio.Facturas.SAFactura;
 
 public abstract class FactoriaAbstractaIntegracion {
 
