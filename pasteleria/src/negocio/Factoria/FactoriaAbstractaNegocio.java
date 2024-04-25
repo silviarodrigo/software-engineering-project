@@ -1,6 +1,7 @@
 package negocio.Factoria;
 
 import negocio.Facturas.SAFactura;
+import negocio.Marca.SAMarca;
 
 public abstract class FactoriaAbstractaNegocio {
 

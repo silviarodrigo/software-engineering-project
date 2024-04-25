@@ -8,7 +8,7 @@ import integracion.Facturas.*;
 public class SAFacturaImp implements SAFactura {
 
 	public TFactura buscarFactura(String id) {
-		DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstace().crearDAOFactura();
+		DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
 		return daoFactura.buscarFactura(id);
 	}
 
