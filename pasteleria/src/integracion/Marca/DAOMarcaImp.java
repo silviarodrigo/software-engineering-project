@@ -1,4 +1,4 @@
-package Integracion;
+package integracion.Marca;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.json.*;
-import Negocio.TMarca;
+import negocio.Marca.TMarca;
 
 
 //Integracion inserta el cliente cogiendo sus datos del JSON/base de datos y lo devuelve

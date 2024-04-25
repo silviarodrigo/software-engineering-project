@@ -1,4 +1,4 @@
-package Integracion;
+package integracion.Marca;
 
 public interface DAOMarcaProveedor {
 

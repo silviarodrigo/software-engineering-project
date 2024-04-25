@@ -1,8 +1,8 @@
-package Integracion;
+package integracion.Marca;
 
 import java.util.Collection;
 
-import Negocio.TMarca;
+import negocio.Marca.TMarca;
 
 public interface DAOMarca {
 	public String altaMarca(TMarca marca);
