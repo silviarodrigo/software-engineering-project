@@ -2,14 +2,13 @@ package presentacion.Controlador;
 import presentacion.Evento;
 
 public abstract class Controlador {
-	// Hace uso del patron singleton
-	private static Controlador instancia = null;
+	private static Controlador instance = null;
 	
 	public static Controlador getInstance() {
-		if(instancia == null) {
-			instancia = new ControladorImp();
+		if(instance == null) {
+			instance = new ControladorImp();
 		}
-		return instancia;
+		return instance;
 	}
 	
 	public abstract void accion(Evento e, Object datos);

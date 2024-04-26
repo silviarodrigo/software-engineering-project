@@ -1,6 +1,7 @@
 package presentacion.Controlador;
 
 import presentacion.Evento;
+import presentacion.factoria.FactoriaAbstractaPresentacion;
 import negocio.Producto.TProducto;
 import negocio.Producto.SAProducto;
 
@@ -9,6 +10,9 @@ import negocio.Producto.SAProducto;
 public class ControladorImp extends Controlador {
 	public void accion(Evento evento, Object datos) {
 		switch (evento) {
+		case MAIN_WINDOW:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.MAIN_WINDOW);
+			break;
 		case ALTA_PRODUCTO:
 			//CODIGO COPIADO DE SUS DIAPOSITIVAS
 			/*
@@ -22,7 +26,7 @@ public class ControladorImp extends Controlador {
 			//mostraría una ventana semipreparada informando*/
 			break;
 		case VISTA_PRINCIPAL_PRODUCTO:
-			FactoriaAbstractaPresentacion.getInstace().createVista(Evento.VISTA_PRINCIPAL_PRODUCTO);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_PRODUCTO);
 			break;
 		}
 	}

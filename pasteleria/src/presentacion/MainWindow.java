@@ -2,6 +2,9 @@ package presentacion;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import presentacion.Controlador.Controlador;
+
 import javax.swing.JButton;
 
 
