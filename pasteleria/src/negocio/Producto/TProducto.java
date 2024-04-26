@@ -6,17 +6,17 @@ public class TProducto {
 	private String alergenos;
 	private int stock;
 	private String tipo;
-	private String marca;
+	private int marcaId;
 	private int id;
 	private boolean activo;
 	
-	TProducto(String nombre, double precio, String alergenos, int stock,String tipo, String marca ){
+	TProducto(String nombre, double precio, String alergenos, int stock,String tipo, int marcaId ){
 		this.nombre= nombre;
 		this.precio= precio;
 		this.alergenos = alergenos;
 		this.stock = stock;
 		this.tipo = tipo;
-		this.marca= marca;
+		this.marcaId = marcaId;
 		this.id = -1;
 		this.activo = true;
 	}
@@ -61,12 +61,12 @@ public class TProducto {
 		this.tipo = tipo;
 	}
 	
-	public String getMarca() {
-		return this.marca;
+	public int getMarca() {
+		return this.marcaId;
 	}
 	
-	public void setMarca(String marca) {
-		this.marca= marca;
+	public void setMarca(int marcaId) {
+		this.marcaId = marcaId;
 	}
 	
 	public int getId() {

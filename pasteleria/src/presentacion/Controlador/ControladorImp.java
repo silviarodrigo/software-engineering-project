@@ -19,9 +19,11 @@ public class ControladorImp extends Controlador {
 			//Si todo OK el aspecto es este (faltaría el else):
 			FactoriaAbstractaPresentacion.getInstance().createVista(evento).actualizar(Evento.RES_ALTA_CLIENTE_OK,res);
 			
-			//mostraría una ventana semipreparada informando
+			//mostraría una ventana semipreparada informando*/
 			break;
-			*/
+		case VISTA_PRINCIPAL_PRODUCTO:
+			FactoriaAbstractaPresentacion.getInstace().createVista(Evento.VISTA_PRINCIPAL_PRODUCTO);
+			break;
 		}
 	}
 }
