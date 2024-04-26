@@ -33,6 +33,7 @@ public class MainWindow extends JFrame implements IGUI {
 		setVisible(true);
 	}
 	
+	//Funcion a usar en los listeners de los botones
 	private void listenerAbrirVentana(Evento e) {
 		Controlador.getInstance().accion(e, null);
 		this.dispose();
