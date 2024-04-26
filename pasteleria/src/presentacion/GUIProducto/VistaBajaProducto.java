@@ -1,5 +1,7 @@
 package presentacion.GUIProducto;
 
-public class VistaBajaProducto {
+import presentacion.IGUI;
+
+public class VistaBajaProducto implements IGUI {
 
 }
