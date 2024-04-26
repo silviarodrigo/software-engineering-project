@@ -5,6 +5,7 @@ import java.util.Collection;
 import negocio.Factoria.FactoriaAbstractaNegocio;
 import integracion.Factoria.FactoriaAbstractaIntegracion;
 import integracion.Marca.DAOMarca;
+import integracion.Producto.DAOProducto;
 
 //"Negocio pide a integración que lo añada"
 
@@ -12,32 +13,32 @@ import integracion.Marca.DAOMarca;
 
 public class SAMarcaImp implements SAMarca{
 	
-	//MODIFCA EN ALGO EL NEXT_ID?? SI LA HA INSERTADO, DEVUELVE EL NOMBRE DE LA MARCA O NEXT_ID??
-	public String altaMarca(TMarca marca) {
+	//MODIFCA EN ALGO EL NEXT_ID?? SI LA HA INSERTADO DEVUELVE NEXT_ID??
+	public int altaMarca(TMarca marca) {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
 		
-		String nombre = marca.getNombre();
-		if (daoMarca.buscarMarca(nombre) == null) {//no está insertada ya
-			next_id = daoMarca.altaMarca(marca);			
+		int id = 0;
+		if (marca.getID() == 0) {//no está insertada todavía
+			id = daoMarca.altaMarca(marca);			
 		}
-		return next_id;
+		return id;
 	}
 	
-	//IGUAL ES MAS FACIL QUE MARCA TENGA UN INT PRODUCTOS (con el nº de productos asociados) e ir cambiandolo cuando den de baja un producto 
-	public boolean bajaMarca(String nombre) {
+	
+	public boolean bajaMarca(int id) {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
-		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOproducto();
+		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
 		
 		//Comprobamos que no haya ningun producto con esa marca 
 		int cont = 0;
 		for (TProdcuto prod : daoProducto.listarProducto()) {
-			if (prod.getMarca() != id) {
+			if (prod.getMarca() == id) {
 				cont++;
 			}
 		}
 		
 		boolean bool = false;
-		if (cont == daoProducto.listarProducto().size()) { //ningun producto tiene esa marca
+		if (cont == 0) { //ningun producto tiene esa marca
 			bool = daoMarca.bajaMarca(id);
 		}
 		return bool;
@@ -49,6 +50,11 @@ public class SAMarcaImp implements SAMarca{
 		
 		if(daoMarca.actualizarMarca(marca)) return true;
 		else return false;
+	}
+	
+	public TMarca buscarMarca(int id) {
+		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
+		return daoMarca.buscarMarca(id);
 	}
 	
 	public TMarca buscarMarca(String nombre) {

@@ -17,67 +17,74 @@ import negocio.Marca.TMarca;
 public class DAOMarcaImp implements DAOMarca {
 
 	@Override
-	public String altaMarca(TMarca marca) { ///PARA QUÉ SIRVE NEXT_ID?????????? QUÉ RETURNEO??
+	public int altaMarca(TMarca marca) {
+		JSONObject JO;
+		try {
+			//Accedemos a los datos guardados hasta ahora
+			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
+			JO = new JSONObject (new JSONTokener(in));
+		}
+		catch (Exception e){
+			return -1;
+		}
+		
+		//Obtenemos los datos del JSON
+		JSONArray JA = JO.getJSONArray("Marcas");
+		int next_id = JO.getInt("next_id");
+		
+		marca.setID(next_id);
+		
 		//cargamos los datos de la nueva marca en un JSON
 		JSONObject jo = new JSONObject();
-		jo.put("Nombre", marca.getNombre());;
+		jo.put("Id", next_id);
+		jo.put("Nombre", marca.getNombre());
 		jo.put("Correo", marca.getCorreo());
+		jo.put("Activo", marca.getActivo());
 		
-		int next_id = 0;
-		try {
-			
-			//Accedemos a los datos guardados hasta ahora
-			InputStream in = new FileInputStream(new File("Marca/resources/Marca.json"));
-			JSONObject JO = new JSONObject (new JSONTokener(in));
-			
-			//Obtenemos los datos del JSON
-			JSONArray JA = JO.getJSONArray("Marcas");
-			next_id = JO.getInt("next_id"); 
-			
-			//Insertamos la nueva marca en el array y aumentamos el next_id
-			JA.put(jo);
-			++next_id;
+		//insertamos la nueva marca en el JSON
+		JA.put(jo);
+		++next_id;
 		
-			//Creamos el nuevo JSON con toda la informacion y lo escribimos
-			JSONObject JW = new JSONObject();
-			JW.put("Marcas", JA);
-			JW.put("next_id", next_id);
-			BufferedWriter bw = new BufferedWriter(new FileWriter("Marca/resources/Marca.json"));
+		//Creamos el nuevo JSON con toda la informacion y lo escribimos
+		JSONObject JW = new JSONObject();
+		JW.put("Marcas", JA);
+		JW.put("next_id", next_id);
+		
+		try {	
+			BufferedWriter bw = new BufferedWriter(new FileWriter("pasteleria/resources/Marca.json"));
 			bw.write(JW.toString());
 			bw.close();
 		} 
 		catch(Exception e) {
-			return null;
+			return -1;
 		}		
-		return marca.getNombre();
+		
+		return marca.getID();
 	}
 
 	@Override
-	public boolean bajaMarca(String nombre) {
+	public boolean bajaMarca(int id) {
 		try {
 			//Accedemos a los datos guardados
-			InputStream in = new FileInputStream(new File("Marca/resources/Marca.json"));
+			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
 			JSONObject JO = new JSONObject (new JSONTokener(in));
 			JSONArray JA = JO.getJSONArray("Marcas");
-
-			//int next_id = JO.getInt("next_id"); ¿¿NECESITO EL NEXT_ID PARA ALGO?? O HACER ALGO CON ÉL??
 			
 			int i = 0; 
-			while (i < JA.length() && !JA.getJSONObject(i).get("Nombre").equals(nombre)) {
+			while (i < JA.length() && !(JA.getJSONObject(i).getInt("Id") == id)) {
 				i++;
 			}
 			if (i == JA.length()) return false; //no lo ha encontrado
 			else {
-				JA.remove(i);
-				
+				JA.getJSONObject(i).put("Activo", false);
+								
 				JSONObject newJO = new JSONObject();
 				newJO.put("Marcas", JA);
-				newJO.put("next_id", JO.get("next_id")); //TENGO QUE MODIFICAR EL NEXT_ID???
+				newJO.put("next_id", JO.get("next_id")); //nose modifica el next_id
 				
-				BufferedWriter bw = new BufferedWriter(new FileWriter("Marca/resources/Marca.json"));
+				BufferedWriter bw = new BufferedWriter(new FileWriter("pasteleria/resources/Marca.json"));
 				bw.write(newJO.toString());
 				bw.close();
-				
 			}
 		} 
 		catch(Exception e) {
@@ -92,13 +99,13 @@ public class DAOMarcaImp implements DAOMarca {
 	
 		try {
 			//Accedemos a los datos guardados
-			InputStream in = new FileInputStream(new File("Marca/resources/Marca.json"));
+			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
 			JSONObject JO = new JSONObject (new JSONTokener(in));
 			JSONArray JA = JO.getJSONArray("Marcas");
 
 			
-			int i = 0; String nombre = marca.getNombre();
-			while (i < JA.length() && !JA.getJSONObject(i).get("Nombre").equals(nombre)) {
+			int i = 0; int id = marca.getID();
+			while (i < JA.length() && !(JA.getJSONObject(i).getInt("Id") == id)) {
 				i++;
 			}
 			if (i == JA.length()) return false; //no lo ha encontrado
@@ -106,12 +113,13 @@ public class DAOMarcaImp implements DAOMarca {
 				JSONObject jo = JA.getJSONObject(i);
 				JA.remove(i);
 				
-				/* ENTIENDO QUE EL NOMBRE ES INMODIFICABLE PQ ES CON LO QUE LO BUSCO??
+				//El ID es inmodificable
 				jo.remove("Nombre");
 				jo.put("Nombre", marca.getNombre());
-				*/
 				jo.remove("Correo");
 				jo.put("Correo", marca.getCorreo());
+				jo.remove("Activo");
+				jo.put("Activo", marca.getActivo());
 				
 				JA.put(jo);
 				
@@ -119,7 +127,7 @@ public class DAOMarcaImp implements DAOMarca {
 				newJO.put("Marcas", JA);
 				newJO.put("next_id", JO.get("next_id"));
 				
-				BufferedWriter bw = new BufferedWriter(new FileWriter("Marca/resources/Marca.json"));
+				BufferedWriter bw = new BufferedWriter(new FileWriter("pasteleria/resources/Marca.json"));
 				bw.write(newJO.toString());
 				bw.close();
 			}
@@ -131,11 +139,40 @@ public class DAOMarcaImp implements DAOMarca {
 	}
 
 	@Override
+	public TMarca buscarMarca(int id) {
+		try {
+			// Accedemos a los datos guardados hasta ahora
+			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
+			JSONObject JO = new JSONObject(new JSONTokener(in));
+
+			// Obtenemos los datos del JSON
+			JSONArray JA = JO.getJSONArray("Marcas");
+			
+			int i = 0; 
+			while (i < JA.length() && !(JA.getJSONObject(i).getInt("Id") == id)) {
+				i++;
+			}
+			if (i == JA.length()) return null; //no lo ha encontrado
+			else {
+				JSONObject jo = JA.getJSONObject(i);
+				
+				String nombre = jo.getString("Nombre");
+				String correo = jo.getString("Correo");
+				boolean activo = jo.getBoolean("Activo");
+				
+				return new TMarca(id, nombre, correo, activo);
+			}
+		} 
+		catch (Exception e) {
+			return null; 
+		}
+	}
+	
+	@Override
 	public TMarca buscarMarca(String nombreMarca) {
 		try {
-
 			// Accedemos a los datos guardados hasta ahora
-			InputStream in = new FileInputStream(new File("Marca/resources/Marca.json"));
+			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
 			JSONObject JO = new JSONObject(new JSONTokener(in));
 
 			// Obtenemos los datos del JSON
@@ -149,10 +186,11 @@ public class DAOMarcaImp implements DAOMarca {
 			else {
 				JSONObject jo = JA.getJSONObject(i);
 				
-				String nombre = jo.getString("Nombre"); //.toLowerCase()
+				int id = jo.getInt("Id");
 				String correo = jo.getString("Correo");
+				boolean activo = jo.getBoolean("Activo");
 				
-				return new TMarca(nombre, correo);
+				return new TMarca(id, nombreMarca, correo, activo);
 			}
 		} 
 		catch (Exception e) {
@@ -161,12 +199,12 @@ public class DAOMarcaImp implements DAOMarca {
 	}
 
 	@Override
-	public Collection<TMarca> listarMarca() { //ENTIENDO QUE NO HAY QUE DECIR NADA DEL NEXT_ID??
+	public Collection<TMarca> listarMarca() { 
 		Collection<TMarca> lista = new ArrayList<TMarca>();
 		
 		JSONArray JA = null;
 		try {
-			InputStream in = new FileInputStream(new File("Marca/resources/Marca.json"));
+			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
 			JSONObject JO = new JSONObject(new JSONTokener(in));
 			JA = JO.getJSONArray("Marcas");
 			
@@ -178,7 +216,7 @@ public class DAOMarcaImp implements DAOMarca {
 		int i = 0;
 		while (i < JA.length()) {
 			JSONObject jo = JA.getJSONObject(i);
-			lista.add(new TMarca((String)jo.get("Nombre"), (String)jo.get("Correo")));
+			lista.add(new TMarca( jo.getInt("Id"), jo.getString("Nombre"), jo.getString("Correo"), jo.getBoolean("Activo")));
 			i++;
 		}
 		return lista;
