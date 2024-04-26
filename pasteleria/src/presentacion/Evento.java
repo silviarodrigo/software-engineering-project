@@ -1,5 +1,5 @@
 package presentacion;
 
 public enum Evento {
-	MAIN_WINDOW, VISTA_ALTA_PRODUCTO
+	MAIN_WINDOW, VISTA_ALTA_PRODUCTO, ALTA_PRODUCTO
 }

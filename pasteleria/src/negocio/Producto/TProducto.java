@@ -7,6 +7,8 @@ public class TProducto {
 	private int stock;
 	private String tipo;
 	private String marca;
+	private int id;
+	private boolean activo;
 	
 	TProducto(String nombre, double precio, String alergenos, int stock,String tipo, String marca ){
 		this.nombre= nombre;
@@ -15,6 +17,8 @@ public class TProducto {
 		this.stock = stock;
 		this.tipo = tipo;
 		this.marca= marca;
+		this.id = -1;
+		this.activo = true;
 	}
 	
 	public String getNombre() {
@@ -29,7 +33,7 @@ public class TProducto {
 		return this.precio;
 	}
 	
-	public void setNombre(double precio) {
+	public void setPrecio(double precio) {
 		this.precio= precio;
 	}
 	
@@ -63,5 +67,21 @@ public class TProducto {
 	
 	public void setMarca(String marca) {
 		this.marca= marca;
+	}
+	
+	public int getId() {
+		return this.id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public boolean getActivo() {
+		return this.activo;
+	}
+	
+	public void setActivo(boolean activo) {
+		this.activo = activo;
 	}
 }
