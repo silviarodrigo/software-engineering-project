@@ -57,10 +57,12 @@ public class SAMarcaImp implements SAMarca{
 		return daoMarca.buscarMarca(id);
 	}
 	
+	/*
 	public TMarca buscarMarca(String nombre) {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
 		return daoMarca.buscarMarca(nombre);
 	}
+	*/
 	
 	public Collection<TMarca> listarMarca(){
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();

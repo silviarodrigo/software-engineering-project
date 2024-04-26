@@ -15,6 +15,13 @@ public class TMarcaProveedor {
 		this.activo = true;
 	}
 	
+	public TMarcaProveedor(int id, int idMarca,  int idProveedor, boolean activo){
+		this.id = id;
+		this.idMarca = idMarca;
+		this.idProveedor = idProveedor;
+		this.activo = activo;
+	}
+	
 	public int getID() {
 		return this.id;
 	}

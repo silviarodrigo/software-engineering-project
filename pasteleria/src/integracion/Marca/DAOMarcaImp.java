@@ -80,7 +80,7 @@ public class DAOMarcaImp implements DAOMarca {
 								
 				JSONObject newJO = new JSONObject();
 				newJO.put("Marcas", JA);
-				newJO.put("next_id", JO.get("next_id")); //nose modifica el next_id
+				newJO.put("next_id", JO.get("next_id")); //no se modifica el next_id
 				
 				BufferedWriter bw = new BufferedWriter(new FileWriter("pasteleria/resources/Marca.json"));
 				bw.write(newJO.toString());
@@ -96,7 +96,6 @@ public class DAOMarcaImp implements DAOMarca {
 
 	@Override
 	public boolean actualizarMarca(TMarca marca) {
-	
 		try {
 			//Accedemos a los datos guardados
 			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
@@ -168,6 +167,7 @@ public class DAOMarcaImp implements DAOMarca {
 		}
 	}
 	
+	/*
 	@Override
 	public TMarca buscarMarca(String nombreMarca) {
 		try {
@@ -197,6 +197,7 @@ public class DAOMarcaImp implements DAOMarca {
 			return null; 
 		}
 	}
+	*/
 
 	@Override
 	public Collection<TMarca> listarMarca() { 
