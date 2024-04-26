@@ -28,6 +28,21 @@ public class ControladorImp extends Controlador {
 		case VISTA_PRINCIPAL_PRODUCTO:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_PRODUCTO);
 			break;
+		case VISTA_ALTA_PRODUCTO:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_PRODUCTO);
+			break;
+		case VISTA_BAJA_PRODUCTO:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_PRODUCTO);
+			break;
+		case VISTA_ACTUALIZAR_PRODUCTO:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_PRODUCTO);
+			break;
+		case VISTA_BUSCAR_PRODUCTO:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_PRODUCTO);
+			break;
+		case VISTA_LISTAR_PRODUCTO:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTO);
+			break;
 		}
 	}
 }
