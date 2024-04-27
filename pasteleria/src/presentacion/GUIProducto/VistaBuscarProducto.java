@@ -11,12 +11,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import negocio.Producto.TProducto;
+import negocio.Producto.TDulce;
+import negocio.Producto.TPan;
+import negocio.Producto.TBebida;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
 
 public class VistaBuscarProducto extends JDialog implements IGUI {
-
+	private static final long serialVersionUID = 6660804707223318345L;
 	JTextField _tFNombre;
 	JPanel _pedirNombrePanel;
 	JPanel _infoPanel;
@@ -74,7 +77,30 @@ public class VistaBuscarProducto extends JDialog implements IGUI {
 		_infoPanel.add(precioLabel);
 		_infoPanel.add(alergenosLabel);
 		_infoPanel.add(tipoLabel);
-
+		
+		if (producto.getTipo() == "Dulce") {
+			JLabel rellenoLabel = new JLabel("Relleno: " + ((TDulce) producto).getRelleno());
+			_infoPanel.add(rellenoLabel);
+		}
+		else if (producto.getTipo() == "Bebida") {
+			JLabel tamanyoLabel = new JLabel("Tamaño: " + ((TBebida) producto).getTamanyo());
+			_infoPanel.add(tamanyoLabel);
+		}
+		else {
+			String integral, sal;
+			integral = ((TPan) producto).getIntegral() ? "sí" : "no";
+			sal = ((TPan) producto).getSal() ? "sí" : "no";
+			JLabel integralLabel = new JLabel("Integral: " + integral);
+			_infoPanel.add(integralLabel);
+			JLabel salLabel = new JLabel("Sal: " + sal);
+			_infoPanel.add(salLabel);
+		}
+		
+		JButton continuarBtn = new JButton("Continuar");
+		continuarBtn.addActionListener((e) -> dispose());
+		_infoPanel.add(continuarBtn);
+		
+		pack();
 	}
 	
 	private void buscarProducto() {
@@ -88,6 +114,18 @@ public class VistaBuscarProducto extends JDialog implements IGUI {
 	}
 	
 	@Override
-	public void actualizar(Evento e, Object datos) {		
+	public void actualizar(Evento e, Object datos) {	
+		switch(e) {
+		case BUSCAR_PRODUCTO_SUCCESS:
+			_pedirNombrePanel.setVisible(false);
+			initInfoGUI((TProducto) datos);
+			break;
+		case BUSCAR_PRODUCTO_ERROR:
+			JOptionPane.showMessageDialog(this, "ERROR: Producto " + datos  + " no encontrado", "Buscar Producto", JOptionPane.ERROR_MESSAGE);
+			dispose();
+			break;
+		default:
+			break;
+		}
 	}
 }

@@ -251,6 +251,18 @@ public class VistaActualizarProducto extends JDialog implements IGUI {
 	
 	@Override
 	public void actualizar(Evento e, Object datos) {
+		switch(e) {
+		case ACTUALIZAR_PRODUCTO_SUCCESS:
+			JOptionPane.showMessageDialog(this, "Producto con id " + datos + " actualizado con éxito.", "Actualizar Producto", JOptionPane.INFORMATION_MESSAGE);
+			dispose();
+			break;
+		case ACTUALIZAR_PRODUCTO_ERROR:
+			JOptionPane.showMessageDialog(this, "Error al actualizar producto: " + datos, "Actualizar Producto", JOptionPane.ERROR_MESSAGE);
+			dispose();
+			break;
+		default:
+			break;
+		}
 	}
 
 }

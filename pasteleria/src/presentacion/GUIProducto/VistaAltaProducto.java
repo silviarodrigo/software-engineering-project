@@ -250,11 +250,11 @@ public class VistaAltaProducto extends JDialog implements IGUI {
 	public void actualizar(Evento e, Object datos) {
 		switch(e) {
 		case ALTA_PRODUCTO_SUCCESS:
-			JOptionPane.showMessageDialog(this, "Producto anadido con éxito con id: " + datos, "Alta Producto", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Producto con id " + datos + " dado de alta con éxito", "Alta Producto", JOptionPane.INFORMATION_MESSAGE);
 			dispose();
 			break;
 		case ALTA_PRODUCTO_ERROR:
-			JOptionPane.showMessageDialog(this, "Error al añadir producto: " + datos.toString(), "Alta Producto", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Error al dar de alta producto: " + datos, "Alta Producto", JOptionPane.ERROR_MESSAGE);
 			dispose();
 			break;
 		default:

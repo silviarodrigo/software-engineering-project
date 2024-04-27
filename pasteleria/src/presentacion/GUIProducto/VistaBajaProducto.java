@@ -63,7 +63,19 @@ public class VistaBajaProducto extends JDialog implements IGUI {
 	}
 	
 	@Override
-	public void actualizar(Evento e, Object datos) {		
+	public void actualizar(Evento e, Object datos) {
+		switch(e) {
+		case BAJA_PRODUCTO_SUCCESS:
+			JOptionPane.showMessageDialog(this, "Producto con id " + datos + " dado de baja con éxito.", "Baja Producto", JOptionPane.INFORMATION_MESSAGE);
+			dispose();
+			break;
+		case BAJA_PRODUCTO_ERROR:
+			JOptionPane.showMessageDialog(this, "Error al dar de baja producto: " + datos, "Baja Producto", JOptionPane.ERROR_MESSAGE);
+			dispose();
+			break;
+		default:
+			break;
+		}
 	}
 
 }
