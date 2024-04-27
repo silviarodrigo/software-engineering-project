@@ -10,6 +10,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
@@ -190,48 +191,48 @@ public class VistaAltaProducto extends JDialog implements IGUI {
 		private JTextField _tFTamanyo;*/
 		TProducto producto;
 		
-		String nombre = _tFNombre.getSelectedText();
-		if (nombre == null) {
-			throw new IllegalArgumentException("Debes insertar nombre");
+		String nombre = _tFNombre.getText();
+		if (nombre == null || nombre  == "") {
+			JOptionPane.showMessageDialog(this, "Debes indicar un nombre", "Alta Producto", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		
 		double precio;
 		
 		try {
-			precio = Double.parseDouble(_tFPrecio.getSelectedText());
+			precio = Double.parseDouble(_tFPrecio.getText());
 			if (precio < 0) {
-				throw new IllegalArgumentException("Precio debe ser positivo");
+				JOptionPane.showMessageDialog(this, "El precio debe ser positivo", "Alta Producto", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
 		}
 		catch (NumberFormatException e) {
-			throw new IllegalArgumentException("Precio no valido");
-
+			JOptionPane.showMessageDialog(this, "Precio no válido", "Alta Producto", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		
 		int stock;
 		
 		try {
-			stock = Integer.parseInt(_tFStock.getSelectedText());
+			stock = Integer.parseInt(_tFStock.getText());
 			if (stock < 0) {
-				throw new IllegalArgumentException("Stock debe ser un entero positivo");
+				JOptionPane.showMessageDialog(this, "El stock debe ser un entero positivo", "Alta Producto", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
 		}
 		catch (NumberFormatException e) {
-			throw new IllegalArgumentException("Stock no valido");
-
+			JOptionPane.showMessageDialog(this, "Stock no válido", "Alta Producto", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		
-		String alergenos = _tFAlergenos.getName();
-		if (alergenos == null) {
-			throw new IllegalArgumentException("Debes insertar nombre");
-		}
-		
+		String alergenos = _tFAlergenos.getText();
 	
 		
 		if (_dulceRB.isSelected()) {
-			String relleno = _tFRelleno.getName();
-			if (relleno == null) {
-				throw new IllegalArgumentException("Debes insertar el relleno");
+			String relleno = _tFRelleno.getText();
+			if (relleno == null || relleno == "") {
+				JOptionPane.showMessageDialog(this, "Debes indicar el relleno", "Alta Producto", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
 			producto = new TDulce(nombre, precio, alergenos, stock, 0, relleno);
 		}
@@ -244,9 +245,10 @@ public class VistaAltaProducto extends JDialog implements IGUI {
 		}
 		
 		else {
-			String tamanyo = _tFRelleno.getName();
-			if (tamanyo == null) {
-				throw new IllegalArgumentException("Debes insertar el tamaño");
+			String tamanyo = _tFRelleno.getText();
+			if (tamanyo == null || tamanyo == "") {
+				JOptionPane.showMessageDialog(this, "Debes indicar un tamaño", "Alta Producto", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
 			producto = new TBebida(nombre, precio, alergenos, stock, 0, tamanyo);
 		}
@@ -257,6 +259,18 @@ public class VistaAltaProducto extends JDialog implements IGUI {
 	
 	@Override
 	public void actualizar(Evento e, Object datos) {
+		switch(e) {
+		case ALTA_PRODUCTO_SUCCESS:
+			JOptionPane.showMessageDialog(this, "Producto anadido con éxito con id: " + datos, "Alta Producto", JOptionPane.INFORMATION_MESSAGE);
+			dispose();
+			break;
+		case ALTA_PRODUCTO_ERROR:
+			JOptionPane.showMessageDialog(this, "Error al añadir producto: " + datos.toString(), "Alta Producto", JOptionPane.ERROR_MESSAGE);
+			dispose();
+			break;
+		default:
+			break;
+		}
 	}
 
 }
