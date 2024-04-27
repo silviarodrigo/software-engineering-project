@@ -1,9 +1,9 @@
 package integracion;
 
-import intFactura.DAOFactura;
-import intFactura.DAOLineaFactura;
+import integracion.Facturas.DAOFactura;
+import integracion.Facturas.DAOLineaFactura;
 import integracion.Cliente.DAOCliente;
-import negFactura.SAFactura;
+import negocio.Facturas.SAFactura;
 
 public abstract class FactoriaAbstractaIntegracion {
 
