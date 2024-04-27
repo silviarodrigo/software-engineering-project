@@ -30,7 +30,7 @@ public class MainWindow extends JFrame implements IGUI {
 		
 		pack();
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 	
