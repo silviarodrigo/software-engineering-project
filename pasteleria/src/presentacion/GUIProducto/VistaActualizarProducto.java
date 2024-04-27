@@ -1,14 +1,12 @@
 package presentacion.GUIProducto;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.CardLayout;
 
 import javax.swing.BoxLayout;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -28,8 +26,8 @@ import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
 
-public class VistaActualizarProducto extends JDialog implements IGUI {
-	
+public class VistaActualizarProducto extends JFrame implements IGUI {
+	private static final long serialVersionUID = -2355559178211814667L;
 	private JTextField _tFNombre;
 	private JTextField _tFPrecio;
 	private JTextField _tFStock;

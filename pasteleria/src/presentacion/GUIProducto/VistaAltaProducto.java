@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,8 +24,8 @@ import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
 
-public class VistaAltaProducto extends JDialog implements IGUI {
-
+public class VistaAltaProducto extends JFrame implements IGUI {
+	private static final long serialVersionUID = -6007640228433582347L;
 	private JTextField _tFNombre;
 	private JTextField _tFPrecio;
 	private JTextField _tFStock;

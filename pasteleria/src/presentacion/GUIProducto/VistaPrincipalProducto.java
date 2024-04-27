@@ -1,19 +1,16 @@
 package presentacion.GUIProducto;
 
-import java.awt.BorderLayout;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
 
-public class VistaPrincipalProducto extends JDialog implements IGUI {
+public class VistaPrincipalProducto extends JFrame implements IGUI {
+	private static final long serialVersionUID = -9126126716457163200L;
 
 	public VistaPrincipalProducto() {
 		initGUI();

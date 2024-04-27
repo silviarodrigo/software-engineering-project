@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,7 +18,7 @@ import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
 
-public class VistaBuscarProducto extends JDialog implements IGUI {
+public class VistaBuscarProducto extends JFrame implements IGUI {
 	private static final long serialVersionUID = 6660804707223318345L;
 	JTextField _tFNombre;
 	JPanel _pedirNombrePanel;
