@@ -10,7 +10,7 @@ public class TProducto {
 	private int id;
 	private boolean activo;
 	
-	TProducto(String nombre, double precio, String alergenos, int stock,String tipo, int marcaId ){
+	public TProducto(String nombre, double precio, String alergenos, int stock,String tipo, int marcaId ){
 		this.nombre= nombre;
 		this.precio= precio;
 		this.alergenos = alergenos;

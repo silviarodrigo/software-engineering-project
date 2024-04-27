@@ -2,9 +2,19 @@ package negocio.Producto;
 
 public class TDulce extends TProducto {
 
-	TDulce(String nombre, double precio, String alergenos, int stock, int marcaId) {
+	private String relleno;
+	
+	public TDulce(String nombre, double precio, String alergenos, int stock, int marcaId, String relleno) {
 		super(nombre, precio, alergenos, stock, "Dulce", marcaId);
-		// TODO Auto-generated constructor stub
+		this.relleno = relleno;
+	}
+	
+	public String getRelleno() {
+		return this.relleno;
+	}
+	
+	public void setRelleno(String relleno) {
+		this.relleno = relleno;
 	}
 
 }
