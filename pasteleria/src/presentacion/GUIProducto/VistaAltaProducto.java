@@ -178,21 +178,10 @@ public class VistaAltaProducto extends JDialog implements IGUI {
 	}
 	
 	private void altaProducto() {
-		/*private JTextField _tFNombre;
-		private JTextField _tFPrecio;
-		private JTextField _tFStock;
-		private JTextField _tFAlergenos;
-		private JRadioButton _dulceRB;
-		private JRadioButton _panRB;
-		private JRadioButton _bebidaRB;
-		private JTextField _tFRelleno;
-		private JCheckBox _salCB;
-		private JCheckBox _integralCB;
-		private JTextField _tFTamanyo;*/
 		TProducto producto;
 		
 		String nombre = _tFNombre.getText();
-		if (nombre == null || nombre  == "") {
+		if (nombre == null || nombre.equals("")) {
 			JOptionPane.showMessageDialog(this, "Debes indicar un nombre", "Alta Producto", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
@@ -230,7 +219,7 @@ public class VistaAltaProducto extends JDialog implements IGUI {
 		
 		if (_dulceRB.isSelected()) {
 			String relleno = _tFRelleno.getText();
-			if (relleno == null || relleno == "") {
+			if (relleno == null || relleno.equals("")) {
 				JOptionPane.showMessageDialog(this, "Debes indicar el relleno", "Alta Producto", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
@@ -246,7 +235,7 @@ public class VistaAltaProducto extends JDialog implements IGUI {
 		
 		else {
 			String tamanyo = _tFRelleno.getText();
-			if (tamanyo == null || tamanyo == "") {
+			if (tamanyo == null || tamanyo.equals("")) {
 				JOptionPane.showMessageDialog(this, "Debes indicar un tamaño", "Alta Producto", JOptionPane.ERROR_MESSAGE);
 				return;
 			}

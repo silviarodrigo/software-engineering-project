@@ -10,17 +10,37 @@ import java.awt.CardLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import negocio.Producto.TBebida;
+import negocio.Producto.TDulce;
+import negocio.Producto.TPan;
+import negocio.Producto.TProducto;
+
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 import javax.swing.ButtonGroup;
-
+import javax.swing.JButton;
 
 import presentacion.Evento;
 import presentacion.IGUI;
+import presentacion.Controlador.Controlador;
 
 public class VistaActualizarProducto extends JDialog implements IGUI {
+	
+	private JTextField _tFNombre;
+	private JTextField _tFPrecio;
+	private JTextField _tFStock;
+	private JTextField _tFAlergenos;
+	private JRadioButton _dulceRB;
+	private JRadioButton _panRB;
+	private JRadioButton _bebidaRB;
+	private JTextField _tFRelleno;
+	private JCheckBox _salCB;
+	private JCheckBox _integralCB;
+	private JTextField _tFTamanyo;
 
 	public VistaActualizarProducto() {
 		initGUI();
@@ -35,58 +55,58 @@ public class VistaActualizarProducto extends JDialog implements IGUI {
 		
 		//Campos comunes
 		JLabel nombreLabel = new JLabel("Nombre: ");
-		JTextField tFNombre = new JTextField();
-		tFNombre.setPreferredSize(new Dimension(100, 20));
+		_tFNombre = new JTextField();
+		_tFNombre.setPreferredSize(new Dimension(100, 20));
 		JPanel nombrePanel = new JPanel();
 		nombrePanel.add(nombreLabel);
-		nombrePanel.add(tFNombre);
+		nombrePanel.add(_tFNombre);
 		mainPanel.add(nombrePanel);
 		
 		JLabel stockLabel = new JLabel("Stock: ");
-		JTextField tFStock = new JTextField();
-		tFStock.setPreferredSize(new Dimension(100, 20));
+		_tFStock = new JTextField();
+		_tFStock.setPreferredSize(new Dimension(100, 20));
 		JPanel stockPanel = new JPanel();
 		stockPanel.add(stockLabel);
-		stockPanel.add(tFStock);
+		stockPanel.add(_tFStock);
 		mainPanel.add(stockPanel);
 		
 		JLabel precioLabel = new JLabel("Precio: ");
-		JTextField tFPrecio = new JTextField();
-		tFPrecio.setPreferredSize(new Dimension(100, 20));
+		_tFPrecio = new JTextField();
+		_tFPrecio.setPreferredSize(new Dimension(100, 20));
 		JPanel precioPanel = new JPanel();
 		precioPanel.add(precioLabel);
-		precioPanel.add(tFPrecio);
+		precioPanel.add(_tFPrecio);
 		mainPanel.add(precioPanel);
 		
 		JLabel alergenosLabel = new JLabel("Alérgenos: ");
-		JTextField tFAlergenos = new JTextField();
-		tFAlergenos.setPreferredSize(new Dimension(100, 20));
+		_tFAlergenos = new JTextField();
+		_tFAlergenos.setPreferredSize(new Dimension(100, 20));
 		JPanel alergenosPanel = new JPanel();
 		alergenosPanel.add(alergenosLabel);
-		alergenosPanel.add(tFAlergenos);
+		alergenosPanel.add(_tFAlergenos);
 		mainPanel.add(alergenosPanel);
 		
 		//Seleccionar tipo
 		JPanel tipoPanel = new JPanel();
 		mainPanel.add(tipoPanel);
 		ButtonGroup btnGrp = new ButtonGroup();
-		JRadioButton dulceRB = new JRadioButton();
+		_dulceRB = new JRadioButton();
 		// Como tiene que seleccionarse uno obligatoriamente, dejamos dulce seleccionado por defecto
-		dulceRB.setSelected(true);
-		JRadioButton panRB = new JRadioButton();
-		JRadioButton bebidaRB = new JRadioButton();
+		_dulceRB.setSelected(true);
+		_panRB = new JRadioButton();
+		_bebidaRB = new JRadioButton();
 		
-		btnGrp.add(dulceRB);
-		btnGrp.add(panRB);
-		btnGrp.add(bebidaRB);
+		btnGrp.add(_dulceRB);
+		btnGrp.add(_panRB);
+		btnGrp.add(_bebidaRB);
 		
-		tipoPanel.add(dulceRB);
-		tipoPanel.add(panRB);
-		tipoPanel.add(bebidaRB);
+		tipoPanel.add(_dulceRB);
+		tipoPanel.add(_panRB);
+		tipoPanel.add(_bebidaRB);
 		
-		dulceRB.setText("dulce");
-		panRB.setText("pan");
-		bebidaRB.setText("bebida");
+		_dulceRB.setText("dulce");
+		_panRB.setText("pan");
+		_bebidaRB.setText("bebida");
 
 		CardLayout cL = new CardLayout();
 		
@@ -102,52 +122,130 @@ public class VistaActualizarProducto extends JDialog implements IGUI {
 		specificPanel.add(bebidaPanel, "bebida");
 		
 		JLabel rellenoLabel = new JLabel("Relleno: ");
-		JTextField tFRelleno = new JTextField();
-		tFRelleno.setPreferredSize(new Dimension(100, 20));
+		_tFRelleno = new JTextField();
+		_tFRelleno.setPreferredSize(new Dimension(100, 20));
 		dulcePanel.add(rellenoLabel);
-		dulcePanel.add(tFRelleno);
+		dulcePanel.add(_tFRelleno);
 		
 
-		JCheckBox salCB = new JCheckBox("Con Sal", false);
-		JCheckBox integralCB = new JCheckBox("Integral", false);
-		panPanel.add(salCB);
-		panPanel.add(integralCB);
+		_salCB = new JCheckBox("Con Sal", false);
+		_integralCB = new JCheckBox("Integral", false);
+		panPanel.add(_salCB);
+		panPanel.add(_integralCB);
 
 		
 		JLabel tamanyoLabel = new JLabel("Tamaño: ");
-		JTextField tFTamanyo = new JTextField();
-		tFTamanyo.setPreferredSize(new Dimension(100, 20));
+		_tFTamanyo = new JTextField();
+		_tFTamanyo.setPreferredSize(new Dimension(100, 20));
 		bebidaPanel.add(tamanyoLabel);
-		bebidaPanel.add(tFTamanyo);
+		bebidaPanel.add(_tFTamanyo);
 		
 		
 		// Enseñamos dulce por defecto
 		cL.show(specificPanel, "dulce");
 		
-		dulceRB.addActionListener(new ActionListener() {
+		_dulceRB.addActionListener(new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	    		cL.show(specificPanel, "dulce");
 	        }
 	    });
 		
-		panRB.addActionListener(new ActionListener() {
+		_panRB.addActionListener(new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	    		cL.show(specificPanel, "pan");
 	        }
 	    });
 		
-		bebidaRB.addActionListener(new ActionListener() {
+		_bebidaRB.addActionListener(new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	    		cL.show(specificPanel, "bebida");
 	        }
 	    });
 		
+		JPanel endPanel = new JPanel();
+		JButton acceptBtn = new JButton("Aceptar");
+		acceptBtn.addActionListener((e)-> actualizarProducto());
+		JButton cancelBtn = new JButton("Cancelar");
+		cancelBtn.addActionListener((e)-> dispose());
+		endPanel.add(acceptBtn);
+		endPanel.add(cancelBtn);
+		mainPanel.add(endPanel);
+		
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
+		
+	}
+	
+	private void actualizarProducto() {
+		TProducto producto;
+		
+		String nombre = _tFNombre.getText();
+		if (nombre == null || nombre.equals("")) {
+			JOptionPane.showMessageDialog(this, "Debes indicar un nombre", "Actualizar Producto", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		double precio;
+		
+		try {
+			precio = Double.parseDouble(_tFPrecio.getText());
+			if (precio < 0) {
+				JOptionPane.showMessageDialog(this, "El precio debe ser positivo", "Actualizar Producto", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+		}
+		catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(this, "Precio no válido", "Actualizar Producto", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		int stock;
+		
+		try {
+			stock = Integer.parseInt(_tFStock.getText());
+			if (stock < 0) {
+				JOptionPane.showMessageDialog(this, "El stock debe ser un entero positivo", "Actualizar Producto", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+		}
+		catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(this, "Stock no válido", "Actualizar Producto", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		String alergenos = _tFAlergenos.getText();
+	
+		
+		if (_dulceRB.isSelected()) {
+			String relleno = _tFRelleno.getText();
+			if (relleno == null || relleno.equals("")) {
+				JOptionPane.showMessageDialog(this, "Debes indicar el relleno", "Actualizar Producto", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			producto = new TDulce(nombre, precio, alergenos, stock, 0, relleno);
+		}
+		
+		else if (_panRB.isSelected()) {
+			boolean sal = _salCB.isSelected();
+			boolean integral = _salCB.isSelected();
+			producto = new TPan(nombre, precio, alergenos, stock, 0, sal, integral);
+
+		}
+		
+		else {
+			String tamanyo = _tFRelleno.getText();
+			if (tamanyo == null || tamanyo.equals("")) {
+				JOptionPane.showMessageDialog(this, "Debes indicar un tamaño", "Actualizar Producto", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			producto = new TBebida(nombre, precio, alergenos, stock, 0, tamanyo);
+		}
+		
+		Controlador.getInstance().accion(Evento.ACTUALIZAR_PRODUCTO, producto);
 		
 	}
 	
