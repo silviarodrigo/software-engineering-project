@@ -9,6 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 
 import presentacion.Evento;
@@ -27,7 +28,7 @@ public class VistaActualizarProducto extends JDialog implements IGUI {
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		setContentPane(mainPanel);
 		
-		
+		//Campos comunes
 		JLabel nombreLabel = new JLabel("Nombre: ");
 		JTextField tFNombre = new JTextField();
 		tFNombre.setPreferredSize(new Dimension(100, 20));
@@ -51,6 +52,23 @@ public class VistaActualizarProducto extends JDialog implements IGUI {
 		precioPanel.add(precioLabel);
 		precioPanel.add(tFPrecio);
 		mainPanel.add(precioPanel);
+		
+		JLabel alergenosLabel = new JLabel("Alérgenos: ");
+		JTextField tFAlergenos = new JTextField();
+		tFAlergenos.setPreferredSize(new Dimension(100, 20));
+		JPanel alergenosPanel = new JPanel();
+		alergenosPanel.add(alergenosLabel);
+		alergenosPanel.add(tFAlergenos);
+		mainPanel.add(alergenosPanel);
+		
+		//Seleccionar tipo
+		JPanel tipoPanel = new JPanel();
+		mainPanel.add(tipoPanel);
+		JRadioButton dulceRB = new JRadioButton();
+		JRadioButton panRB = new JRadioButton();
+		JRadioButton bebidaRB = new JRadioButton();
+
+		
 		
 		pack();
 		setVisible(true);
