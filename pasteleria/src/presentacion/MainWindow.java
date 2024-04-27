@@ -25,7 +25,8 @@ public class MainWindow extends JFrame implements IGUI {
 		mainPanel.add(buttonPanel);
 		
 		JButton productoBtn = new JButton("Producto");
-		productoBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_ALTA_PRODUCTO));
+		productoBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_PRINCIPAL_PRODUCTO));
+		buttonPanel.add(productoBtn);
 		
 		pack();
 		setResizable(false);
@@ -36,7 +37,6 @@ public class MainWindow extends JFrame implements IGUI {
 	//Funcion a usar en los listeners de los botones
 	private void listenerAbrirVentana(Evento e) {
 		Controlador.getInstance().accion(e, null);
-		this.dispose();
 	}
 
 	@Override

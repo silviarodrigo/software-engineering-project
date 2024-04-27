@@ -1,7 +1,10 @@
 package presentacion.GUIProducto;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -19,14 +22,15 @@ public class VistaActualizarProducto extends JDialog implements IGUI {
 	
 	private void initGUI() {
 		setTitle("Actualizar Producto");
-		
+
 		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new BorderLayout());
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		setContentPane(mainPanel);
 		
 		
 		JLabel nombreLabel = new JLabel("Nombre: ");
 		JTextField tFNombre = new JTextField();
+		tFNombre.setPreferredSize(new Dimension(100, 20));
 		JPanel nombrePanel = new JPanel();
 		nombrePanel.add(nombreLabel);
 		nombrePanel.add(tFNombre);
@@ -34,6 +38,7 @@ public class VistaActualizarProducto extends JDialog implements IGUI {
 		
 		JLabel stockLabel = new JLabel("Stock: ");
 		JTextField tFStock = new JTextField();
+		tFStock.setPreferredSize(new Dimension(100, 20));
 		JPanel stockPanel = new JPanel();
 		stockPanel.add(stockLabel);
 		stockPanel.add(tFStock);
@@ -41,10 +46,14 @@ public class VistaActualizarProducto extends JDialog implements IGUI {
 		
 		JLabel precioLabel = new JLabel("Precio: ");
 		JTextField tFPrecio = new JTextField();
+		tFPrecio.setPreferredSize(new Dimension(100, 20));
 		JPanel precioPanel = new JPanel();
 		precioPanel.add(precioLabel);
 		precioPanel.add(tFPrecio);
 		mainPanel.add(precioPanel);
+		
+		pack();
+		setVisible(true);
 		
 	}
 	
