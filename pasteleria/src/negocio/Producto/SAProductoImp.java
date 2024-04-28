@@ -9,17 +9,23 @@ import integracion.Producto.DAOProducto;
 public class SAProductoImp implements SAProducto {
 
 	@Override
-	public String altaProducto(TProducto producto) {
-		String nombre = "";
+	public int altaProducto(TProducto producto) {
+		int id = -1;
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
-		if(daoProducto.buscarProducto(producto.getNombre())==null) {
-			nombre = daoProducto.altaProducto(producto);
+		TProducto prod = daoProducto.buscarProducto(producto.getNombre());
+		if(prod == null) {
+			id = daoProducto.altaProducto(producto);
 		}
-		return nombre;
+		else if (!prod.getActivo()) {
+			producto.setId(prod.getId());
+			producto.setActivo(true);
+			id = daoProducto.actualizarProducto(producto);
+		}
+		return id;
 	}
 
 	@Override
-	public boolean bajaProducto(String nombre) {
+	public int bajaProducto(String nombre) {
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
 		return daoProducto.bajaProducto(nombre);
 	}
@@ -31,11 +37,9 @@ public class SAProductoImp implements SAProducto {
 	}
 
 	@Override
-	public boolean actualizarProducto(TProducto producto) {
+	public int actualizarProducto(TProducto producto) {
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
-		if(daoProducto.actualizarProducto(producto)) {
-			return true;
-		}else return false;
+		return daoProducto.actualizarProducto(producto);
 	}
 
 	@Override
