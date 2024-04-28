@@ -4,6 +4,8 @@ import integracion.Marca.DAOMarca;
 import integracion.Marca.DAOMarcaImp;
 import integracion.Marca.DAOMarcaProveedor;
 import integracion.Marca.DAOMarcaProveedorImp;
+import integracion.Producto.DAOProducto;
+import integracion.Producto.DAOProductoImp;
 import integracion.Facturas.DAOFactura;
 import integracion.Facturas.DAOFacturaImp;
 import integracion.Facturas.DAOLineaFactura;
@@ -27,6 +29,10 @@ public class FactoriaIntegracion extends FactoriaAbstractaIntegracion {
 
 	public DAOMarcaProveedor crearDAOMarcaProveedor() {
 		return new DAOMarcaProveedorImp();
+	}
+
+	public DAOProducto crearDAOProducto() {
+		return new DAOProductoImp();
 	}
 
 }

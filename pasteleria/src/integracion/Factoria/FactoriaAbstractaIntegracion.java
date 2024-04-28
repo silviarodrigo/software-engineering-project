@@ -2,6 +2,7 @@ package integracion.Factoria;
 
 import integracion.Marca.DAOMarca;
 import integracion.Marca.DAOMarcaProveedor;
+import integracion.Producto.DAOProducto;
 import integracion.Facturas.DAOFactura;
 import integracion.Facturas.DAOLineaFactura;
 
@@ -22,4 +23,7 @@ public abstract class FactoriaAbstractaIntegracion {
 	public abstract DAOLineaFactura crearDAOLineaFactura();
 	public abstract DAOMarca crearDAOMarca();
 	public abstract DAOMarcaProveedor crearDAOMarcaProveedor();
+	public abstract DAOProducto crearDAOProducto();
+
+
 }

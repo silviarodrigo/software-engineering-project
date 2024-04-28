@@ -24,9 +24,9 @@ public class DAOProductoImp implements DAOProducto {
 	}
 
 	@Override
-	public String actualizarProducto(TProducto producto) {
+	public boolean actualizarProducto(TProducto producto) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 	@Override
