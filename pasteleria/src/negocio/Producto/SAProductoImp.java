@@ -46,6 +46,10 @@ public class SAProductoImp implements SAProducto {
 	@Override
 	public int actualizarProducto(TProducto producto) {
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
+		TProducto prod = daoProducto.buscarProducto(producto.getNombre());
+		if(prod == null) {
+			return -1;
+		}
 		return daoProducto.actualizarProducto(producto);
 	}
 

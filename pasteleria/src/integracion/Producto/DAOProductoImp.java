@@ -8,6 +8,8 @@ import java.io.BufferedWriter;
 import java.io.InputStream;
 
 import java.util.Collection;
+import java.util.ArrayList;
+
 import negocio.Producto.TProducto;
 import negocio.Producto.TDulce;
 import negocio.Producto.TPan;
@@ -19,11 +21,9 @@ import org.json.JSONTokener;
 
 public class DAOProductoImp implements DAOProducto {
 
-	@Override
-	public int altaProducto(TProducto producto) {
+	private JSONObject createJSON(TProducto producto) {
 		JSONObject jProd = new JSONObject();
 		String tipo = producto.getTipo();
-		String filename;
 		jProd.put("nombre", producto.getNombre());
 		jProd.put("precio", producto.getPrecio());
 		jProd.put("alergenos", producto.getAlergenos());
@@ -33,17 +33,36 @@ public class DAOProductoImp implements DAOProducto {
 		jProd.put("activo", producto.getActivo());
 		if (tipo == "Dulce") {
 			jProd.put("relleno", ((TDulce)producto).getRelleno());
-			filename = "resources/Dulces.json";
 		}
 		else if (tipo == "Pan") {
 			jProd.put("integral", ((TPan)producto).getIntegral());
 			jProd.put("sal", ((TPan)producto).getSal());
-			filename = "resources/Pan.json";
 		}
 		else {
 			jProd.put("tamaño", ((TBebida)producto).getTamanyo());
+		}
+		jProd.put("id", producto.getId());
+		return jProd;
+	}
+	
+	private String getFilename(String tipo) {
+		String filename;
+		if (tipo == "Dulce") {
+			filename = "resources/Dulces.json";
+		}
+		else if (tipo == "Pan") {
+			filename = "resources/Pan.json";
+		}
+		else {
 			filename = "resources/Bebida.json";
 		}
+		return filename;
+	}
+	
+	@Override
+	public int altaProducto(TProducto producto) {
+		JSONObject jProd = createJSON(producto);
+		String filename = getFilename(producto.getTipo());
 		int next_id;
 		JSONArray ja;
 		try {
@@ -69,11 +88,40 @@ public class DAOProductoImp implements DAOProducto {
 			newJO.put("productos", ja);
 			newJO.put("next_id", next_id);	
 			bW.write(newJO.toString());
+			bW.close();
 		} catch (Exception e) {
 			return -1;
 		}
 		
 		return next_id-1;
+	}
+	
+	@Override
+	public int actualizarProducto(TProducto producto) {
+		JSONObject jProd = createJSON(producto);
+		String filename = getFilename(producto.getTipo());
+		JSONObject jO;
+
+		try {
+			InputStream in  = new FileInputStream(new File(filename));
+			jO = new JSONObject(new JSONTokener(in));
+			JSONArray ja = jO.getJSONArray("productos");
+			ja.put(producto.getId(), jProd);
+			jO.put("productos", ja);
+			
+		} catch (FileNotFoundException e) {
+			return -1;
+		}
+		
+		try {
+			BufferedWriter bW = new BufferedWriter(new FileWriter(filename, false));
+			bW.write(jO.toString());
+			bW.close();
+		} catch (Exception e) {
+			return -1;
+		}
+		
+		return producto.getId();
 	}
 	
 	public void bajaProducto(int id, String tipo) {
@@ -89,6 +137,7 @@ public class DAOProductoImp implements DAOProducto {
 			filename = "resources/Bebida.json";
 		}
 		JSONObject jO;
+		
 		try {
 			InputStream in  = new FileInputStream(new File(filename));
 			jO = new JSONObject(new JSONTokener(in));
@@ -106,40 +155,30 @@ public class DAOProductoImp implements DAOProducto {
 		try {
 			BufferedWriter bW = new BufferedWriter(new FileWriter(filename, false));
 			bW.write(jO.toString());
+			bW.close();
 		} catch (Exception e) {
 			return;
 		}
 	}
+	
+	private JSONArray getProductosJArray(String filename) {
+		JSONArray ja;
+		try {
+			InputStream in  = new FileInputStream(new File(filename));
+			JSONObject jO = new JSONObject(new JSONTokener(in));
+			ja = jO.getJSONArray("productos");
+			
+		} catch (FileNotFoundException e) {
+			ja = null;	
+		}
+		return ja;
+	}
 
 	@Override
 	public TProducto buscarProducto(String nombre) {
-		JSONArray ja1;
-		JSONArray ja2;
-		JSONArray ja3;
-		try {
-			InputStream in  = new FileInputStream(new File("resources/Dulces.json"));
-			JSONObject jO = new JSONObject(new JSONTokener(in));
-			ja1 = jO.getJSONArray("productos");
-			
-		} catch (FileNotFoundException e) {
-			ja1 = null;	
-		}
-		try {
-			InputStream in  = new FileInputStream(new File("resources/Pan.json"));
-			JSONObject jO = new JSONObject(new JSONTokener(in));
-			ja2 = jO.getJSONArray("productos");
-			
-		} catch (FileNotFoundException e) {
-			ja2 = null;	
-		}
-		try {
-			InputStream in  = new FileInputStream(new File("resources/Bebida.json"));
-			JSONObject jO = new JSONObject(new JSONTokener(in));
-			ja3 = jO.getJSONArray("productos");
-			
-		} catch (FileNotFoundException e) {
-			ja3 = null;	
-		}
+		JSONArray ja1 = getProductosJArray(getFilename("Dulces"));
+		JSONArray ja2 = getProductosJArray(getFilename("Pan"));
+		JSONArray ja3 = getProductosJArray(getFilename("Bebida"));
 		TProducto prod = searchInJArray(nombre, ja1);
 		if (prod == null) {
 			prod = searchInJArray(nombre, ja2);
@@ -196,15 +235,19 @@ public class DAOProductoImp implements DAOProducto {
 	}
 
 	@Override
-	public int actualizarProducto(TProducto producto) {
-		// TODO Auto-generated method stub
-		return -1;
-	}
-
-	@Override
 	public Collection<TProducto> listarProductos() {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<TProducto> listaProductos = new ArrayList<TProducto>();
+		String[] tipos = {"Dulce", "Pan", "Bebida"};
+		for (String tipo : tipos) {
+			String filename = getFilename(tipo);
+			JSONArray ja = getProductosJArray(filename);
+			if (ja != null) {
+				for (int i = 0; i < ja.length(); i++) {
+					listaProductos.add(createTProducto(ja.getJSONObject(i)));
+				}
+			}
+		}
+		return listaProductos;
 	}
 
 }
