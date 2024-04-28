@@ -169,6 +169,9 @@ public class DAOProductoImp implements DAOProducto {
 	private TProducto searchInJArray(String nombre, JSONArray ja) {
 		// Nos devuelve el TProducto con nombre 'nombre'  en la JSONArray ja
 		// Devuelve null si no existe
+		if (ja == null) {
+			return null;
+		}
 		int i = 0;
 		while (i < ja.length() && !(ja.getJSONObject(i).get("nombre") == nombre)) {
 			i++;

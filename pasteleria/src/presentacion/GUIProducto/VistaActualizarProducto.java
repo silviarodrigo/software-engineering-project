@@ -235,7 +235,7 @@ public class VistaActualizarProducto extends JFrame implements IGUI {
 		}
 		
 		else {
-			String tamanyo = _tFRelleno.getText();
+			String tamanyo = _tFTamanyo.getText();
 			if (tamanyo == null || tamanyo.equals("")) {
 				JOptionPane.showMessageDialog(this, "Debes indicar un tamaño", "Actualizar Producto", JOptionPane.ERROR_MESSAGE);
 				return;

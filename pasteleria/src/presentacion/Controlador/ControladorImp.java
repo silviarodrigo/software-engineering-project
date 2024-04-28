@@ -34,8 +34,10 @@ public class ControladorImp extends Controlador {
 			actualizarProducto(datos);
 			break;
 		case ALTA_PRODUCTO:
-			SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
-			TProducto producto = (TProducto) datos;
+			altaProducto(datos);
+			break;
+		case BAJA_PRODUCTO:
+			bajaProducto(datos);
 			break;
 		}
 	}
