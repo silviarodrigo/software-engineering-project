@@ -3,27 +3,14 @@ package presentacion.Controlador;
 import presentacion.Evento;
 import presentacion.factoria.FactoriaAbstractaPresentacion;
 import negocio.Producto.TProducto;
+import negocio.Factoria.FactoriaAbstractaNegocio;
 import negocio.Producto.SAProducto;
-
-
 
 public class ControladorImp extends Controlador {
 	public void accion(Evento evento, Object datos) {
 		switch (evento) {
 		case MAIN_WINDOW:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.MAIN_WINDOW);
-			break;
-		case ALTA_PRODUCTO:
-			//CODIGO COPIADO DE SUS DIAPOSITIVAS
-			/*
-			TProducto tProducto = (TProducto) datos;
-			SAProducto saProd = FactoriaAbstractaNegocio.getInstancia().crearSAProducto();
-			int res = saProd.create(tProducto);
-			//Según el valor de res, se actualiza la vista de una manera u otra.
-			//Si todo OK el aspecto es este (faltaría el else):
-			FactoriaAbstractaPresentacion.getInstance().createVista(evento).actualizar(Evento.RES_ALTA_CLIENTE_OK,res);
-			
-			//mostraría una ventana semipreparada informando*/
 			break;
 		case VISTA_PRINCIPAL_PRODUCTO:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_PRODUCTO);
@@ -43,6 +30,58 @@ public class ControladorImp extends Controlador {
 		case VISTA_LISTAR_PRODUCTO:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTO);
 			break;
+		case ACTUALIZAR_PRODUCTO:
+			actualizarProducto(datos);
+			break;
+		case ALTA_PRODUCTO:
+			SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
+			TProducto producto = (TProducto) datos;
+			break;
+		}
+	}
+	
+	private void actualizarProducto(Object datos) {
+		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
+		TProducto producto = (TProducto) datos;
+		int id = saProducto.actualizarProducto(producto);
+		// No se si hay que crear nueva vista o tenerla guardada en el controlador (o en la factoria)
+		if (id != -1) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_PRODUCTO)
+					.actualizar(Evento.ACTUALIZAR_PRODUCTO_SUCCESS, id);
+		}
+		else {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_PRODUCTO)
+			.actualizar(Evento.ACTUALIZAR_PRODUCTO_ERROR, "Error al actualizar el producto.");
+		}
+	}
+	
+	private void altaProducto(Object datos) {
+		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
+		TProducto producto = (TProducto) datos;
+		int id = saProducto.altaProducto(producto);
+		// No se si hay que crear nueva vista o tenerla guardada en el controlador (o en la factoria)
+		if (id != -1) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_PRODUCTO)
+					.actualizar(Evento.ALTA_PRODUCTO_SUCCESS, id);
+		}
+		else {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_PRODUCTO)
+			.actualizar(Evento.ALTA_PRODUCTO_ERROR, "Error al dar de alta el producto");
+		}
+	}
+	
+	private void bajaProducto(Object datos) {
+		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
+		String nombre = (String) datos;
+		int id = saProducto.bajaProducto(nombre);
+		// No se si hay que crear nueva vista o tenerla guardada en el controlador (o en la factoria)
+		if (id != -1) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_PRODUCTO)
+					.actualizar(Evento.BAJA_PRODUCTO_SUCCESS, id);
+		}
+		else {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_PRODUCTO)
+			.actualizar(Evento.BAJA_PRODUCTO_ERROR, "Error al dar de baja el producto");
 		}
 	}
 }
