@@ -99,7 +99,7 @@ public class DAOProductoImp implements DAOProducto {
 
 	@Override
 	public TProducto buscarProducto(String nombre) {
-		JSONArray ja1 = getProductosJArray(getFilename("Dulces"));
+		JSONArray ja1 = getProductosJArray(getFilename("Dulce"));
 		JSONArray ja2 = getProductosJArray(getFilename("Pan"));
 		JSONArray ja3 = getProductosJArray(getFilename("Bebida"));
 		TProducto prod = searchInJArray(nombre, ja1);
@@ -140,14 +140,14 @@ public class DAOProductoImp implements DAOProducto {
 		int id = jO.getInt("id");
 		boolean activo = jO.getBoolean("activo");
 		// Como tenemos herencia, tenemos que diferenciar las diferentes subclases/tipos
-		if (tipo == "Dulce") {
+		if (tipo.equals("Dulce")) {
 			String relleno = jO.getString("relleno");
 			TDulce dulce = new TDulce(nombre, precio, alergenos, stock, marcaId, relleno);
 			dulce.setActivo(activo);
 			dulce.setId(id);
 			return dulce;
 		}
-		else if (tipo == "Pan" ) {
+		else if (tipo.equals("Pan")) {
 			boolean sal = jO.getBoolean("sal");
 			boolean integral = jO.getBoolean("integral");
 			TPan pan = new TPan(nombre, precio, alergenos, stock, marcaId, sal, integral);
@@ -155,7 +155,7 @@ public class DAOProductoImp implements DAOProducto {
 			pan.setId(id);
 			return pan;
 		}
-		else if (tipo == "Bebida"){
+		else if (tipo.equals("Bebida")){
 			String tamanyo = jO.getString("tamaño");
 			TBebida bebida = new TBebida(nombre, precio, alergenos, stock, marcaId, tamanyo);
 			bebida.setActivo(activo);
@@ -173,7 +173,7 @@ public class DAOProductoImp implements DAOProducto {
 			return null;
 		}
 		int i = 0;
-		while (i < ja.length() && !(ja.getJSONObject(i).get("nombre") == nombre)) {
+		while (i < ja.length() && !(ja.getJSONObject(i).get("nombre").equals(nombre))) {
 			i++;
 		}
 		if (i == ja.length()) {
@@ -219,10 +219,10 @@ public class DAOProductoImp implements DAOProducto {
 		jProd.put("marcaId", producto.getMarca());
 		jProd.put("activo", producto.getActivo());
 		// Tenemos en cuenta las subclases dadas por la herencia
-		if (tipo == "Dulce") {
+		if (tipo.equals("Dulce")) {
 			jProd.put("relleno", ((TDulce)producto).getRelleno());
 		}
-		else if (tipo == "Pan") {
+		else if (tipo.equals("Pan")) {
 			jProd.put("integral", ((TPan)producto).getIntegral());
 			jProd.put("sal", ((TPan)producto).getSal());
 		}
@@ -248,10 +248,10 @@ public class DAOProductoImp implements DAOProducto {
 	private String getFilename(String tipo) {
 		// Nos da el nombre del archivo correspondiente a cada tipo
 		String filename;
-		if (tipo == "Dulce") {
+		if (tipo.equals("Dulce")) {
 			filename = "resources/Dulces.json";
 		}
-		else if (tipo == "Pan") {
+		else if (tipo.equals("Pan")) {
 			filename = "resources/Pan.json";
 		}
 		else {

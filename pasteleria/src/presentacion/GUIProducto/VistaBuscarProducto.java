@@ -23,6 +23,7 @@ public class VistaBuscarProducto extends JFrame implements IGUI {
 	JTextField _tFNombre;
 	JPanel _pedirNombrePanel;
 	JPanel _infoPanel;
+	JPanel _mainPanel;
 
 	public VistaBuscarProducto() {
 		initGUI();
@@ -31,12 +32,12 @@ public class VistaBuscarProducto extends JFrame implements IGUI {
 	void initGUI() {
 		setTitle("Buscar Producto");
 
-		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		_mainPanel = new JPanel();
+		_mainPanel.setLayout(new BoxLayout(_mainPanel, BoxLayout.Y_AXIS));
 		_pedirNombrePanel = new JPanel();
 		_pedirNombrePanel.setLayout(new BoxLayout(_pedirNombrePanel, BoxLayout.Y_AXIS));
-		setContentPane(mainPanel);
-		mainPanel.add(_pedirNombrePanel);
+		setContentPane(_mainPanel);
+		_mainPanel.add(_pedirNombrePanel);
 		
 		JLabel nombreLabel = new JLabel("Nombre: ");
 		_tFNombre = new JTextField();
@@ -63,6 +64,7 @@ public class VistaBuscarProducto extends JFrame implements IGUI {
 	void initInfoGUI(TProducto producto) {
 		_infoPanel = new JPanel();
 		_infoPanel.setLayout(new BoxLayout(_infoPanel, BoxLayout.Y_AXIS));
+		_mainPanel.add(_infoPanel);
 
 		
 		JLabel nombreLabel = new JLabel("Nombre: " + producto.getNombre());
@@ -78,11 +80,11 @@ public class VistaBuscarProducto extends JFrame implements IGUI {
 		_infoPanel.add(alergenosLabel);
 		_infoPanel.add(tipoLabel);
 		
-		if (producto.getTipo() == "Dulce") {
+		if (producto.getTipo().equals("Dulce")) {
 			JLabel rellenoLabel = new JLabel("Relleno: " + ((TDulce) producto).getRelleno());
 			_infoPanel.add(rellenoLabel);
 		}
-		else if (producto.getTipo() == "Bebida") {
+		else if (producto.getTipo().equals("Bebida")) {
 			JLabel tamanyoLabel = new JLabel("Tamaño: " + ((TBebida) producto).getTamanyo());
 			_infoPanel.add(tamanyoLabel);
 		}
@@ -121,7 +123,7 @@ public class VistaBuscarProducto extends JFrame implements IGUI {
 			initInfoGUI((TProducto) datos);
 			break;
 		case BUSCAR_PRODUCTO_ERROR:
-			JOptionPane.showMessageDialog(this, "ERROR: Producto " + datos  + " no encontrado", "Buscar Producto", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "ERROR: " + datos, "Buscar Producto", JOptionPane.ERROR_MESSAGE);
 			dispose();
 			break;
 		default:
