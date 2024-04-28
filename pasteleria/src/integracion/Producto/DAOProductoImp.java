@@ -75,15 +75,40 @@ public class DAOProductoImp implements DAOProducto {
 		
 		return next_id-1;
 	}
-
-	@Override
-	public int bajaProducto(String nombre) {
-		// TODO Auto-generated method stub
-		return -1;
-	}
 	
-	private int bajaProducto(int id) {
-		return -1;
+	public void bajaProducto(int id, String tipo) {
+		String filename;
+		JSONArray ja;
+		if (tipo == "Dulce") {
+			filename = "resources/Dulces.json";
+		}
+		else if (tipo == "Pan") {
+			filename = "resources/Pan.json";
+		}
+		else {
+			filename = "resources/Bebida.json";
+		}
+		JSONObject jO;
+		try {
+			InputStream in  = new FileInputStream(new File(filename));
+			jO = new JSONObject(new JSONTokener(in));
+			ja = jO.getJSONArray("productos");
+			JSONObject jProd = ja.getJSONObject(id);
+			jProd.put("activo", false);
+			ja.put(id, jProd);
+			jO.put("productos", ja);
+			
+		} catch (FileNotFoundException e) {
+			// Por construccion del codigo no puede ser
+			return;
+		}
+		
+		try {
+			BufferedWriter bW = new BufferedWriter(new FileWriter(filename, false));
+			bW.write(jO.toString());
+		} catch (Exception e) {
+			return;
+		}
 	}
 
 	@Override
