@@ -3,6 +3,9 @@ package presentacion.Controlador;
 import presentacion.Evento;
 import presentacion.factoria.FactoriaAbstractaPresentacion;
 import negocio.Producto.TProducto;
+
+import java.util.Collection;
+
 import negocio.Factoria.FactoriaAbstractaNegocio;
 import negocio.Producto.SAProducto;
 
@@ -109,6 +112,10 @@ public class ControladorImp extends Controlador {
 	}
 	
 	private void listarProducto(Object datos) {
-		
+		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
+		Collection<TProducto> productos = saProducto.listarProductos();
+		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTO)
+					.actualizar(Evento.LISTAR_PRODUCTO, productos);
+
 	}
 }

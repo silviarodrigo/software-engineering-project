@@ -1,6 +1,7 @@
 package presentacion.GUIProducto;
 
 import java.awt.Color;
+import java.util.Collection;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -10,12 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import negocio.Producto.TProducto;
 import presentacion.Evento;
 import presentacion.IGUI;
+import presentacion.Controlador.Controlador;
 
 public class VistaListarProducto extends JFrame implements IGUI {
 	private static final long serialVersionUID = -3264311669905931506L;
-	private ModeloTablaProducto modeloTabla;
+	private ModeloTablaProducto _modeloTabla;
 	
 	public VistaListarProducto() {
 		initGUI();
@@ -28,8 +31,8 @@ public class VistaListarProducto extends JFrame implements IGUI {
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		setContentPane(mainPanel);
 		
-		modeloTabla = new ModeloTablaProducto();
-		JTable table = new JTable(modeloTabla);
+		_modeloTabla = new ModeloTablaProducto();
+		JTable table = new JTable(_modeloTabla);
 		JPanel tablePanel = new JPanel();
 		mainPanel.add(tablePanel);
 		
@@ -46,7 +49,15 @@ public class VistaListarProducto extends JFrame implements IGUI {
 	}
 
 	@Override
-	public void actualizar(Evento e, Object datos) {		
+	public void actualizar(Evento e, Object datos) {
+		switch (e) {
+		case LISTAR_PRODUCTO:
+			Collection<TProducto> productos = (Collection<TProducto>) datos;
+			_modeloTabla.loadData(productos);
+			break;
+		default:
+			break;
+		}
 	}
 
 }
