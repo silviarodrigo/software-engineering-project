@@ -30,8 +30,11 @@ public class SAProductoImp implements SAProducto {
 		TProducto prod = daoProducto.buscarProducto(nombre);
 		if (prod == null) {
 			return -1;
+		}else if(!prod.getActivo()) {
+			return -1;
 		}
-		return daoProducto.bajaProducto(prod.getId(), prod.getTipo());
+		daoProducto.bajaProducto(prod.getId(), prod.getTipo());
+		return prod.getId();
 	}
 
 	@Override
