@@ -2,7 +2,7 @@ package negocio.Marca;
 
 import java.util.Collection;
 
-import negocio.Factoria.FactoriaAbstractaNegocio;
+import negocio.Producto.TProducto;
 import integracion.Factoria.FactoriaAbstractaIntegracion;
 import integracion.Marca.DAOMarca;
 import integracion.Producto.DAOProducto;
@@ -23,7 +23,7 @@ public class SAMarcaImp implements SAMarca{
 		}
 		return id;
 	}
-	
+		
 	
 	public boolean bajaMarca(int id) {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
@@ -31,7 +31,7 @@ public class SAMarcaImp implements SAMarca{
 		
 		//Comprobamos que no haya ningun producto con esa marca 
 		int cont = 0;
-		for (TProdcuto prod : daoProducto.listarProducto()) {
+		for (TProducto prod : daoProducto.listarProductos()) {
 			if (prod.getMarca() == id) {
 				cont++;
 			}
@@ -57,12 +57,6 @@ public class SAMarcaImp implements SAMarca{
 		return daoMarca.buscarMarca(id);
 	}
 	
-	/*
-	public TMarca buscarMarca(String nombre) {
-		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
-		return daoMarca.buscarMarca(nombre);
-	}
-	*/
 	
 	public Collection<TMarca> listarMarca(){
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();

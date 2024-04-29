@@ -62,6 +62,7 @@ public class DAOMarcaImp implements DAOMarca {
 		return marca.getID();
 	}
 
+	
 	@Override
 	public boolean bajaMarca(int id) {
 		try {
@@ -137,6 +138,7 @@ public class DAOMarcaImp implements DAOMarca {
 		return true;
 	}
 
+	
 	@Override
 	public TMarca buscarMarca(int id) {
 		try {
@@ -167,9 +169,9 @@ public class DAOMarcaImp implements DAOMarca {
 		}
 	}
 	
-	/*
+	
 	@Override
-	public TMarca buscarMarca(String nombreMarca) {
+	public TMarca buscarMarca(String nombre) {
 		try {
 			// Accedemos a los datos guardados hasta ahora
 			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
@@ -179,7 +181,7 @@ public class DAOMarcaImp implements DAOMarca {
 			JSONArray JA = JO.getJSONArray("Marcas");
 			
 			int i = 0; 
-			while (i < JA.length() && !JA.getJSONObject(i).get("Nombre").equals(nombreMarca)) {
+			while (i < JA.length() && !JA.getJSONObject(i).get("Nombre").equals(nombre)) {
 				i++;
 			}
 			if (i == JA.length()) return null; //no lo ha encontrado
@@ -190,14 +192,14 @@ public class DAOMarcaImp implements DAOMarca {
 				String correo = jo.getString("Correo");
 				boolean activo = jo.getBoolean("Activo");
 				
-				return new TMarca(id, nombreMarca, correo, activo);
+				return new TMarca(id, nombre, correo, activo);
 			}
 		} 
 		catch (Exception e) {
 			return null; 
 		}
 	}
-	*/
+
 
 	@Override
 	public Collection<TMarca> listarMarca() { 
