@@ -13,14 +13,14 @@ public class TMarca {
 		this.activo = true;
 	}
 
-	public TMarca(String nombre, String correo) {
+	public TMarca(String nombre, String correo) { //para alta
 		this.id = 0;
 		this.nombre = nombre;
 		this.correo = correo;
 		this.activo = true;
 	}
 
-	public TMarca(int id, String nombre, String correo, boolean activo) {
+	public TMarca(int id, String nombre, String correo, boolean activo) { //para actualizar
 		this.id = id;
 		this.nombre = nombre;
 		this.correo = correo;
