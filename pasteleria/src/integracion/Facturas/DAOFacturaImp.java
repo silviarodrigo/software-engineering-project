@@ -39,7 +39,7 @@ public class DAOFacturaImp implements DAOFactura {
 			while (i < ja.length() && ja.getJSONObject(i).getString("id_factura") != id_factura) {
 				i++;
 			}
-			if(i<ja.length()) {
+			if (i < ja.length()) {
 				// Obtenemos todas las lineas de factura
 				DAOLineaFactura daol = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
 				ArrayList<TLineaFactura> lineas_factura = (ArrayList<TLineaFactura>) daol.mostrarLineasFactura();
@@ -76,6 +76,8 @@ public class DAOFacturaImp implements DAOFactura {
 
 			JSONArray ja = new JSONArray();
 			ja = ji.getJSONArray("ListaFacturas");
+			int next_id = ji.getInt("next_id");
+			next_id++;
 
 			// Creamos el json de la nueva factura
 			JSONObject jo = new JSONObject();
@@ -95,6 +97,7 @@ public class DAOFacturaImp implements DAOFactura {
 			BufferedWriter bw = new BufferedWriter(new FileWriter("Facturas.json"));
 			JSONObject jo2 = new JSONObject();
 			jo2.put("ListaFacturas", ja);
+			jo2.put("next_id", next_id);
 			bw.write(jo2.toString());
 
 			if (bw != null) {// cerramos el fichero siempre

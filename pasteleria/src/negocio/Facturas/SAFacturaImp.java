@@ -24,45 +24,63 @@ public class SAFacturaImp implements SAFactura {
 	}
 
 	public boolean crearFactura(TDatosVenta datos) {
+		// creamos los dao
 		DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
+		DAOLineaFactura daoLineaFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
 		DAOCliente daoCliente = FactoriaAbstractaIntegracion.getInstance().crearDAOCliente();
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
-		DAOLineaFactura daoLineaFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
+		DAOEmpleados daoEmpleado = FactoriaAbstractaIntegracion.getInstance().crearDAOEmpleado();
+
 		TFactura factura;
-		ArrayList<TLineaFactura> lineas_factura = new ArrayList<TLineaFactura>();
+		ArrayList<TLineaFactura> lineas_factura_definitivas = new ArrayList<TLineaFactura>();
 
 		int precio_total = 0;
 		int id_lineaFactura = 0;
 		String id_factura;
 		TCliente cliente = daoCliente.buscarCliente(datos.getIdCliente());
-
-		if (cliente != null) {
-			for (TLineaFactura linea_factura : datos.getProductos()) {
+		TEmpleado vendedor = daoEmpleado.buscarEmpleado(datos.getIdVendedor());
+		boolean exito = true;
+		if (cliente != null && vendedor != null) {
+			int i = 0;
+			// Recorremos las lineas de factura de nuestra nueva factura
+			ArrayList<TLineaFactura> lineas_factura_por_comprobar = datos.getProductos();
+			while (i < lineas_factura_por_comprobar.size() && exito) {
+				TLineaFactura linea_factura = lineas_factura_por_comprobar.get(i);
+				// comprobamos el producto
 				TProducto producto = daoProducto.buscarProducto(linea_factura.getIdProducto());
-				id_lineaFactura = linea_factura.getId();
-				id_factura = linea_factura.getIdFactura();
-				precio_total += producto.getPrecio() * linea_factura.getCantidad();
-				TLineaFactura linea_factura2 = daoLineaFactura.buscarLineaFactura(id_lineaFactura);
-				if (linea_factura2 == null) {
-					lineas_factura.add(linea_factura);
-					daoLineaFactura.crearLineaFactura(linea_factura);
+				if (producto == null || linea_factura.getCantidad() < 0 || producto.getStock() < 0
+						|| producto.getStock() < linea_factura.getCantidad() || producto.getPrecio() < 0) {
+					exito = false;
+				} else {
+					id_lineaFactura = linea_factura.getId();
+					id_factura = linea_factura.getIdFactura();
+					precio_total += producto.getPrecio() * linea_factura.getCantidad();
+					producto.setStock(producto.getStock() - linea_factura.getCantidad());
+					TLineaFactura linea_factura2 = daoLineaFactura.buscarLineaFactura(id_lineaFactura);
+					if (linea_factura2 == null) {//si la linea no existe ya:
+						lineas_factura_definitivas.add(linea_factura);
+						daoLineaFactura.crearLineaFactura(linea_factura);
+					}
 				}
+				i++;
 			}
-			factura = daoFactura.buscarFactura(id_factura);
-			if (factura == null) {
-				factura = new TFactura(id_factura, precio_total, datos, false);
-			} else
-				return false;
-		} else
-			return false;
-
-		return true;
-
-		return daoFactura.crearFactura(factura);
+			if (lineas_factura_definitivas.size() > 0 && exito) {//si hay lineas válidas y no hay problemas en la factura
+				factura = daoFactura.buscarFactura(id_factura);
+				if (factura == null) {//si la factura no existe ya:
+					factura = new TFactura(id_factura, precio_total, datos, false);
+				}
+				exito = daoFactura.crearFactura(factura);
+			}
+		}
+		return exito;
 	}
 
 	public void anadirProducto(TLineaFactura linea, Carrito c) {
 		c.anadirProducto(linea);
+	}
+	
+	public void eliminarProducto(TLineaFactura linea, Carrito c) {
+		c.eliminarProducto(linea);
 	}
 
 }

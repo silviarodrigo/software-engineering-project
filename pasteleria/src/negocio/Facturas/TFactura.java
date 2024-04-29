@@ -7,6 +7,7 @@ public class TFactura {
 	private TDatosVenta datos;
 	private double precio_total;
 	private boolean activo;
+	private int id;
 
 //CONSTRUCTORAS
 	public TFactura() {
@@ -49,9 +50,12 @@ public class TFactura {
 		return this.datos.getProductos();
 	}
 	
+	public int getId() {
+		return this.id;
+	}
 	
 //SETTERS
-	public void setId(String Id) {
+	public void setIdFactura(String Id) {
 		this.id_factura = Id;
 	}
 	
@@ -77,5 +81,9 @@ public class TFactura {
 	
 	public void setProductos(ArrayList<TLineaFactura> prods){
 		this.datos.setProductos(prods);
+	}
+	
+	public void setId(int Id) {
+		this.id = Id;
 	}
 }
