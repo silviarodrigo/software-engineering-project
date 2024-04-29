@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import integracion.Factoria.FactoriaAbstractaIntegracion;
 import integracion.Producto.DAOProducto;
+import integracion.Marca.DAOMarca;
 
 
 public class SAProductoImp implements SAProducto {

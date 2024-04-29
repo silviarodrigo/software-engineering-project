@@ -7,6 +7,7 @@ public interface DAOProducto {
 	public int altaProducto(TProducto producto);
 	public void bajaProducto(int id, String tipo);
 	public TProducto buscarProducto(String nombre);
+	public TProducto buscarProducto(int id);
 	public int actualizarProducto(TProducto producto);
 	public Collection<TProducto> listarProductos();
 }

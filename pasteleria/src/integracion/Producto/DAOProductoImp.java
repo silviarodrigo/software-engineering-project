@@ -112,6 +112,25 @@ public class DAOProductoImp implements DAOProducto {
 		return prod;
 	}
 	
+	@Override
+	public TProducto buscarProducto(int id) {
+		JSONArray ja1 = getProductosJArray(getFilename("Dulce"));
+		JSONArray ja2 = getProductosJArray(getFilename("Pan"));
+		JSONArray ja3 = getProductosJArray(getFilename("Bebida"));
+		JSONObject prodJO = getObjectInIndex(ja1, id);
+		if (prodJO == null) {
+			prodJO = getObjectInIndex(ja2, id);
+			if (prodJO == null) {
+				prodJO = getObjectInIndex(ja3, id);
+				if (prodJO == null) {
+					return null;
+				}
+			}
+		}
+		return createTProducto(prodJO);
+	}
+	
+	
 	
 	@Override
 	public Collection<TProducto> listarProductos() {
@@ -258,6 +277,15 @@ public class DAOProductoImp implements DAOProducto {
 			filename = "resources/Bebida.json";
 		}
 		return filename;
+	}
+	
+	private JSONObject getObjectInIndex(JSONArray ja, int index) {
+		if (index < ja.length()) {
+			return ja.getJSONObject(index);
+		}
+		else {
+			return null;
+		}
 	}
 
 }
