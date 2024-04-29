@@ -70,7 +70,7 @@ public class VistaBajaProducto extends JFrame implements IGUI {
 			dispose();
 			break;
 		case BAJA_PRODUCTO_ERROR:
-			JOptionPane.showMessageDialog(this, "Error al dar de baja el producto", "Baja Producto", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Error al dar de baja el producto: " + datos, "Baja Producto", JOptionPane.ERROR_MESSAGE);
 			dispose();
 			break;
 		default:

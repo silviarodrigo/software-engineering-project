@@ -4,16 +4,22 @@ import java.util.Collection;
 
 import integracion.Factoria.FactoriaAbstractaIntegracion;
 import integracion.Producto.DAOProducto;
+import negocio.Marca.TMarca;
 import integracion.Marca.DAOMarca;
 
 
 public class SAProductoImp implements SAProducto {
 
 	@Override
-	public int altaProducto(TProducto producto) {
+	public int altaProducto(TProducto producto) throws IllegalArgumentException {
 		int id = -1;
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
+		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
 		TProducto prod = daoProducto.buscarProducto(producto.getNombre());
+		TMarca marca = daoMarca.buscarMarca(producto.getMarca());
+		if (marca == null) {
+			throw new IllegalArgumentException("Marca no existente.");
+		}
 		if(prod == null) {
 			id = daoProducto.altaProducto(producto);
 		}
@@ -22,17 +28,20 @@ public class SAProductoImp implements SAProducto {
 			producto.setActivo(true);
 			id = daoProducto.actualizarProducto(producto);
 		}
+		else {
+			throw new IllegalArgumentException("Producto ya existe.");
+		}
 		return id;
 	}
 
 	@Override
-	public int bajaProducto(String nombre) {
+	public int bajaProducto(String nombre) throws IllegalArgumentException {
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
 		TProducto prod = daoProducto.buscarProducto(nombre);
 		if (prod == null) {
-			return -1;
+			throw new IllegalArgumentException("Producto no existente.");
 		}else if(!prod.getActivo()) {
-			return -1;
+			throw new IllegalArgumentException("El producto ya ha sido dado de baja.");
 		}
 		daoProducto.bajaProducto(prod.getId(), prod.getTipo());
 		return prod.getId();
@@ -45,11 +54,16 @@ public class SAProductoImp implements SAProducto {
 	}
 
 	@Override
-	public int actualizarProducto(TProducto producto) {
+	public int actualizarProducto(TProducto producto) throws IllegalArgumentException {
+		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
+		TMarca marca = daoMarca.buscarMarca(producto.getMarca());
 		TProducto prod = daoProducto.buscarProducto(producto.getNombre());
+		if (marca == null) {
+			throw new IllegalArgumentException("Marca no existente.");
+		}
 		if(prod == null) {
-			return -1;
+			throw new IllegalArgumentException("Producto no existente.");
 		}
 		producto.setId(prod.getId());
 		return daoProducto.actualizarProducto(producto);

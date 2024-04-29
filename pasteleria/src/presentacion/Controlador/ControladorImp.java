@@ -51,45 +51,39 @@ public class ControladorImp extends Controlador {
 	private void actualizarProducto(Object datos) {
 		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
 		TProducto producto = (TProducto) datos;
-		int id = saProducto.actualizarProducto(producto);
-		// No se si hay que crear nueva vista o tenerla guardada en el controlador (o en la factoria)
-		if (id != -1) {
+		try {
+			int id = saProducto.actualizarProducto(producto);
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_PRODUCTO)
-					.actualizar(Evento.ACTUALIZAR_PRODUCTO_SUCCESS, id);
-		}
-		else {
+			.actualizar(Evento.ACTUALIZAR_PRODUCTO_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_PRODUCTO)
-			.actualizar(Evento.ACTUALIZAR_PRODUCTO_ERROR, "Error al actualizar el producto.");
+			.actualizar(Evento.ACTUALIZAR_PRODUCTO_ERROR, e.getMessage());
 		}
 	}
 	
 	private void altaProducto(Object datos) {
 		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
 		TProducto producto = (TProducto) datos;
-		int id = saProducto.altaProducto(producto);
-		// No se si hay que crear nueva vista o tenerla guardada en el controlador (o en la factoria)
-		if (id != -1) {
+		try {
+			int id = saProducto.altaProducto(producto);
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_PRODUCTO)
-					.actualizar(Evento.ALTA_PRODUCTO_SUCCESS, id);
-		}
-		else {
+			.actualizar(Evento.ALTA_PRODUCTO_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_PRODUCTO)
-			.actualizar(Evento.ALTA_PRODUCTO_ERROR, "Error al dar de alta el producto");
+			.actualizar(Evento.ALTA_PRODUCTO_ERROR, e.getMessage());
 		}
 	}
 	
 	private void bajaProducto(Object datos) {
 		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
 		String nombre = (String) datos;
-		int id = saProducto.bajaProducto(nombre);
-		// No se si hay que crear nueva vista o tenerla guardada en el controlador (o en la factoria)
-		if (id != -1) {
+		try {
+			int id = saProducto.bajaProducto(nombre);
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_PRODUCTO)
-					.actualizar(Evento.BAJA_PRODUCTO_SUCCESS, id);
-		}
-		else {
+			.actualizar(Evento.BAJA_PRODUCTO_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_PRODUCTO)
-			.actualizar(Evento.BAJA_PRODUCTO_ERROR, "Error al dar de baja el producto");
+			.actualizar(Evento.BAJA_PRODUCTO_ERROR, e.getMessage());
 		}
 	}
 	
@@ -104,7 +98,7 @@ public class ControladorImp extends Controlador {
 		}
 		else {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_PRODUCTO)
-			.actualizar(Evento.BUSCAR_PRODUCTO_ERROR, "Producto no encontrado");
+			.actualizar(Evento.BUSCAR_PRODUCTO_ERROR, "Producto no encontrado.");
 		}
 	}
 	
