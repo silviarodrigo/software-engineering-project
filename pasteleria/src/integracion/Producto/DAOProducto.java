@@ -5,7 +5,7 @@ import negocio.Producto.TProducto;
 
 public interface DAOProducto {
 	public int altaProducto(TProducto producto);
-	public int bajaProducto(String nombre);
+	public void bajaProducto(int id, String tipo);
 	public TProducto buscarProducto(String nombre);
 	public int actualizarProducto(TProducto producto);
 	public Collection<TProducto> listarProductos();

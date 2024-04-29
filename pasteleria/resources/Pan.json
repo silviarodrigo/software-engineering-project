@@ -1,0 +1,1 @@
+{"productos":[{"precio":3.5,"tipo":"Pan","marcaId":0,"integral":true,"alergenos":"gluten","id":0,"stock":20,"nombre":"PanBimbo","activo":true,"sal":true},{"precio":5,"tipo":"Pan","marcaId":0,"integral":false,"alergenos":"","id":1,"stock":15,"nombre":"PanSinGluten","activo":true,"sal":false}],"next_id":2}

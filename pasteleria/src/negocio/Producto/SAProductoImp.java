@@ -27,7 +27,14 @@ public class SAProductoImp implements SAProducto {
 	@Override
 	public int bajaProducto(String nombre) {
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
-		return daoProducto.bajaProducto(nombre);
+		TProducto prod = daoProducto.buscarProducto(nombre);
+		if (prod == null) {
+			return -1;
+		}else if(!prod.getActivo()) {
+			return -1;
+		}
+		daoProducto.bajaProducto(prod.getId(), prod.getTipo());
+		return prod.getId();
 	}
 
 	@Override
@@ -39,6 +46,10 @@ public class SAProductoImp implements SAProducto {
 	@Override
 	public int actualizarProducto(TProducto producto) {
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
+		TProducto prod = daoProducto.buscarProducto(producto.getNombre());
+		if(prod == null) {
+			return -1;
+		}
 		return daoProducto.actualizarProducto(producto);
 	}
 

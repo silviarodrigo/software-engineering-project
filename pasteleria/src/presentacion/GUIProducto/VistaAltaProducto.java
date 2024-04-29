@@ -234,7 +234,7 @@ public class VistaAltaProducto extends JFrame implements IGUI {
 		}
 		
 		else {
-			String tamanyo = _tFRelleno.getText();
+			String tamanyo = _tFTamanyo.getText();
 			if (tamanyo == null || tamanyo.equals("")) {
 				JOptionPane.showMessageDialog(this, "Debes indicar un tamaño", "Alta Producto", JOptionPane.ERROR_MESSAGE);
 				return;
