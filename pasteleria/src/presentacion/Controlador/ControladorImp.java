@@ -174,7 +174,7 @@ public class ControladorImp extends Controlador {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_FACTURA)
 					.actualizar(Evento.BUSCAR_FACTURA_SUCCESS, factura);
 		} else {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_PRODUCTO)
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_FACTURA)
 					.actualizar(Evento.BUSCAR_FACTURA_ERROR, "factura no encontrada.");
 		}
 	}

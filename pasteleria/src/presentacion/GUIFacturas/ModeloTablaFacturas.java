@@ -49,7 +49,9 @@ public class ModeloTablaFacturas extends AbstractTableModel {
 	}
 
 	public void loadData(Collection<TFactura> data) {
-		facturas = new ArrayList<TFactura>(data);
+		if(data!=null) {//solo si hay facturas en la lista
+			facturas = new ArrayList<TFactura>(data);
+		}
 		fireTableDataChanged();
 		fireTableStructureChanged();
 	}
