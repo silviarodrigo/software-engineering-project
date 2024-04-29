@@ -6,7 +6,7 @@ import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
 
 public interface DAOFactura {
-	public boolean modificarFactura(TLineaFactura linea);
+	public boolean modificarFactura(int id_f, int id_c, int id_v, String fechaF);
 
 	public TFactura buscarFactura(int id_factura);
 

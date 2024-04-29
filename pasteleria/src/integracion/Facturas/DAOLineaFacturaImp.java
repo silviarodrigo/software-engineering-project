@@ -15,52 +15,52 @@ import org.json.JSONTokener;
 import negocio.Facturas.TLineaFactura;
 
 public class DAOLineaFacturaImp implements DAOLineaFactura {
-
-	public boolean modificarLineaFactura(TLineaFactura lf) {
-		boolean exito = true;
-		try {
-			// Accedemos al json
-			BufferedReader brlf = new BufferedReader(new FileReader("LineasFacturas.json"));
-			JSONObject ji = new JSONObject(new JSONTokener(brlf));
-			JSONArray ja = new JSONArray();
-			ja = ji.getJSONArray("ListaLineasFactura");
-			int next_id = ji.getInt("next_id");
-			// buscamos la linea
-			int i = 0;
-			while (i < ja.length() && ja.getJSONObject(i).getInt("id_linea") != lf.getIdLinea()) {
-				i++;
-			}
-
-			BufferedWriter bw = new BufferedWriter(new FileWriter("LineasFacturas.json"));
-			if (i < ja.length()) {
-				ja.remove(i);
-				// Creamos el json de la nueva linea factura
-				JSONObject jo = new JSONObject();
-				jo.put("id_linea", lf.getIdLinea());
-				jo.put("id_factura", lf.getIdFactura());
-				jo.put("id_producto", lf.getIdProducto());
-				jo.put("cantidad", lf.getCantidad());
-				if (lf.getActivo()) {
-					jo.put("activa", "true");
-				} else {
-					jo.put("activa", "false");
-				}
-				ja.put(jo);// lo añadimos a nuestra lista de lineas de facturas
-
-				// Escribimos el fichero otra vez con los datos actualizados
-				JSONObject jo2 = new JSONObject();
-				jo2.put("ListaLineasFactura", ja);
-				jo2.put("next_id", next_id);
-				bw.write(jo2.toString());
-			}
-			if (bw != null) {// cerramos el fichero siempre
-				bw.close();
-			}
-		} catch (IOException | JSONException e) {
-			exito = false;
-		}
-		return exito;
-	}
+	
+//	public boolean modificarLineaFactura(TLineaFactura lf) {
+//		boolean exito = true;
+//		try {
+//			// Accedemos al json
+//			BufferedReader brlf = new BufferedReader(new FileReader("LineasFacturas.json"));
+//			JSONObject ji = new JSONObject(new JSONTokener(brlf));
+//			JSONArray ja = new JSONArray();
+//			ja = ji.getJSONArray("ListaLineasFactura");
+//			int next_id = ji.getInt("next_id");
+//			// buscamos la linea
+//			int i = 0;
+//			while (i < ja.length() && ja.getJSONObject(i).getInt("id_linea") != lf.getIdLinea()) {
+//				i++;
+//			}
+//
+//			BufferedWriter bw = new BufferedWriter(new FileWriter("LineasFacturas.json"));
+//			if (i < ja.length()) {
+//				ja.remove(i);
+//				// Creamos el json de la nueva linea factura
+//				JSONObject jo = new JSONObject();
+//				jo.put("id_linea", lf.getIdLinea());
+//				jo.put("id_factura", lf.getIdFactura());
+//				jo.put("id_producto", lf.getIdProducto());
+//				jo.put("cantidad", lf.getCantidad());
+//				if (lf.getActivo()) {
+//					jo.put("activa", "true");
+//				} else {
+//					jo.put("activa", "false");
+//				}
+//				ja.put(jo);// lo añadimos a nuestra lista de lineas de facturas
+//
+//				// Escribimos el fichero otra vez con los datos actualizados
+//				JSONObject jo2 = new JSONObject();
+//				jo2.put("ListaLineasFactura", ja);
+//				jo2.put("next_id", next_id);
+//				bw.write(jo2.toString());
+//			}
+//			if (bw != null) {// cerramos el fichero siempre
+//				bw.close();
+//			}
+//		} catch (IOException | JSONException e) {
+//			exito = false;
+//		}
+//		return exito;
+//	}
 
 	public TLineaFactura buscarLineaFactura(int id) {
 		try {

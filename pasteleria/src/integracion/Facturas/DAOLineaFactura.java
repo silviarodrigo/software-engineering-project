@@ -5,7 +5,7 @@ import java.util.Collection;
 import negocio.Facturas.TLineaFactura;
 
 public interface DAOLineaFactura {
-	public boolean modificarLineaFactura(TLineaFactura f);
+	//public boolean modificarLineaFactura(TLineaFactura f);
 
 	public TLineaFactura buscarLineaFactura(int id);
 

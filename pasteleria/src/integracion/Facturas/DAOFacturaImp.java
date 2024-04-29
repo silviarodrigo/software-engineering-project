@@ -22,10 +22,49 @@ import java.util.Collection;
 
 public class DAOFacturaImp implements DAOFactura {
 
-	public boolean modificarFactura(TLineaFactura linea) {
-		DAOLineaFactura daol = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
-		return daol.modificarLineaFactura(linea);
+	public boolean modificarFactura(int id_f, int id_c, int id_v, String fecha) {
+		boolean exito = false;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("Facturas.json"));
+			JSONObject ji = new JSONObject(new JSONTokener(br));
+			JSONArray ja = new JSONArray();
+			ja = ji.getJSONArray("ListaFacturas");
+			int next_id = ji.getInt("next_id");
+			int i = 0;
+			while (i < ja.length() && ja.getJSONObject(i).getInt("id_factura") != id_f) {
+				i++;
+			}
+			BufferedWriter bw = new BufferedWriter(new FileWriter("Facturas.json"));
+			if (i < ja.length()) {
+				exito = true;
+				JSONObject jo = new JSONObject();
+				jo.put("id_factura", id_f);
+				jo.put("fecha", fecha);
+				jo.put("id_cliente", id_c);
+				jo.put("id_vendedor", id_v);
+				jo.put("precio", ja.getJSONObject(i).getInt("precio"));
+				jo.put("activa", ja.getJSONObject(i).getInt("activa"));
+				ja.put(i, jo);// lo añadimos a nuestra lista de facturas
+
+				// Escribimos el fichero otra vez con los datos actualizados
+				JSONObject jo2 = new JSONObject();
+				jo2.put("ListaFacturas", ja);
+				jo2.put("next_id", next_id);
+				bw.write(jo2.toString());
+			}
+			if (bw != null) {// cerramos el fichero siempre
+				bw.close();
+			}
+		} catch (IOException | JSONException e) {
+			exito = false;
+		}
+		return exito;
 	}
+
+//	public boolean modificarFactura(TLineaFactura linea) {
+//		DAOLineaFactura daol = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
+//		return daol.modificarLineaFactura(linea);
+//	}
 
 	public TFactura buscarFactura(int id_factura) {
 		TFactura factura = null;
