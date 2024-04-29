@@ -9,8 +9,8 @@ public interface DAOLineaFactura {
 
 	public TLineaFactura buscarLineaFactura(int id);
 
-	public boolean crearLineaFactura(TLineaFactura f);
-	
+	public int crearLineaFactura(TLineaFactura f);
+
 	public void eliminarLineaFactura(TLineaFactura f);
 
 	public Collection<TLineaFactura> mostrarLineasFactura();

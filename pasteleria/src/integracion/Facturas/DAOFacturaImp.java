@@ -27,7 +27,7 @@ public class DAOFacturaImp implements DAOFactura {
 		return daol.modificarLineaFactura(linea);
 	}
 
-	public TFactura buscarFactura(String id_factura) {
+	public TFactura buscarFactura(int id_factura) {
 		TFactura factura = null;
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("Facturas.json"));
@@ -36,7 +36,7 @@ public class DAOFacturaImp implements DAOFactura {
 			ja = ji.getJSONArray("ListaFacturas");
 
 			int i = 0;
-			while (i < ja.length() && ja.getJSONObject(i).getString("id_factura") != id_factura) {
+			while (i < ja.length() && ja.getJSONObject(i).getInt("id_factura") != id_factura) {
 				i++;
 			}
 			if (i < ja.length()) {
@@ -45,16 +45,16 @@ public class DAOFacturaImp implements DAOFactura {
 				ArrayList<TLineaFactura> lineas_factura = (ArrayList<TLineaFactura>) daol.mostrarLineasFactura();
 				// seleccionamos las que pertenecen a la factura actual
 				for (int j = 0; j < lineas_factura.size(); ++j) {
-					if (!lineas_factura.get(j).getIdFactura().equals(ja.getJSONObject(i).getString("id_factura"))) {
+					if (lineas_factura.get(j).getIdFactura() != ja.getJSONObject(i).getInt("id_factura")) {
 						lineas_factura.remove(j);
 					}
 				}
 				// creamos el resto de elementos necesarios para crear la factura
 				TDatosVenta dt = new TDatosVenta(ja.getJSONObject(i).getString("fecha"),
-						ja.getJSONObject(i).getString("id_cliente"), ja.getJSONObject(i).getString("id_vendedor"),
+						ja.getJSONObject(i).getInt("id_cliente"), ja.getJSONObject(i).getInt("id_vendedor"),
 						lineas_factura);
 				// creamos la factura
-				factura = new TFactura(ja.getJSONObject(i).getString("id_factura"),
+				factura = new TFactura(ja.getJSONObject(i).getInt("id_factura"),
 						ja.getJSONObject(i).getDouble("precio"), dt, ja.getJSONObject(i).getBoolean("activa"));
 			}
 			if (br != null) {// cerramos el fichero siempre
@@ -68,7 +68,7 @@ public class DAOFacturaImp implements DAOFactura {
 
 	}
 
-	public boolean crearFactura(TFactura f) {
+	public int crearFactura(TFactura f) {
 		boolean exito = true;
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("Facturas.json"));
@@ -77,14 +77,16 @@ public class DAOFacturaImp implements DAOFactura {
 			JSONArray ja = new JSONArray();
 			ja = ji.getJSONArray("ListaFacturas");
 			int next_id = ji.getInt("next_id");
-			next_id++;
+			f.setIdFactura(next_id);
+			next_id++;// lo dejamos preparado para la siguiente factura
 
+			TDatosVenta datos_factura = f.getDatosVentas();
 			// Creamos el json de la nueva factura
 			JSONObject jo = new JSONObject();
-			jo.put("id", f.getIdFactura());
-			jo.put("fecha", f.getFecha());
-			jo.put("id_cliente", f.getIdCliente());
-			jo.put("id_vendedor", f.getIdVendedor());
+			jo.put("id_factura", f.getIdFactura());
+			jo.put("fecha", datos_factura.getFecha());
+			jo.put("id_cliente", datos_factura.getIdCliente());
+			jo.put("id_vendedor", datos_factura.getIdVendedor());
 			jo.put("precio", f.getPrecio_total());
 			if (f.getActivo()) {
 				jo.put("activa", "true");
@@ -106,14 +108,16 @@ public class DAOFacturaImp implements DAOFactura {
 		} catch (IOException | JSONException e) {
 			exito = false;
 		}
-		return exito;
+		if (exito) {
+			return f.getIdFactura();
+		} else
+			return -1;
 	}
 
 	public Collection<TFactura> listarFacturas() {
 		ArrayList<TFactura> facturas = new ArrayList<TFactura>();
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("Facturas.json"));
-
 			JSONObject ji = new JSONObject(new JSONTokener(br));
 			JSONArray ja = new JSONArray();
 			ja = ji.getJSONArray("ListaFacturas");
@@ -125,16 +129,16 @@ public class DAOFacturaImp implements DAOFactura {
 				ArrayList<TLineaFactura> lineas_factura = (ArrayList<TLineaFactura>) daol.mostrarLineasFactura();
 				// seleccionamos las que pertenecen a la factura actual
 				for (int j = 0; j < lineas_factura.size(); ++j) {
-					if (!lineas_factura.get(j).getIdFactura().equals(ja.getJSONObject(i).getString("id_factura"))) {
+					if (lineas_factura.get(j).getIdFactura() != ja.getJSONObject(i).getInt("id_factura")) {
 						lineas_factura.remove(j);
 					}
 				}
 				// creamos el resto de elementos necesarios para crear la factura
 				TDatosVenta dt = new TDatosVenta(ja.getJSONObject(i).getString("fecha"),
-						ja.getJSONObject(i).getString("id_cliente"), ja.getJSONObject(i).getString("id_vendedor"),
+						ja.getJSONObject(i).getInt("id_cliente"), ja.getJSONObject(i).getInt("id_vendedor"),
 						lineas_factura);
 				// creamos la factura
-				facturas.add(new TFactura(ja.getJSONObject(i).getString("id_factura"),
+				facturas.add(new TFactura(ja.getJSONObject(i).getInt("id_factura"),
 						ja.getJSONObject(i).getDouble("precio"), dt, ja.getJSONObject(i).getBoolean("activa")));
 				i++;
 			}

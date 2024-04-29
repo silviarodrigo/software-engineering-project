@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class TDatosVenta {
 	private String fecha;
-	private String id_cliente;
-	private String id_vendedor;
+	private int id_cliente;
+	private int id_vendedor;
 	private ArrayList<TLineaFactura> productos;
 
 //CONSTRUCTORA
 	// no hay constructora por defecto porque exigimos que la venta tenga datos
 
-	public TDatosVenta(String f, String id_c, String id_v, ArrayList<TLineaFactura> prod) {
+	public TDatosVenta(String f, int id_c, int id_v, ArrayList<TLineaFactura> prod) {
 		this.fecha = f;
 		this.id_cliente = id_c;
 		this.id_vendedor = id_v;
@@ -19,11 +19,11 @@ public class TDatosVenta {
 	}
 
 //GETTERS
-	public String getIdCliente() {
+	public int getIdCliente() {
 		return this.id_cliente;
 	}
 
-	public String getIdVendedor() {
+	public int getIdVendedor() {
 		return this.id_vendedor;
 	}
 
@@ -36,11 +36,11 @@ public class TDatosVenta {
 	}
 
 //SETTERS
-	public void setIdCliente(String IdCliente) {
+	public void setIdCliente(int IdCliente) {
 		this.id_cliente = IdCliente;
 	}
 
-	public void setIdVendedor(String IdVendedor) {
+	public void setIdVendedor(int IdVendedor) {
 		this.id_vendedor = IdVendedor;
 	}
 

@@ -7,7 +7,7 @@ public interface SAFactura {
 
 	public Collection<TFactura> listarFacturas();
 
-	public boolean crearFactura(TDatosVenta datos);
+	public int crearFactura(TDatosVenta datos);
 
 	void anadirProducto(TLineaFactura linea, Carrito c);
 
