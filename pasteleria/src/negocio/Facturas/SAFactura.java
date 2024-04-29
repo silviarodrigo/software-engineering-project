@@ -10,4 +10,6 @@ public interface SAFactura {
 	public boolean crearFactura(TDatosVenta datos);
 
 	void anadirProducto(TLineaFactura linea, Carrito c);
+
+	void eliminarProducto(TLineaFactura linea, Carrito c);
 }
