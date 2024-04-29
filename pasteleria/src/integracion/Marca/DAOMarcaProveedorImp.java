@@ -12,9 +12,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import negocio.Marca.TMarca;
 import negocio.Marca.TMarcaProveedor;
 
+
+
+//HAY QUE CAMBIARLO TODOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 
 	@Override

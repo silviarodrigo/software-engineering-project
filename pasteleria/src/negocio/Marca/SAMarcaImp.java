@@ -14,12 +14,19 @@ import integracion.Producto.DAOProducto;
 public class SAMarcaImp implements SAMarca{
 	
 	//MODIFCA EN ALGO EL NEXT_ID?? SI LA HA INSERTADO DEVUELVE NEXT_ID??
+	@Override
 	public int altaMarca(TMarca marca) {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
+		int id = -1;
 		
-		int id = 0;
-		if (marca.getID() == 0) {//no está insertada todavía
-			id = daoMarca.altaMarca(marca);			
+		TMarca prueba = daoMarca.buscarMarca(marca.getNombre());
+		if (prueba == null) { //no está insertada todavía
+			id = daoMarca.altaMarca(marca);	
+		}
+		else if (!marca.getActivo()) { //sí está pero "inactiva"
+			marca.setID(prueba.getID());
+			marca.setActivo(true);
+			if (daoMarca.actualizarMarca(marca)) id = marca.getID();
 		}
 		return id;
 	}
@@ -27,9 +34,13 @@ public class SAMarcaImp implements SAMarca{
 	
 	public boolean bajaMarca(int id) {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
-		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
+		
+		//Comprobamos si la marca existe y está activa
+		TMarca marca = daoMarca.buscarMarca(id);
+		if (marca == null || !marca.getActivo() ) return false;
 		
 		//Comprobamos que no haya ningun producto con esa marca 
+		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
 		int cont = 0;
 		for (TProducto prod : daoProducto.listarProductos()) {
 			if (prod.getMarca() == id) {
@@ -38,7 +49,7 @@ public class SAMarcaImp implements SAMarca{
 		}
 		
 		boolean bool = false;
-		if (cont == 0) { //ningun producto tiene esa marca
+		if (cont == 0) { //ningun producto tiene esa marca			
 			bool = daoMarca.bajaMarca(id);
 		}
 		return bool;
@@ -48,8 +59,15 @@ public class SAMarcaImp implements SAMarca{
 	public boolean actualizarMarca(TMarca marca) {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
 		
-		if(daoMarca.actualizarMarca(marca)) return true;
-		else return false;
+		//Comprobemos que la marca a actualizar existe
+		TMarca tMarca = daoMarca.buscarMarca(marca.getNombre());
+		
+		if(tMarca == null) {
+			return false;
+		}
+		marca.setID(tMarca.getID());
+		
+		return daoMarca.actualizarMarca(marca);
 	}
 	
 	public TMarca buscarMarca(int id) {

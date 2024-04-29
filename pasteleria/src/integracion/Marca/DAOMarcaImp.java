@@ -11,10 +11,7 @@ import java.util.Collection;
 
 import org.json.*;
 import negocio.Marca.TMarca;
-import negocio.Producto.TBebida;
-import negocio.Producto.TDulce;
-import negocio.Producto.TPan;
-import negocio.Producto.TProducto;
+
 
 
 //Integracion inserta el cliente cogiendo sus datos del JSON/base de datos y lo devuelve
@@ -22,12 +19,7 @@ import negocio.Producto.TProducto;
 public class DAOMarcaImp implements DAOMarca {
 	
 	@Override
-	public int altaMarca(TMarca marca) {
-		//comprobamos que la marca no está ya insertada
-		if (buscarMarca(marca.getNombre()).equals(marca)) {
-			return -1;
-		}
-				
+	public int altaMarca(TMarca marca) {				
 		//cargamos los datos de la nueva marca en un JSON
 		JSONObject jo = createJSON(marca);
 		
