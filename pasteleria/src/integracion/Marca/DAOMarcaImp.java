@@ -3,6 +3,7 @@ package integracion.Marca;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -10,173 +11,152 @@ import java.util.Collection;
 
 import org.json.*;
 import negocio.Marca.TMarca;
+import negocio.Producto.TBebida;
+import negocio.Producto.TDulce;
+import negocio.Producto.TPan;
+import negocio.Producto.TProducto;
 
 
 //Integracion inserta el cliente cogiendo sus datos del JSON/base de datos y lo devuelve
 
 public class DAOMarcaImp implements DAOMarca {
-
+	
 	@Override
 	public int altaMarca(TMarca marca) {
-		JSONObject JO;
-		try {
-			//Accedemos a los datos guardados hasta ahora
-			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
-			JO = new JSONObject (new JSONTokener(in));
-		}
-		catch (Exception e){
+		//comprobamos que la marca no está ya insertada
+		if (buscarMarca(marca.getNombre()).equals(marca)) {
 			return -1;
 		}
+				
+		//cargamos los datos de la nueva marca en un JSON
+		JSONObject jo = createJSON(marca);
 		
-		//Obtenemos los datos del JSON
-		JSONArray JA = JO.getJSONArray("Marcas");
-		int next_id = JO.getInt("next_id");
+		//obtenemos el JSON con toda la info 
+		JSONObject JO = getJSONFromFile();
+		
+		JSONArray JA; int next_id = 0;
+		if (JO == null) {
+			JO = new JSONObject();
+			JA = new JSONArray();
+			JA.put(jo);
+		}
+		else {
+			//Obtenemos los datos del JSON
+			JA = JO.getJSONArray("Marcas");
+		    next_id = JO.getInt("next_id");
+		    
+		    
+		    jo.put("Id", next_id);
+			JA.put(jo);
+		}
+		
+		//insertamos la nueva marca en el JSON
+		JO.put("Marcas", JA);
+		JO.put("next_id", next_id+1);
+		
 		
 		marca.setID(next_id);
 		
-		//cargamos los datos de la nueva marca en un JSON
-		JSONObject jo = new JSONObject();
-		jo.put("Id", next_id);
-		jo.put("Nombre", marca.getNombre());
-		jo.put("Correo", marca.getCorreo());
-		jo.put("Activo", marca.getActivo());
 		
-		//insertamos la nueva marca en el JSON
-		JA.put(jo);
-		++next_id;
-		
-		//Creamos el nuevo JSON con toda la informacion y lo escribimos
-		JSONObject JW = new JSONObject();
-		JW.put("Marcas", JA);
-		JW.put("next_id", next_id);
-		
-		try {	
-			BufferedWriter bw = new BufferedWriter(new FileWriter("pasteleria/resources/Marca.json"));
-			bw.write(JW.toString());
-			bw.close();
-		} 
-		catch(Exception e) {
+		//Escribimos el nuevo JSON con toda la informacion
+		if (writeJSONObject(JO)) {
+			return next_id;
+		}
+		else {
 			return -1;
-		}		
-		
-		return marca.getID();
+		}
 	}
 
 	
 	@Override
 	public boolean bajaMarca(int id) {
-		try {
-			//Accedemos a los datos guardados
-			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
-			JSONObject JO = new JSONObject (new JSONTokener(in));
-			JSONArray JA = JO.getJSONArray("Marcas");
+		//Accedemos a los datos guardados
+		JSONObject JO = getJSONFromFile();
+		JSONArray JA;
+		
+		if (JO == null) {
+			return false; 
+		}
+		else {
+			JA = JO.getJSONArray("Marcas");
+			JSONObject jo;
 			
-			int i = 0; 
-			while (i < JA.length() && !(JA.getJSONObject(i).getInt("Id") == id)) {
-				i++;
+			try {
+				jo = JA.getJSONObject(id);
 			}
-			if (i == JA.length()) return false; //no lo ha encontrado
-			else {
-				JA.getJSONObject(i).put("Activo", false);
-								
-				JSONObject newJO = new JSONObject();
-				newJO.put("Marcas", JA);
-				newJO.put("next_id", JO.get("next_id")); //no se modifica el next_id
-				
-				BufferedWriter bw = new BufferedWriter(new FileWriter("pasteleria/resources/Marca.json"));
-				bw.write(newJO.toString());
-				bw.close();
+			catch (JSONException e) {
+				return false;
 			}
-		} 
-		catch(Exception e) {
-			return false;
-		}		
-		return true;
+			
+			jo.put("Activo", false);
+			JA.put(id, jo);
+			JO.put("Marcas", JA);
+		}
+		
+		return writeJSONObject(JO);
 	}
 		
 
 	@Override
 	public boolean actualizarMarca(TMarca marca) {
-		try {
-			//Accedemos a los datos guardados
-			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
-			JSONObject JO = new JSONObject (new JSONTokener(in));
+		//cargamos los datos de la nueva marca en un JSON
+		JSONObject jo = createJSON(marca);
+		
+		//Accedemos a los datos guardados
+		JSONObject JO = getJSONFromFile();
+		
+		if (JO == null) {
+			return false; 
+		}
+		else {
 			JSONArray JA = JO.getJSONArray("Marcas");
-
-			
-			int i = 0; int id = marca.getID();
-			while (i < JA.length() && !(JA.getJSONObject(i).getInt("Id") == id)) {
-				i++;
-			}
-			if (i == JA.length()) return false; //no lo ha encontrado
-			else {
-				JSONObject jo = JA.getJSONObject(i);
-				JA.remove(i);
+			JA.put(marca.getID(), jo); //ESTO PUEDE DAR ERROR??
+			JO.put("Marcas", JA);
+		}
 				
-				//El ID es inmodificable
-				jo.remove("Nombre");
-				jo.put("Nombre", marca.getNombre());
-				jo.remove("Correo");
-				jo.put("Correo", marca.getCorreo());
-				jo.remove("Activo");
-				jo.put("Activo", marca.getActivo());
-				
-				JA.put(jo);
-				
-				JSONObject newJO = new JSONObject();
-				newJO.put("Marcas", JA);
-				newJO.put("next_id", JO.get("next_id"));
-				
-				BufferedWriter bw = new BufferedWriter(new FileWriter("pasteleria/resources/Marca.json"));
-				bw.write(newJO.toString());
-				bw.close();
-			}
-		} 
-		catch(Exception e) {
-			return false;
-		}		
-		return true;
+		return writeJSONObject(JO);
 	}
+		
 
 	
 	@Override
 	public TMarca buscarMarca(int id) {
-		try {
-			// Accedemos a los datos guardados hasta ahora
-			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
-			JSONObject JO = new JSONObject(new JSONTokener(in));
-
+		//Accedemos a los datos guardados
+		JSONObject JO = getJSONFromFile();
+		
+		if (JO == null) {
+			return null; 
+		}
+		else {
 			// Obtenemos los datos del JSON
 			JSONArray JA = JO.getJSONArray("Marcas");
+
+			JSONObject jo;
+			try {
+				jo = JA.getJSONObject(id);
+			}
+			catch (JSONException e) {
+				return null;
+			}
+		
+			String nombre = jo.getString("Nombre");
+			String correo = jo.getString("Correo");
+			boolean activo = jo.getBoolean("Activo");
 			
-			int i = 0; 
-			while (i < JA.length() && !(JA.getJSONObject(i).getInt("Id") == id)) {
-				i++;
-			}
-			if (i == JA.length()) return null; //no lo ha encontrado
-			else {
-				JSONObject jo = JA.getJSONObject(i);
-				
-				String nombre = jo.getString("Nombre");
-				String correo = jo.getString("Correo");
-				boolean activo = jo.getBoolean("Activo");
-				
-				return new TMarca(id, nombre, correo, activo);
-			}
-		} 
-		catch (Exception e) {
-			return null; 
+			return new TMarca(id, nombre, correo, activo);
 		}
 	}
 	
 	
 	@Override
 	public TMarca buscarMarca(String nombre) {
-		try {
-			// Accedemos a los datos guardados hasta ahora
-			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
-			JSONObject JO = new JSONObject(new JSONTokener(in));
-
+		//Accedemos a los datos guardados
+		JSONObject JO = getJSONFromFile();
+		
+		if (JO == null) {
+			return null; 
+		}
+		else {
 			// Obtenemos los datos del JSON
 			JSONArray JA = JO.getJSONArray("Marcas");
 			
@@ -184,6 +164,7 @@ public class DAOMarcaImp implements DAOMarca {
 			while (i < JA.length() && !JA.getJSONObject(i).get("Nombre").equals(nombre)) {
 				i++;
 			}
+			
 			if (i == JA.length()) return null; //no lo ha encontrado
 			else {
 				JSONObject jo = JA.getJSONObject(i);
@@ -192,11 +173,8 @@ public class DAOMarcaImp implements DAOMarca {
 				String correo = jo.getString("Correo");
 				boolean activo = jo.getBoolean("Activo");
 				
-				return new TMarca(id, nombre, correo, activo);
-			}
-		} 
-		catch (Exception e) {
-			return null; 
+				return new TMarca(id, nombre, correo, activo);				
+			}		
 		}
 	}
 
@@ -205,24 +183,52 @@ public class DAOMarcaImp implements DAOMarca {
 	public Collection<TMarca> listarMarca() { 
 		Collection<TMarca> lista = new ArrayList<TMarca>();
 		
-		JSONArray JA = null;
-		try {
-			InputStream in = new FileInputStream(new File("pasteleria/resources/Marca.json"));
-			JSONObject JO = new JSONObject(new JSONTokener(in));
-			JA = JO.getJSONArray("Marcas");
+		//Accedemos a los datos guardados
+		JSONObject JO = getJSONFromFile();
+		
+		if (JO != null) {
+			// Obtenemos los datos del JSON
+			JSONArray JA = JO.getJSONArray("Marcas");
 			
-		}
-		catch (Exception e) {
-			return null;
-		}
-
-		int i = 0;
-		while (i < JA.length()) {
-			JSONObject jo = JA.getJSONObject(i);
-			lista.add(new TMarca( jo.getInt("Id"), jo.getString("Nombre"), jo.getString("Correo"), jo.getBoolean("Activo")));
-			i++;
+			for (int i = 0; i < JA.length(); i++) {
+				JSONObject jo = JA.getJSONObject(i);
+				lista.add(new TMarca(i , jo.getString("Nombre"), jo.getString("Correo"), jo.getBoolean("Activo")));
+			}
 		}
 		return lista;
+	}
+	
+	
+	private JSONObject getJSONFromFile() {
+		JSONObject JO;
+		try {
+			InputStream in  = new FileInputStream(new File("pasteleria/resources/Marca.json"));
+			JO = new JSONObject(new JSONTokener(in));
+			
+		} catch (FileNotFoundException e) {
+			JO = null;	
+		}
+		return JO;
+	}
+	
+	private JSONObject createJSON(TMarca marca) {
+		JSONObject jo = new JSONObject();
+		jo.put("Id", marca.getID());
+		jo.put("Nombre", marca.getNombre());
+		jo.put("Correo", marca.getCorreo());
+		jo.put("Activo", marca.getActivo());
+		return jo;
+	}
+	
+	private boolean writeJSONObject(JSONObject JO) {		
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter("pasteleria/resources/Marca.json"));
+			bw.write(JO.toString(3));
+			bw.close();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 	
 }
