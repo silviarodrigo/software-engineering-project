@@ -14,8 +14,12 @@ import presentacion.GUIFacturas.VistaListarFacturas;
 import presentacion.GUIFacturas.VistaModificarFacturas;
 import presentacion.GUIFacturas.VistaPrincipalFacturas;
 import presentacion.GUIFacturas.VistaAbrirVenta;
-
-
+import presentacion.GUIMarca.VistaPrincipalMarca;
+import presentacion.GUIMarca.VistaAltaMarca;
+import presentacion.GUIMarca.VistaBajaMarca;
+import presentacion.GUIMarca.VistaActualizarMarca;
+import presentacion.GUIMarca.VistaBuscarMarca;
+import presentacion.GUIMarca.VistaListarMarca;
 
 public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 
@@ -47,6 +51,20 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 			return new VistaListarFacturas();
 		case VISTA_ABRIR_VENTA:
 			return new VistaAbrirVenta();
+		//MARCA
+		case VISTA_PRINCIPAL_MARCA:
+			return new VistaPrincipalMarca();
+		case VISTA_ALTA_MARCA:
+			return new VistaAltaMarca();
+		case VISTA_BAJA_MARCA:
+			return new VistaBajaMarca();
+		case VISTA_ACTUALIZAR_MARCA:
+			return new VistaActualizarMarca();
+		case VISTA_BUSCAR_MARCA:
+			return new VistaBuscarMarca();
+		case VISTA_LISTAR_MARCAS:
+			return new VistaListarMarca();
+		
 		default:
 			return null;
 		}

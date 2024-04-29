@@ -71,14 +71,7 @@ public class DAOMarcaImp implements DAOMarca {
 		}
 		else {
 			JA = JO.getJSONArray("Marcas");
-			JSONObject jo;
-			
-			try {
-				jo = JA.getJSONObject(id);
-			}
-			catch (JSONException e) {
-				return false;
-			}
+			JSONObject jo = JA.getJSONObject(id);
 			
 			jo.put("Activo", false);
 			JA.put(id, jo);

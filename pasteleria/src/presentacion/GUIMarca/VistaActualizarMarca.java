@@ -2,6 +2,17 @@ package presentacion.GUIMarca;
 
 import javax.swing.JDialog;
 
-public class VistaActualizarMarca extends JDialog {
+import presentacion.Evento;
+import presentacion.IGUI;
+
+public class VistaActualizarMarca extends JDialog implements IGUI{
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public void actualizar(Evento e, Object datos) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
