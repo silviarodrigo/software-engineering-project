@@ -31,7 +31,7 @@ public class ControladorImp extends Controlador {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_PRODUCTO);
 			break;
 		case VISTA_LISTAR_PRODUCTO:
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTO);
+			listarProducto(datos);
 			break;
 		case ACTUALIZAR_PRODUCTO:
 			actualizarProducto(datos);
@@ -44,9 +44,6 @@ public class ControladorImp extends Controlador {
 			break;
 		case BUSCAR_PRODUCTO:
 			buscarProducto(datos);
-			break;
-		case LISTAR_PRODUCTO:
-			listarProducto(datos);
 			break;
 		}
 	}
@@ -114,8 +111,6 @@ public class ControladorImp extends Controlador {
 	private void listarProducto(Object datos) {
 		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
 		Collection<TProducto> productos = saProducto.listarProductos();
-		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTO)
-					.actualizar(Evento.LISTAR_PRODUCTO, productos);
-
+		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTO).actualizar(Evento.LISTAR_PRODUCTO, productos);
 	}
 }

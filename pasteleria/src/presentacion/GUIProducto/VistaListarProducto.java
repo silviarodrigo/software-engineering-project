@@ -46,13 +46,16 @@ public class VistaListarProducto extends JFrame implements IGUI {
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
+		System.out.println("B");
 	}
 
 	@Override
 	public void actualizar(Evento e, Object datos) {
+		System.out.println("LISTAR PODUCTO");
 		switch (e) {
 		case LISTAR_PRODUCTO:
 			Collection<TProducto> productos = (Collection<TProducto>) datos;
+			System.out.println("HOLA");
 			_modeloTabla.loadData(productos);
 			break;
 		default:

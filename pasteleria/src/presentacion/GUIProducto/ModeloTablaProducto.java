@@ -76,7 +76,7 @@ public class ModeloTablaProducto extends AbstractTableModel{
 			return prod.getTipo();
 		}
 		else if (columnIndex == 8) {
-			if (prod.getTipo() == "dulce") {
+			if (prod.getTipo().equals("Dulce")) {
 				return ((TDulce) prod).getRelleno();
 			}
 			else {
@@ -84,7 +84,7 @@ public class ModeloTablaProducto extends AbstractTableModel{
 			}
 		}
 		else if (columnIndex == 9) {
-			if (prod.getTipo() == "pan") {
+			if (prod.getTipo().equals("Pan")) {
 				return ((TPan) prod).getIntegral();
 			}
 			else {
@@ -93,7 +93,7 @@ public class ModeloTablaProducto extends AbstractTableModel{
 			
 		}
 		else if (columnIndex == 10) {
-			if (prod.getTipo() == "pan") {
+			if (prod.getTipo().equals("Pan")) {
 				return ((TPan) prod).getSal();
 			}
 			else {
@@ -101,7 +101,7 @@ public class ModeloTablaProducto extends AbstractTableModel{
 			}
 		}
 		else if (columnIndex == 11) {
-			if (prod.getTipo() == "bebida") {
+			if (prod.getTipo().equals("Bebida")) {
 				return ((TBebida) prod).getTamanyo();
 			}
 			else {

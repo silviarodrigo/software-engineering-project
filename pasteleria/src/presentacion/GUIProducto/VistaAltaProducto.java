@@ -37,6 +37,7 @@ public class VistaAltaProducto extends JFrame implements IGUI {
 	private JCheckBox _salCB;
 	private JCheckBox _integralCB;
 	private JTextField _tFTamanyo;
+	private JTextField _tFMarca;
 
 		
 	public VistaAltaProducto() {
@@ -82,6 +83,14 @@ public class VistaAltaProducto extends JFrame implements IGUI {
 		alergenosPanel.add(alergenosLabel);
 		alergenosPanel.add(_tFAlergenos);
 		mainPanel.add(alergenosPanel);
+		
+		JLabel marcaLabel = new JLabel("ID Marca: ");
+		_tFMarca = new JTextField();
+		_tFMarca.setPreferredSize(new Dimension(100, 20));
+		JPanel marcaPanel = new JPanel();
+		marcaPanel.add(marcaLabel);
+		marcaPanel.add(_tFMarca);
+		mainPanel.add(marcaPanel);
 		
 		//Seleccionar tipo
 		JPanel tipoPanel = new JPanel();
@@ -215,6 +224,20 @@ public class VistaAltaProducto extends JFrame implements IGUI {
 		}
 		
 		String alergenos = _tFAlergenos.getText();
+		
+		int marcaId;
+		
+		try {
+			marcaId = Integer.parseInt(_tFMarca.getText());
+			if (marcaId < 0) {
+				JOptionPane.showMessageDialog(this, "El id de marca debe ser un entero positivo", "Alta Producto", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+		}
+		catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(this, "ID Marca no válido", "Alta Producto", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 	
 		
 		if (_dulceRB.isSelected()) {
@@ -223,13 +246,13 @@ public class VistaAltaProducto extends JFrame implements IGUI {
 				JOptionPane.showMessageDialog(this, "Debes indicar el relleno", "Alta Producto", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			producto = new TDulce(nombre, precio, alergenos, stock, 0, relleno);
+			producto = new TDulce(nombre, precio, alergenos, stock, marcaId, relleno);
 		}
 		
 		else if (_panRB.isSelected()) {
 			boolean sal = _salCB.isSelected();
 			boolean integral = _salCB.isSelected();
-			producto = new TPan(nombre, precio, alergenos, stock, 0, sal, integral);
+			producto = new TPan(nombre, precio, alergenos, stock, marcaId, sal, integral);
 
 		}
 		
@@ -239,7 +262,7 @@ public class VistaAltaProducto extends JFrame implements IGUI {
 				JOptionPane.showMessageDialog(this, "Debes indicar un tamaño", "Alta Producto", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			producto = new TBebida(nombre, precio, alergenos, stock, 0, tamanyo);
+			producto = new TBebida(nombre, precio, alergenos, stock, marcaId, tamanyo);
 		}
 		
 		Controlador.getInstance().accion(Evento.ALTA_PRODUCTO, producto);

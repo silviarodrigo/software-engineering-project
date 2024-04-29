@@ -73,11 +73,13 @@ public class VistaBuscarProducto extends JFrame implements IGUI {
 		JLabel precioLabel = new JLabel("Precio: " + producto.getPrecio());
 		JLabel alergenosLabel = new JLabel("Alérgenos: " + producto.getAlergenos());
 		JLabel tipoLabel = new JLabel("Tipo: " + producto.getTipo());
+		JLabel marcaLabel = new JLabel("Marca: " + producto.getMarca());
 		_infoPanel.add(nombreLabel);
 		_infoPanel.add(idLabel);
 		_infoPanel.add(stockLabel);
 		_infoPanel.add(precioLabel);
 		_infoPanel.add(alergenosLabel);
+		_infoPanel.add(marcaLabel);
 		_infoPanel.add(tipoLabel);
 		
 		if (producto.getTipo().equals("Dulce")) {
