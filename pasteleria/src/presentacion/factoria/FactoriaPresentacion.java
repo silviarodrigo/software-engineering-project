@@ -39,7 +39,7 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 		//FACTURAS
 		case VISTA_PRINCIPAL_FACTURAS:
 			return new VistaPrincipalFacturas();
-		case VISTA_BUSCAR_FACTURAS:
+		case VISTA_BUSCAR_FACTURA:
 			return new VistaBuscarFacturas();
 		case VISTA_MODIFICAR_FACTURAS:
 			return new VistaModificarFacturas();

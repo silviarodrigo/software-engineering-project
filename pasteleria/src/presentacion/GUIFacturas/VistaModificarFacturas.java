@@ -141,7 +141,7 @@ public class VistaModificarFacturas extends JFrame implements IGUI {
 			dispose();
 			break;
 		case MODIFICAR_FACTURA_ERROR:
-			JOptionPane.showMessageDialog(this, "Error al modificar producto: " + datos, "Modificar Factura",
+			JOptionPane.showMessageDialog(this, "Error al modificar la factura: " + datos, "Modificar Factura",
 					JOptionPane.ERROR_MESSAGE);
 			dispose();
 			break;

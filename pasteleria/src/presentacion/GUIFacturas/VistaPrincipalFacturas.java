@@ -34,7 +34,7 @@ public class VistaPrincipalFacturas extends JFrame implements IGUI {
 		buttonPanel.add(bajaBtn);
 		
 		JButton actualizarBtn = new JButton("Buscar factura");
-		actualizarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_BUSCAR_FACTURAS));
+		actualizarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_BUSCAR_FACTURA));
 		buttonPanel.add(actualizarBtn);
 		
 		JButton listarBtn = new JButton("Listar Facturas");
