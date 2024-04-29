@@ -50,6 +50,7 @@ public class SAProductoImp implements SAProducto {
 		if(prod == null) {
 			return -1;
 		}
+		producto.setId(prod.getId());
 		return daoProducto.actualizarProducto(producto);
 	}
 

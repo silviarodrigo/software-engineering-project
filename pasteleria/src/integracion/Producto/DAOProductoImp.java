@@ -237,7 +237,7 @@ public class DAOProductoImp implements DAOProducto {
 		// Escribe el JSONObject jO al archivo filename
 		try {
 			BufferedWriter bW = new BufferedWriter(new FileWriter(filename, false));
-			bW.write(jO.toString());
+			bW.write(jO.toString(3));
 			bW.close();
 			return true;
 		} catch (Exception e) {

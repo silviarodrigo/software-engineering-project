@@ -1,1 +1,1 @@
-{"productos":[{"precio":3,"tipo":"Bebida","tamaño":"grande","marcaId":0,"alergenos":"","id":0,"stock":2,"nombre":"CocaColaLite","activo":true}],"next_id":1}
+{"productos":[{"precio":2.5,"tipo":"Bebida","tamaño":"200","marcaId":0,"alergenos":"lacteos","id":0,"stock":3,"nombre":"LechePascual","activo":true}],"next_id":1}
