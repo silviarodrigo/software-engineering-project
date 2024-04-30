@@ -17,7 +17,7 @@ public class FactoriaNegocio extends FactoriaAbstractaNegocio {
 	}
 	
 	@Override
-	public SAMarca crearMarca() {
+	public SAMarca crearSAMarca() {
 		return new SAMarcaImp();
 	}
 	
@@ -30,4 +30,5 @@ public class FactoriaNegocio extends FactoriaAbstractaNegocio {
 	public SACliente crearSACliente() {
 		return new SAClienteImp();
 	}
+
 }

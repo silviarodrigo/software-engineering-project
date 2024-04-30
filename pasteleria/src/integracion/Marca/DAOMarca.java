@@ -10,5 +10,5 @@ public interface DAOMarca {
 	public boolean actualizarMarca(TMarca marca);
 	public TMarca buscarMarca(int id); 
 	public TMarca buscarMarca(String nombre); //solo cuando se da de alta
-	public Collection<TMarca> listarMarca();
+	public Collection<TMarca> listarMarcas();
 }

@@ -17,7 +17,7 @@ private static FactoriaAbstractaNegocio instance = null;
 	}
 	
 	public abstract SAFactura crearSAFactura();
-	public abstract SAMarca crearMarca();
+	public abstract SAMarca crearSAMarca();
 	public abstract SAProducto creaSAProducto();
 	public abstract SACliente crearSACliente();
 
