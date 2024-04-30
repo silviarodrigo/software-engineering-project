@@ -95,12 +95,13 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 
 	public void actualizar(Evento e, Object datos) {
 		switch (e) {
-		case ANADIR_PRODUCTO_SUCCESS:
-			JOptionPane.showMessageDialog(this, datos, "Anadir Producto", JOptionPane.INFORMATION_MESSAGE);
+		case CERRAR_VENTA_SUCCESS:
+			JOptionPane.showMessageDialog(this, "factura con id " + datos + " creada con éxito.", "Cerrar venta",
+					JOptionPane.INFORMATION_MESSAGE);
 			dispose();
 			break;
-		case ANADIR_PRODUCTO_ERROR:
-			JOptionPane.showMessageDialog(this, datos, "Anadir Producto", JOptionPane.ERROR_MESSAGE);
+		case CERRAR_VENTA_ERROR:
+			JOptionPane.showMessageDialog(this, "Error al cerrar la venta", "Cerrar venta", JOptionPane.ERROR_MESSAGE);
 			dispose();
 			break;
 		default:
