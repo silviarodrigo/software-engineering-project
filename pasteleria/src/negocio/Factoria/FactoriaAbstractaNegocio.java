@@ -1,5 +1,6 @@
 package negocio.Factoria;
 
+import negocio.Cliente.SACliente;
 import negocio.Facturas.SAFactura;
 import negocio.Marca.SAMarca;
 import negocio.Producto.SAProducto;
@@ -14,9 +15,10 @@ private static FactoriaAbstractaNegocio instance = null;
 		}
 		return instance;
 	}
+	
 	public abstract SAFactura crearSAFactura();
 	public abstract SAMarca crearMarca();
 	public abstract SAProducto creaSAProducto();
-
+	public abstract SACliente crearSACliente();
 
 }
