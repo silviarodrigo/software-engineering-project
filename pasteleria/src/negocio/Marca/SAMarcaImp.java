@@ -13,7 +13,6 @@ import integracion.Producto.DAOProducto;
 
 public class SAMarcaImp implements SAMarca{
 	
-	//MODIFCA EN ALGO EL NEXT_ID?? SI LA HA INSERTADO DEVUELVE NEXT_ID??
 	@Override
 	public int altaMarca(TMarca marca) {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
