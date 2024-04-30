@@ -15,6 +15,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
+import negocio.Facturas.TDatosVenta;
 import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
 import presentacion.Evento;
@@ -25,15 +26,16 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 
-	private JTextField _tFIdProducto;
-	private JSpinner _jSCantidad;
+	private JTextField _tFIdCliente;
+	private JTextField _tFIdVendedor;
+	private JTextField _tFFecha;
 
 	public VistaCerrarVenta() {
 		initGUI();
 	}
 
 	void initGUI() {
-		setTitle("Anadir Producto");
+		setTitle("Cerrar Venta");
 
 		JPanel _mainPanel = new JPanel();
 		_mainPanel.setLayout(new BoxLayout(_mainPanel, BoxLayout.Y_AXIS));
@@ -43,26 +45,34 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 		setContentPane(_mainPanel);
 		_mainPanel.add(_anadirPanel);
 
-		JLabel idLabel = new JLabel("Id producto: ");
-		_tFIdProducto = new JTextField();
-		_tFIdProducto.setPreferredSize(new Dimension(100, 20));
-		JPanel nombrePanel = new JPanel();
-		nombrePanel.add(idLabel);
-		nombrePanel.add(_tFIdProducto);
-		_anadirPanel.add(nombrePanel);
+		JLabel idClienteLabel = new JLabel("Id cliente: ");
+		_tFIdCliente = new JTextField();
+		_tFIdCliente.setPreferredSize(new Dimension(100, 20));
+		JPanel clientePanel = new JPanel();
+		clientePanel.add(idClienteLabel);
+		clientePanel.add(_tFIdCliente);
+		_anadirPanel.add(clientePanel);
 
-		JLabel cantidadLabel = new JLabel("Cantidad: ");
-		_jSCantidad = new JSpinner();
-		_jSCantidad.setPreferredSize(new Dimension(100, 20));
-		JPanel cantidadPanel = new JPanel();
-		cantidadPanel.add(cantidadLabel);
-		cantidadPanel.add(_jSCantidad);
-		_anadirPanel.add(cantidadPanel);
+		JLabel idVendedorLabel = new JLabel("Id vendedor: ");
+		_tFIdVendedor = new JTextField();
+		_tFIdVendedor.setPreferredSize(new Dimension(100, 20));
+		JPanel vendedorPanel = new JPanel();
+		vendedorPanel.add(idVendedorLabel);
+		vendedorPanel.add(_tFIdVendedor);
+		_anadirPanel.add(vendedorPanel);
+
+		JLabel fechaLabel = new JLabel("Fecha: ");
+		_tFFecha = new JTextField();
+		_tFFecha.setPreferredSize(new Dimension(100, 20));
+		JPanel fechaPanel = new JPanel();
+		fechaPanel.add(fechaLabel);
+		fechaPanel.add(_tFFecha);
+		_anadirPanel.add(fechaPanel);
 
 		JPanel btnPanel = new JPanel();
 		JButton acceptBtn = new JButton("Aceptar");
 		acceptBtn.addActionListener(
-				(e) -> anadirProducto(this._tFIdProducto.getText(), this._jSCantidad.getValue().toString()));
+				(e) -> cerrarVenta(this._tFIdCliente.getText(), this._tFIdVendedor.getText(), this._tFFecha.getText()));
 		JButton cancelBtn = new JButton("Cancelar");
 		cancelBtn.addActionListener((e) -> dispose());
 		btnPanel.add(acceptBtn);
@@ -74,21 +84,18 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 		setVisible(true);
 	}
 
-	private void anadirProducto(String id_producto, String cant) {
-		int id_prod;
-		int cantidad;
+	private void cerrarVenta(String id_c, String id_v, String f) {
+		int id_cliente;
+		int id_vendedor;
+		String fecha;
 		try {
-			id_prod = Integer.parseInt(id_producto);
-			cantidad = Integer.parseInt(cant);
-			if (cantidad <= 0) {
-				JOptionPane.showMessageDialog(this, "Debes indicar una cantidad valida", "Anadir Producto",
-						JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-			TLineaFactura linea = new TLineaFactura(id_prod, 0, 0, cantidad);
-			Controlador.getInstance().accion(Evento.ANADIR_PRODUCTO, linea);
+			id_cliente = Integer.parseInt(id_c);
+			id_vendedor = Integer.parseInt(id_v);
+			fecha = f;
+			TFactura factura = new TFactura(0, 0, new TDatosVenta(fecha, id_cliente, id_vendedor, null), true);
+			Controlador.getInstance().accion(Evento.CERRAR_VENTA, factura);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Debes indicar un id de producto valido", "Anadir Producto",
+			JOptionPane.showMessageDialog(this, "Debes indicar un id valido", "Cerrar Venta",
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -96,7 +103,7 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 	public void actualizar(Evento e, Object datos) {
 		switch (e) {
 		case CERRAR_VENTA_SUCCESS:
-			JOptionPane.showMessageDialog(this, "factura con id " + datos + " creada con éxito.", "Cerrar venta",
+			JOptionPane.showMessageDialog(this, "factura con id " + datos + " creada con exito.", "Cerrar venta",
 					JOptionPane.INFORMATION_MESSAGE);
 			dispose();
 			break;

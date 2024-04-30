@@ -5,6 +5,8 @@ import negocio.Facturas.TDatosVenta;
 import java.io.BufferedReader;
 import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
+import negocio.Producto.TProducto;
+
 import org.json.*;
 
 import integracion.Factoria.FactoriaAbstractaIntegracion;
@@ -25,6 +27,7 @@ public class DAOFacturaImp implements DAOFactura {
 	public boolean modificarFactura(int id_f, int id_c, int id_v, String fecha) {
 		boolean exito = false;
 		try {
+			
 			BufferedReader br = new BufferedReader(new FileReader("Facturas.json"));
 			JSONObject ji = new JSONObject(new JSONTokener(br));
 			JSONArray ja = new JSONArray();
@@ -69,8 +72,7 @@ public class DAOFacturaImp implements DAOFactura {
 	public TFactura buscarFactura(int id_factura) {
 		TFactura factura = null;
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("Facturas.json"));
-			JSONObject ji = new JSONObject(new JSONTokener(br));
+			JSONObject ji = getJSONFromFile("Facturas.json");
 			JSONArray ja = new JSONArray();
 			ja = ji.getJSONArray("ListaFacturas");
 
@@ -96,11 +98,11 @@ public class DAOFacturaImp implements DAOFactura {
 				factura = new TFactura(ja.getJSONObject(i).getInt("id_factura"),
 						ja.getJSONObject(i).getDouble("precio"), dt, ja.getJSONObject(i).getBoolean("activa"));
 			}
-			if (br != null) {// cerramos el fichero siempre
-				br.close();
-			}
+//			if (br != null) {// cerramos el fichero siempre
+//				br.close();
+//			}
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			return null;
 		}
 		return factura;
@@ -190,6 +192,47 @@ public class DAOFacturaImp implements DAOFactura {
 		}
 		return facturas;
 
+	}
+	
+	private TProducto searchInJArray(String nombre, JSONArray ja) {
+		// Nos devuelve el TProducto con nombre 'nombre'  en la JSONArray ja
+		// Devuelve null si no existe
+		if (ja == null) {
+			return null;
+		}
+		int i = 0;
+		while (i < ja.length() && !(ja.getJSONObject(i).get("nombre").equals(nombre))) {
+			i++;
+		}
+		if (i == ja.length()) {
+			return null;
+		}
+		return createTProducto(ja.getJSONObject(i));
+	}
+	
+	private JSONObject getJSONFromFile(String filename) {
+		// Devuelve el JSONObject del archivo filename
+		JSONObject jO;
+		try {
+			InputStream in  = new FileInputStream(new File(filename));
+			jO = new JSONObject(new JSONTokener(in));
+			
+		} catch (FileNotFoundException e) {
+			jO = null;	
+		}
+		return jO;
+	}
+	
+	
+	private JSONArray getProductosJArray(String filename) {
+		// Devuelve el JSONArray guardado en el archivo filename
+		JSONObject jO = getJSONFromFile(filename); 
+		if (jO == null) {
+			return null;
+		}
+		else {
+			return jO.getJSONArray("productos");
+		}
 	}
 
 }

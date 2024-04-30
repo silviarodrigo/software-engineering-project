@@ -47,7 +47,7 @@ public class Carrito {
 			i++;
 		}
 		if (encontrado)
-			return i;
+			return i-1;
 		else
 			return -1;
 	}
