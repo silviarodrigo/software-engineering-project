@@ -5,7 +5,7 @@
       "fecha": "17/8/2004",
       "id_cliente": 1,
       "id_vendedor": 2,
-      "precio": "3.2",
+      "precio": 3.2,
       "activa": true
     }
   ],

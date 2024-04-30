@@ -3,10 +3,12 @@ package negocio.Facturas;
 import java.util.Collection;
 
 import integracion.Cliente.DAOCliente;
+import integracion.Empleado.DAOEmpleado;
 import integracion.Factoria.FactoriaAbstractaIntegracion;
 import integracion.Facturas.*;
 import integracion.Producto.DAOProducto;
 import negocio.Cliente.TCliente;
+import negocio.Empleados.TEmpleado;
 import negocio.Producto.TProducto;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class SAFacturaImp implements SAFactura {
 		DAOLineaFactura daoLineaFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
 		DAOCliente daoCliente = FactoriaAbstractaIntegracion.getInstance().crearDAOCliente();
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
-		DAOEmpleados daoEmpleado = FactoriaAbstractaIntegracion.getInstance().crearDAOEmpleado();
+		DAOEmpleado daoEmpleado = FactoriaAbstractaIntegracion.getInstance().crearDAOEmpleado();
 
 		TFactura factura;
 		ArrayList<TLineaFactura> lineas_factura_definitivas = new ArrayList<TLineaFactura>();
@@ -71,7 +73,7 @@ public class SAFacturaImp implements SAFactura {
 				lf.setIdFactura(id_factura);
 				daoLineaFactura.crearLineaFactura(lf);
 			}
-			vendedor.setNumVentas(vendedor.getNumVentas + 1);
+			vendedor.setNumVentas(vendedor.getNumVentas() + 1);
 			vendedor.update();
 		}
 		return id_factura;

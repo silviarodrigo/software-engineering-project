@@ -87,16 +87,19 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 			_infoPanel.add(fechaLabel);
 			_infoPanel.add(id_clienteLabel);
 			_infoPanel.add(id_vendedor);
-			for (TLineaFactura lf : datos_venta.getProductos()) {
-				if (lf.getActivo()) {
-					JLabel idlineaLabel = new JLabel("Id linea: " + lf.getIdLinea());
-					JLabel productoLabel = new JLabel("Id producto: " + lf.getIdProducto());
-					JLabel cantidadLabel = new JLabel("Cantidad: " + lf.getCantidad());
-					_infoPanel.add(idlineaLabel);
-					_infoPanel.add(productoLabel);
-					_infoPanel.add(cantidadLabel);
+			if (datos_venta.getProductos() != null) {
+				for (TLineaFactura lf : datos_venta.getProductos()) {
+					if (lf.getActivo()) {
+						JLabel idlineaLabel = new JLabel("Id linea: " + lf.getIdLinea());
+						JLabel productoLabel = new JLabel("Id producto: " + lf.getIdProducto());
+						JLabel cantidadLabel = new JLabel("Cantidad: " + lf.getCantidad());
+						_infoPanel.add(idlineaLabel);
+						_infoPanel.add(productoLabel);
+						_infoPanel.add(cantidadLabel);
+					}
 				}
 			}
+
 		}
 
 		JButton continuarBtn = new JButton("Continuar");
@@ -111,7 +114,8 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 		try {
 			id_factura = Integer.parseInt(this._tFIdFactura.getText());
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Debes indicar un id de factura valido", "Buscar Factura", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Debes indicar un id de factura valido", "Buscar Factura",
+					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
