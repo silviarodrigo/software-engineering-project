@@ -1,59 +1,168 @@
 package integracion.Cliente;
 
 import java.util.Collection;
+
 import org.json.*;
 import java.io.*;
 
 import negocio.Cliente.TCliente;
 
+import java.util.ArrayList;
+
 public class DAOClienteImp implements DAOCliente {
 
 	@Override
-	public String insertarCliente(TCliente cliente) {
-		String nom_y_ap = cliente.getNombreYApellidos();
-		String correo = cliente.getCorreo();
-		int dni = cliente.getId();
-		
-		JSONObject jo = new JSONObject();
-		
-		
+	public int altaCliente(TCliente tcliente) {
+		JSONObject jCliente = this.createJSON(tcliente);
+
+		JSONObject jo = this.loadData();
+
+		JSONArray ja = new JSONArray();
+
+		int n_id;
+
+		if (jo != null) { // Fichero JSON existente
+			ja = jo.getJSONArray("clientes");
+			n_id = jo.getInt("next_id");
+			jCliente.put("id", n_id);
+			ja.put(jCliente);
+			return n_id;
+		} else { // Fichero JSON inexistente (es la primera vez que se realiza el alta de un cliente)
+			jo = new JSONObject();
+			n_id = 0;
+			jCliente.put("id", n_id);
+			ja.put(jCliente);
+		}
+
+		jo.put("clientes", ja);
+		jo.put("next_id", n_id + 1);
+
+		if (this.saveData(jo)) { // Alta del cliente realizada con éxito.
+			return n_id;
+		}
+
+		return -1; // Ha ocurrido algún error y no se ha podido realizar el alta del cliente.
 	}
 
 	@Override
 	public boolean bajaCliente(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		JSONObject jo = this.loadData();
+		
+		if (jo == null) { // Fichero JSON inexistente (aún no hay clientes insertados)
+			return false;
+		}
+		
+		JSONArray ja = jo.getJSONArray("clientes");
+		
+		JSONObject jCliente = ja.getJSONObject(id);
+		
+		jCliente.put("activo", false);
+		
+		ja.put(id, jCliente);
+		
+		jo.put("clientes", ja);
+		
+		return true;
 	}
 
 	@Override
-	public TCliente buscarCliente(int id) {
+	public TCliente buscarCliente(int id) { // Para gestión interna (buscamos por id de la base de datos)
+		JSONObject jo = this.loadData();
+		
+		if (jo == null) return null; // Fichero JSON inexistente (aún no hay clientes insertados)
+		
+		JSONArray ja = jo.getJSONArray("clientes");
+		
+		JSONObject jCliente = ja.getJSONObject(id);
+		
+		return this.createTCliente(jCliente);
+	}
+
+	/*@Override
+	public TCliente buscarCliente(String dni) { // Para buscar al crear un nuevo cliente, se hace por dni
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 	@Override
-	public boolean actualizarCliente(TCliente cliente) {
-		// TODO Auto-generated method stub
-		return false;
+	public int actualizarCliente(TCliente cliente) {
+		JSONObject jo = this.loadData();
+		
+		if (jo == null) return -1; // Fichero JSON inexistente (aún no hay clientes insertados)
+		
+		JSONObject jCliente = this.createJSON(cliente);
+		
+		JSONArray ja = jo.getJSONArray("clientes");
+		
+		ja.put(cliente.getId(), jCliente);
+		
+		jo.put("clientes", ja);
+		
+		if (this.saveData(jo)) { // Actualización del cliente realizada con éxito.
+			return cliente.getId();
+		}
+
+		return -1; // Ha ocurrido algún error y no se ha podido realizar la actualización del cliente.
 	}
 
 	@Override
 	public Collection<TCliente> listarClientes() {
-		// TODO Auto-generated method stub
-		return null;
+		JSONObject jo = this.loadData();
+		
+		if (jo == null) return null; // Fichero JSON inexistente (aún no hay clientes insertados)
+		
+		Collection<TCliente> listaClientes = new ArrayList<TCliente>();
+		
+		JSONArray ja = jo.getJSONArray("clientes");
+		
+		for (int i =0;i< ja.length();i++) {
+			listaClientes.add(this.createTCliente(ja.getJSONObject(i)));
+		}
+		
+		return listaClientes;
 	}
-	
-	JSONObject loadData() throws Exception {
+
+	JSONObject loadData() { // Obtenemos los clientes del fichero JSON.
 		JSONObject jo = new JSONObject();
 		try {
-			// Obtenemos los clientes del fichero JSON.
 			InputStream is = new FileInputStream(new File("Cliente/resources/Cliente.json"));
 			jo = new JSONObject(new JSONTokener(is));
-		}
-		catch(Exception e) {
-			throw new IOException(e.getMessage());
+		} catch (FileNotFoundException e) {
+			jo = null;
 		}
 		return jo;
+	}
+
+	private boolean saveData(JSONObject jo) {
+		try {
+			BufferedWriter bufw = new BufferedWriter(new FileWriter("Cliente/resources/Cliente.json", false));
+			bufw.write(jo.toString());
+			bufw.close();
+		} catch (IOException e) {
+			return false;
+		}
+		return true;
+	}
+
+	private JSONObject createJSON(TCliente tcliente) {
+		JSONObject jCliente = new JSONObject();
+		jCliente.put("nombre", tcliente.getNombre());
+		jCliente.put("apellidos", tcliente.getApellidos());
+		jCliente.put("DNI", tcliente.getDNI());
+		jCliente.put("correo", tcliente.getCorreo());
+
+		return jCliente;
+	}
+	
+	private TCliente createTCliente(JSONObject jo) {
+		String nombre = jo.getString("nombre");
+		String apellidos = jo.getString("apellidos");
+		String dni = jo.getString("DNI");
+		String correo = jo.getString("correo");
+		boolean activo = jo.getBoolean("activo");
+		int id = jo.getInt("id");
+		
+		return new TCliente(nombre, apellidos, dni, correo, activo, id);
 	}
 
 }
