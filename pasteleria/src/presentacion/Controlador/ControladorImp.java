@@ -3,12 +3,14 @@ package presentacion.Controlador;
 import presentacion.Evento;
 import presentacion.factoria.FactoriaAbstractaPresentacion;
 import negocio.Producto.TProducto;
+import negocio.Marca.TMarca;
 
 import java.util.Collection;
 
 import negocio.Factoria.FactoriaAbstractaNegocio;
 import negocio.Facturas.SAFactura;
 import negocio.Producto.SAProducto;
+import negocio.Marca.SAMarca;
 import negocio.Facturas.*;
 
 public class ControladorImp extends Controlador {
@@ -69,6 +71,37 @@ public class ControladorImp extends Controlador {
 			break;
 		case BUSCAR_FACTURA:
 			buscarFactura(datos);
+			break;
+		// MARCA
+		case VISTA_PRINCIPAL_MARCA:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_MARCA);
+			break;
+		case VISTA_ALTA_MARCA:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_MARCA);
+			break;
+		case VISTA_BAJA_MARCA:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_MARCA);
+			break;
+		case VISTA_ACTUALIZAR_MARCA:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_MARCA);
+			break;
+		case VISTA_BUSCAR_MARCA:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_MARCA);
+			break;
+		case VISTA_LISTAR_MARCAS:
+			listarMarcas(datos);
+			break;
+		case ACTUALIZAR_MARCA:
+			actualizarMarca(datos);
+			break;
+		case ALTA_MARCA:
+			altaMarca(datos);
+			break;
+		case BAJA_MARCA:
+			bajaMarca(datos);
+			break;
+		case BUSCAR_MARCA:
+			buscarMarca(datos);
 			break;
 		}
 	}
@@ -178,4 +211,68 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.BUSCAR_FACTURA_ERROR, "factura no encontrada.");
 		}
 	}
+	
+	
+	
+	//MARCAS
+	private void altaMarca(Object datos) {
+		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
+		TMarca marca = (TMarca) datos;
+		try {
+			int id = SAMarca.altaMarca(marca);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_MARCA)
+					.actualizar(Evento.ALTA_MARCA_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_MARCA)
+					.actualizar(Evento.ALTA_MARCA_ERROR, e.getMessage());
+		}
+	}
+
+	private void bajaMarca(Object datos) {
+		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
+		int id = (int) datos;
+		try {
+			boolean eliminada = SAMarca.bajaMarca(id);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_MARCA)
+					.actualizar(Evento.BAJA_MARCA_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_MARCA)
+					.actualizar(Evento.BAJA_MARCA_ERROR, e.getMessage());
+		}
+	}
+	
+	private void actualizarMarca(Object datos) {
+		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
+		TMarca marca = (TMarca) datos;
+		try {
+			boolean actualizada = SAMarca.actualizarMarca(marca);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_MARCA)
+					.actualizar(Evento.ACTUALIZAR_MARCA_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_MARCA)
+					.actualizar(Evento.ACTUALIZAR_MARCA_ERROR, e.getMessage());
+		}
+	}
+
+	private void buscarMarca(Object datos) {
+		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
+		int id = (int) datos;
+		TMarca marca = SAMarca.buscarMarca(id);
+		if (marca != null) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_MARCA)
+					.actualizar(Evento.BUSCAR_MARCA_SUCCESS, marca);
+		} else {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_MARCA)
+					.actualizar(Evento.BUSCAR_MARCA_ERROR, "Producto no encontrado.");
+		}
+	}
+
+	private void listarMarcas(Object datos) {
+		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
+		Collection<TMarca> marcas = SAMarca.listarMarcas();
+		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_MARCAS)
+				.actualizar(Evento.LISTAR_MARCAS, marcas);
+	}
+	
+	
 }

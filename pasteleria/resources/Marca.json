@@ -1,1 +1,23 @@
-{"Marcas":[], "next_id": 0}
+{
+   "Marcas": [
+      {
+         "Nombre": "Nico",
+         "Correo": "nico@nico.es",
+         "Activo": true,
+         "Id": 0
+      },
+      {
+         "Nombre": "Mac",
+         "Correo": "mac@mac.es",
+         "Activo": true,
+         "Id": 1
+      },
+      {
+         "Nombre": "Ig",
+         "Correo": "ig@ig.es",
+         "Activo": true,
+         "Id": 2
+      }
+   ],
+   "next_id": 3
+}

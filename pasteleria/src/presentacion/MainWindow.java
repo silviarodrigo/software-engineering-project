@@ -32,6 +32,10 @@ public class MainWindow extends JFrame implements IGUI {
 		facturasBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_PRINCIPAL_FACTURAS));
 		buttonPanel.add(facturasBtn);
 		
+		JButton marcasBtn = new JButton("Marca");
+		marcasBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_PRINCIPAL_MARCA));
+		buttonPanel.add(marcasBtn);
+		
 		pack();
 		setResizable(false);
 		setLocationRelativeTo(null);

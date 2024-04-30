@@ -52,7 +52,6 @@ private ModeloTablaMarca _modeloTabla;
 
 	@Override
 	public void actualizar(Evento e, Object datos) {
-		System.out.println("LISTAR MARCAS");
 		switch (e) {
 		case LISTAR_MARCAS:
 			Collection<TMarca> marcas = (Collection<TMarca>) datos;

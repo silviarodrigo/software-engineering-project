@@ -75,8 +75,8 @@ public class SAMarcaImp implements SAMarca{
 	}
 	
 	
-	public Collection<TMarca> listarMarca(){
+	public Collection<TMarca> listarMarcas(){
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
-		return daoMarca.listarMarca();
+		return daoMarca.listarMarcas();
 	}
 }

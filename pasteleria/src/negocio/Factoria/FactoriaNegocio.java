@@ -22,4 +22,8 @@ public class FactoriaNegocio extends FactoriaAbstractaNegocio {
 		return new SAProductoImp();
 	}
 
+	public SAMarca crearSAMarca() {
+		return new SAMarcaImp();
+	}
+
 }

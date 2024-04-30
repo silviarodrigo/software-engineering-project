@@ -7,5 +7,5 @@ public interface SAMarca {
 	public boolean bajaMarca(int id);
 	public boolean actualizarMarca(TMarca marca);
 	public TMarca buscarMarca(int id);
-	public Collection<TMarca> listarMarca();
+	public Collection<TMarca> listarMarcas();
 }

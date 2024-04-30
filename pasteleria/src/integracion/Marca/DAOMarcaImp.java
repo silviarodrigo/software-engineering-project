@@ -165,7 +165,7 @@ public class DAOMarcaImp implements DAOMarca {
 
 
 	@Override
-	public Collection<TMarca> listarMarca() { 
+	public Collection<TMarca> listarMarcas() { 
 		Collection<TMarca> lista = new ArrayList<TMarca>();
 		
 		//Accedemos a los datos guardados
@@ -187,7 +187,7 @@ public class DAOMarcaImp implements DAOMarca {
 	private JSONObject getJSONFromFile() {
 		JSONObject JO;
 		try {
-			InputStream in  = new FileInputStream(new File("pasteleria/resources/Marca.json"));
+			InputStream in  = new FileInputStream(new File("resources/Marca.json"));
 			JO = new JSONObject(new JSONTokener(in));
 			
 		} catch (FileNotFoundException e) {
@@ -207,7 +207,7 @@ public class DAOMarcaImp implements DAOMarca {
 	
 	private boolean writeJSONObject(JSONObject JO) {		
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter("pasteleria/resources/Marca.json"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("resources/Marca.json"));
 			bw.write(JO.toString(3));
 			bw.close();
 			return true;
