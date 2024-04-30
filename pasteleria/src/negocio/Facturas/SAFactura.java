@@ -9,9 +9,9 @@ public interface SAFactura {
 
 	public int crearFactura(TDatosVenta datos);
 
-	public void anadirProducto(TLineaFactura linea, Carrito c);
+	public boolean anadirProducto(TLineaFactura linea, Carrito c);
 
-	public void eliminarProducto(TLineaFactura linea, Carrito c);
+	public boolean eliminarProducto(TLineaFactura linea, Carrito c);
 	
 	public int cerrarVenta(Carrito c,int id_cliente, int id_vendedor,String fecha);
 	

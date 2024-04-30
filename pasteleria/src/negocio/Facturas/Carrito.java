@@ -23,13 +23,17 @@ public class Carrito {
 		}
 	}
 
-	public void eliminarProducto(TLineaFactura linea) {
+	public boolean eliminarProducto(TLineaFactura linea) {
 		int i = buscarEnLista(linea);
 		if (i == -1) {
-			this.lista_productos.remove(linea);
+			return false;
 		} else {
 			this.lista_productos.get(i)
 					.setCantidadProducto(this.lista_productos.get(i).getCantidad() - linea.getCantidad());
+			if(this.lista_productos.get(i).getCantidad()<=0) {
+				this.lista_productos.get(i).setActivo(false);
+			}
+			return true;
 		}
 	}
 
