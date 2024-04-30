@@ -11,10 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import negocio.Marca.TMarca;
-import negocio.Producto.TBebida;
-import negocio.Producto.TDulce;
-import negocio.Producto.TPan;
-import negocio.Producto.TProducto;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
@@ -97,11 +93,20 @@ public class VistaAltaMarca extends JDialog implements IGUI{
 	}
 	
 	
-	
-	
 	@Override
 	public void actualizar(Evento e, Object datos) {
-		// TODO Auto-generated method stub
+		switch(e) {
+		case ALTA_MARCA_SUCCESS:
+			JOptionPane.showMessageDialog(this, "Marca con id " + datos + " dado de alta con éxito", "Alta Marca", JOptionPane.INFORMATION_MESSAGE);
+			dispose();
+			break;
+		case ALTA_MARCA_ERROR:
+			JOptionPane.showMessageDialog(this, "Error al dar de alta la marca: " + datos, "Alta Marca", JOptionPane.ERROR_MESSAGE);
+			dispose();
+			break;
+		default:
+			break;
+		}
 		
 	}
 }
