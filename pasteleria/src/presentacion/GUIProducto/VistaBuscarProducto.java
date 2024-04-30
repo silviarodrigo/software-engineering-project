@@ -113,7 +113,6 @@ public class VistaBuscarProducto extends JFrame implements IGUI {
 			JOptionPane.showMessageDialog(this, "Debes indicar un nombre", "Buscar Producto", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
 		Controlador.getInstance().accion(Evento.BUSCAR_PRODUCTO, nombre);
 	}
 	

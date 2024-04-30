@@ -25,9 +25,21 @@ public class VistaPrincipalFacturas extends JFrame implements IGUI {
 		JPanel buttonPanel = new JPanel();
 		mainPanel.add(buttonPanel);
 		
-		JButton altaBtn = new JButton("Abrir venta");
-		altaBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_ABRIR_VENTA));
-		buttonPanel.add(altaBtn);
+		JButton abrirBtn = new JButton("Abrir venta");
+		abrirBtn.addActionListener((e) -> listenerAbrirVentana(Evento.ABRIR_VENTA));
+		buttonPanel.add(abrirBtn);
+		
+		JButton annadirBtn = new JButton("Anadir producto");
+		annadirBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_ANADIR_PRODUCTO));
+		buttonPanel.add(annadirBtn);
+		
+		JButton eliminarBtn = new JButton("Eliminar producto");
+		eliminarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_ELIMINAR_PRODUCTO));
+		buttonPanel.add(eliminarBtn);
+		
+		JButton cerrarBtn = new JButton("Cerrar venta");
+		cerrarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_CERRAR_VENTA));
+		buttonPanel.add(cerrarBtn);
 		
 		JButton bajaBtn = new JButton("Modificar factura");
 		bajaBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_MODIFICAR_FACTURA));
@@ -40,10 +52,6 @@ public class VistaPrincipalFacturas extends JFrame implements IGUI {
 		JButton listarBtn = new JButton("Listar Facturas");
 		listarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_LISTAR_FACTURAS));
 		buttonPanel.add(listarBtn);
-		
-//		JButton buscarBtn = new JButton("Volver");
-//		buscarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_BUSCAR_PRODUCTO));
-//		buttonPanel.add(buscarBtn);
 		
 		pack();
 		setResizable(false);

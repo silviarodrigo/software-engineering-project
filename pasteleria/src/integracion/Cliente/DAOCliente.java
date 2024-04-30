@@ -9,11 +9,11 @@ public interface DAOCliente {
 
 	public int altaCliente(TCliente cliente);
 
-	public boolean bajaCliente(int id);
+	public void bajaCliente(int id);
 
 	public TCliente buscarCliente(int id);
 	
-	//public TCliente buscarCliente(String dni);
+	public TCliente buscarCliente(String dni);
 
 	public int actualizarCliente(TCliente cliente);
 

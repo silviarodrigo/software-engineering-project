@@ -10,10 +10,12 @@ import presentacion.GUIProducto.VistaBuscarProducto;
 import presentacion.GUIProducto.VistaListarProducto;
 import presentacion.MainWindow;
 import presentacion.GUIFacturas.VistaBuscarFacturas;
+import presentacion.GUIFacturas.VistaCerrarVenta;
+import presentacion.GUIFacturas.VistaEliminarProducto;
 import presentacion.GUIFacturas.VistaListarFacturas;
 import presentacion.GUIFacturas.VistaModificarFacturas;
 import presentacion.GUIFacturas.VistaPrincipalFacturas;
-import presentacion.GUIFacturas.VistaAbrirVenta;
+import presentacion.GUIFacturas.VistaAnadirProducto;
 import presentacion.GUIMarca.VistaPrincipalMarca;
 import presentacion.GUIMarca.VistaAltaMarca;
 import presentacion.GUIMarca.VistaBajaMarca;
@@ -45,12 +47,16 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 			return new VistaPrincipalFacturas();
 		case VISTA_BUSCAR_FACTURA:
 			return new VistaBuscarFacturas();
-		case VISTA_MODIFICAR_FACTURAS:
+		case VISTA_MODIFICAR_FACTURA:
 			return new VistaModificarFacturas();
 		case VISTA_LISTAR_FACTURAS:
 			return new VistaListarFacturas();
-		case VISTA_ABRIR_VENTA:
-			return new VistaAbrirVenta();
+		case VISTA_ANADIR_PRODUCTO:
+			return new VistaAnadirProducto();
+		case VISTA_ELIMINAR_PRODUCTO:
+			return new VistaEliminarProducto();
+		case VISTA_CERRAR_VENTA:
+			return new VistaCerrarVenta();
 		//MARCA
 		case VISTA_PRINCIPAL_MARCA:
 			return new VistaPrincipalMarca();

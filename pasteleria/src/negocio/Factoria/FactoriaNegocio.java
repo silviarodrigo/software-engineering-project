@@ -1,5 +1,7 @@
 package negocio.Factoria;
 
+import negocio.Cliente.SACliente;
+import negocio.Cliente.SAClienteImp;
 import negocio.Facturas.SAFactura;
 import negocio.Facturas.SAFacturaImp;
 import negocio.Marca.SAMarca;
@@ -14,16 +16,19 @@ public class FactoriaNegocio extends FactoriaAbstractaNegocio {
 		return new SAFacturaImp();
 	}
 	
-	public SAMarca crearMarca() {
+	@Override
+	public SAMarca crearSAMarca() {
 		return new SAMarcaImp();
 	}
 	
+	@Override
 	public SAProducto creaSAProducto() {
 		return new SAProductoImp();
 	}
 
-	public SAMarca crearSAMarca() {
-		return new SAMarcaImp();
+	@Override
+	public SACliente crearSACliente() {
+		return new SAClienteImp();
 	}
 
 }

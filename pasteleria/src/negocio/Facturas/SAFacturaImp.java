@@ -77,12 +77,27 @@ public class SAFacturaImp implements SAFactura {
 		return id_factura;
 	}
 
-	public void anadirProducto(TLineaFactura linea, Carrito c) {
-		c.anadirProducto(linea);
+	public boolean anadirProducto(TLineaFactura linea, Carrito c) {
+		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
+		TProducto producto = daoProducto.buscarProducto(linea.getIdProducto());
+		if (producto != null) {
+			c.anadirProducto(linea);
+		} else {
+			return false;
+		}
+		return true;
 	}
 
-	public void eliminarProducto(TLineaFactura linea, Carrito c) {
-		c.eliminarProducto(linea);
+	public boolean eliminarProducto(TLineaFactura linea, Carrito c) {
+		boolean exito = true;
+		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
+		TProducto producto = daoProducto.buscarProducto(linea.getIdProducto());
+		if (producto != null) {
+			exito = c.eliminarProducto(linea);
+		} else {
+			exito = false;
+		}
+		return exito;
 	}
 
 	public int cerrarVenta(Carrito c, int id_cliente, int id_vendedor, String fecha) {

@@ -21,13 +21,13 @@ public class DAOClienteImp implements DAOCliente {
 
 		int n_id;
 
-		if (jo != null) { // Fichero JSON existente
+		if (jo != null) { // Fichero JSON existente.
 			ja = jo.getJSONArray("clientes");
 			n_id = jo.getInt("next_id");
 			jCliente.put("id", n_id);
 			ja.put(jCliente);
-			return n_id;
-		} else { // Fichero JSON inexistente (es la primera vez que se realiza el alta de un cliente)
+		} else { // Fichero JSON inexistente (es la primera vez que se realiza el alta de un
+					// cliente)
 			jo = new JSONObject();
 			n_id = 0;
 			jCliente.put("id", n_id);
@@ -45,80 +45,93 @@ public class DAOClienteImp implements DAOCliente {
 	}
 
 	@Override
-	public boolean bajaCliente(int id) {
+	public void bajaCliente(int id) {
 		JSONObject jo = this.loadData();
 		
-		if (jo == null) { // Fichero JSON inexistente (aún no hay clientes insertados)
-			return false;
+		if (jo != null) { // Fichero JSON existente.
+			JSONArray ja = jo.getJSONArray("clientes");
+
+			JSONObject jCliente = ja.getJSONObject(id);
+
+			jCliente.put("activo", false);
+
+			ja.put(id, jCliente);
+
+			jo.put("clientes", ja);
 		}
-		
-		JSONArray ja = jo.getJSONArray("clientes");
-		
-		JSONObject jCliente = ja.getJSONObject(id);
-		
-		jCliente.put("activo", false);
-		
-		ja.put(id, jCliente);
-		
-		jo.put("clientes", ja);
-		
-		return true;
 	}
 
 	@Override
 	public TCliente buscarCliente(int id) { // Para gestión interna (buscamos por id de la base de datos)
 		JSONObject jo = this.loadData();
-		
-		if (jo == null) return null; // Fichero JSON inexistente (aún no hay clientes insertados)
-		
+
+		if (jo == null)
+			return null; // Fichero JSON inexistente (aún no hay clientes insertados)
+
 		JSONArray ja = jo.getJSONArray("clientes");
-		
+
 		JSONObject jCliente = ja.getJSONObject(id);
-		
+
 		return this.createTCliente(jCliente);
 	}
 
-	/*@Override
-	public TCliente buscarCliente(String dni) { // Para buscar al crear un nuevo cliente, se hace por dni
-		// TODO Auto-generated method stub
-		return null;
-	}*/
+	@Override
+	public TCliente buscarCliente(String dni) { // Para búsqueda externa (buscamos por dni del cliente).
+		JSONObject jo = this.loadData();
+
+		if (jo == null)
+			return null; // Fichero JSON inexistente (aún no hay clientes insertados)
+		
+		JSONArray ja = jo.getJSONArray("clientes");
+		
+		int i =0;
+		while (i<ja.length() && !(ja.getJSONObject(i).getString("DNI").equals(dni))) {
+			++i;
+		}
+		
+		if (i == ja.length()) return null;
+		
+		return this.createTCliente(ja.getJSONObject(i));
+	}
 
 	@Override
 	public int actualizarCliente(TCliente cliente) {
 		JSONObject jo = this.loadData();
-		
-		if (jo == null) return -1; // Fichero JSON inexistente (aún no hay clientes insertados)
-		
+
+		if (jo == null)
+			return -1; // Fichero JSON inexistente (aún no hay clientes insertados)
+
 		JSONObject jCliente = this.createJSON(cliente);
-		
+
 		JSONArray ja = jo.getJSONArray("clientes");
-		
+
 		ja.put(cliente.getId(), jCliente);
-		
+
 		jo.put("clientes", ja);
-		
+
 		if (this.saveData(jo)) { // Actualización del cliente realizada con éxito.
 			return cliente.getId();
 		}
 
-		return -1; // Ha ocurrido algún error y no se ha podido realizar la actualización del cliente.
+		return -1; // Ha ocurrido algún error y no se ha podido realizar la actualización del
+					// cliente.
 	}
 
 	@Override
 	public Collection<TCliente> listarClientes() {
 		JSONObject jo = this.loadData();
-		
-		if (jo == null) return null; // Fichero JSON inexistente (aún no hay clientes insertados)
-		
+
+		if (jo == null)
+			return null; // Fichero JSON inexistente (aún no hay clientes insertados)
+
 		Collection<TCliente> listaClientes = new ArrayList<TCliente>();
-		
+
 		JSONArray ja = jo.getJSONArray("clientes");
-		
-		for (int i =0;i< ja.length();i++) {
+
+		for (int i = 0; i < ja.length(); i++) {
 			listaClientes.add(this.createTCliente(ja.getJSONObject(i)));
 		}
-		
+
 		return listaClientes;
 	}
 
@@ -153,7 +166,7 @@ public class DAOClienteImp implements DAOCliente {
 
 		return jCliente;
 	}
-	
+
 	private TCliente createTCliente(JSONObject jo) {
 		String nombre = jo.getString("nombre");
 		String apellidos = jo.getString("apellidos");
@@ -161,7 +174,7 @@ public class DAOClienteImp implements DAOCliente {
 		String correo = jo.getString("correo");
 		boolean activo = jo.getBoolean("activo");
 		int id = jo.getInt("id");
-		
+
 		return new TCliente(nombre, apellidos, dni, correo, activo, id);
 	}
 
