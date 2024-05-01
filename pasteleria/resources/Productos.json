@@ -1,0 +1,28 @@
+{
+   "productos": [
+      {
+         "precio": 4,
+         "tipo": "Pan",
+         "marcaId": 2,
+         "integral": true,
+         "alergenos": "Gluten",
+         "id": 0,
+         "stock": 30,
+         "nombre": "PanBimbo",
+         "activo": true,
+         "sal": true
+      },
+      {
+         "precio": 2,
+         "tipo": "Dulce",
+         "marcaId": 2,
+         "relleno": "Fresa",
+         "alergenos": "1",
+         "id": 1,
+         "stock": 30,
+         "nombre": "Donetes",
+         "activo": false
+      }
+   ],
+   "next_id": 2
+}
