@@ -20,7 +20,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class DAOProductoImp implements DAOProducto {
-	private static String _PRODUCTO_FILENAME = "resources/Producto.json";
+	private static String _PRODUCTO_FILENAME = "resources/Productos.json";
 	
 	@Override
 	public int altaProducto(TProducto producto) {

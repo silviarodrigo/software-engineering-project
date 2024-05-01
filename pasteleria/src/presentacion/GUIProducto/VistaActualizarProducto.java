@@ -182,6 +182,7 @@ public class VistaActualizarProducto extends JFrame implements IGUI {
 		endPanel.add(cancelBtn);
 		mainPanel.add(endPanel);
 		
+	    setPreferredSize(new Dimension(400, 300));
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -266,7 +267,7 @@ public class VistaActualizarProducto extends JFrame implements IGUI {
 			}
 			producto = new TBebida(nombre, precio, alergenos, stock, marcaId, tamanyo);
 		}
-		
+		dispose();
 		Controlador.getInstance().accion(Evento.ACTUALIZAR_PRODUCTO, producto);
 		
 	}
@@ -276,11 +277,9 @@ public class VistaActualizarProducto extends JFrame implements IGUI {
 		switch(e) {
 		case ACTUALIZAR_PRODUCTO_SUCCESS:
 			JOptionPane.showMessageDialog(this, "Producto con id " + datos + " actualizado con éxito.", "Actualizar Producto", JOptionPane.INFORMATION_MESSAGE);
-			dispose();
 			break;
 		case ACTUALIZAR_PRODUCTO_ERROR:
 			JOptionPane.showMessageDialog(this, "Error al actualizar producto: " + datos, "Actualizar Producto", JOptionPane.ERROR_MESSAGE);
-			dispose();
 			break;
 		default:
 			break;

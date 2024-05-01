@@ -46,6 +46,7 @@ public class VistaBajaProducto extends JFrame implements IGUI {
 		endPanel.add(cancelBtn);
 		mainPanel.add(endPanel);
 		
+	    setPreferredSize(new Dimension(400, 150));
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -58,7 +59,7 @@ public class VistaBajaProducto extends JFrame implements IGUI {
 			JOptionPane.showMessageDialog(this, "Debes indicar un nombre", "Baja Producto", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
+		dispose();
 		Controlador.getInstance().accion(Evento.BAJA_PRODUCTO, nombre);
 	}
 	
@@ -67,11 +68,9 @@ public class VistaBajaProducto extends JFrame implements IGUI {
 		switch(e) {
 		case BAJA_PRODUCTO_SUCCESS:
 			JOptionPane.showMessageDialog(this, "Producto con id " + datos + " dado de baja con éxito.", "Baja Producto", JOptionPane.INFORMATION_MESSAGE);
-			dispose();
 			break;
 		case BAJA_PRODUCTO_ERROR:
 			JOptionPane.showMessageDialog(this, "Error al dar de baja el producto: " + datos, "Baja Producto", JOptionPane.ERROR_MESSAGE);
-			dispose();
 			break;
 		default:
 			break;

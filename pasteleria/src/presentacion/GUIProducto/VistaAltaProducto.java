@@ -180,6 +180,7 @@ public class VistaAltaProducto extends JFrame implements IGUI {
 		endPanel.add(cancelBtn);
 		mainPanel.add(endPanel);
 		
+	    setPreferredSize(new Dimension(400, 300));
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -264,7 +265,7 @@ public class VistaAltaProducto extends JFrame implements IGUI {
 			}
 			producto = new TBebida(nombre, precio, alergenos, stock, marcaId, tamanyo);
 		}
-		
+		dispose();
 		Controlador.getInstance().accion(Evento.ALTA_PRODUCTO, producto);
 		
 	}
@@ -274,11 +275,9 @@ public class VistaAltaProducto extends JFrame implements IGUI {
 		switch(e) {
 		case ALTA_PRODUCTO_SUCCESS:
 			JOptionPane.showMessageDialog(this, "Producto con id " + datos + " dado de alta con éxito", "Alta Producto", JOptionPane.INFORMATION_MESSAGE);
-			dispose();
 			break;
 		case ALTA_PRODUCTO_ERROR:
 			JOptionPane.showMessageDialog(this, "Error al dar de alta producto: " + datos, "Alta Producto", JOptionPane.ERROR_MESSAGE);
-			dispose();
 			break;
 		default:
 			break;

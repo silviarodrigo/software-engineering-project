@@ -56,6 +56,7 @@ public class VistaBuscarProducto extends JFrame implements IGUI {
 		btnPanel.add(cancelBtn);
 		_pedirNombrePanel.add(btnPanel);
 		
+	    setPreferredSize(new Dimension(300, 250));
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -74,12 +75,15 @@ public class VistaBuscarProducto extends JFrame implements IGUI {
 		JLabel alergenosLabel = new JLabel("Alérgenos: " + producto.getAlergenos());
 		JLabel tipoLabel = new JLabel("Tipo: " + producto.getTipo());
 		JLabel marcaLabel = new JLabel("Marca: " + producto.getMarca());
+		String activo = producto.getActivo() ? "sí" : "no";
+		JLabel activoLabel = new JLabel("Activo: " + activo);
 		_infoPanel.add(nombreLabel);
 		_infoPanel.add(idLabel);
 		_infoPanel.add(stockLabel);
 		_infoPanel.add(precioLabel);
 		_infoPanel.add(alergenosLabel);
 		_infoPanel.add(marcaLabel);
+		_infoPanel.add(activoLabel);
 		_infoPanel.add(tipoLabel);
 		
 		if (producto.getTipo().equals("Dulce")) {
@@ -113,6 +117,7 @@ public class VistaBuscarProducto extends JFrame implements IGUI {
 			JOptionPane.showMessageDialog(this, "Debes indicar un nombre", "Buscar Producto", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		dispose();
 		Controlador.getInstance().accion(Evento.BUSCAR_PRODUCTO, nombre);
 	}
 	
@@ -125,7 +130,6 @@ public class VistaBuscarProducto extends JFrame implements IGUI {
 			break;
 		case BUSCAR_PRODUCTO_ERROR:
 			JOptionPane.showMessageDialog(this, "ERROR: " + datos, "Buscar Producto", JOptionPane.ERROR_MESSAGE);
-			dispose();
 			break;
 		default:
 			break;
