@@ -1,0 +1,15 @@
+{
+   "productos": [{
+      "precio": 2,
+      "tipo": "Pan",
+      "marcaId": 0,
+      "integral": true,
+      "alergenos": "",
+      "id": 0,
+      "stock": 15,
+      "nombre": "PanBimbo",
+      "activo": true,
+      "sal": true
+   }],
+   "next_id": 1
+}

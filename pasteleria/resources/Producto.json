@@ -1,0 +1,15 @@
+{
+   "productos": [{
+      "precio": 0.5,
+      "tipo": "Pan",
+      "marcaId": 2,
+      "integral": true,
+      "alergenos": "",
+      "id": 0,
+      "stock": 5,
+      "nombre": "PanPan",
+      "activo": true,
+      "sal": true
+   }],
+   "next_id": 1
+}

@@ -24,11 +24,10 @@ public class DAOProductoImp implements DAOProducto {
 	@Override
 	public int altaProducto(TProducto producto) {
 		JSONObject jProd = createJSON(producto);
-		String filename = getFilename(producto.getTipo());
 		int next_id;
 		JSONArray ja;
 		
-		JSONObject jO = getJSONFromFile(filename);
+		JSONObject jO = getJSONFromFile();
 		if (jO != null) {
 			ja = jO.getJSONArray("productos");
 			next_id = jO.getInt("next_id");
@@ -46,7 +45,7 @@ public class DAOProductoImp implements DAOProducto {
 		jO.put("productos", ja);
 		jO.put("next_id", next_id+1);
 		
-		if (writeJSONObject(filename, jO)) {
+		if (writeJSONObject(jO)) {
 			return next_id;
 		}
 		else {
@@ -58,8 +57,7 @@ public class DAOProductoImp implements DAOProducto {
 	@Override
 	public int actualizarProducto(TProducto producto) {
 		JSONObject jProd = createJSON(producto);
-		String filename = getFilename(producto.getTipo());
-		JSONObject jO = getJSONFromFile(filename);
+		JSONObject jO = getJSONFromFile();
 		
 		if (jO != null) {
 			JSONArray ja = jO.getJSONArray("productos");
@@ -71,7 +69,7 @@ public class DAOProductoImp implements DAOProducto {
 			return -1;
 		}
 		
-		if (writeJSONObject(filename, jO)) {
+		if (writeJSONObject(jO)) {
 			return producto.getId();
 		}
 		else {
@@ -82,9 +80,8 @@ public class DAOProductoImp implements DAOProducto {
 	
 	@Override
 	public void bajaProducto(int id, String tipo) {
-		String filename = getFilename(tipo);
 		JSONArray ja;
-		JSONObject jO = getJSONFromFile(filename);
+		JSONObject jO = getJSONFromFile();
 		
 		if (jO != null) {
 			ja = jO.getJSONArray("productos");
@@ -94,11 +91,11 @@ public class DAOProductoImp implements DAOProducto {
 			jO.put("productos", ja);
 		}
 		
-		writeJSONObject(filename, jO);
+		writeJSONObject(jO);
 	}
 
 	@Override
-	public TProducto buscarProducto(String nombre) {
+	/*public TProducto buscarProducto(String nombre) {
 		JSONArray ja1 = getProductosJArray(getFilename("Dulce"));
 		JSONArray ja2 = getProductosJArray(getFilename("Pan"));
 		JSONArray ja3 = getProductosJArray(getFilename("Bebida"));
@@ -110,10 +107,21 @@ public class DAOProductoImp implements DAOProducto {
 			}
 		}
 		return prod;
+	}*/
+	
+	public TProducto buscarProducto(String nombre) {
+		JSONArray ja = getProductosJArray();
+		//JSONArray ja2 = getProductosJArray(getFilename("Pan"));
+		//JSONArray ja3 = getProductosJArray(getFilename("Bebida"));
+		TProducto prod = searchInJArray(nombre, ja);
+		if (prod == null) {
+			return null;
+		}
+		return prod;
 	}
 	
 	@Override
-	public TProducto buscarProducto(int id) {
+	/*public TProducto buscarProducto(int id) {
 		JSONArray ja1 = getProductosJArray(getFilename("Dulce"));
 		JSONArray ja2 = getProductosJArray(getFilename("Pan"));
 		JSONArray ja3 = getProductosJArray(getFilename("Bebida"));
@@ -128,12 +136,23 @@ public class DAOProductoImp implements DAOProducto {
 			}
 		}
 		return createTProducto(prodJO);
+	}*/
+	
+	public TProducto buscarProducto(int id) {
+		JSONArray ja = getProductosJArray();
+		//JSONArray ja2 = getProductosJArray(getFilename("Pan"));
+		//JSONArray ja3 = getProductosJArray(getFilename("Bebida"));
+		JSONObject prodJO = getObjectInIndex(ja, id);
+		if (prodJO == null) {
+				return null;
+		}
+		return createTProducto(prodJO);
 	}
 	
 	
 	
 	@Override
-	public Collection<TProducto> listarProductos() {
+	/*public Collection<TProducto> listarProductos() {
 		Collection<TProducto> listaProductos = new ArrayList<TProducto>();
 		String[] tipos = {"Dulce", "Pan", "Bebida"};
 		for (String tipo : tipos) {
@@ -145,6 +164,22 @@ public class DAOProductoImp implements DAOProducto {
 				}
 			}
 		}
+		return listaProductos;
+	}*/
+	
+	public Collection<TProducto> listarProductos() {
+		Collection<TProducto> listaProductos = new ArrayList<TProducto>();
+		
+		//String[] tipos = {"Dulce", "Pan", "Bebida"};
+		//for (String tipo : tipos) {
+		
+			JSONArray ja = getProductosJArray();
+			if (ja != null) {
+				for (int i = 0; i < ja.length(); i++) {
+					listaProductos.add(createTProducto(ja.getJSONObject(i)));
+				}
+			}
+		//}
 		return listaProductos;
 	}
 	
@@ -201,11 +236,11 @@ public class DAOProductoImp implements DAOProducto {
 		return createTProducto(ja.getJSONObject(i));
 	}
 	
-	private JSONObject getJSONFromFile(String filename) {
+	private JSONObject getJSONFromFile() {
 		// Devuelve el JSONObject del archivo filename
 		JSONObject jO;
 		try {
-			InputStream in  = new FileInputStream(new File(filename));
+			InputStream in  = new FileInputStream(new File("resources/Producto.json"));
 			jO = new JSONObject(new JSONTokener(in));
 			
 		} catch (FileNotFoundException e) {
@@ -215,9 +250,9 @@ public class DAOProductoImp implements DAOProducto {
 	}
 	
 	
-	private JSONArray getProductosJArray(String filename) {
+	private JSONArray getProductosJArray() {
 		// Devuelve el JSONArray guardado en el archivo filename
-		JSONObject jO = getJSONFromFile(filename); 
+		JSONObject jO = getJSONFromFile(); 
 		if (jO == null) {
 			return null;
 		}
@@ -252,10 +287,10 @@ public class DAOProductoImp implements DAOProducto {
 		return jProd;
 	}
 	
-	private boolean writeJSONObject(String filename, JSONObject jO) {
+	private boolean writeJSONObject(JSONObject jO) {
 		// Escribe el JSONObject jO al archivo filename
 		try {
-			BufferedWriter bW = new BufferedWriter(new FileWriter(filename, false));
+			BufferedWriter bW = new BufferedWriter(new FileWriter("resources/Producto.json", false));
 			bW.write(jO.toString(3));
 			bW.close();
 			return true;
@@ -264,7 +299,7 @@ public class DAOProductoImp implements DAOProducto {
 		}
 	}
 	
-	private String getFilename(String tipo) {
+	/*private String getFilename(String tipo) {
 		// Nos da el nombre del archivo correspondiente a cada tipo
 		String filename;
 		if (tipo.equals("Dulce")) {
@@ -277,7 +312,9 @@ public class DAOProductoImp implements DAOProducto {
 			filename = "resources/Bebida.json";
 		}
 		return filename;
-	}
+	}*/
+	
+	
 	
 	private JSONObject getObjectInIndex(JSONArray ja, int index) {
 		if (index < ja.length()) {
