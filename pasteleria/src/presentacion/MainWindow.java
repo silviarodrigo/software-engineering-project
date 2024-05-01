@@ -37,6 +37,7 @@ public class MainWindow extends JFrame implements IGUI {
 		buttonPanel.add(marcasBtn);
 		
 		pack();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Para que acabe el programa al cerrar la ventana.
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
