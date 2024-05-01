@@ -1,107 +1,63 @@
 package presentacion.GUIEmpleados;
 
-import java.awt.BorderLayout;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
-public class VistaPrincipalEmpleados extends JDialog{
+import presentacion.Evento;
+import presentacion.IGUI;
+import presentacion.Controlador.Controlador;
 
-	
-	//tendremos botones por cada caso de uso
-	JButton _altaEmpleadoButton;
-	JButton _bajaEmpleadoButton;
-	JButton _buscarEmpleadoButton;
-	JButton _listarEmpleadoButton;
-	JButton _modificarEmpleadoButton;
-	
-	VistaAltaEmpleados _vistaAlta;
-	VistaBajaEmpleado _vistaBaja;
-	
-	
-	
-	VistaPrincipalEmpleados(){
+public class VistaPrincipalEmpleados extends JFrame implements IGUI{ 
+
+	public VistaPrincipalEmpleados() {
 		initGUI();
 	}
 	
-	
 	private void initGUI() {
+		setTitle("Subsistema Empleados");
 		
-		JPanel mainPanel= new JPanel(new BorderLayout());
+		JPanel mainPanel = new JPanel();
 		setContentPane(mainPanel);
 		
+		JPanel buttonPanel = new JPanel();
+		mainPanel.add(buttonPanel);
 		
-		//la vista principal tiene que tener los 5 botones
+		JButton altaBtn = new JButton("Alta Empleado");
+		altaBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_ALTA_EMPLEADO));
+		buttonPanel.add(altaBtn);
 		
-		JPanel panelArriba= new JPanel();
-		//lo añado al "norte"
-		mainPanel.add(panelArriba, BorderLayout.PAGE_START);
+		JButton bajaBtn = new JButton("Baja Empleado");
+		bajaBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_BAJA_EMPLEADO));
+		buttonPanel.add(bajaBtn);
 		
+		JButton actualizarBtn = new JButton("Actualizar Empleado");
+		actualizarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_ACTUALIZAR_EMPLEADO));
+		buttonPanel.add(actualizarBtn);
 		
-		JPanel panelAbajo= new JPanel();
-		mainPanel.add(panelAbajo);
+		JButton buscarBtn = new JButton("Buscar Empleados");
+		buscarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_BUSCAR_EMPLEADO));
+		buttonPanel.add(buscarBtn);
 		
+		JButton listarBtn = new JButton("Listar Empleados");
+		listarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_LISTAR_EMPLEADOS));
+		buttonPanel.add(listarBtn);
 		
-		//creamos botones de alta,baja,modificar,listar,actualizar (empleados)
-		_altaEmpleadoButton= new JButton("Alta empleado");
-		_bajaEmpleadoButton= new JButton("Baja empleado");
-		_buscarEmpleadoButton= new JButton("Buscar empleado");
-		_listarEmpleadoButton= new JButton("Listar empleado");
-		_modificarEmpleadoButton= new JButton("Modificar empleado");
-		
-		
-		panelArriba.add(_altaEmpleadoButton);
-		
-		_altaEmpleadoButton.addActionListener((e)->{
-			//llamamos a su vista;
-			this.altaImplementacion();
-			
-			
-		});
-	
-		
-		panelArriba.add(_bajaEmpleadoButton);
-		
-		_bajaEmpleadoButton.addActionListener((e)->{
-			//llamamos a su vista;
-			this.bajaImplementacion();
-			
-			
-		});
-		
-		
-		panelArriba.add(_buscarEmpleadoButton);
-		panelAbajo.add(_listarEmpleadoButton);
-		panelAbajo.add(_modificarEmpleadoButton);
-		
-		
-	
-		
-		
-	}
-
-
-	private void setContentPane(JPanel mainPanel) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	private void altaImplementacion() {
-		SwingUtilities.invokeLater(()->{
-			_vistaAlta.open();
-		});
-	}
-	
-	private void bajaImplementacion() {
-		SwingUtilities.invokeLater(()->{
-			//_vistaBaja.open();
-		});
+		pack();
+		setResizable(false);
+		setLocationRelativeTo(null);
+		setVisible(true);
+				
 	}
 	
 	
+	private void listenerAbrirVentana(Evento e) {
+		Controlador.getInstance().accion(e, null);
+	}
 	
-	
+	@Override
+	public void actualizar(Evento e, Object datos) {
+	}
 	
 }

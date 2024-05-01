@@ -3,7 +3,7 @@ package negocio.Empleados;
 public class TEmpleado {
 	private int id;
 	private String nombre;
-	private String apellidos;
+	private String apellido;
 	private String dni;
 	private String email;
 	private String numTelefono;
@@ -11,10 +11,12 @@ public class TEmpleado {
 	private boolean activo;
 	private int numVentas;
 
+	
+	//REPASAR CONSTRUCTORAS
 	//constructora para inicializar
 	public TEmpleado(String nombre, String apellidos, String dni, String email, String direccion, String numeroTelefono) {
 		this.nombre = nombre;
-		this.apellidos = apellidos;
+		this.apellido = apellidos;
 		this.dni = dni;
 		this.email =email;
 		this.activo = true;
@@ -24,11 +26,19 @@ public class TEmpleado {
 		this.numVentas=0;
 	}
 	
+	//para cuando tengamos que actualizar al empleado
+	public TEmpleado(String email, String direccion, String numeroTelefono) {
+		this.email =email;
+		this.direccion=direccion;
+		this.numTelefono=numeroTelefono;
+		this.activo=true;
+	}
+	
 	
 	
 	public TEmpleado(String nombre, String apellidos, String dni, String email, boolean activo, int id, String direccion,String numeroTelefono, int ventas) {
 		this.nombre = nombre;
-		this.apellidos = apellidos;
+		this.apellido = apellidos;
 		this.dni = dni;
 		this.email = email;
 		this.activo = activo;
@@ -45,8 +55,8 @@ public class TEmpleado {
 		return this.nombre;
 	}
 
-	public String getApellidos() {
-		return this.apellidos;
+	public String getApellido() {
+		return this.apellido;
 	}
 
 	public String getDNI() {
@@ -82,9 +92,9 @@ public class TEmpleado {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
+	
 	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+		this.apellido = apellido;
 	}
 
 	public void setId(String dni) {

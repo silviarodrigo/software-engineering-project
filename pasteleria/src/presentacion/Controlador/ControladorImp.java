@@ -14,6 +14,7 @@ import negocio.Facturas.SAFactura;
 import negocio.Producto.SAProducto;
 import negocio.Marca.SAMarca;
 import negocio.Facturas.*;
+import negocio.Marca.*;
 
 public class ControladorImp extends Controlador {
 	private Carrito carrito;
@@ -124,6 +125,37 @@ public class ControladorImp extends Controlador {
 		case ELIMINAR_PRODUCTO:
 			eliminarProducto(datos);
 
+			// EMPLEADOS
+		case VISTA_PRINCIPAL_EMPLEADOS:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_EMPLEADOS);
+			break;
+		case VISTA_ALTA_EMPLEADO:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_EMPLEADO);
+			break;
+		case VISTA_BAJA_EMPLEADO:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_EMPLEADO);
+			break;
+		case VISTA_ACTUALIZAR_EMPLEADO:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_EMPLEADO);
+			break;
+		case VISTA_BUSCAR_EMPLEADO:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_EMPLEADO);
+			break;
+		case VISTA_LISTAR_EMPLEADOS:
+			listarEmpleados(datos);
+			break;
+		case ACTUALIZAR_EMPLEADO:
+			actualizarEmpleados(datos);
+			break;
+		case ALTA_EMPLEADO:
+			altaEmpleado(datos);
+			break;
+		case BAJA_EMPLEADO:
+			bajaEmpleado(datos);
+			break;
+		case BUSCAR_EMPLEADO:
+			buscarEmpleado(datos);
+		
 			break;
 		}
 	}
@@ -233,10 +265,8 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.BUSCAR_FACTURA_ERROR, "factura no encontrada.");
 		}
 	}
-	
-	
-	
-	//MARCAS
+
+	// MARCAS
 	private void altaMarca(Object datos) {
 		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
 		TMarca marca = (TMarca) datos;
@@ -262,7 +292,7 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.BAJA_MARCA_ERROR, e.getMessage());
 		}
 	}
-	
+
 	private void actualizarMarca(Object datos) {
 		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
 		TMarca marca = (TMarca) datos;
@@ -295,9 +325,6 @@ public class ControladorImp extends Controlador {
 		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_MARCAS)
 				.actualizar(Evento.LISTAR_MARCAS, marcas);
 	}
-	
-	
-
 
 	private void abrirVenta(Object datos) {
 		if (this.carrito != null) {
@@ -360,4 +387,7 @@ public class ControladorImp extends Controlador {
 		}
 
 	}
+	
+	//EMPLEADOS 
+	
 }
