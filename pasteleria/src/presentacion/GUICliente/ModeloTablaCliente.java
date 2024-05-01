@@ -2,21 +2,37 @@ package presentacion.GUICliente;
 
 import javax.swing.table.AbstractTableModel;
 
+import negocio.Cliente.TCliente;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class ModeloTablaCliente extends AbstractTableModel{
 	private static final long serialVersionUID = 1L;
 	
 	private String[] _headers;
+	private List<TCliente> listaClientes;
+	
+	public ModeloTablaCliente() {
+		this._headers[0] = "Nombre";
+		this._headers[1] = "Apellidos";
+		this._headers[2] = "DNI";
+		this._headers[3] = "Correo";
+		this._headers[4] = "Activo";
+		this._headers[5] = "Id";
+		
+		this.listaClientes = new ArrayList<TCliente>();
+	}
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.listaClientes.size();
 	}
 
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this._headers.length;
 	}
 	
 	@Override
@@ -26,8 +42,34 @@ public class ModeloTablaCliente extends AbstractTableModel{
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		TCliente cliente = this.listaClientes.get(rowIndex);
+		
+		if (columnIndex == 0) {
+			return cliente.getNombre();
+		}
+		else if (columnIndex == 1) {
+			return cliente.getApellidos();
+		}
+		else if (columnIndex == 2) {
+			return cliente.getDNI();
+		}
+		else if (columnIndex == 3) {
+			return cliente.getCorreo();
+		}
+		else if (columnIndex == 4) {
+			return cliente.getActivo();
+		}
+		else if (columnIndex == 5) {
+			return cliente.getId();
+		}
+		
+		return "error";
+	}
+	
+	public void loadData(Collection<TCliente> data) {
+		this.listaClientes = new ArrayList<TCliente>(data);
+		fireTableDataChanged();
+		fireTableStructureChanged();
 	}
 
 }

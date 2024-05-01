@@ -1,6 +1,7 @@
 package presentacion.GUIProducto;
 
 import java.awt.Color;
+
 import java.util.Collection;
 
 import javax.swing.BorderFactory;
