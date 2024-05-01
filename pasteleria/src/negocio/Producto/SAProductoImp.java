@@ -43,7 +43,7 @@ public class SAProductoImp implements SAProducto {
 		}else if(!prod.getActivo()) {
 			throw new IllegalArgumentException("El producto ya ha sido dado de baja.");
 		}
-		daoProducto.bajaProducto(prod.getId(), prod.getTipo());
+		daoProducto.bajaProducto(prod.getId());
 		return prod.getId();
 	}
 
