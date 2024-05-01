@@ -26,6 +26,10 @@ public class TCliente {
 		return this.correo;
 	}
 	
+	public boolean getActivo() {
+		return this.activo;
+	}
+	
 	// Setters.
 	public void setNombreYApellidos(String nom_y_ap) {
 		this.nombre_y_apellidos = nom_y_ap;
@@ -37,5 +41,9 @@ public class TCliente {
 	
 	public void setCorreo(String correo) {
 		this.correo = correo;
+	}
+	
+	public void setActivo(boolean activo) {
+		this.activo=activo;
 	}
 }

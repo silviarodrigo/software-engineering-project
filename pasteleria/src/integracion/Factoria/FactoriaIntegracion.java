@@ -9,6 +9,8 @@ import integracion.Producto.DAOProducto;
 import integracion.Producto.DAOProductoImp;
 import integracion.Cliente.DAOCliente;
 import integracion.Cliente.DAOClienteImp;
+import integracion.Empleado.DAOEmpleado;
+import integracion.Empleado.DAOEmpleadoImp;
 import integracion.Facturas.DAOFactura;
 import integracion.Facturas.DAOFacturaImp;
 import integracion.Facturas.DAOLineaFactura;
@@ -47,5 +49,12 @@ public class FactoriaIntegracion extends FactoriaAbstractaIntegracion {
 	public DAOCliente crearDAOCliente() {
 		return new DAOClienteImp();
 	}
+
+	@Override
+	public DAOEmpleado crearDAOEmpleado() {
+		return new DAOEmpleadoImp();
+	}
+	
+	
 
 }

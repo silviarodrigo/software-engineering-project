@@ -6,6 +6,7 @@ import integracion.Producto.DAOProducto;
 import integracion.Cliente.DAOCliente;
 import integracion.Facturas.DAOFactura;
 import integracion.Facturas.DAOLineaFactura;
+import integracion.Empleado.DAOEmpleado;
 
 public abstract class FactoriaAbstractaIntegracion {
 
@@ -26,6 +27,7 @@ public abstract class FactoriaAbstractaIntegracion {
 	public abstract DAOMarcaProveedor crearDAOMarcaProveedor();
 	public abstract DAOProducto crearDAOProducto();
 	public abstract DAOCliente crearDAOCliente();
+	public abstract DAOEmpleado crearDAOEmpleado();
 
 
 }
