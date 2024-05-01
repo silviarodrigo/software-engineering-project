@@ -10,7 +10,7 @@ public class SAClienteImp implements SACliente {
 	@Override
 	public int altaCliente(TCliente cl) throws IllegalArgumentException{
 		DAOCliente daoCliente = FactoriaAbstractaIntegracion.getInstance().crearDAOCliente();
-		TCliente tcliente = daoCliente.buscarCliente(cl.getId());
+		TCliente tcliente = daoCliente.buscarCliente(cl.getDNI());
 		int id = -1;
 		
 		if (tcliente == null) { // El cliente no está en nuestro fichero JSON.

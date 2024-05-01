@@ -2,6 +2,130 @@ package presentacion.GUICliente;
 
 import javax.swing.*;
 
-public class VistaBuscarClientes extends JDialog{
+import negocio.Cliente.TCliente;
 
+import java.awt.*;
+
+import presentacion.Evento;
+import presentacion.IGUI;
+import presentacion.Controlador.Controlador;
+
+public class VistaBuscarClientes extends JFrame implements IGUI{
+	private static final long serialVersionUID = 1L;
+	
+	// Paneles
+	private JPanel _mainPanel;
+	private JPanel _pedirDNIPanel;
+	private JPanel _infoPanel;
+	
+	// Etiquetas
+	private JLabel _ldni;
+		
+	// Text Fields
+	private JTextField _tfdni;
+		
+	// Botones
+	private JButton _baceptar;
+	private JButton _bcancelar;
+	
+	public VistaBuscarClientes() {
+		this.initGUI();
+	}
+	
+	private void initGUI() {
+		this.setTitle("Buscar Cliente");
+		
+		// Panel principal
+		this._pedirDNIPanel = new JPanel();
+		this._pedirDNIPanel.setLayout(new BoxLayout(this._pedirDNIPanel, BoxLayout.Y_AXIS));
+		this.setContentPane(this._pedirDNIPanel);
+		
+		// Creamos y añadimos text field y etiqueta.
+		this._ldni = new JLabel("DNI:");
+		this._tfdni = new JTextField();
+		this._tfdni.setPreferredSize(new Dimension(100, 50));
+		
+		JPanel pdni = new JPanel(new FlowLayout());
+		pdni.add(this._ldni);
+		pdni.add(this._tfdni);
+		
+		// Creamos y añadimos botones.
+		this._baceptar = new JButton("ACEPTAR");
+		this._bcancelar = new JButton("CANCELAR");
+		this._baceptar.addActionListener((e) -> this.buscarClienteListener());
+		this._bcancelar.addActionListener((e) -> this.dispose());
+		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(this._baceptar);
+		buttonPanel.add(Box.createRigidArea(new Dimension(30, 20)));
+		buttonPanel.add(this._bcancelar);
+		buttonPanel.setBorder(BorderFactory.createMatteBorder(PROPERTIES, 0, 0, 0, getForeground()));
+		
+		// Añadimos paneles al panel principal.
+		this._pedirDNIPanel.add(pdni);
+		this._pedirDNIPanel.add(buttonPanel);
+		
+		
+		setPreferredSize(new Dimension (600, 500));
+		pack();
+		setLocationRelativeTo(null); // Para que la ventana aparezca en el centro de la pantalla.
+		setVisible(true);
+	}
+	
+	private void buscarClienteListener() {
+		String dni = this._ldni.getText();
+		
+		if (dni == null || dni.isBlank()) {
+			JOptionPane.showMessageDialog(this, "Debes indicar un DNI.", "Buscar Cliente", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		dispose();
+		Controlador.getInstance().accion(Evento.BUSCAR_CLIENTE, dni);
+	}
+	
+	void initInfoGUI(TCliente cliente) {
+		// Creamos un panel para mostrar la información y lo añadimos al principal.
+		this._infoPanel = new JPanel();
+		this._infoPanel.setLayout(new BoxLayout(this._infoPanel, BoxLayout.Y_AXIS));
+		this._mainPanel.add(this._infoPanel);
+		
+		// Añadimos los datos del cliente al panel.
+		JLabel lnombre = new JLabel("Nombre: " + cliente.getNombre());
+		JLabel lapellidos = new JLabel("Apellidos: " + cliente.getApellidos());
+		JLabel ldni = new JLabel("DNI: " + cliente.getDNI());
+		JLabel lcorreo = new JLabel("Correo: " + cliente.getCorreo());
+		JLabel lactivo = new JLabel("Activo: " + (cliente.getActivo() ? "sí" : "no"));
+		JLabel lid = new JLabel("ID: " + cliente.getId());
+		
+		this._infoPanel.add(lnombre);
+		this._infoPanel.add(lapellidos);
+		this._infoPanel.add(ldni);
+		this._infoPanel.add(lcorreo);
+		this._infoPanel.add(lactivo);
+		this._infoPanel.add(lid);
+		
+		// Botón para continuar.
+		JButton bcontinuar = new JButton("Continuar");
+		bcontinuar.addActionListener((e) -> dispose());
+		_infoPanel.add(bcontinuar);
+		
+		pack();
+	}
+	
+	@Override
+	public void actualizar(Evento e, Object datos) {
+		switch(e) {
+		case BUSCAR_CLIENTE_SUCCESS:
+			this._mainPanel.setVisible(false);
+			this.initInfoGUI((TCliente) datos);
+			break;
+		case BUSCAR_CLIENTE_ERROR:
+			JOptionPane.showMessageDialog(this, "ERROR: " + datos, "Buscar Cliente", JOptionPane.ERROR_MESSAGE);
+			break;
+		default:
+			break;
+		}
+	}
+	
 }

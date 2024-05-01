@@ -2,6 +2,18 @@ package presentacion.GUICliente;
 
 import javax.swing.*;
 
-public class VistaListarClientes extends JDialog{
+import presentacion.Evento;
+import presentacion.IGUI;
+
+public class VistaListarClientes extends JFrame implements IGUI{
+	private static final long serialVersionUID = 1L;
+	
+	
+
+	@Override
+	public void actualizar(Evento e, Object datos) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
