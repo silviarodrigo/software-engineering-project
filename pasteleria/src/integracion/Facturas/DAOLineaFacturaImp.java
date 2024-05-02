@@ -70,7 +70,7 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 //	}
 
 	public TLineaFactura buscarLineaFactura(int id) {
-		JSONArray ja = getLineasFacturasJArray("ListaLineasFactura");
+		JSONArray ja = getLineasFacturasJArray("ListaLineasFacturas");
 		int i = searchInJArray(id, ja);
 
 		if (i != -1)
@@ -85,7 +85,7 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 		boolean exito = true;
 		try {
 			JSONObject ji = getJSONFromFile(filename);
-			JSONArray ja = ji.getJSONArray("ListaLineasFactura");
+			JSONArray ja = ji.getJSONArray("ListaLineasFacturas");
 			int next_id = ji.getInt("next_id");
 
 			lf.setIdLinea(next_id);
@@ -118,7 +118,7 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 
 	public void eliminarLineaFactura(TLineaFactura lf) {
 		JSONObject ji = getJSONFromFile(filename);
-		JSONArray ja = ji.getJSONArray("ListaLineasFactura");
+		JSONArray ja = ji.getJSONArray("ListaLineasFacturas");
 		int next_id = ji.getInt("next_id");
 		int i = searchInJArray(lf.getIdLinea(), ja);
 

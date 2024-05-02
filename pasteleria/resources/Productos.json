@@ -7,7 +7,7 @@
          "integral": true,
          "alergenos": "Gluten",
          "id": 0,
-         "stock": 30,
+         "stock": 0,
          "nombre": "PanBimbo",
          "activo": true,
          "sal": true
