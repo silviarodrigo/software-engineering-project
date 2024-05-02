@@ -53,10 +53,10 @@ public class VistaAltaCliente extends JFrame implements IGUI{
 		this._tfdni = new JTextField();
 		this._tfcorreo = new JTextField();
 		
-		this._tfnombre.setPreferredSize(new Dimension(100, 50));
-		this._tfapellidos.setPreferredSize(new Dimension(100, 50));
-		this._tfdni.setPreferredSize(new Dimension(100, 50));
-		this._tfcorreo.setPreferredSize(new Dimension(100, 50));
+		this._tfnombre.setPreferredSize(new Dimension(100, 25));
+		this._tfapellidos.setPreferredSize(new Dimension(100, 25));
+		this._tfdni.setPreferredSize(new Dimension(100, 25));
+		this._tfcorreo.setPreferredSize(new Dimension(100, 25));
 		
 		// Inicializamos botones
 		this._baceptar = new JButton("ACEPTAR");
@@ -84,7 +84,7 @@ public class VistaAltaCliente extends JFrame implements IGUI{
 		pcorreo.add(this._tfcorreo);
 		
 		buttonPanel.add(this._baceptar);
-		buttonPanel.add(Box.createRigidArea(new Dimension(30, 20)));
+		buttonPanel.add(Box.createRigidArea(new Dimension(10, 5)));
 		buttonPanel.add(this._bcancelar);
 		buttonPanel.setBorder(BorderFactory.createMatteBorder(PROPERTIES, 0, 0, 0, getForeground()));
 		
@@ -95,7 +95,7 @@ public class VistaAltaCliente extends JFrame implements IGUI{
 		mainPanel.add(pcorreo);
 		mainPanel.add(buttonPanel);
 		
-		setPreferredSize(new Dimension (600, 500));
+		setPreferredSize(new Dimension (400, 300));
 		pack();
 		setLocationRelativeTo(null); // Para que la ventana aparezca en el centro de la pantalla.
 		setVisible(true);
@@ -146,7 +146,7 @@ public class VistaAltaCliente extends JFrame implements IGUI{
 			JOptionPane.showMessageDialog(this, "Cliente con dni \"" + datos + "\" dado de alta con éxito.", "Alta Cliente", JOptionPane.INFORMATION_MESSAGE);
 			break;
 		case ALTA_CLIENTE_ERROR:
-			JOptionPane.showMessageDialog(this, "Error al dar de alta cliente con dni: " + datos, "Alta Cliente", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Error al dar de alta cliente: " + datos, "Alta Cliente", JOptionPane.ERROR_MESSAGE);
 			break;
 		default:
 			break;

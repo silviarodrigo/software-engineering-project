@@ -1,0 +1,11 @@
+{
+   "clientes": [{
+      "apellidos": "Messi Cuccittini",
+      "correo": "messi@gmail.com",
+      "id": 0,
+      "nombre": "Lionel Andrés",
+      "DNI": "341324829B",
+      "activo": true
+   }],
+   "next_id": 1
+}
