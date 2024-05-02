@@ -26,6 +26,7 @@ public class ControladorImp extends Controlador {
 		case MAIN_WINDOW:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.MAIN_WINDOW);
 			break;
+			
 		// PRODUCTO
 		case VISTA_PRINCIPAL_PRODUCTO:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_PRODUCTO);
@@ -57,6 +58,7 @@ public class ControladorImp extends Controlador {
 		case BUSCAR_PRODUCTO:
 			buscarProducto(datos);
 			break;
+			
 		// FACTURAS
 		case VISTA_PRINCIPAL_FACTURAS:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_FACTURAS);
@@ -91,6 +93,13 @@ public class ControladorImp extends Controlador {
 		case BUSCAR_FACTURA:
 			buscarFactura(datos);
 			break;
+		case ANADIR_PRODUCTO:
+			anadirProducto(datos);
+			break;
+		case ELIMINAR_PRODUCTO:
+			eliminarProducto(datos);
+			break;
+			
 		// MARCA
 		case VISTA_PRINCIPAL_MARCA:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_MARCA);
@@ -121,13 +130,6 @@ public class ControladorImp extends Controlador {
 			break;
 		case BUSCAR_MARCA:
 			buscarMarca(datos);
-			break;
-		//ESTO QUE HACE AQUí???
-		case ANADIR_PRODUCTO:
-			anadirProducto(datos);
-			break;
-		case ELIMINAR_PRODUCTO:
-			eliminarProducto(datos);
 			break;
 
 			// EMPLEADOS
@@ -415,7 +417,7 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.BUSCAR_MARCA_SUCCESS, marca);
 		} else {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_MARCA)
-					.actualizar(Evento.BUSCAR_MARCA_ERROR, "Producto no encontrado.");
+					.actualizar(Evento.BUSCAR_MARCA_ERROR, "Marca no encontrada.");
 		}
 	}
 

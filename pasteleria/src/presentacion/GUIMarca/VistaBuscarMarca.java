@@ -1,7 +1,10 @@
 package presentacion.GUIMarca;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -37,15 +40,19 @@ public class VistaBuscarMarca extends JDialog implements IGUI {
 		initGUI();
 	}
 	
+	
 	void initGUI() {
 		setTitle("Buscar Marca");
 
 		_mainPanel = new JPanel();
 		_mainPanel.setLayout(new BoxLayout(_mainPanel, BoxLayout.Y_AXIS));
+		
 		_pedirIdPanel = new JPanel();
 		_pedirIdPanel.setLayout(new BoxLayout(_pedirIdPanel, BoxLayout.Y_AXIS));
 		setContentPane(_mainPanel);
 		_mainPanel.add(_pedirIdPanel);
+		
+		
 		
 		JLabel idLabel = new JLabel("Id: ");
 		idText = new JSpinner(new SpinnerNumberModel(0, 0, 1000, 1));
@@ -63,41 +70,44 @@ public class VistaBuscarMarca extends JDialog implements IGUI {
 		cancelButton = new JButton("Cancelar");
 		cancelButton.addActionListener((e)-> dispose());
 		okCancelPanel.add(okButton);
+		okCancelPanel.add(Box.createRigidArea(new Dimension(10, 5)));
 		okCancelPanel.add(cancelButton);
 		_pedirIdPanel.add(okCancelPanel);
-		
+	
+
+		setPreferredSize(new Dimension (400, 150));
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 	
 	void initInfoGUI(TMarca marca) {
+
 		_infoPanel = new JPanel();
 		_infoPanel.setLayout(new BoxLayout(_infoPanel, BoxLayout.Y_AXIS));
-		_mainPanel.add(_infoPanel);
-
+		
 		JLabel idLabel = new JLabel("Id: " + marca.getID());
 		JLabel nombreLabel = new JLabel("Nombre: " + marca.getNombre());
 		JLabel correoLabel = new JLabel("Correo: " + marca.getCorreo());
 		_infoPanel.add(idLabel);
 		_infoPanel.add(nombreLabel);
 		_infoPanel.add(correoLabel);
+		_mainPanel.add(_infoPanel);
 		
 		JButton continuarBtn = new JButton("Continuar");
 		continuarBtn.addActionListener((e) -> dispose());
-		_infoPanel.add(continuarBtn);
+		_mainPanel.add(Box.createRigidArea(new Dimension(150, 20))); //100
+		_mainPanel.add(continuarBtn);
 		
+		setPreferredSize(new Dimension (400, 150));
 		pack();
+		setLocationRelativeTo(null);
+		setVisible(true);
+		
 	}
 	
 	private void buscarMarca() {
 		int id = (int) idText.getValue();
-		
-		/*TAL Y COMO ESTÁ IMPLEMENTADO NO DEBERÍA PODER ELEGIR UN Nº NEGATIVO
-		 * if (id < 0) {
-			JOptionPane.showMessageDialog(this, "Debe indicar un Id valido", "Baja Marca", JOptionPane.ERROR_MESSAGE);
-			return;
-		}*/
 		
 		Controlador.getInstance().accion(Evento.BUSCAR_MARCA, id);
 	}
