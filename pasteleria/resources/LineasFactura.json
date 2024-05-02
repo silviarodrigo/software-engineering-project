@@ -1,1 +1,1 @@
-{ "ListaLineasFactura": [] }
+{"ListaLineasFacturas":[{"id_factura":10,"id_linea":0,"id_producto":0,"cantidad":2,"activa":"true"}],"next_id":1}

@@ -1,0 +1,1 @@
+{"ListaFacturas":[{"id_factura":0,"fecha":"17/8/2004","precio":3.2,"id_cliente":1,"id_vendedor":2,"activa":true},{"id_factura":1,"fecha":"fecha","precio":2,"id_cliente":0,"id_vendedor":0,"activa":"false"}],"next_id":2}
