@@ -110,22 +110,25 @@ public class ControladorImp extends Controlador {
 		case VISTA_LISTAR_MARCAS:
 			listarMarcas(datos);
 			break;
-		case ACTUALIZAR_MARCA:
-			actualizarMarca(datos);
-			break;
 		case ALTA_MARCA:
 			altaMarca(datos);
 			break;
 		case BAJA_MARCA:
 			bajaMarca(datos);
 			break;
+		case ACTUALIZAR_MARCA:
+			actualizarMarca(datos);
+			break;
 		case BUSCAR_MARCA:
 			buscarMarca(datos);
+			break;
+		//ESTO QUE HACE AQUí???
 		case ANADIR_PRODUCTO:
 			anadirProducto(datos);
 			break;
 		case ELIMINAR_PRODUCTO:
 			eliminarProducto(datos);
+			break;
 
 			// EMPLEADOS
 		case VISTA_PRINCIPAL_EMPLEADOS:
