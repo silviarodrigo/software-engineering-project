@@ -1,8 +1,7 @@
 package presentacion.GUICliente;
 
-import java.awt.Color;
+import java.awt.*;
 
-import java.awt.Dimension;
 import java.util.Collection;
 
 import javax.swing.*;
@@ -39,11 +38,14 @@ public class VistaListarClientes extends JFrame implements IGUI{
 		tablePanel.add(new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 		
 		// Botón para continuar.
+		JPanel buttonPanel = new JPanel();
 		JButton bcontinuar = new JButton("Continuar");
 		bcontinuar.addActionListener((e) -> dispose());
-		mainPanel.add(bcontinuar);
 		
-		//setPreferredSize(new Dimension (400, 300));
+		buttonPanel.add(bcontinuar);
+		
+		mainPanel.add(buttonPanel);
+		
 		pack();
 		setLocationRelativeTo(null); // Para que la ventana aparezca en el centro de la pantalla.
 		setVisible(true);
