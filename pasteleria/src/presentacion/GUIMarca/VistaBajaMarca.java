@@ -60,12 +60,6 @@ public class VistaBajaMarca extends JDialog implements IGUI{
 	
 	private void bajaMarca() {
 		int id = (int) idText.getValue();
-
-		/*TAL Y COMO ESTÁ IMPLEMENTADO NO DEBERÍA PODER ELEGIR UN Nº NEGATIVO
-		 * if (id < 0) {
-			JOptionPane.showMessageDialog(this, "Debe indicar un Id valido", "Baja Marca", JOptionPane.ERROR_MESSAGE);
-			return;
-		}*/
 		
 		Controlador.getInstance().accion(Evento.BAJA_MARCA, id);
 	}

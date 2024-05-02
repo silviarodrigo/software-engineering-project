@@ -14,7 +14,7 @@ import integracion.Producto.DAOProducto;
 public class SAMarcaImp implements SAMarca{
 	
 	@Override
-	public int altaMarca(TMarca marca) {
+	public int altaMarca(TMarca marca) throws IllegalArgumentException {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
 		int id = -1;
 		
@@ -27,16 +27,20 @@ public class SAMarcaImp implements SAMarca{
 			marca.setActivo(true);
 			if (daoMarca.actualizarMarca(marca)) id = marca.getID();
 		}
+		else throw new IllegalArgumentException("Marca ya existe.");
 		return id;
 	}
 		
 	
-	public boolean bajaMarca(int id) {
+	public boolean bajaMarca(int id) throws IllegalArgumentException {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
 		
 		//Comprobamos si la marca existe y está activa
 		TMarca marca = daoMarca.buscarMarca(id);
-		if (marca == null || !marca.getActivo() ) return false;
+		if (marca == null ) {
+			throw new IllegalArgumentException("Marca no existente.");
+		}
+		else if (!marca.getActivo() ) throw new IllegalArgumentException("La marca ya ha sido dada de baja.");
 		
 		//Comprobamos que no haya ningun producto con esa marca 
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
@@ -47,22 +51,22 @@ public class SAMarcaImp implements SAMarca{
 			}
 		}
 		
-		boolean bool = false;
-		if (cont == 0) { //ningun producto tiene esa marca			
-			bool = daoMarca.bajaMarca(id);
+		if (cont != 0) throw new IllegalArgumentException("Existen productos con esta marca.");
+		else {
+			return daoMarca.bajaMarca(id);
 		}
-		return bool;
+		
 	}
 	
 	
-	public boolean actualizarMarca(TMarca marca) {
+	public boolean actualizarMarca(TMarca marca) throws IllegalArgumentException {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
 		
 		//Comprobemos que la marca a actualizar existe
 		TMarca tMarca = daoMarca.buscarMarca(marca.getNombre());
 		
 		if(tMarca == null) {
-			return false;
+			throw new IllegalArgumentException("Marca no existente.");
 		}
 		marca.setID(tMarca.getID());
 		

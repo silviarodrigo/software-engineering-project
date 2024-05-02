@@ -96,7 +96,7 @@ public class VistaBuscarMarca extends JDialog implements IGUI {
 		
 		JButton continuarBtn = new JButton("Continuar");
 		continuarBtn.addActionListener((e) -> dispose());
-		_mainPanel.add(Box.createRigidArea(new Dimension(150, 20))); //100
+		_mainPanel.add(Box.createRigidArea(new Dimension(150, 20)));
 		_mainPanel.add(continuarBtn);
 		
 		setPreferredSize(new Dimension (400, 150));

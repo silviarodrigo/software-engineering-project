@@ -177,7 +177,11 @@ public class DAOMarcaImp implements DAOMarca {
 			
 			for (int i = 0; i < JA.length(); i++) {
 				JSONObject jo = JA.getJSONObject(i);
-				lista.add(new TMarca(i , jo.getString("Nombre"), jo.getString("Correo"), jo.getBoolean("Activo")));
+				
+				if(jo.getBoolean("Activo")) {
+					lista.add(new TMarca(i , jo.getString("Nombre"), jo.getString("Correo"), jo.getBoolean("Activo")));
+				}
+				
 			}
 		}
 		return lista;
