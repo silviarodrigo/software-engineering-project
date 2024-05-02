@@ -1,6 +1,7 @@
 package presentacion.Controlador;
 
 import presentacion.Evento;
+
 import presentacion.factoria.FactoriaAbstractaPresentacion;
 import negocio.Producto.TProducto;
 import negocio.Marca.TMarca;
@@ -9,6 +10,7 @@ import java.util.Collection;
 
 import javax.swing.JOptionPane;
 
+import negocio.Cliente.*;
 import negocio.Factoria.FactoriaAbstractaNegocio;
 import negocio.Facturas.SAFactura;
 import negocio.Producto.SAProducto;
@@ -141,7 +143,7 @@ public class ControladorImp extends Controlador {
 		case VISTA_BUSCAR_EMPLEADO:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_EMPLEADO);
 			break;
-		case VISTA_LISTAR_EMPLEADOS:
+		/*case VISTA_LISTAR_EMPLEADOS:
 			listarEmpleados(datos);
 			break;
 		case ACTUALIZAR_EMPLEADO:
@@ -154,8 +156,40 @@ public class ControladorImp extends Controlador {
 			bajaEmpleado(datos);
 			break;
 		case BUSCAR_EMPLEADO:
-			buscarEmpleado(datos);
-		
+			buscarEmpleado(datos);*/
+
+			// CLIENTE
+		case VISTA_PRINCIPAL_CLIENTE:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_CLIENTE);
+			break;
+		case VISTA_ALTA_CLIENTE:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_CLIENTE);
+			break;
+		case VISTA_BAJA_CLIENTE:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_CLIENTE);
+			break;
+		case VISTA_ACTUALIZAR_CLIENTE:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_CLIENTE);
+			break;
+		case VISTA_BUSCAR_CLIENTE:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_CLIENTE);
+			break;
+		case VISTA_LISTAR_CLIENTES:
+			this.listarClientes(datos);
+			break;
+		case ALTA_CLIENTE:
+			this.altaCliente(datos);
+			break;
+		case BAJA_CLIENTE:
+			this.bajaCliente(datos);
+			break;
+		case ACTUALIZAR_CLIENTE:
+			this.actualizarCliente(datos);
+			break;
+		case BUSCAR_CLIENTE:
+			this.buscarCliente(datos);
+			break;
+		default:
 			break;
 		}
 	}
@@ -388,6 +422,65 @@ public class ControladorImp extends Controlador {
 
 	}
 	
-	//EMPLEADOS 
+	// CLIENTE
+	private void altaCliente(Object datos) {
+		SACliente saCliente = FactoriaAbstractaNegocio.getInstance().crearSACliente();
+		TCliente tcliente = (TCliente) datos;
+		try {
+			int id = saCliente.altaCliente(tcliente);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_CLIENTE)
+					.actualizar(Evento.ALTA_CLIENTE_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_CLIENTE)
+					.actualizar(Evento.ALTA_CLIENTE_ERROR, e.getMessage());
+		}
+	}
 	
+	private void bajaCliente(Object datos) {
+		SACliente saCliente = FactoriaAbstractaNegocio.getInstance().crearSACliente();
+		String dni = (String) datos;
+		try {
+			int id = saCliente.bajaCliente(dni);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_CLIENTE)
+					.actualizar(Evento.BAJA_CLIENTE_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_CLIENTE)
+					.actualizar(Evento.BAJA_CLIENTE_ERROR, e.getMessage());
+		}
+	}
+	
+	private void actualizarCliente(Object datos) {
+		SACliente saCliente = FactoriaAbstractaNegocio.getInstance().crearSACliente();
+		TCliente tcliente = (TCliente) datos;
+		try {
+			int id = saCliente.actualizarCliente(tcliente);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_CLIENTE)
+					.actualizar(Evento.ACTUALIZAR_CLIENTE_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_CLIENTE)
+					.actualizar(Evento.ACTUALIZAR_CLIENTE_ERROR, e.getMessage());
+		}
+	}
+	
+	private void buscarCliente(Object datos) {
+		SACliente saCliente = FactoriaAbstractaNegocio.getInstance().crearSACliente();
+		String dni = (String) datos;
+		TCliente tcliente = saCliente.buscarCliente(dni);
+		if (tcliente == null) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_CLIENTE).actualizar(Evento.BUSCAR_CLIENTE_ERROR, "Cliente no encontrado.");
+		}
+		else {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_CLIENTE).actualizar(Evento.BUSCAR_CLIENTE_SUCCESS, tcliente);
+		}
+	}
+
+	private void listarClientes(Object datos) {
+		SACliente saCliente = FactoriaAbstractaNegocio.getInstance().crearSACliente();
+		Collection<TCliente> clientes = saCliente.listarClientes();
+		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_CLIENTES)
+				.actualizar(Evento.LISTAR_CLIENTES, clientes);
+	}
+
+	// EMPLEADOS
+
 }
