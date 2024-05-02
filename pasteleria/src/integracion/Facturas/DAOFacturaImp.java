@@ -41,7 +41,7 @@ public class DAOFacturaImp implements DAOFactura {
 				jo.put("id_cliente", id_c);
 				jo.put("id_vendedor", id_v);
 				jo.put("precio", ja.getJSONObject(i).getInt("precio"));
-				jo.put("activa", ja.getJSONObject(i).getInt("activa"));
+				jo.put("activa", ja.getJSONObject(i).getString("activa"));
 				ja.put(i, jo);// lo añadimos a nuestra lista de facturas
 
 				writeJSONObject(filename, ja, next_id);

@@ -75,7 +75,6 @@ public class SAFacturaImp implements SAFactura {
 			for (TLineaFactura lf : lineas_factura_definitivas) {
 				lf.setIdFactura(id_factura);
 				daoLineaFactura.crearLineaFactura(lf);
-				int uuuu=0;
 			}
 			// vendedor.setNumVentas(vendedor.getNumVentas() + 1);
 			// daoEmpleado.actualizarEmpleado(vendedor);
