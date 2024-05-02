@@ -10,7 +10,7 @@ import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
 
-public class VistaBuscarClientes extends JFrame implements IGUI{
+public class VistaBuscarCliente extends JFrame implements IGUI{
 	private static final long serialVersionUID = 1L;
 	
 	// Paneles
@@ -28,7 +28,7 @@ public class VistaBuscarClientes extends JFrame implements IGUI{
 	private JButton _baceptar;
 	private JButton _bcancelar;
 	
-	public VistaBuscarClientes() {
+	public VistaBuscarCliente() {
 		this.initGUI();
 	}
 	
@@ -43,7 +43,7 @@ public class VistaBuscarClientes extends JFrame implements IGUI{
 		// Creamos y añadimos text field y etiqueta.
 		this._ldni = new JLabel("DNI:");
 		this._tfdni = new JTextField();
-		this._tfdni.setPreferredSize(new Dimension(100, 50));
+		this._tfdni.setPreferredSize(new Dimension(100, 25));
 		
 		JPanel pdni = new JPanel(new FlowLayout());
 		pdni.add(this._ldni);
@@ -57,7 +57,7 @@ public class VistaBuscarClientes extends JFrame implements IGUI{
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add(this._baceptar);
-		buttonPanel.add(Box.createRigidArea(new Dimension(30, 20)));
+		buttonPanel.add(Box.createRigidArea(new Dimension(10, 5)));
 		buttonPanel.add(this._bcancelar);
 		buttonPanel.setBorder(BorderFactory.createMatteBorder(PROPERTIES, 0, 0, 0, getForeground()));
 		
@@ -66,7 +66,7 @@ public class VistaBuscarClientes extends JFrame implements IGUI{
 		this._pedirDNIPanel.add(buttonPanel);
 		
 		
-		setPreferredSize(new Dimension (600, 500));
+		setPreferredSize(new Dimension (400, 150));
 		pack();
 		setLocationRelativeTo(null); // Para que la ventana aparezca en el centro de la pantalla.
 		setVisible(true);

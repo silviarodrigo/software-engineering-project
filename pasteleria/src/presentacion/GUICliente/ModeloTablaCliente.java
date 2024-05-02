@@ -11,17 +11,10 @@ import java.util.Collection;
 public class ModeloTablaCliente extends AbstractTableModel{
 	private static final long serialVersionUID = 1L;
 	
-	private String[] _headers;
+	private String[] _headers = {"Nombre", "Apellidos", "DNI", "Correo", "Activo", "Id"};
 	private List<TCliente> listaClientes;
 	
 	public ModeloTablaCliente() {
-		this._headers[0] = "Nombre";
-		this._headers[1] = "Apellidos";
-		this._headers[2] = "DNI";
-		this._headers[3] = "Correo";
-		this._headers[4] = "Activo";
-		this._headers[5] = "Id";
-		
 		this.listaClientes = new ArrayList<TCliente>();
 	}
 

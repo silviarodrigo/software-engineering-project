@@ -35,7 +35,7 @@ public class VistaBajaCliente extends JFrame implements IGUI{
 		// Creamos y añadimos text field y etiqueta.
 		this._ldni = new JLabel("DNI:");
 		this._tfdni = new JTextField();
-		this._tfdni.setPreferredSize(new Dimension(100, 50));
+		this._tfdni.setPreferredSize(new Dimension(100, 25));
 		
 		JPanel pdni = new JPanel(new FlowLayout());
 		pdni.add(this._ldni);
@@ -49,7 +49,7 @@ public class VistaBajaCliente extends JFrame implements IGUI{
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add(this._baceptar);
-		buttonPanel.add(Box.createRigidArea(new Dimension(30, 20)));
+		buttonPanel.add(Box.createRigidArea(new Dimension(10, 5)));
 		buttonPanel.add(this._bcancelar);
 		buttonPanel.setBorder(BorderFactory.createMatteBorder(PROPERTIES, 0, 0, 0, getForeground()));
 		
@@ -58,7 +58,7 @@ public class VistaBajaCliente extends JFrame implements IGUI{
 		mainPanel.add(buttonPanel);
 		
 		
-		setPreferredSize(new Dimension (600, 500));
+		setPreferredSize(new Dimension (400, 150));
 		pack();
 		setLocationRelativeTo(null); // Para que la ventana aparezca en el centro de la pantalla.
 		setVisible(true);
@@ -83,7 +83,7 @@ public class VistaBajaCliente extends JFrame implements IGUI{
 			JOptionPane.showMessageDialog(this, "Cliente con dni \"" + datos + "\" dado de baja con éxito.", "Baja Cliente", JOptionPane.INFORMATION_MESSAGE);
 			break;
 		case BAJA_CLIENTE_ERROR:
-			JOptionPane.showMessageDialog(this, "Error al dar de baja cliente con dni: " + datos, "Baja Cliente", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Error al dar de baja cliente: " + datos, "Baja Cliente", JOptionPane.ERROR_MESSAGE);
 			break;
 		default:
 			break;

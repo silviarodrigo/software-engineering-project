@@ -10,7 +10,8 @@ import negocio.Cliente.TCliente;
 import java.util.ArrayList;
 
 public class DAOClienteImp implements DAOCliente {
-
+	private static final String _CLIENTE_FILENAME = "resources/Clientes.json";
+	
 	@Override
 	public int altaCliente(TCliente tcliente) {
 		JSONObject jCliente = this.createJSON(tcliente);
@@ -120,16 +121,14 @@ public class DAOClienteImp implements DAOCliente {
 	@Override
 	public Collection<TCliente> listarClientes() {
 		JSONObject jo = this.loadData();
-
-		if (jo == null)
-			return null; // Fichero JSON inexistente (aún no hay clientes insertados)
-
 		Collection<TCliente> listaClientes = new ArrayList<TCliente>();
 
-		JSONArray ja = jo.getJSONArray("clientes");
+		if (jo != null) {
+			JSONArray ja = jo.getJSONArray("clientes");
 
-		for (int i = 0; i < ja.length(); i++) {
-			listaClientes.add(this.createTCliente(ja.getJSONObject(i)));
+			for (int i = 0; i < ja.length(); i++) {
+				listaClientes.add(this.createTCliente(ja.getJSONObject(i)));
+			}
 		}
 
 		return listaClientes;
@@ -138,7 +137,7 @@ public class DAOClienteImp implements DAOCliente {
 	JSONObject loadData() { // Obtenemos los clientes del fichero JSON.
 		JSONObject jo = new JSONObject();
 		try {
-			InputStream is = new FileInputStream(new File("Cliente/resources/Cliente.json"));
+			InputStream is = new FileInputStream(new File(_CLIENTE_FILENAME));
 			jo = new JSONObject(new JSONTokener(is));
 		} catch (FileNotFoundException e) {
 			jo = null;
@@ -148,8 +147,8 @@ public class DAOClienteImp implements DAOCliente {
 
 	private boolean saveData(JSONObject jo) {
 		try {
-			BufferedWriter bufw = new BufferedWriter(new FileWriter("Cliente/resources/Cliente.json", false));
-			bufw.write(jo.toString());
+			BufferedWriter bufw = new BufferedWriter(new FileWriter(_CLIENTE_FILENAME, false));
+			bufw.write(jo.toString(3));
 			bufw.close();
 		} catch (IOException e) {
 			return false;
@@ -163,7 +162,9 @@ public class DAOClienteImp implements DAOCliente {
 		jCliente.put("apellidos", tcliente.getApellidos());
 		jCliente.put("DNI", tcliente.getDNI());
 		jCliente.put("correo", tcliente.getCorreo());
-
+		jCliente.put("activo", tcliente.getActivo());
+		jCliente.put("id", tcliente.getId());
+		
 		return jCliente;
 	}
 
