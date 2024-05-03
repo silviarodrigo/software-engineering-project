@@ -65,7 +65,7 @@ public class VistaBajaCliente extends JFrame implements IGUI{
 	}
 
 	private void bajaClienteListener() {
-		String dni = this._ldni.getText();
+		String dni = this._tfdni.getText();
 		
 		if (dni == null || dni.isBlank()) {
 			JOptionPane.showMessageDialog(this, "Debes indicar un DNI.", "Baja Cliente", JOptionPane.ERROR_MESSAGE);
@@ -80,7 +80,7 @@ public class VistaBajaCliente extends JFrame implements IGUI{
 	public void actualizar(Evento e, Object datos) {
 		switch(e) {
 		case BAJA_CLIENTE_SUCCESS:
-			JOptionPane.showMessageDialog(this, "Cliente con dni \"" + datos + "\" dado de baja con éxito.", "Baja Cliente", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Cliente con id \"" + datos + "\" dado de baja con éxito.", "Baja Cliente", JOptionPane.INFORMATION_MESSAGE);
 			break;
 		case BAJA_CLIENTE_ERROR:
 			JOptionPane.showMessageDialog(this, "Error al dar de baja cliente: " + datos, "Baja Cliente", JOptionPane.ERROR_MESSAGE);

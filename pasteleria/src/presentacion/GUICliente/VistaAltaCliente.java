@@ -143,7 +143,7 @@ public class VistaAltaCliente extends JFrame implements IGUI{
 	public void actualizar(Evento e, Object datos) {
 		switch(e) {
 		case ALTA_CLIENTE_SUCCESS:
-			JOptionPane.showMessageDialog(this, "Cliente con dni \"" + datos + "\" dado de alta con éxito.", "Alta Cliente", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Cliente con id \"" + datos + "\" dado de alta con éxito.", "Alta Cliente", JOptionPane.INFORMATION_MESSAGE);
 			break;
 		case ALTA_CLIENTE_ERROR:
 			JOptionPane.showMessageDialog(this, "Error al dar de alta cliente: " + datos, "Alta Cliente", JOptionPane.ERROR_MESSAGE);

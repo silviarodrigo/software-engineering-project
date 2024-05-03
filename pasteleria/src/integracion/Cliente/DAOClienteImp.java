@@ -59,6 +59,8 @@ public class DAOClienteImp implements DAOCliente {
 			ja.put(id, jCliente);
 
 			jo.put("clientes", ja);
+			
+			this.saveData(jo);
 		}
 	}
 

@@ -121,12 +121,12 @@ public class VistaActualizarCliente extends JFrame implements IGUI {
 		TCliente cliente = new TCliente(nombre, apellidos, dni, correo);
 
 		this.dispose();
-		Controlador.getInstance().accion(Evento.ALTA_CLIENTE, cliente);
+		Controlador.getInstance().accion(Evento.ACTUALIZAR_CLIENTE, cliente);
 	}
 
 	private String validateData(String nombre, String apellidos, String dni, String correo) {
 		if (nombre == null || nombre.isBlank()) {
-			return "Debes indicar el nombre del{ cliente.";
+			return "Debes indicar el nombre del cliente.";
 		} else if (apellidos == null || apellidos.isBlank()) {
 			return "Debes indicar los apellidos del cliente.";
 		} else if (dni == null || dni.isBlank()) {
@@ -141,7 +141,7 @@ public class VistaActualizarCliente extends JFrame implements IGUI {
 	public void actualizar(Evento e, Object datos) {
 		switch(e) {
 		case ACTUALIZAR_CLIENTE_SUCCESS:
-			JOptionPane.showMessageDialog(this, "Cliente con dni \"" + datos + "\" actualizado con éxito.", "Actualizar Producto", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Cliente con id \"" + datos + "\" actualizado con éxito.", "Actualizar Producto", JOptionPane.INFORMATION_MESSAGE);
 			break;
 		case ACTUALIZAR_CLIENTE_ERROR:
 			JOptionPane.showMessageDialog(this, "Error al actualizar cliente: " + datos, "Actualizar Producto", JOptionPane.ERROR_MESSAGE);

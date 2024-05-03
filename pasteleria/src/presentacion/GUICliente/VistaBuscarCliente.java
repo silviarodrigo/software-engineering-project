@@ -35,10 +35,15 @@ public class VistaBuscarCliente extends JFrame implements IGUI{
 	private void initGUI() {
 		this.setTitle("Buscar Cliente");
 		
-		// Panel principal
+		// Panel principal.
+		this._mainPanel = new JPanel();
+		this._mainPanel.setLayout(new BoxLayout(this._mainPanel, BoxLayout.Y_AXIS));
+		this.setContentPane(this._mainPanel);
+		
+		// Panel para pedir la información.
 		this._pedirDNIPanel = new JPanel();
 		this._pedirDNIPanel.setLayout(new BoxLayout(this._pedirDNIPanel, BoxLayout.Y_AXIS));
-		this.setContentPane(this._pedirDNIPanel);
+		this._mainPanel.add(this._pedirDNIPanel);
 		
 		// Creamos y añadimos text field y etiqueta.
 		this._ldni = new JLabel("DNI:");
@@ -59,7 +64,6 @@ public class VistaBuscarCliente extends JFrame implements IGUI{
 		buttonPanel.add(this._baceptar);
 		buttonPanel.add(Box.createRigidArea(new Dimension(10, 5)));
 		buttonPanel.add(this._bcancelar);
-		buttonPanel.setBorder(BorderFactory.createMatteBorder(PROPERTIES, 0, 0, 0, getForeground()));
 		
 		// Añadimos paneles al panel principal.
 		this._pedirDNIPanel.add(pdni);
@@ -73,7 +77,7 @@ public class VistaBuscarCliente extends JFrame implements IGUI{
 	}
 	
 	private void buscarClienteListener() {
-		String dni = this._ldni.getText();
+		String dni = this._tfdni.getText();
 		
 		if (dni == null || dni.isBlank()) {
 			JOptionPane.showMessageDialog(this, "Debes indicar un DNI.", "Buscar Cliente", JOptionPane.ERROR_MESSAGE);
@@ -88,7 +92,8 @@ public class VistaBuscarCliente extends JFrame implements IGUI{
 		// Creamos un panel para mostrar la información y lo añadimos al principal.
 		this._infoPanel = new JPanel();
 		this._infoPanel.setLayout(new BoxLayout(this._infoPanel, BoxLayout.Y_AXIS));
-		this._mainPanel.add(this._infoPanel);
+		this._mainPanel.setLayout(new BorderLayout());
+		this._mainPanel.add(this._infoPanel, BorderLayout.CENTER);
 		
 		// Añadimos los datos del cliente al panel.
 		JLabel lnombre = new JLabel("Nombre: " + cliente.getNombre());
@@ -107,8 +112,11 @@ public class VistaBuscarCliente extends JFrame implements IGUI{
 		
 		// Botón para continuar.
 		JButton bcontinuar = new JButton("Continuar");
+		JPanel buttonPanel = new JPanel();
 		bcontinuar.addActionListener((e) -> dispose());
-		_infoPanel.add(bcontinuar);
+		buttonPanel.add(bcontinuar);
+		
+		this._mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 		
 		pack();
 	}
@@ -117,7 +125,7 @@ public class VistaBuscarCliente extends JFrame implements IGUI{
 	public void actualizar(Evento e, Object datos) {
 		switch(e) {
 		case BUSCAR_CLIENTE_SUCCESS:
-			this._mainPanel.setVisible(false);
+			this._pedirDNIPanel.setVisible(false);
 			this.initInfoGUI((TCliente) datos);
 			break;
 		case BUSCAR_CLIENTE_ERROR:
