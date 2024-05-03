@@ -31,16 +31,16 @@ public class Carrito {
 		if (i == -1) {
 			return false;
 		} else {
-			DAOLineaFactura daoLineaFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
-			// mas adelante podremos simplemente modificar la linea de factura, hasta
-			// entonces:
-			daoLineaFactura.eliminarLineaFactura(lista_productos.get(i));
+//			DAOLineaFactura daoLineaFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
+//			// mas adelante podremos simplemente modificar la linea de factura, hasta
+//			// entonces:
+//			daoLineaFactura.eliminarLineaFactura(lista_productos.get(i));
 			this.lista_productos.get(i)
 					.setCantidadProducto(this.lista_productos.get(i).getCantidad() - linea.getCantidad());
 			if (this.lista_productos.get(i).getCantidad() <= 0) {
 				this.lista_productos.get(i).setActivo(false);
 			}
-			daoLineaFactura.crearLineaFactura(lista_productos.get(i));
+			//daoLineaFactura.crearLineaFactura(lista_productos.get(i));
 			return true;
 		}
 	}

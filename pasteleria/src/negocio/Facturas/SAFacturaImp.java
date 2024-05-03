@@ -37,7 +37,7 @@ public class SAFacturaImp implements SAFactura {
 		ArrayList<TLineaFactura> lineas_factura_definitivas = new ArrayList<TLineaFactura>();
 
 		int precio_total = 0;
-		int id_lineaFactura = 0;
+		//int id_lineaFactura = 0;
 		int id_factura = -1;
 
 		TCliente cliente = daoCliente.buscarCliente(datos.getIdCliente());
@@ -59,7 +59,7 @@ public class SAFacturaImp implements SAFactura {
 					if (producto.getStock() < linea_factura.getCantidad()) {
 						linea_factura.setCantidadProducto(producto.getStock());
 					}
-					id_lineaFactura = linea_factura.getIdLinea();
+					//id_lineaFactura = linea_factura.getIdLinea();
 					precio_total += producto.getPrecio() * linea_factura.getCantidad();
 					producto.setStock(producto.getStock() - linea_factura.getCantidad());
 					daoProducto.actualizarProducto(producto);
@@ -71,7 +71,8 @@ public class SAFacturaImp implements SAFactura {
 
 		}
 		if (lineas_factura_definitivas.size() > 0 && exito) {// si hay lineas válidas y no hay problemas en la factura
-			id_factura = daoFactura.crearFactura(new TFactura(0, precio_total, datos, true));
+			TDatosVenta datos_comprobados=new TDatosVenta(datos.getFecha(), datos.getIdVendedor(), 0, lineas_factura_definitivas);
+			id_factura = daoFactura.crearFactura(new TFactura(0, precio_total, datos_comprobados , true));
 			for (TLineaFactura lf : lineas_factura_definitivas) {
 				lf.setIdFactura(id_factura);
 				daoLineaFactura.crearLineaFactura(lf);
