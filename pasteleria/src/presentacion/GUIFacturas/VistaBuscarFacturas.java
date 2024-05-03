@@ -77,25 +77,31 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 			_infoPanel.add(mensajeErrorLabel);
 		} else {
 			TDatosVenta datos_venta = factura.getDatosVentas();
+			JLabel infoLabel = new JLabel("INFORMACION FACTURA");
 			JLabel idLabel = new JLabel("Id: " + factura.getIdFactura());
 			JLabel precioLabel = new JLabel("Precio: " + factura.getPrecio_total());
 			JLabel fechaLabel = new JLabel("Fecha: " + datos_venta.getFecha());
 			JLabel id_clienteLabel = new JLabel("Id cliente: " + datos_venta.getIdCliente());
 			JLabel id_vendedor = new JLabel("Id vendedor: " + datos_venta.getIdVendedor());
+			_infoPanel.add(infoLabel);
 			_infoPanel.add(idLabel);
 			_infoPanel.add(precioLabel);
 			_infoPanel.add(fechaLabel);
 			_infoPanel.add(id_clienteLabel);
 			_infoPanel.add(id_vendedor);
 			if (datos_venta.getProductos() != null) {
+				JLabel infoLineaLabel = new JLabel("INFORMACION LINEAS DE FACTURA");
+				_infoPanel.add(infoLineaLabel);
 				for (TLineaFactura lf : datos_venta.getProductos()) {
 					if (lf.getActivo()) {
 						JLabel idlineaLabel = new JLabel("Id linea: " + lf.getIdLinea());
 						JLabel productoLabel = new JLabel("Id producto: " + lf.getIdProducto());
 						JLabel cantidadLabel = new JLabel("Cantidad: " + lf.getCantidad());
+						JLabel separacionLabel = new JLabel(".");
 						_infoPanel.add(idlineaLabel);
 						_infoPanel.add(productoLabel);
 						_infoPanel.add(cantidadLabel);
+						_infoPanel.add(separacionLabel);
 					}
 				}
 			}
