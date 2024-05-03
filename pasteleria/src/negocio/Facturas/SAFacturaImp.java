@@ -39,10 +39,12 @@ public class SAFacturaImp implements SAFactura {
 		int precio_total = 0;
 		int id_lineaFactura = 0;
 		int id_factura = -1;
+
 		TCliente cliente = daoCliente.buscarCliente(datos.getIdCliente());
 		TEmpleado vendedor = daoEmpleado.buscarEmpleado(datos.getIdVendedor());
+
 		boolean exito = true;
-		if (cliente != null && vendedor != null) {
+		if (cliente != null /* && vendedor != null */) {
 			int i = 0;
 			// Recorremos las lineas de factura de nuestra nueva factura
 			ArrayList<TLineaFactura> lineas_factura_por_comprobar = datos.getProductos();
@@ -60,6 +62,7 @@ public class SAFacturaImp implements SAFactura {
 					id_lineaFactura = linea_factura.getIdLinea();
 					precio_total += producto.getPrecio() * linea_factura.getCantidad();
 					producto.setStock(producto.getStock() - linea_factura.getCantidad());
+					daoProducto.actualizarProducto(producto);
 					// guardamos la linea de factura
 					lineas_factura_definitivas.add(linea_factura);
 				}
@@ -68,13 +71,13 @@ public class SAFacturaImp implements SAFactura {
 
 		}
 		if (lineas_factura_definitivas.size() > 0 && exito) {// si hay lineas válidas y no hay problemas en la factura
-			id_factura = daoFactura.crearFactura(new TFactura(0, precio_total, datos, false));
+			id_factura = daoFactura.crearFactura(new TFactura(0, precio_total, datos, true));
 			for (TLineaFactura lf : lineas_factura_definitivas) {
 				lf.setIdFactura(id_factura);
 				daoLineaFactura.crearLineaFactura(lf);
 			}
-			vendedor.setNumVentas(vendedor.getNumVentas() + 1);
-			vendedor.update();
+			// vendedor.setNumVentas(vendedor.getNumVentas() + 1);
+			// daoEmpleado.actualizarEmpleado(vendedor);
 		}
 		return id_factura;
 	}
@@ -82,7 +85,7 @@ public class SAFacturaImp implements SAFactura {
 	public boolean anadirProducto(TLineaFactura linea, Carrito c) {
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
 		TProducto producto = daoProducto.buscarProducto(linea.getIdProducto());
-		if (producto != null) {
+		if (producto != null && producto.getActivo()) {
 			c.anadirProducto(linea);
 		} else {
 			return false;
@@ -94,7 +97,7 @@ public class SAFacturaImp implements SAFactura {
 		boolean exito = true;
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
 		TProducto producto = daoProducto.buscarProducto(linea.getIdProducto());
-		if (producto != null) {
+		if (producto != null && producto.getActivo()) {
 			exito = c.eliminarProducto(linea);
 		} else {
 			exito = false;

@@ -41,7 +41,7 @@ public class DAOFacturaImp implements DAOFactura {
 				jo.put("id_cliente", id_c);
 				jo.put("id_vendedor", id_v);
 				jo.put("precio", ja.getJSONObject(i).getInt("precio"));
-				jo.put("activa", ja.getJSONObject(i).getInt("activa"));
+				jo.put("activa", ja.getJSONObject(i).getString("activa"));
 				ja.put(i, jo);// lo añadimos a nuestra lista de facturas
 
 				writeJSONObject(filename, ja, next_id);
@@ -159,7 +159,7 @@ public class DAOFacturaImp implements DAOFactura {
 	private boolean writeJSONObject(String filename, JSONArray ja, int next_id) {
 		// Escribimos el fichero otra vez con los datos actualizados
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter("Facturas.json"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
 			JSONObject jo2 = new JSONObject();
 			jo2.put("ListaFacturas", ja);
 			jo2.put("next_id", next_id);
@@ -179,9 +179,11 @@ public class DAOFacturaImp implements DAOFactura {
 		DAOLineaFactura daol = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
 		ArrayList<TLineaFactura> lineas_factura = (ArrayList<TLineaFactura>) daol.mostrarLineasFactura();
 		// seleccionamos las que pertenecen a la factura actual
-		for (int j = 0; j < lineas_factura.size(); ++j) {
-			if (lineas_factura.get(j).getIdFactura() != ja.getJSONObject(i).getInt("id_factura")) {
-				lineas_factura.remove(j);
+		if (lineas_factura != null) {
+			for (int j = 0; j < lineas_factura.size(); ++j) {
+				if (lineas_factura.get(j).getIdFactura() != ja.getJSONObject(i).getInt("id_factura")) {
+					lineas_factura.remove(j);
+				}
 			}
 		}
 		// creamos el resto de elementos necesarios para crear la factura

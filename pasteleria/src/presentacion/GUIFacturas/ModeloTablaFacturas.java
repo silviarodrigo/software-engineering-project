@@ -9,6 +9,7 @@ import negocio.Facturas.TFactura;
 
 public class ModeloTablaFacturas extends AbstractTableModel {
 
+	private static final long serialVersionUID = 1L;
 	private List<TFactura> facturas;
 	private String[] headers = { "Id", "Precio", "Fecha", "Id cliente", "Id vendedor" };
 

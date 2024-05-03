@@ -26,6 +26,7 @@ public class ControladorImp extends Controlador {
 		case MAIN_WINDOW:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.MAIN_WINDOW);
 			break;
+			
 		// PRODUCTO
 		case VISTA_PRINCIPAL_PRODUCTO:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_PRODUCTO);
@@ -57,6 +58,7 @@ public class ControladorImp extends Controlador {
 		case BUSCAR_PRODUCTO:
 			buscarProducto(datos);
 			break;
+			
 		// FACTURAS
 		case VISTA_PRINCIPAL_FACTURAS:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_FACTURAS);
@@ -91,6 +93,13 @@ public class ControladorImp extends Controlador {
 		case BUSCAR_FACTURA:
 			buscarFactura(datos);
 			break;
+		case ANADIR_PRODUCTO:
+			anadirProducto(datos);
+			break;
+		case ELIMINAR_PRODUCTO:
+			eliminarProducto(datos);
+			break;
+			
 		// MARCA
 		case VISTA_PRINCIPAL_MARCA:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_MARCA);
@@ -110,22 +119,18 @@ public class ControladorImp extends Controlador {
 		case VISTA_LISTAR_MARCAS:
 			listarMarcas(datos);
 			break;
-		case ACTUALIZAR_MARCA:
-			actualizarMarca(datos);
-			break;
 		case ALTA_MARCA:
 			altaMarca(datos);
 			break;
 		case BAJA_MARCA:
 			bajaMarca(datos);
 			break;
+		case ACTUALIZAR_MARCA:
+			actualizarMarca(datos);
+			break;
 		case BUSCAR_MARCA:
 			buscarMarca(datos);
-		case ANADIR_PRODUCTO:
-			anadirProducto(datos);
 			break;
-		case ELIMINAR_PRODUCTO:
-			eliminarProducto(datos);
 
 			// EMPLEADOS
 		case VISTA_PRINCIPAL_EMPLEADOS:
@@ -299,66 +304,7 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.BUSCAR_FACTURA_ERROR, "factura no encontrada.");
 		}
 	}
-
-	// MARCAS
-	private void altaMarca(Object datos) {
-		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
-		TMarca marca = (TMarca) datos;
-		try {
-			int id = SAMarca.altaMarca(marca);
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_MARCA)
-					.actualizar(Evento.ALTA_MARCA_SUCCESS, id);
-		} catch (IllegalArgumentException e) {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_MARCA)
-					.actualizar(Evento.ALTA_MARCA_ERROR, e.getMessage());
-		}
-	}
-
-	private void bajaMarca(Object datos) {
-		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
-		int id = (int) datos;
-		try {
-			boolean eliminada = SAMarca.bajaMarca(id);
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_MARCA)
-					.actualizar(Evento.BAJA_MARCA_SUCCESS, id);
-		} catch (IllegalArgumentException e) {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_MARCA)
-					.actualizar(Evento.BAJA_MARCA_ERROR, e.getMessage());
-		}
-	}
-
-	private void actualizarMarca(Object datos) {
-		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
-		TMarca marca = (TMarca) datos;
-		try {
-			boolean actualizada = SAMarca.actualizarMarca(marca);
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_MARCA)
-					.actualizar(Evento.ACTUALIZAR_MARCA_SUCCESS, id);
-		} catch (IllegalArgumentException e) {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_MARCA)
-					.actualizar(Evento.ACTUALIZAR_MARCA_ERROR, e.getMessage());
-		}
-	}
-
-	private void buscarMarca(Object datos) {
-		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
-		int id = (int) datos;
-		TMarca marca = SAMarca.buscarMarca(id);
-		if (marca != null) {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_MARCA)
-					.actualizar(Evento.BUSCAR_MARCA_SUCCESS, marca);
-		} else {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_MARCA)
-					.actualizar(Evento.BUSCAR_MARCA_ERROR, "Producto no encontrado.");
-		}
-	}
-
-	private void listarMarcas(Object datos) {
-		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
-		Collection<TMarca> marcas = SAMarca.listarMarcas();
-		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_MARCAS)
-				.actualizar(Evento.LISTAR_MARCAS, marcas);
-	}
+	
 
 	private void abrirVenta(Object datos) {
 		if (this.carrito != null) {
@@ -411,15 +357,75 @@ public class ControladorImp extends Controlador {
 			TDatosVenta datos_venta = factura.getDatosVentas();
 			int id_factura = saFactura.cerrarVenta(this.carrito, datos_venta.getIdCliente(),
 					datos_venta.getIdVendedor(), datos_venta.getFecha());
-			if (id_factura == -1) {
+			if (id_factura != -1) {
 				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_CERRAR_VENTA)
-						.actualizar(Evento.CERRAR_VENTA_SUCCESS, "venta cerrada con exito");
+						.actualizar(Evento.CERRAR_VENTA_SUCCESS, id_factura);
 			} else {
 				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_CERRAR_VENTA)
 						.actualizar(Evento.CERRAR_VENTA_ERROR, "la venta no se ha podido cerrar");
 			}
 		}
 
+	}
+
+	// MARCAS
+	private void altaMarca(Object datos) {
+		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
+		TMarca marca = (TMarca) datos;
+		try {
+			int id = SAMarca.altaMarca(marca);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_MARCA)
+					.actualizar(Evento.ALTA_MARCA_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_MARCA)
+					.actualizar(Evento.ALTA_MARCA_ERROR, e.getMessage());
+		}
+	}
+
+	private void bajaMarca(Object datos) {
+		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
+		int id = (int) datos;
+		try {
+			boolean eliminada = SAMarca.bajaMarca(id);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_MARCA)
+					.actualizar(Evento.BAJA_MARCA_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_MARCA)
+					.actualizar(Evento.BAJA_MARCA_ERROR, e.getMessage());
+		}
+	}
+
+	private void actualizarMarca(Object datos) {
+		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
+		TMarca marca = (TMarca) datos;
+		try {
+			boolean actualizada = SAMarca.actualizarMarca(marca);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_MARCA)
+					.actualizar(Evento.ACTUALIZAR_MARCA_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_MARCA)
+					.actualizar(Evento.ACTUALIZAR_MARCA_ERROR, e.getMessage());
+		}
+	}
+
+	private void buscarMarca(Object datos) {
+		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
+		int id = (int) datos;
+		TMarca marca = SAMarca.buscarMarca(id);
+		if (marca != null) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_MARCA)
+					.actualizar(Evento.BUSCAR_MARCA_SUCCESS, marca);
+		} else {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_MARCA)
+					.actualizar(Evento.BUSCAR_MARCA_ERROR, "Marca no encontrada.");
+		}
+	}
+
+	private void listarMarcas(Object datos) {
+		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
+		Collection<TMarca> marcas = SAMarca.listarMarcas();
+		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_MARCAS)
+				.actualizar(Evento.LISTAR_MARCAS, marcas);
 	}
 	
 	// CLIENTE

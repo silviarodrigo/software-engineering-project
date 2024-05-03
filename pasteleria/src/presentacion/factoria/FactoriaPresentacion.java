@@ -63,6 +63,7 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 			return new VistaEliminarProducto();
 		case VISTA_CERRAR_VENTA:
 			return new VistaCerrarVenta();
+			
 		//MARCA
 		case VISTA_PRINCIPAL_MARCA:
 			return new VistaPrincipalMarca();
