@@ -125,7 +125,7 @@ public class VistaAltaCliente extends JFrame implements IGUI{
 	
 	private String validateData(String nombre, String apellidos, String dni, String correo) {
 		if (nombre == null || nombre.isBlank()) {
-			return "Debes indicar el nombre del{ cliente.";
+			return "Debes indicar el nombre del cliente.";
 		}
 		else if (apellidos == null || apellidos.isBlank()) {
 			return "Debes indicar los apellidos del cliente.";
