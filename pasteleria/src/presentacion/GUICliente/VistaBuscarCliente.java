@@ -88,7 +88,7 @@ public class VistaBuscarCliente extends JFrame implements IGUI{
 		Controlador.getInstance().accion(Evento.BUSCAR_CLIENTE, dni);
 	}
 	
-	void initInfoGUI(TCliente cliente) {
+	private void initInfoGUI(TCliente cliente) {
 		// Creamos un panel para mostrar la información y lo añadimos al principal.
 		this._infoPanel = new JPanel();
 		this._infoPanel.setLayout(new BoxLayout(this._infoPanel, BoxLayout.Y_AXIS));
