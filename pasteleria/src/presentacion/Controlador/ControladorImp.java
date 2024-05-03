@@ -386,7 +386,7 @@ public class ControladorImp extends Controlador {
 		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
 		int id = (int) datos;
 		try {
-			boolean eliminada = SAMarca.bajaMarca(id);
+			SAMarca.bajaMarca(id);
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_MARCA)
 					.actualizar(Evento.BAJA_MARCA_SUCCESS, id);
 		} catch (IllegalArgumentException e) {
@@ -394,12 +394,13 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.BAJA_MARCA_ERROR, e.getMessage());
 		}
 	}
+	
 
 	private void actualizarMarca(Object datos) {
 		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
 		TMarca marca = (TMarca) datos;
 		try {
-			boolean actualizada = SAMarca.actualizarMarca(marca);
+			int id = SAMarca.actualizarMarca(marca);
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_MARCA)
 					.actualizar(Evento.ACTUALIZAR_MARCA_SUCCESS, id);
 		} catch (IllegalArgumentException e) {
@@ -407,6 +408,7 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.ACTUALIZAR_MARCA_ERROR, e.getMessage());
 		}
 	}
+	
 
 	private void buscarMarca(Object datos) {
 		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();

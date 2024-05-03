@@ -81,9 +81,9 @@ public class DAOMarcaImp implements DAOMarca {
 		return writeJSONObject(JO);
 	}
 		
-
+	
 	@Override
-	public boolean actualizarMarca(TMarca marca) {
+	public int actualizarMarca(TMarca marca) {
 		//cargamos los datos de la nueva marca en un JSON
 		JSONObject jo = createJSON(marca);
 		
@@ -91,15 +91,16 @@ public class DAOMarcaImp implements DAOMarca {
 		JSONObject JO = getJSONFromFile();
 		
 		if (JO == null) {
-			return false; 
+			return -1; 
 		}
 		else {
 			JSONArray JA = JO.getJSONArray("Marcas");
-			JA.put(marca.getID(), jo); //ESTO PUEDE DAR ERROR??
+			JA.put(marca.getID(), jo); 
 			JO.put("Marcas", JA);
 		}
-				
-		return writeJSONObject(JO);
+			
+		if (writeJSONObject(JO)) return marca.getID();
+		else return -1;
 	}
 		
 

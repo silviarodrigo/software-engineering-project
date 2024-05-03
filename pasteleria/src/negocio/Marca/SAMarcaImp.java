@@ -59,7 +59,7 @@ public class SAMarcaImp implements SAMarca{
 	}
 	
 	
-	public boolean actualizarMarca(TMarca marca) throws IllegalArgumentException {
+	public int actualizarMarca(TMarca marca) throws IllegalArgumentException {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
 		
 		//Comprobemos que la marca a actualizar existe
@@ -68,8 +68,8 @@ public class SAMarcaImp implements SAMarca{
 		if(tMarca == null) {
 			throw new IllegalArgumentException("Marca no existente.");
 		}
-		marca.setID(tMarca.getID());
 		
+		marca.setID(tMarca.getID());
 		return daoMarca.actualizarMarca(marca);
 	}
 	

@@ -3,13 +3,13 @@
       {
          "Nombre": "Nico",
          "Correo": "nico@nico.es",
-         "Activo": true,
+         "Activo": false,
          "Id": 0
       },
       {
          "Nombre": "Mac",
          "Correo": "mac@mac.es",
-         "Activo": true,
+         "Activo": false,
          "Id": 1
       },
       {
@@ -21,7 +21,7 @@
       {
          "Nombre": "Paula",
          "Correo": "paula@laguapa.com",
-         "Activo": true,
+         "Activo": false,
          "Id": 3
       }
    ],

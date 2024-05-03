@@ -19,7 +19,7 @@ public class VistaActualizarMarca extends JDialog implements IGUI{
 
 	private static final long serialVersionUID = 1L;
 
-	//JTextField nombreText;
+	JTextField nombreText;
 	JTextField correoText;
 	JButton okButton;
 	JButton cancelButton;
@@ -35,7 +35,6 @@ public class VistaActualizarMarca extends JDialog implements IGUI{
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		setContentPane(mainPanel);
 		
-		/*
 		//Nombre
 		JLabel nombreLabel = new JLabel("Nombre: ");
 		nombreText = new JTextField();
@@ -44,7 +43,6 @@ public class VistaActualizarMarca extends JDialog implements IGUI{
 		nombrePanel.add(nombreLabel);
 		nombrePanel.add(nombreText);
 		mainPanel.add(nombrePanel);
-		*/
 		
 		//Correo
 		JLabel correoLabel = new JLabel("Correo: ");
@@ -71,17 +69,14 @@ public class VistaActualizarMarca extends JDialog implements IGUI{
 		
 	}
 	
-	
 	private void actualizarMarca() {
 		TMarca marca;
 		
-		/* NNO SE PUEDE CAMBIAR EL NOMBRE, PERO ENTONCES QUE LE PONGO AL TMARCA??
 		String nombre = nombreText.getText();
 		if (nombre == null || nombre.equals("")) {
 			JOptionPane.showMessageDialog(this, "Debe indicar un nombre", "Actualizar Marca", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		*/
 		
 		String correo = correoText.getText();
 		if (correo == null || correo.equals("")) {
@@ -102,7 +97,7 @@ public class VistaActualizarMarca extends JDialog implements IGUI{
 	public void actualizar(Evento e, Object datos) {
 		switch(e) {
 		case ACTUALIZAR_MARCA_SUCCESS:
-			JOptionPane.showMessageDialog(this, "Marca con id " + datos + " actualizada con éxito.", "Actualizar Marca", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Marca con id " + datos + " actualizado con éxito", "Actualizar Marca", JOptionPane.INFORMATION_MESSAGE);
 			dispose();
 			break;
 		case ACTUALIZAR_MARCA_ERROR:
@@ -112,6 +107,6 @@ public class VistaActualizarMarca extends JDialog implements IGUI{
 		default:
 			break;
 		}
+		
 	}
-
 }
