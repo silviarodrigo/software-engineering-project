@@ -3,13 +3,13 @@
       {
          "Nombre": "Nico",
          "Correo": "nico@nico.es",
-         "Activo": false,
+         "Activo": true,
          "Id": 0
       },
       {
          "Nombre": "Mac",
          "Correo": "mac@mac.es",
-         "Activo": false,
+         "Activo": true,
          "Id": 1
       },
       {
@@ -21,9 +21,15 @@
       {
          "Nombre": "Paula",
          "Correo": "paula@laguapa.com",
-         "Activo": false,
+         "Activo": true,
          "Id": 3
+      },
+      {
+         "Nombre": "Rodri",
+         "Correo": "rodri@rodri.com",
+         "Activo": true,
+         "Id": 4
       }
    ],
-   "next_id": 4
+   "next_id": 5
 }

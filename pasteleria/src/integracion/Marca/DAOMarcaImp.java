@@ -20,6 +20,7 @@ public class DAOMarcaImp implements DAOMarca {
 	
 	@Override
 	public int altaMarca(TMarca marca) {				
+	
 		//cargamos los datos de la nueva marca en un JSON
 		JSONObject jo = createJSON(marca);
 		
@@ -29,6 +30,7 @@ public class DAOMarcaImp implements DAOMarca {
 		JSONArray JA; int next_id = 0;
 		if (JO == null) {
 			JO = new JSONObject();
+			//jo.put("Id", next_id);
 			JA = new JSONArray();
 			JA.put(jo);
 		}

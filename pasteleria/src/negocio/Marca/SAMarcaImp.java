@@ -15,6 +15,7 @@ public class SAMarcaImp implements SAMarca{
 	
 	@Override
 	public int altaMarca(TMarca marca) throws IllegalArgumentException {
+		
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
 		int id = -1;
 		
@@ -22,10 +23,10 @@ public class SAMarcaImp implements SAMarca{
 		if (prueba == null) { //no está insertada todavía
 			id = daoMarca.altaMarca(marca);	
 		}
-		else if (!marca.getActivo()) { //sí está pero "inactiva"
+		else if (!prueba.getActivo()) { //sí está pero "inactiva"
 			marca.setID(prueba.getID());
 			marca.setActivo(true);
-			if (daoMarca.actualizarMarca(marca)) id = marca.getID();
+			id = daoMarca.actualizarMarca(marca);
 		}
 		else throw new IllegalArgumentException("Marca ya existe.");
 		return id;

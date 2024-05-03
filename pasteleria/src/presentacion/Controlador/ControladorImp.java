@@ -16,7 +16,6 @@ import negocio.Facturas.SAFactura;
 import negocio.Producto.SAProducto;
 import negocio.Marca.SAMarca;
 import negocio.Facturas.*;
-import negocio.Marca.*;
 
 public class ControladorImp extends Controlador {
 	private Carrito carrito;
@@ -381,7 +380,8 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.ALTA_MARCA_ERROR, e.getMessage());
 		}
 	}
-
+	
+	
 	private void bajaMarca(Object datos) {
 		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
 		int id = (int) datos;
