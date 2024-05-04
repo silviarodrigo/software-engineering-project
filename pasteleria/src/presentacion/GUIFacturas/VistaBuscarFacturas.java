@@ -93,16 +93,17 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 				JLabel infoLineaLabel = new JLabel("INFORMACION LINEAS DE FACTURA");
 				_infoPanel.add(infoLineaLabel);
 				for (TLineaFactura lf : datos_venta.getProductos()) {
-					if (lf.getActivo()) {
-						JLabel idlineaLabel = new JLabel("Id linea: " + lf.getIdLinea());
-						JLabel productoLabel = new JLabel("Id producto: " + lf.getIdProducto());
-						JLabel cantidadLabel = new JLabel("Cantidad: " + lf.getCantidad());
-						JLabel separacionLabel = new JLabel(".");
-						_infoPanel.add(idlineaLabel);
-						_infoPanel.add(productoLabel);
-						_infoPanel.add(cantidadLabel);
-						_infoPanel.add(separacionLabel);
-					}
+					JLabel idlineaLabel = new JLabel("Id linea: " + lf.getIdLinea());
+					JLabel productoLabel = new JLabel("Id producto: " + lf.getIdProducto());
+					JLabel cantidadLabel = new JLabel("Cantidad: " + lf.getCantidad());
+					JLabel activaLabel = new JLabel("Activa: " + lf.getActivo());
+					JLabel separacionLabel = new JLabel(".");
+					_infoPanel.add(idlineaLabel);
+					_infoPanel.add(productoLabel);
+					_infoPanel.add(cantidadLabel);
+					_infoPanel.add(activaLabel);
+					_infoPanel.add(separacionLabel);
+
 				}
 			}
 

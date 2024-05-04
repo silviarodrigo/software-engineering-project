@@ -76,7 +76,7 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 		if (i != -1)
 			return new TLineaFactura(ja.getJSONObject(i).getInt("id_producto"),
 					ja.getJSONObject(i).getInt("id_factura"), ja.getJSONObject(i).getInt("id_linea"),
-					ja.getJSONObject(i).getInt("cantidad"));
+					ja.getJSONObject(i).getInt("cantidad"),ja.getJSONObject(i).getBoolean("activa"));
 		else
 			return null;
 	}
@@ -124,9 +124,8 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 
 		if (i != -1) {
 			lf.setActivo(false);
-
-			ja.getJSONObject(i).remove("activo");
-			ja.getJSONObject(i).put("activo", "false");
+			ja.getJSONObject(i).remove("activa");
+			ja.getJSONObject(i).put("activa", "false");
 
 			// Escribimos el fichero otra vez con los datos actualizados
 			writeJSONObject(filename, ja, next_id);
@@ -142,7 +141,7 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 		for (int i = 0; i < ja.length(); i++) {
 			lineas_factura.add(new TLineaFactura(ja.getJSONObject(i).getInt("id_producto"),
 					ja.getJSONObject(i).getInt("id_factura"), ja.getJSONObject(i).getInt("id_linea"),
-					ja.getJSONObject(i).getInt("cantidad")));
+					ja.getJSONObject(i).getInt("cantidad"),ja.getJSONObject(i).getBoolean("activa")));
 		}
 		return lineas_factura;
 

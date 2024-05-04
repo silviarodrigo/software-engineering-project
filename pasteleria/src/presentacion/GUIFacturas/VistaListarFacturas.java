@@ -51,7 +51,6 @@ public class VistaListarFacturas extends JFrame implements IGUI {
 
 	@Override
 	public void actualizar(Evento e, Object datos) {
-		System.out.println("LISTAR FACTURAS");
 		switch (e) {
 		case LISTAR_FACTURAS:
 			Collection<TFactura> facturas = (Collection<TFactura>) datos;

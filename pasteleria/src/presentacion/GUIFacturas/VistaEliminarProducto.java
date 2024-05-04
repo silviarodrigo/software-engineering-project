@@ -85,7 +85,7 @@ public class VistaEliminarProducto extends JFrame implements IGUI {
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			TLineaFactura linea = new TLineaFactura(id_prod, 0, 0, cantidad);
+			TLineaFactura linea = new TLineaFactura(id_prod, 0, 0, cantidad,true);
 			Controlador.getInstance().accion(Evento.ELIMINAR_PRODUCTO, linea);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Debes indicar un id de producto valido", "Eliminar Producto",

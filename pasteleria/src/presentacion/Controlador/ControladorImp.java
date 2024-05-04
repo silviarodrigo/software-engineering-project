@@ -295,8 +295,6 @@ public class ControladorImp extends Controlador {
 		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
 		int id_factura = (int) datos;
 		TFactura factura = saFactura.buscarFactura(id_factura);
-		// No se si hay que crear nueva vista o tenerla guardada en el controlador (o en
-		// la factoria)
 		if (factura != null) {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_FACTURA)
 					.actualizar(Evento.BUSCAR_FACTURA_SUCCESS, factura);
