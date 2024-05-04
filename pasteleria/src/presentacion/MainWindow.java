@@ -40,6 +40,10 @@ public class MainWindow extends JFrame implements IGUI {
 		clienteBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_PRINCIPAL_CLIENTE));
 		buttonPanel.add(clienteBtn);
 		
+		JButton empleadoBtn= new JButton("Empleados");
+		empleadoBtn.addActionListener((e)->listenerAbrirVentana(Evento.VISTA_PRINCIPAL_EMPLEADOS));
+		buttonPanel.add(empleadoBtn);
+		
 		pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Para que acabe el programa al cerrar la ventana.
 		setResizable(false);
