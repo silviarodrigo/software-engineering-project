@@ -6,7 +6,6 @@ import negocio.Producto.TProducto;
 import integracion.Factoria.FactoriaAbstractaIntegracion;
 import integracion.Marca.DAOMarca;
 import integracion.Producto.DAOProducto;
-import integracion.Marca.DAOMarcaProveedor;
 
 //"Negocio pide a integración que lo añada"
 
@@ -18,6 +17,7 @@ public class SAMarcaImp implements SAMarca{
 	public int altaMarca(TMarca marca) throws IllegalArgumentException {
 		
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
+		
 		int id = -1;
 		
 		TMarca prueba = daoMarca.buscarMarca(marca.getNombre());
