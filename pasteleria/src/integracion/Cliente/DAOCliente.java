@@ -17,5 +17,5 @@ public interface DAOCliente {
 
 	public int actualizarCliente(TCliente cliente);
 
-	Collection<TCliente> listarClientes();
+	public Collection<TCliente> listarClientes();
 }
