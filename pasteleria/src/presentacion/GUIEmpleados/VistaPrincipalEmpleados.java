@@ -11,6 +11,9 @@ import presentacion.Controlador.Controlador;
 
 public class VistaPrincipalEmpleados extends JFrame implements IGUI{ 
 
+
+	private static final long serialVersionUID = 1L;
+
 	public VistaPrincipalEmpleados() {
 		initGUI();
 	}

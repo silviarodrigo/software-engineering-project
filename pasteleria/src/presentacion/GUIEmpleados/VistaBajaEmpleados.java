@@ -18,6 +18,10 @@ import presentacion.Controlador.Controlador;
 
 public class VistaBajaEmpleados extends JDialog implements IGUI {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JSpinner idEmployee;
 	JButton buttonOkey;
 	JButton buttonCancel;

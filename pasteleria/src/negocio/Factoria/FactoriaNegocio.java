@@ -8,6 +8,8 @@ import negocio.Marca.SAMarca;
 import negocio.Marca.SAMarcaImp;
 import negocio.Producto.SAProducto;
 import negocio.Producto.SAProductoImp;
+import negocio.Empleados.SAEmpleado;
+import negocio.Empleados.SAEmpleadoImp;
 
 public class FactoriaNegocio extends FactoriaAbstractaNegocio {
 
@@ -30,5 +32,12 @@ public class FactoriaNegocio extends FactoriaAbstractaNegocio {
 	public SACliente crearSACliente() {
 		return new SAClienteImp();
 	}
+	
+	@Override
+	public SAEmpleado crearSAEmpleado() {
+		return new SAEmpleadoImp();
+	}
+	
+	
 
 }

@@ -92,7 +92,7 @@ public class VistaActualizarEmpleados extends JDialog implements IGUI {
 
 	}
 
-	private void actualizarMarca() {
+	private void actualizarEmpleado() {
 		TEmpleado empleado;
 
 
@@ -102,7 +102,7 @@ public class VistaActualizarEmpleados extends JDialog implements IGUI {
 			return;
 		} else if (!email.contains("@")
 				|| (!email.contains(".es") && !email.contains(".com") && !email.contains(".net"))) {
-			JOptionPane.showMessageDialog(this, "Indique una dirección de correo válida", "Alta Marca",
+			JOptionPane.showMessageDialog(this, "Indique una dirección de correo válida", "Alta Empleado",
 					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
@@ -128,7 +128,7 @@ public class VistaActualizarEmpleados extends JDialog implements IGUI {
 		}
 
 		empleado = new TEmpleado(email, direccion, numeroTelefono);
-		Controlador.getInstance().accion(Evento.ACTUALIZAR_MARCA, empleado);
+		Controlador.getInstance().accion(Evento.ACTUALIZAR_EMPLEADO, empleado);
 	}
 
 	@Override

@@ -46,7 +46,7 @@ public class VistaAltaEmpleados extends JDialog implements IGUI {
 	private JButton buttonOkey;
 	private JButton buttonCancel;
 
-	VistaAltaEmpleados() {
+	public VistaAltaEmpleados() {
 		initGUI();
 	}
 
