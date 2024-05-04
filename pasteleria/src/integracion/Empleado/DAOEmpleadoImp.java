@@ -173,7 +173,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 		JSONObject jEmpleado = new JSONObject();
 		jEmpleado.put("id", empleado.getId());
 		jEmpleado.put("nombre", empleado.getNombre());
-		jEmpleado.put("apellidos", empleado.getApellidos());
+		jEmpleado.put("apellidos", empleado.getApellido());
 		jEmpleado.put("DNI", empleado.getDNI());
 		jEmpleado.put("email", empleado.getCorreo());
 		jEmpleado.put("numTelefono", empleado.getNumTelefono());

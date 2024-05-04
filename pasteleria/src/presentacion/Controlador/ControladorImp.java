@@ -16,6 +16,7 @@ import negocio.Facturas.SAFactura;
 import negocio.Producto.SAProducto;
 import negocio.Marca.SAMarca;
 import negocio.Facturas.*;
+import negocio.Empleados.*;
 
 public class ControladorImp extends Controlador {
 	private Carrito carrito;
@@ -147,11 +148,11 @@ public class ControladorImp extends Controlador {
 		case VISTA_BUSCAR_EMPLEADO:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_EMPLEADO);
 			break;
-		/*case VISTA_LISTAR_EMPLEADOS:
+		case VISTA_LISTAR_EMPLEADOS:
 			listarEmpleados(datos);
 			break;
 		case ACTUALIZAR_EMPLEADO:
-			actualizarEmpleados(datos);
+			actualizarEmpleado(datos);
 			break;
 		case ALTA_EMPLEADO:
 			altaEmpleado(datos);
@@ -160,7 +161,7 @@ public class ControladorImp extends Controlador {
 			bajaEmpleado(datos);
 			break;
 		case BUSCAR_EMPLEADO:
-			buscarEmpleado(datos);*/
+			buscarEmpleado(datos);
 
 			// CLIENTE
 		case VISTA_PRINCIPAL_CLIENTE:
@@ -490,5 +491,65 @@ public class ControladorImp extends Controlador {
 	}
 
 	// EMPLEADOS
+	private void altaEmpleado(Object datos) {
+		SAEmpleado saEmpleado = FactoriaAbstractaNegocio.getInstance().crearSAEmpleado();
+		TEmpleado tEmpleado = (TEmpleado) datos;
+		try {
+			int id = saEmpleado.altaEmpleado(tEmpleado);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_EMPLEADO)
+					.actualizar(Evento.ALTA_EMPLEADO_EXITO, id);
+		} catch (IllegalArgumentException e) {
+			//no se habria podido dar de alta al empleado
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_EMPLEADO)
+					.actualizar(Evento.ALTA_EMPLEADO_ERROR, e.getMessage());
+		}
+	}
+	
+	private void bajaEmpleado(Object datos) {
+		SAEmpleado saEmpleado = FactoriaAbstractaNegocio.getInstance().crearSAEmpleado();
+		String dni = (String) datos;
+		try {
+			int id = saEmpleado.bajaEmpleado(dni);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_EMPLEADO)
+					.actualizar(Evento.BAJA_EMPLEADO_EXITO, id);
+		} catch (IllegalArgumentException e) {
+			//no se ha podido dar de baja al empleado
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_EMPLEADO)
+					.actualizar(Evento.BAJA_EMPLEADO_ERROR, e.getMessage());
+		}
+	}
+	
+	private void actualizarEmpleado(Object datos) {
+		SAEmpleado saEmpleado = FactoriaAbstractaNegocio.getInstance().crearSAEmpleado();
+		TEmpleado tEmpleado = (TEmpleado) datos;
+		try {
+			int id = saEmpleado.actualizarEmpleado(tEmpleado);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_EMPLEADO)
+					.actualizar(Evento.ACTUALIZAR_EMPLEADO_EXITO, id);
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_EMPLEADO)
+					.actualizar(Evento.ACTUALIZAR_EMPLEADO_ERROR, e.getMessage());
+		}
+	}
+	
+	private void buscarEmpleado(Object datos) {
+		SAEmpleado saEmpleado = FactoriaAbstractaNegocio.getInstance().crearSAEmpleado();
+		String dni = (String) datos;
+		TEmpleado tEmpleado = saEmpleado.buscarEmpleado(dni);
+		if (tEmpleado == null) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_EMPLEADO).actualizar(Evento.BUSCAR_EMPLEADO_ERROR, "Empleado no encontrado.");
+		}
+		else {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_EMPLEADO).actualizar(Evento.BUSCAR_EMPLEADO_EXITO, tEmpleado);
+		}
+	}
+
+	private void listarEmpleados(Object datos) {
+		SAEmpleado saEmpleado = FactoriaAbstractaNegocio.getInstance().crearSAEmpleado();
+		Collection<TEmpleado> empleados = saEmpleado.listarEmpleados();
+		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_EMPLEADOS)
+				.actualizar(Evento.LISTAR_EMPLEADOS, empleados);
+	}
+	
 
 }

@@ -23,6 +23,10 @@ import presentacion.Controlador.Controlador;
 
 public class VistaAltaEmpleados extends JDialog implements IGUI {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// ATRIBUTOS
 	private JLabel etiquetaIdentificador;
 	private JTextField textoIdentificador;
