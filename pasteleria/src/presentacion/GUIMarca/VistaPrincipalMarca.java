@@ -8,7 +8,7 @@ import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
 
-public class VistaPrincipalMarca extends JDialog implements IGUI{ //JDIALOG O JFRAME???
+public class VistaPrincipalMarca extends JDialog implements IGUI{
 
 	private static final long serialVersionUID = 1L;
 

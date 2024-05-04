@@ -8,8 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.JTextField;
 
 import presentacion.Evento;
 import presentacion.IGUI;
@@ -19,7 +18,7 @@ public class VistaBajaMarca extends JDialog implements IGUI{
 
 	private static final long serialVersionUID = 1L;
 
-	JSpinner idText;
+	JTextField nombreText;
 	JButton okButton;
 	JButton cancelButton;
 	
@@ -34,12 +33,12 @@ public class VistaBajaMarca extends JDialog implements IGUI{
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		setContentPane(mainPanel);
 		
-		JLabel idLabel = new JLabel("Id: ");
-		idText = new JSpinner(new SpinnerNumberModel(0, 0, 1000, 1));
-		idText.setPreferredSize(new Dimension(100, 20));
+		JLabel idLabel = new JLabel("Nombre: ");
+		nombreText = new JTextField();
+		nombreText.setPreferredSize(new Dimension(100, 20));
 		JPanel idPanel = new JPanel();
 		idPanel.add(idLabel);
-		idPanel.add(idText);
+		idPanel.add(nombreText);
 		mainPanel.add(idPanel);
 		
 		// Ok/Cancel
@@ -59,9 +58,14 @@ public class VistaBajaMarca extends JDialog implements IGUI{
 	
 	
 	private void bajaMarca() {
-		int id = (int) idText.getValue();
+		String nombre = nombreText.getText();
+
+		if (nombre == null || nombre.equals("")) {
+			JOptionPane.showMessageDialog(this, "Debe indicar un nombre", "Baja Marca", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		
-		Controlador.getInstance().accion(Evento.BAJA_MARCA, id);
+		Controlador.getInstance().accion(Evento.BAJA_MARCA, nombre);
 	}
 	
 	

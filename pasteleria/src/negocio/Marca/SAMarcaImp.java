@@ -34,16 +34,20 @@ public class SAMarcaImp implements SAMarca{
 	}
 		
 	
-	public boolean bajaMarca(int id) throws IllegalArgumentException {
+	public int bajaMarca(String nombre) throws IllegalArgumentException {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
 		
 		//Comprobamos si la marca existe y está activa
-		TMarca marca = daoMarca.buscarMarca(id);
+		TMarca marca = daoMarca.buscarMarca(nombre);
+		
 		if (marca == null ) {
 			throw new IllegalArgumentException("Marca no existente.");
 		}
-		else if (!marca.getActivo() ) throw new IllegalArgumentException("La marca ya ha sido dada de baja.");
+		else if (!marca.getActivo()) {
+			throw new IllegalArgumentException("La marca ya ha sido dada de baja.");
+		}
 		
+		int id = marca.getID();
 		//Comprobamos que no haya ningun producto con esa marca 
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
 		int cont = 0;
@@ -55,7 +59,8 @@ public class SAMarcaImp implements SAMarca{
 		
 		if (cont != 0) throw new IllegalArgumentException("Existen productos con esta marca.");
 		else {
-			return daoMarca.bajaMarca(id);
+			daoMarca.bajaMarca(id);
+			return id;
 		}
 		
 	}
