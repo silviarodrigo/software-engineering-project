@@ -130,14 +130,13 @@ public class VistaAltaEmpleados extends JDialog implements IGUI {
 
 		// añadimos ambos botones (ok y cancel) al main_panel
 		mainPanel.add(okCancelPanel);
-
-	}
-
-	public void open() {
+		
 		pack();
 		this.setLocationRelativeTo(null);
 		setVisible(true);
+
 	}
+
 
 	private void altaEmpleado() {
 		TEmpleado empleado;
