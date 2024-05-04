@@ -136,7 +136,7 @@ public class DAOClienteImp implements DAOCliente {
 		return listaClientes;
 	}
 
-	JSONObject loadData() { // Obtenemos los clientes del fichero JSON.
+	private JSONObject loadData() { // Obtenemos los clientes del fichero JSON.
 		JSONObject jo = new JSONObject();
 		try {
 			InputStream is = new FileInputStream(new File(_CLIENTE_FILENAME));
