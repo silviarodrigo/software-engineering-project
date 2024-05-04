@@ -413,8 +413,8 @@ public class ControladorImp extends Controlador {
 
 	private void buscarMarca(Object datos) {
 		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
-		int id = (int) datos;
-		TMarca marca = SAMarca.buscarMarca(id);
+		String nombre = (String) datos;
+		TMarca marca = SAMarca.buscarMarca(nombre);
 		if (marca != null) {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_MARCA)
 					.actualizar(Evento.BUSCAR_MARCA_SUCCESS, marca);
@@ -423,6 +423,7 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.BUSCAR_MARCA_ERROR, "Marca no encontrada.");
 		}
 	}
+	
 
 	private void listarMarcas(Object datos) {
 		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();

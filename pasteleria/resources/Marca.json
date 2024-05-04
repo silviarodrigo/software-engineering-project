@@ -3,7 +3,7 @@
       {
          "Nombre": "Nico",
          "Correo": "nico@nico.es",
-         "Activo": false,
+         "Activo": true,
          "Id": 0
       },
       {

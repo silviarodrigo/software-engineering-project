@@ -3,7 +3,7 @@ package presentacion.GUIProveedores;
 
 import javax.swing.*;
 
-public class vistaListarProveedor extends JDialog {
+public class VistaListarProveedor extends JDialog {
 
 	
 	//componentes gráficos
