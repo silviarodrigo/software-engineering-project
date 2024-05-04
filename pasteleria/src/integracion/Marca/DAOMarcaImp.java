@@ -30,7 +30,6 @@ public class DAOMarcaImp implements DAOMarca {
 		JSONArray JA; int next_id = 0;
 		if (JO == null) {
 			JO = new JSONObject();
-			//jo.put("Id", next_id);
 			JA = new JSONArray();
 			JA.put(jo);
 		}
@@ -190,7 +189,7 @@ public class DAOMarcaImp implements DAOMarca {
 		return lista;
 	}
 	
-	
+	//Funciones auxiliares
 	private JSONObject getJSONFromFile() {
 		JSONObject JO;
 		try {
