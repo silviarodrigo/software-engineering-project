@@ -62,7 +62,7 @@ public class VistaActualizarCliente extends JFrame implements IGUI {
 		// Inicializamos botones
 		this._baceptar = new JButton("ACEPTAR");
 		this._bcancelar = new JButton("CANCELAR");
-		this._baceptar.addActionListener((e) -> this.altaClienteListener());
+		this._baceptar.addActionListener((e) -> this.actualizarClienteListener());
 		this._bcancelar.addActionListener((e) -> this.dispose());
 
 		// Creamos paneles para colocar cada Label con su TextField.
@@ -102,7 +102,7 @@ public class VistaActualizarCliente extends JFrame implements IGUI {
 		setVisible(true);
 	}
 
-	private void altaClienteListener() {
+	private void actualizarClienteListener() {
 		String nombre = this._tfnombre.getText();
 
 		String apellidos = this._tfapellidos.getText();
