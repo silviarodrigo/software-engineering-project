@@ -23,6 +23,10 @@ import presentacion.Controlador.Controlador;
 
 public class VistaAltaEmpleados extends JDialog implements IGUI {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// ATRIBUTOS
 	private JLabel etiquetaIdentificador;
 	private JTextField textoIdentificador;
@@ -46,7 +50,7 @@ public class VistaAltaEmpleados extends JDialog implements IGUI {
 	private JButton buttonOkey;
 	private JButton buttonCancel;
 
-	VistaAltaEmpleados() {
+	public VistaAltaEmpleados() {
 		initGUI();
 	}
 
@@ -126,14 +130,13 @@ public class VistaAltaEmpleados extends JDialog implements IGUI {
 
 		// añadimos ambos botones (ok y cancel) al main_panel
 		mainPanel.add(okCancelPanel);
-
-	}
-
-	public void open() {
+		
 		pack();
 		this.setLocationRelativeTo(null);
 		setVisible(true);
+
 	}
+
 
 	private void altaEmpleado() {
 		TEmpleado empleado;

@@ -19,6 +19,8 @@ import presentacion.GUIFacturas.VistaBuscarFacturas;
 import presentacion.GUIFacturas.VistaCerrarVenta;
 import presentacion.GUIFacturas.VistaEliminarProducto;
 import presentacion.GUIFacturas.VistaListarFacturas;
+//import presentacion.GUIFacturas.VistaListarFacturasConCliente;
+import presentacion.GUIFacturas.VistaListarFacturasPorCliente;
 import presentacion.GUIFacturas.VistaModificarFacturas;
 import presentacion.GUIFacturas.VistaPrincipalFacturas;
 import presentacion.GUIFacturas.VistaAnadirProducto;
@@ -28,6 +30,7 @@ import presentacion.GUIMarca.VistaBajaMarca;
 import presentacion.GUIMarca.VistaActualizarMarca;
 import presentacion.GUIMarca.VistaBuscarMarca;
 import presentacion.GUIMarca.VistaListarMarca;
+import presentacion.GUIEmpleados.*;
 
 public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 
@@ -63,6 +66,11 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 			return new VistaEliminarProducto();
 		case VISTA_CERRAR_VENTA:
 			return new VistaCerrarVenta();
+			//EXTRA
+		case VISTA_LISTAR_FACTURAS_POR_CLIENTE:
+			return new VistaListarFacturasPorCliente();
+		//case VISTA_LISTAR_FACTURAS_CON_CLIENTE:
+		//	return new VistaListarFacturasConCliente();
 			
 		//MARCA
 		case VISTA_PRINCIPAL_MARCA:
@@ -91,6 +99,20 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 			return new VistaBuscarCliente();
 		case VISTA_LISTAR_CLIENTES:
 			return new VistaListarClientes();
+			
+		//EMPLEADOS
+		case VISTA_PRINCIPAL_EMPLEADOS:
+			return new VistaPrincipalEmpleados();
+		case VISTA_ALTA_EMPLEADO:
+			return new VistaAltaEmpleados();
+		case VISTA_BAJA_EMPLEADO:
+			return new VistaBajaEmpleados();
+		case VISTA_ACTUALIZAR_EMPLEADO:
+			return new VistaActualizarEmpleados();
+		case VISTA_BUSCAR_EMPLEADO:
+			return new VistaBuscarEmpleado();
+		case VISTA_LISTAR_EMPLEADOS:
+			return new VistaListarEmpleados();
 		
 		default:
 			return null;

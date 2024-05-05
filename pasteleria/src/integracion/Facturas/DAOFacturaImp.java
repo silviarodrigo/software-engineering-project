@@ -65,7 +65,6 @@ public class DAOFacturaImp implements DAOFactura {
 		if (i != -1) {
 			factura = facturaConLineas(ja, i);
 		}
-
 		return factura;
 	}
 
@@ -112,6 +111,20 @@ public class DAOFacturaImp implements DAOFactura {
 		if (ja != null) {
 			for (int i = 0; i < ja.length(); i++) {
 				facturas.add(facturaConLineas(ja, i));
+			}
+		}
+		return facturas;
+	}
+
+	public Collection<TFactura> listarFacturasPorCliente(int id_cliente) {
+		ArrayList<TFactura> facturas = new ArrayList<TFactura>();
+		JSONArray ja = getFacturasJArray(filename);
+
+		if (ja != null) {
+			for (int i = 0; i < ja.length(); i++) {
+				if (ja.getJSONObject(i).getInt("id_cliente") == id_cliente) {
+					facturas.add(facturaConLineas(ja, i));
+				}
 			}
 		}
 		return facturas;
@@ -177,18 +190,20 @@ public class DAOFacturaImp implements DAOFactura {
 	private TFactura facturaConLineas(JSONArray ja, int i) {
 		// Obtenemos todas las lineas de factura
 		DAOLineaFactura daol = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
-		ArrayList<TLineaFactura> lineas_factura = (ArrayList<TLineaFactura>) daol.mostrarLineasFactura();
+		ArrayList<TLineaFactura> lineas_factura_totales = (ArrayList<TLineaFactura>) daol.mostrarLineasFactura();
+		ArrayList<TLineaFactura> lineas_factura_individuales = new ArrayList<>();
 		// seleccionamos las que pertenecen a la factura actual
-		if (lineas_factura != null) {
-			for (int j = 0; j < lineas_factura.size(); ++j) {
-				if (lineas_factura.get(j).getIdFactura() != ja.getJSONObject(i).getInt("id_factura")) {
-					lineas_factura.remove(j);
+		if (lineas_factura_totales != null) {
+			for (int j = 0; j < lineas_factura_totales.size(); ++j) {
+				if (lineas_factura_totales.get(j).getIdFactura() == ja.getJSONObject(i).getInt("id_factura")) {
+					lineas_factura_individuales.add(lineas_factura_totales.get(j));
 				}
 			}
 		}
 		// creamos el resto de elementos necesarios para crear la factura
 		TDatosVenta dt = new TDatosVenta(ja.getJSONObject(i).getString("fecha"),
-				ja.getJSONObject(i).getInt("id_cliente"), ja.getJSONObject(i).getInt("id_vendedor"), lineas_factura);
+				ja.getJSONObject(i).getInt("id_cliente"), ja.getJSONObject(i).getInt("id_vendedor"),
+				lineas_factura_individuales);
 		// creamos la factura
 		return new TFactura(ja.getJSONObject(i).getInt("id_factura"), ja.getJSONObject(i).getDouble("precio"), dt,
 				ja.getJSONObject(i).getBoolean("activa"));

@@ -6,6 +6,7 @@ import negocio.Producto.TProducto;
 import integracion.Factoria.FactoriaAbstractaIntegracion;
 import integracion.Marca.DAOMarca;
 import integracion.Producto.DAOProducto;
+import integracion.Marca.DAOMarcaProveedor;
 
 //"Negocio pide a integración que lo añada"
 
@@ -17,6 +18,7 @@ public class SAMarcaImp implements SAMarca{
 	public int altaMarca(TMarca marca) throws IllegalArgumentException {
 		
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
+		
 		int id = -1;
 		
 		TMarca prueba = daoMarca.buscarMarca(marca.getNombre());
@@ -33,16 +35,20 @@ public class SAMarcaImp implements SAMarca{
 	}
 		
 	
-	public boolean bajaMarca(int id) throws IllegalArgumentException {
+	public int bajaMarca(String nombre) throws IllegalArgumentException {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
 		
 		//Comprobamos si la marca existe y está activa
-		TMarca marca = daoMarca.buscarMarca(id);
+		TMarca marca = daoMarca.buscarMarca(nombre);
+		
 		if (marca == null ) {
 			throw new IllegalArgumentException("Marca no existente.");
 		}
-		else if (!marca.getActivo() ) throw new IllegalArgumentException("La marca ya ha sido dada de baja.");
+		else if (!marca.getActivo()) {
+			throw new IllegalArgumentException("La marca ya ha sido dada de baja.");
+		}
 		
+		int id = marca.getID();
 		//Comprobamos que no haya ningun producto con esa marca 
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
 		int cont = 0;
@@ -54,7 +60,8 @@ public class SAMarcaImp implements SAMarca{
 		
 		if (cont != 0) throw new IllegalArgumentException("Existen productos con esta marca.");
 		else {
-			return daoMarca.bajaMarca(id);
+			daoMarca.bajaMarca(id);
+			return id;
 		}
 		
 	}
@@ -74,11 +81,10 @@ public class SAMarcaImp implements SAMarca{
 		return daoMarca.actualizarMarca(marca);
 	}
 	
-	public TMarca buscarMarca(int id) {
+	public TMarca buscarMarca(String nombre) {
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
-		return daoMarca.buscarMarca(id);
+		return daoMarca.buscarMarca(nombre);
 	}
-	
 	
 	public Collection<TMarca> listarMarcas(){
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();

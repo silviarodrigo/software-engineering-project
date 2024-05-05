@@ -12,6 +12,9 @@ import negocio.Empleados.TEmpleado;
 public class ModeloTablaEmpleados extends AbstractTableModel{
 
 	
+	 
+	private static final long serialVersionUID = 1L;
+
 	private List<TEmpleado> empleados;
 	
 	//NO SE SI AÑADIR NUMVENTAS... lo tengo como atribtuo

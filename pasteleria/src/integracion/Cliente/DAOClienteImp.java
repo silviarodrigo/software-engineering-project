@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DAOClienteImp implements DAOCliente {
 	private static final String _CLIENTE_FILENAME = "resources/Clientes.json";
-	
+
 	@Override
 	public int altaCliente(TCliente tcliente) {
 		JSONObject jCliente = this.createJSON(tcliente);
@@ -48,7 +48,7 @@ public class DAOClienteImp implements DAOCliente {
 	@Override
 	public void bajaCliente(int id) {
 		JSONObject jo = this.loadData();
-		
+
 		if (jo != null) { // Fichero JSON existente.
 			JSONArray ja = jo.getJSONArray("clientes");
 
@@ -59,7 +59,7 @@ public class DAOClienteImp implements DAOCliente {
 			ja.put(id, jCliente);
 
 			jo.put("clientes", ja);
-			
+
 			this.saveData(jo);
 		}
 	}
@@ -73,6 +73,9 @@ public class DAOClienteImp implements DAOCliente {
 
 		JSONArray ja = jo.getJSONArray("clientes");
 
+		if (id < 0 || id >= ja.length())
+			return null; // El id recibido no existe.
+
 		JSONObject jCliente = ja.getJSONObject(id);
 
 		return this.createTCliente(jCliente);
@@ -84,16 +87,17 @@ public class DAOClienteImp implements DAOCliente {
 
 		if (jo == null)
 			return null; // Fichero JSON inexistente (aún no hay clientes insertados)
-		
+
 		JSONArray ja = jo.getJSONArray("clientes");
-		
-		int i =0;
-		while (i<ja.length() && !(ja.getJSONObject(i).getString("DNI").equals(dni))) {
+
+		int i = 0;
+		while (i < ja.length() && !(ja.getJSONObject(i).getString("DNI").equals(dni))) {
 			++i;
 		}
-		
-		if (i == ja.length()) return null;
-		
+
+		if (i == ja.length())
+			return null;
+
 		return this.createTCliente(ja.getJSONObject(i));
 	}
 
@@ -136,7 +140,7 @@ public class DAOClienteImp implements DAOCliente {
 		return listaClientes;
 	}
 
-	JSONObject loadData() { // Obtenemos los clientes del fichero JSON.
+	private JSONObject loadData() { // Obtenemos los clientes del fichero JSON.
 		JSONObject jo = new JSONObject();
 		try {
 			InputStream is = new FileInputStream(new File(_CLIENTE_FILENAME));
@@ -166,7 +170,7 @@ public class DAOClienteImp implements DAOCliente {
 		jCliente.put("correo", tcliente.getCorreo());
 		jCliente.put("activo", tcliente.getActivo());
 		jCliente.put("id", tcliente.getId());
-		
+
 		return jCliente;
 	}
 

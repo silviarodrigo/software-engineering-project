@@ -10,12 +10,12 @@ public class TLineaFactura {
 // CONSTRUCTORA
 	// no hay constructora por defecto porque exigimos que la venta tenga datos
 
-	public TLineaFactura(int id_prod, int id_fact, int id, int cant) {
+	public TLineaFactura(int id_prod, int id_fact, int id, int cant, boolean act) {
 		this.id_producto = id_prod;
 		this.cantidad = cant;
 		this.id_factura = id_fact;
 		this.id_linea = id;
-		this.activa = true;
+		this.activa = act;
 	}
 
 //GETTERS

@@ -30,7 +30,6 @@ public class DAOMarcaImp implements DAOMarca {
 		JSONArray JA; int next_id = 0;
 		if (JO == null) {
 			JO = new JSONObject();
-			//jo.put("Id", next_id);
 			JA = new JSONArray();
 			JA.put(jo);
 		}
@@ -140,29 +139,34 @@ public class DAOMarcaImp implements DAOMarca {
 	public TMarca buscarMarca(String nombre) {
 		//Accedemos a los datos guardados
 		JSONObject JO = getJSONFromFile();
-		
 		if (JO == null) {
 			return null; 
 		}
 		else {
 			// Obtenemos los datos del JSON
 			JSONArray JA = JO.getJSONArray("Marcas");
-			
-			int i = 0; 
-			while (i < JA.length() && !JA.getJSONObject(i).get("Nombre").equals(nombre)) {
-				i++;
+			if (JA == null) {
+				return null;
 			}
 			
-			if (i == JA.length()) return null; //no lo ha encontrado
-			else {
-				JSONObject jo = JA.getJSONObject(i);
-				
-				int id = jo.getInt("Id");
-				String correo = jo.getString("Correo");
-				boolean activo = jo.getBoolean("Activo");
-				
-				return new TMarca(id, nombre, correo, activo);				
-			}		
+			JSONObject jo;
+			try {
+				int i = 0; 
+				while (i < JA.length() && !(JA.getJSONObject(i).get("Nombre").equals(nombre))) {
+					i++;
+				}
+				if (i == JA.length()) return null; //no lo ha encontrado
+				else jo = JA.getJSONObject(i);
+			}
+			catch (JSONException e) {
+				return null;
+			}
+			
+			int id = jo.getInt("Id");
+			String correo = jo.getString("Correo");
+			boolean activo = jo.getBoolean("Activo");
+			
+			return new TMarca(id, nombre, correo, activo);						
 		}
 	}
 
@@ -190,7 +194,7 @@ public class DAOMarcaImp implements DAOMarca {
 		return lista;
 	}
 	
-	
+	//Funciones auxiliares
 	private JSONObject getJSONFromFile() {
 		JSONObject JO;
 		try {

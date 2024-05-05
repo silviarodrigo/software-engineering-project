@@ -12,10 +12,15 @@ public interface SAFactura {
 	public boolean anadirProducto(TLineaFactura linea, Carrito c);
 
 	public boolean eliminarProducto(TLineaFactura linea, Carrito c);
-	
-	public int cerrarVenta(Carrito c,int id_cliente, int id_vendedor,String fecha);
-	
+
+	public int cerrarVenta(Carrito c, int id_cliente, int id_vendedor, String fecha);
+
 	public Carrito abrirVenta();
-	
+
 	public boolean modificarFactura(int id_f, int id_c, int id_v, String fecha);
+
+	//EXTRA
+	public Collection<TFactura> listarFacturasPorCliente(int id_cliente);
+	
+	public Object[] listarFacturasConCliente(int id_cliente);
 }

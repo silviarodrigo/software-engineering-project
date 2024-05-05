@@ -15,8 +15,6 @@ import integracion.Facturas.DAOFactura;
 import integracion.Facturas.DAOFacturaImp;
 import integracion.Facturas.DAOLineaFactura;
 import integracion.Facturas.DAOLineaFacturaImp;
-import negocio.Facturas.SAFactura;
-import negocio.Facturas.SAFacturaImp;
 
 public class FactoriaIntegracion extends FactoriaAbstractaIntegracion {
 

@@ -294,7 +294,7 @@ public class DAOProductoImp implements DAOProducto {
 	
 	
 	private JSONObject getObjectInIndex(JSONArray ja, int index) {
-		if (index < ja.length()) {
+		if (ja != null && index >= 0 && index < ja.length()) {
 			return ja.getJSONObject(index);
 		}
 		else {

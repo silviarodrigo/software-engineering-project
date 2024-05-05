@@ -3,195 +3,188 @@ package integracion.Marca;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import negocio.Marca.TMarcaProveedor;
 
 
-
-//HAY QUE CAMBIARLO TODOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 
 	@Override
 	public int altaMarcaProveedor(TMarcaProveedor marcaProveedor) {
-		JSONObject JO;
-		try {
-			//Accedemos a los datos guardados hasta ahora
-			InputStream in = new FileInputStream(new File("pasteleria/resources/MarcasProveedor.json"));
-			JO = new JSONObject (new JSONTokener(in));
+		//cargamos los datos de la nueva marcaProv en un JSON
+		JSONObject jo = createJSON(marcaProveedor);
+		
+		//obtenemos el JSON con toda la info 
+		JSONObject JO = getJSONFromFile();
+		
+		JSONArray JA; int next_id = 0;
+		if (JO == null) {
+			JO = new JSONObject();
+			JA = new JSONArray();
+			JA.put(jo);
 		}
-		catch (Exception e){
-			return -1;
+		else {
+			//Obtenemos los datos del JSON
+			JA = JO.getJSONArray("ListaMarcasProveedor");
+		    next_id = JO.getInt("next_id");
+		    
+		    
+		    jo.put("Id", next_id);
+			JA.put(jo);
 		}
 		
-		//Obtenemos los datos del JSON
-		JSONArray JA = JO.getJSONArray("ListaMarcasProveedor");
-		int next_id = JO.getInt("next_id");
+		//insertamos la nueva marcaProv en el JSON
+		JO.put("ListaMarcasProveedor", JA);
+		JO.put("next_id", next_id+1);
+		
 		
 		marcaProveedor.setID(next_id);
 		
-		//cargamos los datos de la nueva marca en un JSON
-		JSONObject jo = new JSONObject();
-		jo.put("Id", next_id);
-		jo.put("IdMarca", marcaProveedor.getIDMarca());
-		jo.put("IdProveedor", marcaProveedor.getIDProveedor());
-		jo.put("Activo", marcaProveedor.getActivo());
 		
-		
-		//insertamos la nueva marca en el JSON
-		JA.put(jo);
-		++next_id;
-		
-		//Creamos el nuevo JSON con toda la informacion y lo escribimos
-		JSONObject JW = new JSONObject();
-		JW.put("ListaMarcasProveedor", JA);
-		JW.put("next_id", next_id);
-		
-		try {	
-			BufferedWriter bw = new BufferedWriter(new FileWriter("pasteleria/resources/MarcasProveedor.json"));
-			bw.write(JW.toString());
-			bw.close();
-		} 
-		catch(Exception e) {
+		//Escribimos el nuevo JSON con toda la informacion
+		if (writeJSONObject(JO)) {
+			return next_id;
+		}
+		else {
 			return -1;
-		}		
-		
-		return marcaProveedor.getID();
+		}
 	}
 
 	@Override
 	public boolean bajaMarcaProveedor(int id) {
-		try {
-			//Accedemos a los datos guardados
-			InputStream in = new FileInputStream(new File("pasteleria/resources/MarcasProveedor.json"));
-			JSONObject JO = new JSONObject (new JSONTokener(in));
-			JSONArray JA = JO.getJSONArray("ListaMarcasProveedor");
+		//Accedemos a los datos guardados
+		JSONObject JO = getJSONFromFile();
+		JSONArray JA;
+		
+		if (JO == null) {
+			return false; 
+		}
+		else {
+			JA = JO.getJSONArray("ListaMarcasProveedor");
+			JSONObject jo = JA.getJSONObject(id);
 			
-			int i = 0; 
-			while (i < JA.length() && !(JA.getJSONObject(i).getInt("Id") == id)) {
-				i++;
-			}
-			if (i == JA.length()) return false; //no lo ha encontrado
-			else {
-				JA.getJSONObject(i).put("Activo", false);
-								
-				JSONObject newJO = new JSONObject();
-				newJO.put("ListaMarcasProveedor", JA);
-				newJO.put("next_id", JO.get("next_id")); //no se modifica el next_id
-				
-				BufferedWriter bw = new BufferedWriter(new FileWriter("pasteleria/resources/MarcasProveedor.json"));
-				bw.write(newJO.toString());
-				bw.close();
-			}
-		} 
-		catch(Exception e) {
-			return false;
-		}		
-		return true;
+			jo.put("Activo", false);
+			JA.put(id, jo);
+			JO.put("ListaMarcasProveedor", JA);
+		}
+		
+		return writeJSONObject(JO);
 	}
 
 	@Override
-	public boolean actualizarMarcaProveedor(TMarcaProveedor marcaProveedor) {
-		try {
-			//Accedemos a los datos guardados
-			InputStream in = new FileInputStream(new File("pasteleria/resources/MarcasProveedor.json"));
-			JSONObject JO = new JSONObject (new JSONTokener(in));
+	public int actualizarMarcaProveedor(TMarcaProveedor marcaProveedor) {
+		//cargamos los datos de la nueva marca en un JSON
+		JSONObject jo = createJSON(marcaProveedor);
+		
+		//Accedemos a los datos guardados
+		JSONObject JO = getJSONFromFile();
+		
+		if (JO == null) {
+			return -1; 
+		}
+		else {
 			JSONArray JA = JO.getJSONArray("ListaMarcasProveedor");
-
+			JA.put(marcaProveedor.getID(), jo); 
+			JO.put("ListaMarcasProveedor", JA);
+		}
 			
-			int i = 0; int id = marcaProveedor.getID();
-			while (i < JA.length() && !(JA.getJSONObject(i).getInt("Id") == id)) {
-				i++;
-			}
-			if (i == JA.length()) return false; //no lo ha encontrado
-			else {
-				JSONObject jo = JA.getJSONObject(i);
-				JA.remove(i);
-				
-				//El ID es inmodificable
-				jo.remove("IdMarca");
-				jo.put("IdMarca", marcaProveedor.getIDMarca());
-				jo.remove("IdProveedor");
-				jo.put("IdProveedor", marcaProveedor.getIDProveedor());
-				jo.remove("Activo");
-				jo.put("Activo", marcaProveedor.getActivo());
-				
-				JA.put(jo);
-				
-				JSONObject newJO = new JSONObject();
-				newJO.put("ListaMarcasProveedor", JA);
-				newJO.put("next_id", JO.get("next_id"));
-				
-				BufferedWriter bw = new BufferedWriter(new FileWriter("pasteleria/resources/MarcasProveedor.json"));
-				bw.write(newJO.toString());
-				bw.close();
-			}
-		} 
-		catch(Exception e) {
-			return false;
-		}		
-		return true;
+		if (writeJSONObject(JO)) return marcaProveedor.getID();
+		else return -1;
 	}
 
 	@Override
 	public TMarcaProveedor buscarMarcaProveedor(int id) {
-		try {
-			// Accedemos a los datos guardados hasta ahora
-			InputStream in = new FileInputStream(new File("pasteleria/resources/MarcasProveedor.json"));
-			JSONObject JO = new JSONObject(new JSONTokener(in));
-
+		//Accedemos a los datos guardados
+		JSONObject JO = getJSONFromFile();
+		
+		if (JO == null) {
+			return null; 
+		}
+		else {
 			// Obtenemos los datos del JSON
 			JSONArray JA = JO.getJSONArray("ListaMarcasProveedor");
+
+			JSONObject jo;
+			try {
+				jo = JA.getJSONObject(id);
+			}
+			catch (JSONException e) {
+				return null;
+			}
+		
+			int idMarca = jo.getInt("Id Marca");
+			int idProveedor = jo.getInt("Id Proveedor");
+			boolean activo = jo.getBoolean("Activo");
 			
-			int i = 0; 
-			while (i < JA.length() && !(JA.getJSONObject(i).getInt("Id") == id)) {
-				i++;
-			}
-			if (i == JA.length()) return null; //no lo ha encontrado
-			else {
-				JSONObject jo = JA.getJSONObject(i);
-				
-				int IdMarca = jo.getInt("IdMarca");
-				int IdProveedor = jo.getInt("IdProveedor");
-				boolean activo = jo.getBoolean("Activo");
-				
-				return new TMarcaProveedor(id, IdMarca, IdProveedor, activo);
-			}
-		} 
-		catch (Exception e) {
-			return null; 
+			return new TMarcaProveedor(id, idMarca, idProveedor, activo);
 		}
 	}
 
 	@Override
 	public Collection<TMarcaProveedor> listarMarcaProveedor() {
 		Collection<TMarcaProveedor> lista = new ArrayList<TMarcaProveedor>();
-		
-		JSONArray JA = null;
-		try {
-			InputStream in = new FileInputStream(new File("pasteleria/resources/TMarcaProveedor.json"));
-			JSONObject JO = new JSONObject(new JSONTokener(in));
-			JA = JO.getJSONArray("ListaMarcasProveedor");
-			
-		}
-		catch (Exception e) {
-			return null;
-		}
 
-		int i = 0;
-		while (i < JA.length()) {
-			JSONObject jo = JA.getJSONObject(i);
-			lista.add(new TMarcaProveedor( jo.getInt("Id"), jo.getInt("IdMarca"), jo.getInt("IdProveedor"), jo.getBoolean("Activo")));
-			i++;
+		// Accedemos a los datos guardados
+		JSONObject JO = getJSONFromFile();
+
+		if (JO != null) {
+			// Obtenemos los datos del JSON
+			JSONArray JA = JO.getJSONArray("ListaMarcasProveedor");
+
+			for (int i = 0; i < JA.length(); i++) {
+				JSONObject jo = JA.getJSONObject(i);
+
+				if (jo.getBoolean("Activo")) {
+					lista.add(new TMarcaProveedor(i, jo.getInt("Id Marca"), jo.getInt("Id Proveedor"), jo.getBoolean("Activo")));
+				}
+			}
 		}
 		return lista;
 	}
-
+	
+	
+	
+	//Funciones auxiliares
+		private JSONObject getJSONFromFile() {
+			JSONObject JO;
+			try {
+				InputStream in  = new FileInputStream(new File("resources/MarcasProveedor.json"));
+				JO = new JSONObject(new JSONTokener(in));
+				
+			} catch (FileNotFoundException e) {
+				JO = null;	
+			}
+			return JO;
+		}
+		
+		private JSONObject createJSON(TMarcaProveedor marcaProv) {
+			JSONObject jo = new JSONObject();
+			jo.put("Id", marcaProv.getID());
+			jo.put("Id Marca", marcaProv.getIDMarca());
+			jo.put("Id Proveedor", marcaProv.getIDProveedor());
+			jo.put("Activo", marcaProv.getActivo());
+			return jo;
+		}
+		
+		private boolean writeJSONObject(JSONObject JO) {		
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter("resources/MarcasProveedor.json"));
+				bw.write(JO.toString(3));
+				bw.close();
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+	
 }
