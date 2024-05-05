@@ -95,20 +95,6 @@ public class DAOProductoImp implements DAOProducto {
 		writeJSONObject(jO);
 	}
 
-	@Override
-	/*public TProducto buscarProducto(String nombre) {
-		JSONArray ja1 = getProductosJArray(getFilename("Dulce"));
-		JSONArray ja2 = getProductosJArray(getFilename("Pan"));
-		JSONArray ja3 = getProductosJArray(getFilename("Bebida"));
-		TProducto prod = searchInJArray(nombre, ja1);
-		if (prod == null) {
-			prod = searchInJArray(nombre, ja2);
-			if (prod == null) {
-				prod = searchInJArray(nombre, ja3);
-			}
-		}
-		return prod;
-	}*/
 	
 	public TProducto buscarProducto(String nombre) {
 		JSONArray ja = getProductosJArray();
@@ -118,24 +104,6 @@ public class DAOProductoImp implements DAOProducto {
 		}
 		return prod;
 	}
-	
-	@Override
-	/*public TProducto buscarProducto(int id) {
-		JSONArray ja1 = getProductosJArray(getFilename("Dulce"));
-		JSONArray ja2 = getProductosJArray(getFilename("Pan"));
-		JSONArray ja3 = getProductosJArray(getFilename("Bebida"));
-		JSONObject prodJO = getObjectInIndex(ja1, id);
-		if (prodJO == null) {
-			prodJO = getObjectInIndex(ja2, id);
-			if (prodJO == null) {
-				prodJO = getObjectInIndex(ja3, id);
-				if (prodJO == null) {
-					return null;
-				}
-			}
-		}
-		return createTProducto(prodJO);
-	}*/
 	
 	public TProducto buscarProducto(int id) {
 		JSONArray ja = getProductosJArray();
@@ -147,22 +115,6 @@ public class DAOProductoImp implements DAOProducto {
 	}
 	
 	
-	
-	@Override
-	/*public Collection<TProducto> listarProductos() {
-		Collection<TProducto> listaProductos = new ArrayList<TProducto>();
-		String[] tipos = {"Dulce", "Pan", "Bebida"};
-		for (String tipo : tipos) {
-			String filename = getFilename(tipo);
-			JSONArray ja = getProductosJArray(filename);
-			if (ja != null) {
-				for (int i = 0; i < ja.length(); i++) {
-					listaProductos.add(createTProducto(ja.getJSONObject(i)));
-				}
-			}
-		}
-		return listaProductos;
-	}*/
 	
 	public Collection<TProducto> listarProductos() {
 		Collection<TProducto> listaProductos = new ArrayList<TProducto>();

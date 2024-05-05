@@ -46,6 +46,9 @@ public class ControladorImp extends Controlador {
 		case VISTA_LISTAR_PRODUCTO:
 			listarProducto(datos);
 			break;
+		case VISTA_LISTAR_PRODUCTOS_POR_MARCA:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTOS_POR_MARCA);
+			break;
 		case ACTUALIZAR_PRODUCTO:
 			actualizarProducto(datos);
 			break;
@@ -57,6 +60,9 @@ public class ControladorImp extends Controlador {
 			break;
 		case BUSCAR_PRODUCTO:
 			buscarProducto(datos);
+			break;
+		case LISTAR_PRODUCTOS_POR_MARCA:
+			listarProductosPorMarca(datos);
 			break;
 
 		// FACTURAS
@@ -272,6 +278,19 @@ public class ControladorImp extends Controlador {
 		Collection<TProducto> productos = saProducto.listarProductos();
 		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTO)
 				.actualizar(Evento.LISTAR_PRODUCTO, productos);
+	}
+	
+	private void listarProductosPorMarca(Object datos) {
+		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
+		String nombre = (String) datos;
+		try {
+			Collection<TProducto> productos = saProducto.listarProductosPorMarca(nombre);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTOS_POR_MARCA)
+					.actualizar(Evento.LISTAR_PRODUCTOS_POR_MARCA_SUCCESS, productos);
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTOS_POR_MARCA)
+					.actualizar(Evento.LISTAR_PRODUCTOS_POR_MARCA_ERROR, e.getMessage());
+		}
 	}
 
 //FACTURAS

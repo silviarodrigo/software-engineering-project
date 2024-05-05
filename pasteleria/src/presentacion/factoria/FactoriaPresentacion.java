@@ -8,6 +8,7 @@ import presentacion.GUIProducto.VistaAltaProducto;
 import presentacion.GUIProducto.VistaBajaProducto;
 import presentacion.GUIProducto.VistaBuscarProducto;
 import presentacion.GUIProducto.VistaListarProducto;
+import presentacion.GUIProducto.VistaListarProductosPorMarca;
 import presentacion.MainWindow;
 import presentacion.GUICliente.VistaActualizarCliente;
 import presentacion.GUICliente.VistaAltaCliente;
@@ -51,6 +52,8 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 			return new VistaBuscarProducto();
 		case VISTA_LISTAR_PRODUCTO:
 			return new VistaListarProducto();
+		case VISTA_LISTAR_PRODUCTOS_POR_MARCA:
+			return new VistaListarProductosPorMarca();
 		//FACTURAS
 		case VISTA_PRINCIPAL_FACTURAS:
 			return new VistaPrincipalFacturas();

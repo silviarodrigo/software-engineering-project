@@ -46,6 +46,10 @@ public class VistaPrincipalProducto extends JFrame implements IGUI {
 		listarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_LISTAR_PRODUCTO));
 		buttonPanel.add(listarBtn);
 		
+		JButton listarPorMarcaBtn = new JButton("Listar Productos Por Marca");
+		listarPorMarcaBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_LISTAR_PRODUCTOS_POR_MARCA));
+		buttonPanel.add(listarPorMarcaBtn);
+		
 		pack();
 		setResizable(false);
 		setLocationRelativeTo(null);

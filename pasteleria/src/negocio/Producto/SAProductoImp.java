@@ -1,6 +1,7 @@
 package negocio.Producto;
 
 import java.util.Collection;
+import java.util.ArrayList;
 
 import integracion.Factoria.FactoriaAbstractaIntegracion;
 import integracion.Producto.DAOProducto;
@@ -73,6 +74,27 @@ public class SAProductoImp implements SAProducto {
 	public Collection<TProducto> listarProductos() {
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
 		return daoProducto.listarProductos();
+	}
+	
+	@Override
+	public Collection<TProducto> listarProductosPorMarca(String nombreMarca) {
+		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
+		TMarca marca  = daoMarca.buscarMarca(nombreMarca);
+		if (marca == null) {
+			throw new IllegalArgumentException("Marca no existente");
+		}
+		else {
+			int marcaId = marca.getID();
+			DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
+			Collection<TProducto> productos = daoProducto.listarProductos();
+			ArrayList<TProducto> productosMarca = new ArrayList<TProducto>();
+			for (TProducto producto : productos) {
+				if (producto.getMarca() == marcaId) {
+					productosMarca.add(producto);
+				}
+			}
+			return productosMarca;
+		}
 	}
 
 }
