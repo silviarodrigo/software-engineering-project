@@ -22,42 +22,42 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 	@Override
 	public int altaMarcaProveedor(TMarcaProveedor marcaProveedor) {
 		//cargamos los datos de la nueva marcaProv en un JSON
-				JSONObject jo = createJSON(marcaProveedor);
-				
-				//obtenemos el JSON con toda la info 
-				JSONObject JO = getJSONFromFile();
-				
-				JSONArray JA; int next_id = 0;
-				if (JO == null) {
-					JO = new JSONObject();
-					JA = new JSONArray();
-					JA.put(jo);
-				}
-				else {
-					//Obtenemos los datos del JSON
-					JA = JO.getJSONArray("ListaMarcasProveedor");
-				    next_id = JO.getInt("next_id");
-				    
-				    
-				    jo.put("Id", next_id);
-					JA.put(jo);
-				}
-				
-				//insertamos la nueva marcaProv en el JSON
-				JO.put("ListaMarcasProveedor", JA);
-				JO.put("next_id", next_id+1);
-				
-				
-				marcaProveedor.setID(next_id);
-				
-				
-				//Escribimos el nuevo JSON con toda la informacion
-				if (writeJSONObject(JO)) {
-					return next_id;
-				}
-				else {
-					return -1;
-				}
+		JSONObject jo = createJSON(marcaProveedor);
+		
+		//obtenemos el JSON con toda la info 
+		JSONObject JO = getJSONFromFile();
+		
+		JSONArray JA; int next_id = 0;
+		if (JO == null) {
+			JO = new JSONObject();
+			JA = new JSONArray();
+			JA.put(jo);
+		}
+		else {
+			//Obtenemos los datos del JSON
+			JA = JO.getJSONArray("ListaMarcasProveedor");
+		    next_id = JO.getInt("next_id");
+		    
+		    
+		    jo.put("Id", next_id);
+			JA.put(jo);
+		}
+		
+		//insertamos la nueva marcaProv en el JSON
+		JO.put("ListaMarcasProveedor", JA);
+		JO.put("next_id", next_id+1);
+		
+		
+		marcaProveedor.setID(next_id);
+		
+		
+		//Escribimos el nuevo JSON con toda la informacion
+		if (writeJSONObject(JO)) {
+			return next_id;
+		}
+		else {
+			return -1;
+		}
 	}
 
 	@Override

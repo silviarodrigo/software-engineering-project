@@ -6,6 +6,7 @@ import negocio.Producto.TProducto;
 import integracion.Factoria.FactoriaAbstractaIntegracion;
 import integracion.Marca.DAOMarca;
 import integracion.Producto.DAOProducto;
+import integracion.Marca.DAOMarcaProveedor;
 
 //"Negocio pide a integración que lo añada"
 
