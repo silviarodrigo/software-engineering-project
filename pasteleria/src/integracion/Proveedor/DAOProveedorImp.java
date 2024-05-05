@@ -19,13 +19,13 @@ public class DAOProveedorImp implements DAOProveedor {
 	@Override
 	public int altaProveedor(TProveedor proveedor) {
 		JSONObject jProv = createJSON(proveedor);
-		JSONObject jO = getJSONFromFile();
+		JSONObject jDatos = getJSONFromFile();
 		JSONArray jA;
 		int next_id;
 		
 		//si no tenemos datos preexistentes
-		if (jO == null) {
-			jO = new JSONObject();
+		if (jDatos == null) {
+			jDatos = new JSONObject();
 			jA = new JSONArray();
 			next_id = 0;
 			jProv.put("Id", next_id);
@@ -33,16 +33,16 @@ public class DAOProveedorImp implements DAOProveedor {
 		}
 		//si sí los tenemos
 		else {
-			jA = jO.getJSONArray("Proveedores");
-		    next_id = jO.getInt("next_id");
+			jA = jDatos.getJSONArray("Proveedores");
+		    next_id = jDatos.getInt("next_id");
 		    jProv.put("Id", next_id);
 			jA.put(jProv);
 		}
 		
-		jO.put("Proveedores", jA);
-		jO.put("next_id", next_id+1);
+		jDatos.put("Proveedores", jA);
+		jDatos.put("next_id", next_id+1);
 		
-		if (writeJSONObject(jO)) {
+		if (writeJSONObject(jDatos)) {
 			return next_id;
 		}
 		else {
@@ -52,8 +52,21 @@ public class DAOProveedorImp implements DAOProveedor {
 
 	@Override
 	public void bajaProveedor(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		JSONObject jDatos = getJSONFromFile();
+		JSONArray jA;
+		
+		if(jDatos!= null) {
+			jA = jDatos.getJSONArray("Proveedores");
+			JSONObject jProv = jA.getJSONObject(id);
+			
+			jProv.put("Activo", false); //damos de baja
+			jA.put(id, jProv); //actualizamos informacion 
+			jDatos.put("Proveedores",jA); //actualizamos JSON datos
+			
+		}
+		
+		writeJSONObject(jDatos);
+		
 	}
 
 	@Override
