@@ -308,6 +308,19 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.LISTAR_FACTURAS_POR_CLIENTE_ERROR, "Cliente no encontrado");
 		}
 	}
+	
+	private void listarFacturasConCliente(Object datos) {
+		int id_cliente = (int) datos;
+		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
+		Object[] cliente_facturas = saFactura.listarFacturasConCliente(id_cliente);
+		if (cliente_facturas != null) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE)
+					.actualizar(Evento.LISTAR_FACTURAS_POR_CLIENTE_SUCCESS, cliente_facturas);
+		} else {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE)
+					.actualizar(Evento.LISTAR_FACTURAS_POR_CLIENTE_ERROR, "Cliente no encontrado");
+		}
+	}
 
 	private void buscarFactura(Object datos) {
 		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
