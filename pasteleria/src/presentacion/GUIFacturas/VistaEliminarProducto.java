@@ -61,8 +61,10 @@ public class VistaEliminarProducto extends JFrame implements IGUI {
 
 		JPanel btnPanel = new JPanel();
 		JButton acceptBtn = new JButton("Aceptar");
-		acceptBtn.addActionListener(
-				(e) -> eliminarProducto(this._tFIdProducto.getText(), this._jSCantidad.getValue().toString()));
+		acceptBtn.addActionListener((e) -> {
+			eliminarProducto(this._tFIdProducto.getText(), this._jSCantidad.getValue().toString());
+			dispose();
+		});
 		JButton cancelBtn = new JButton("Cancelar");
 		cancelBtn.addActionListener((e) -> dispose());
 		btnPanel.add(acceptBtn);
@@ -85,7 +87,7 @@ public class VistaEliminarProducto extends JFrame implements IGUI {
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			TLineaFactura linea = new TLineaFactura(id_prod, 0, 0, cantidad,true);
+			TLineaFactura linea = new TLineaFactura(id_prod, 0, 0, cantidad, true);
 			Controlador.getInstance().accion(Evento.ELIMINAR_PRODUCTO, linea);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Debes indicar un id de producto valido", "Eliminar Producto",

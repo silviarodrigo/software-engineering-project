@@ -19,6 +19,7 @@ import presentacion.GUIFacturas.VistaBuscarFacturas;
 import presentacion.GUIFacturas.VistaCerrarVenta;
 import presentacion.GUIFacturas.VistaEliminarProducto;
 import presentacion.GUIFacturas.VistaListarFacturas;
+import presentacion.GUIFacturas.VistaListarFacturasPorCliente;
 import presentacion.GUIFacturas.VistaModificarFacturas;
 import presentacion.GUIFacturas.VistaPrincipalFacturas;
 import presentacion.GUIFacturas.VistaAnadirProducto;
@@ -58,6 +59,8 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 			return new VistaModificarFacturas();
 		case VISTA_LISTAR_FACTURAS:
 			return new VistaListarFacturas();
+		case VISTA_LISTAR_FACTURAS_POR_CLIENTE:
+			return new VistaListarFacturasPorCliente();
 		case VISTA_ANADIR_PRODUCTO:
 			return new VistaAnadirProducto();
 		case VISTA_ELIMINAR_PRODUCTO:

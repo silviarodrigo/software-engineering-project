@@ -26,7 +26,7 @@ public class ControladorImp extends Controlador {
 		case MAIN_WINDOW:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.MAIN_WINDOW);
 			break;
-			
+
 		// PRODUCTO
 		case VISTA_PRINCIPAL_PRODUCTO:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_PRODUCTO);
@@ -58,7 +58,7 @@ public class ControladorImp extends Controlador {
 		case BUSCAR_PRODUCTO:
 			buscarProducto(datos);
 			break;
-			
+
 		// FACTURAS
 		case VISTA_PRINCIPAL_FACTURAS:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_FACTURAS);
@@ -90,6 +90,12 @@ public class ControladorImp extends Controlador {
 		case VISTA_LISTAR_FACTURAS:
 			listarFacturas(datos);
 			break;
+		case VISTA_LISTAR_FACTURAS_POR_CLIENTE:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE);
+			break;
+		case LISTAR_FACTURAS_POR_CLIENTE:
+			listarFacturasPorCliente(datos);
+			break;
 		case BUSCAR_FACTURA:
 			buscarFactura(datos);
 			break;
@@ -99,7 +105,7 @@ public class ControladorImp extends Controlador {
 		case ELIMINAR_PRODUCTO:
 			eliminarProducto(datos);
 			break;
-			
+
 		// MARCA
 		case VISTA_PRINCIPAL_MARCA:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_MARCA);
@@ -132,7 +138,7 @@ public class ControladorImp extends Controlador {
 			buscarMarca(datos);
 			break;
 
-			// EMPLEADOS
+		// EMPLEADOS
 		case VISTA_PRINCIPAL_EMPLEADOS:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_EMPLEADOS);
 			break;
@@ -238,7 +244,6 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.BAJA_PRODUCTO_ERROR, e.getMessage());
 		}
 	}
-	
 
 	private void buscarProducto(Object datos) {
 		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
@@ -291,6 +296,19 @@ public class ControladorImp extends Controlador {
 				.actualizar(Evento.LISTAR_FACTURAS, facturas);
 	}
 
+	private void listarFacturasPorCliente(Object datos) {
+		int id_cliente = (int) datos;
+		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
+		Collection<TFactura> facturas = saFactura.listarFacturasPorCliente(id_cliente);
+		if (facturas != null) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE)
+					.actualizar(Evento.LISTAR_FACTURAS_POR_CLIENTE_SUCCESS, facturas);
+		} else {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE)
+					.actualizar(Evento.LISTAR_FACTURAS_POR_CLIENTE_ERROR, "Cliente no encontrado");
+		}
+	}
+
 	private void buscarFactura(Object datos) {
 		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
 		int id_factura = (int) datos;
@@ -303,7 +321,6 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.BUSCAR_FACTURA_ERROR, "factura no encontrada.");
 		}
 	}
-	
 
 	private void abrirVenta(Object datos) {
 		if (this.carrito != null) {
@@ -380,8 +397,7 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.ALTA_MARCA_ERROR, e.getMessage());
 		}
 	}
-	
-	
+
 	private void bajaMarca(Object datos) {
 		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
 		String nombre = (String) datos;
@@ -407,7 +423,6 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.ACTUALIZAR_MARCA_ERROR, e.getMessage());
 		}
 	}
-	
 
 	private void buscarMarca(Object datos) {
 		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
@@ -421,7 +436,6 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.BUSCAR_MARCA_ERROR, "Marca no encontrada.");
 		}
 	}
-	
 
 	private void listarMarcas(Object datos) {
 		SAMarca SAMarca = FactoriaAbstractaNegocio.getInstance().crearSAMarca();
@@ -429,7 +443,7 @@ public class ControladorImp extends Controlador {
 		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_MARCAS)
 				.actualizar(Evento.LISTAR_MARCAS, marcas);
 	}
-	
+
 	// CLIENTE
 	private void altaCliente(Object datos) {
 		SACliente saCliente = FactoriaAbstractaNegocio.getInstance().crearSACliente();
@@ -443,7 +457,7 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.ALTA_CLIENTE_ERROR, e.getMessage());
 		}
 	}
-	
+
 	private void bajaCliente(Object datos) {
 		SACliente saCliente = FactoriaAbstractaNegocio.getInstance().crearSACliente();
 		String dni = (String) datos;
@@ -456,7 +470,7 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.BAJA_CLIENTE_ERROR, e.getMessage());
 		}
 	}
-	
+
 	private void actualizarCliente(Object datos) {
 		SACliente saCliente = FactoriaAbstractaNegocio.getInstance().crearSACliente();
 		TCliente tcliente = (TCliente) datos;
@@ -469,16 +483,17 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.ACTUALIZAR_CLIENTE_ERROR, e.getMessage());
 		}
 	}
-	
+
 	private void buscarCliente(Object datos) {
 		SACliente saCliente = FactoriaAbstractaNegocio.getInstance().crearSACliente();
 		String dni = (String) datos;
 		TCliente tcliente = saCliente.buscarCliente(dni);
 		if (tcliente == null) {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_CLIENTE).actualizar(Evento.BUSCAR_CLIENTE_ERROR, "Cliente no encontrado.");
-		}
-		else {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_CLIENTE).actualizar(Evento.BUSCAR_CLIENTE_SUCCESS, tcliente);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_CLIENTE)
+					.actualizar(Evento.BUSCAR_CLIENTE_ERROR, "Cliente no encontrado.");
+		} else {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_CLIENTE)
+					.actualizar(Evento.BUSCAR_CLIENTE_SUCCESS, tcliente);
 		}
 	}
 
@@ -498,12 +513,12 @@ public class ControladorImp extends Controlador {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_EMPLEADO)
 					.actualizar(Evento.ALTA_EMPLEADO_EXITO, id);
 		} catch (IllegalArgumentException e) {
-			//no se habria podido dar de alta al empleado
+			// no se habria podido dar de alta al empleado
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_EMPLEADO)
 					.actualizar(Evento.ALTA_EMPLEADO_ERROR, e.getMessage());
 		}
 	}
-	
+
 	private void bajaEmpleado(Object datos) {
 		SAEmpleado saEmpleado = FactoriaAbstractaNegocio.getInstance().crearSAEmpleado();
 		String dni = (String) datos;
@@ -512,12 +527,12 @@ public class ControladorImp extends Controlador {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_EMPLEADO)
 					.actualizar(Evento.BAJA_EMPLEADO_EXITO, id);
 		} catch (IllegalArgumentException e) {
-			//no se ha podido dar de baja al empleado
+			// no se ha podido dar de baja al empleado
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_EMPLEADO)
 					.actualizar(Evento.BAJA_EMPLEADO_ERROR, e.getMessage());
 		}
 	}
-	
+
 	private void actualizarEmpleado(Object datos) {
 		SAEmpleado saEmpleado = FactoriaAbstractaNegocio.getInstance().crearSAEmpleado();
 		TEmpleado tEmpleado = (TEmpleado) datos;
@@ -530,16 +545,17 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.ACTUALIZAR_EMPLEADO_ERROR, e.getMessage());
 		}
 	}
-	
+
 	private void buscarEmpleado(Object datos) {
 		SAEmpleado saEmpleado = FactoriaAbstractaNegocio.getInstance().crearSAEmpleado();
 		String dni = (String) datos;
 		TEmpleado tEmpleado = saEmpleado.buscarEmpleado(dni);
 		if (tEmpleado == null) {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_EMPLEADO).actualizar(Evento.BUSCAR_EMPLEADO_ERROR, "Empleado no encontrado.");
-		}
-		else {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_EMPLEADO).actualizar(Evento.BUSCAR_EMPLEADO_EXITO, tEmpleado);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_EMPLEADO)
+					.actualizar(Evento.BUSCAR_EMPLEADO_ERROR, "Empleado no encontrado.");
+		} else {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_EMPLEADO)
+					.actualizar(Evento.BUSCAR_EMPLEADO_EXITO, tEmpleado);
 		}
 	}
 
@@ -549,6 +565,5 @@ public class ControladorImp extends Controlador {
 		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_EMPLEADOS)
 				.actualizar(Evento.LISTAR_EMPLEADOS, empleados);
 	}
-	
 
 }

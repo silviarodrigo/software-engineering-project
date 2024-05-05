@@ -13,4 +13,6 @@ public interface DAOFactura {
 	public int crearFactura(TFactura f);
 
 	public Collection<TFactura> listarFacturas();
+	
+	public Collection<TFactura> listarFacturasPorCliente(int id_cliente);
 }

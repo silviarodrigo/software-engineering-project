@@ -71,8 +71,10 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 
 		JPanel btnPanel = new JPanel();
 		JButton acceptBtn = new JButton("Aceptar");
-		acceptBtn.addActionListener(
-				(e) -> cerrarVenta(this._tFIdCliente.getText(), this._tFIdVendedor.getText(), this._tFFecha.getText()));
+		acceptBtn.addActionListener((e) -> {
+			cerrarVenta(this._tFIdCliente.getText(), this._tFIdVendedor.getText(), this._tFFecha.getText());
+			dispose();
+		});
 		JButton cancelBtn = new JButton("Cancelar");
 		cancelBtn.addActionListener((e) -> dispose());
 		btnPanel.add(acceptBtn);

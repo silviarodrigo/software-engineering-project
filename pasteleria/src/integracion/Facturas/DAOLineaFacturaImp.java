@@ -144,7 +144,6 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 					ja.getJSONObject(i).getInt("cantidad"),ja.getJSONObject(i).getBoolean("activa")));
 		}
 		return lineas_factura;
-
 	}
 
 // FUNCIONES AUXILIARES

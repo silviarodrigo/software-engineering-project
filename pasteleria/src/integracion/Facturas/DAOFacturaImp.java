@@ -116,6 +116,20 @@ public class DAOFacturaImp implements DAOFactura {
 		return facturas;
 	}
 
+	public Collection<TFactura> listarFacturasPorCliente(int id_cliente) {
+		ArrayList<TFactura> facturas = new ArrayList<TFactura>();
+		JSONArray ja = getFacturasJArray(filename);
+
+		if (ja != null) {
+			for (int i = 0; i < ja.length(); i++) {
+				if (ja.getJSONObject(i).getInt("id_cliente") == id_cliente) {
+					facturas.add(facturaConLineas(ja, i));
+				}
+			}
+		}
+		return facturas;
+	}
+
 //FUNCIONES AUXILIARES
 	private int searchInJArray(int id_f, JSONArray ja) {
 		// devuele la posicion de la factura en el array, o -1 si no existe
@@ -188,7 +202,8 @@ public class DAOFacturaImp implements DAOFactura {
 		}
 		// creamos el resto de elementos necesarios para crear la factura
 		TDatosVenta dt = new TDatosVenta(ja.getJSONObject(i).getString("fecha"),
-				ja.getJSONObject(i).getInt("id_cliente"), ja.getJSONObject(i).getInt("id_vendedor"), lineas_factura_individuales);
+				ja.getJSONObject(i).getInt("id_cliente"), ja.getJSONObject(i).getInt("id_vendedor"),
+				lineas_factura_individuales);
 		// creamos la factura
 		return new TFactura(ja.getJSONObject(i).getInt("id_factura"), ja.getJSONObject(i).getDouble("precio"), dt,
 				ja.getJSONObject(i).getBoolean("activa"));

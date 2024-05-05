@@ -78,7 +78,10 @@ public class VistaModificarFacturas extends JFrame implements IGUI {
 
 		JPanel endPanel = new JPanel();
 		JButton acceptBtn = new JButton("Aceptar");
-		acceptBtn.addActionListener((e) -> modificarFactura());
+		acceptBtn.addActionListener((e) -> {
+			modificarFactura();
+			dispose();
+		});
 		JButton cancelBtn = new JButton("Cancelar");
 		cancelBtn.addActionListener((e) -> dispose());
 		endPanel.add(acceptBtn);

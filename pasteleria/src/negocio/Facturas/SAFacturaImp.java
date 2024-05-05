@@ -25,6 +25,17 @@ public class SAFacturaImp implements SAFactura {
 		return daoFactura.listarFacturas();
 	}
 
+	public Collection<TFactura> listarFacturasPorCliente(int id_cliente) {
+		DAOCliente daoCliente = FactoriaAbstractaIntegracion.getInstance().crearDAOCliente();
+		TCliente cliente = daoCliente.buscarCliente(id_cliente);
+		if (cliente != null) {
+			DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
+			return daoFactura.listarFacturasPorCliente(id_cliente);
+		} else
+			return null;
+
+	}
+
 	public int crearFactura(TDatosVenta datos) {
 		// creamos los dao
 		DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();

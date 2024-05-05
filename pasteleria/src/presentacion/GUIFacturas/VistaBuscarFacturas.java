@@ -24,10 +24,10 @@ import presentacion.Controlador.Controlador;
 public class VistaBuscarFacturas extends JFrame implements IGUI {
 
 	private static final long serialVersionUID = 1L;
-	JTextField _tFIdFactura;
-	JPanel _pedirIdFacturaPanel;
-	JPanel _infoPanel;
-	JPanel _mainPanel;
+	private JTextField _tFIdFactura;
+	private JPanel _pedirIdFacturaPanel;
+	private JPanel _infoPanel;
+	private JPanel _mainPanel;
 
 	public VistaBuscarFacturas() {
 		initGUI();
@@ -52,7 +52,10 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 
 		JPanel btnPanel = new JPanel();
 		JButton acceptBtn = new JButton("Buscar");
-		acceptBtn.addActionListener((e) -> buscarFactura());
+		acceptBtn.addActionListener((e) -> {
+			buscarFactura();
+			dispose();
+		});
 
 		JButton cancelBtn = new JButton("Cancelar");
 		cancelBtn.addActionListener((e) -> dispose());
