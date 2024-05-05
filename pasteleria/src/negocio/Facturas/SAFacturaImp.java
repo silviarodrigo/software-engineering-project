@@ -28,21 +28,22 @@ public class SAFacturaImp implements SAFactura {
 	public Collection<TFactura> listarFacturasPorCliente(int id_cliente) {
 		DAOCliente daoCliente = FactoriaAbstractaIntegracion.getInstance().crearDAOCliente();
 		TCliente cliente = daoCliente.buscarCliente(id_cliente);
-		if (cliente != null) {
+		if (cliente != null && cliente.getActivo()) {//si el cliente
 			DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
 			return daoFactura.listarFacturasPorCliente(id_cliente);
 		} else
 			return null;
 	}
-	
-	public Object[] listarFacturasConCliente(int id_cliente) {//En la posicion 0 guarda el TCliente y en la 1 la coleccion de facturas
+
+	public Object[] listarFacturasConCliente(int id_cliente) {// En la posicion 0 guarda el TCliente y en la 1 la
+																// coleccion de facturas
 		DAOCliente daoCliente = FactoriaAbstractaIntegracion.getInstance().crearDAOCliente();
 		TCliente cliente = daoCliente.buscarCliente(id_cliente);
-		if (cliente != null) {
+		if (cliente != null && cliente.getActivo()) {
 			DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
-			Object[] datos= new Object[2];
-			datos[0]=cliente;
-			datos[1]=daoFactura.listarFacturasPorCliente(id_cliente);
+			Object[] datos = new Object[2];
+			datos[0] = cliente;
+			datos[1] = daoFactura.listarFacturasPorCliente(id_cliente);
 			return datos;
 		} else
 			return null;

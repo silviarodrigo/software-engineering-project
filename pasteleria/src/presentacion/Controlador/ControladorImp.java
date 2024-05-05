@@ -90,12 +90,6 @@ public class ControladorImp extends Controlador {
 		case VISTA_LISTAR_FACTURAS:
 			listarFacturas(datos);
 			break;
-		case VISTA_LISTAR_FACTURAS_POR_CLIENTE:
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE);
-			break;
-		case LISTAR_FACTURAS_POR_CLIENTE:
-			listarFacturasPorCliente(datos);
-			break;
 		case BUSCAR_FACTURA:
 			buscarFactura(datos);
 			break;
@@ -104,6 +98,19 @@ public class ControladorImp extends Controlador {
 			break;
 		case ELIMINAR_PRODUCTO:
 			eliminarProducto(datos);
+			break;
+			//extras
+		case VISTA_LISTAR_FACTURAS_POR_CLIENTE:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE);
+			break;
+		case LISTAR_FACTURAS_POR_CLIENTE:
+			listarFacturasPorCliente(datos);
+			break;
+		case VISTA_LISTAR_FACTURAS_CON_CLIENTE:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_CON_CLIENTE);
+			break;
+		case LISTAR_FACTURAS_CON_CLIENTE:
+			listarFacturasConCliente(datos);
 			break;
 
 		// MARCA
@@ -314,11 +321,11 @@ public class ControladorImp extends Controlador {
 		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
 		Object[] cliente_facturas = saFactura.listarFacturasConCliente(id_cliente);
 		if (cliente_facturas != null) {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE)
-					.actualizar(Evento.LISTAR_FACTURAS_POR_CLIENTE_SUCCESS, cliente_facturas);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_CON_CLIENTE)
+					.actualizar(Evento.LISTAR_FACTURAS_CON_CLIENTE_SUCCESS, cliente_facturas);
 		} else {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE)
-					.actualizar(Evento.LISTAR_FACTURAS_POR_CLIENTE_ERROR, "Cliente no encontrado");
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_CON_CLIENTE)
+					.actualizar(Evento.LISTAR_FACTURAS_CON_CLIENTE_ERROR, "Cliente no encontrado");
 		}
 	}
 

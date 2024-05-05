@@ -57,6 +57,10 @@ public class VistaPrincipalFacturas extends JFrame implements IGUI {
 		listarPorClienteBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE));
 		buttonPanel.add(listarPorClienteBtn);
 		
+		JButton listarConClienteBtn = new JButton("Listar Facturas Con Cliente");
+		listarConClienteBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_LISTAR_FACTURAS_CON_CLIENTE));
+		buttonPanel.add(listarConClienteBtn);
+		
 		pack();
 		setResizable(false);
 		setLocationRelativeTo(null);
