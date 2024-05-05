@@ -32,7 +32,7 @@ public class VistaAltaProveedor extends JDialog {
 	JButton _cancelButton;
 	JPanel _okCancelPanel;
 	
-	vistaAltaProveedor(){
+	VistaAltaProveedor(){
 		initGUI();
 	}
 	
