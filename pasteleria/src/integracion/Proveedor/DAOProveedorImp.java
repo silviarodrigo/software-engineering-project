@@ -9,9 +9,12 @@ import java.io.InputStream;
 import java.util.Collection;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import negocio.Marca.TMarca;
+import negocio.Producto.TDulce;
 import negocio.Proveedor.TProveedor;
 
 public class DAOProveedorImp implements DAOProveedor {
@@ -71,14 +74,46 @@ public class DAOProveedorImp implements DAOProveedor {
 
 	@Override
 	public int actualizarProveedor(TProveedor proveedor) {
-		// TODO Auto-generated method stub
-		return 0;
+		JSONObject jProv = createJSON(proveedor);
+		JSONObject jDatos = getJSONFromFile();
+		
+		if (jDatos != null) {
+			JSONArray jA = jDatos.getJSONArray("Proveedores");
+			jA.put(proveedor.getID(), jProv);
+			jDatos.put("Proveedores", jA);
+		}
+		
+		else {
+			return -1;
+		}
+		
+		if (writeJSONObject(jDatos)) {
+			return proveedor.getID();
+		}
+		else {
+			return -1;
+		}
 	}
 
 	@Override
 	public TProveedor buscarProveedor(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		JSONObject jDatos = getJSONFromFile();
+		if(jDatos != null) {
+			JSONArray jA = jDatos.getJSONArray("Proveedores");
+			JSONObject jProv;
+			try {
+					jProv = jA.getJSONObject(id);
+			}catch(JSONException e) {
+					return null;
+			}
+			
+			return createTProveedor(jProv);
+		}else {
+			return null;
+		}
+		
+		
+			
 	}
 
 	@Override
@@ -100,7 +135,7 @@ public class DAOProveedorImp implements DAOProveedor {
 		jObj.put("Telefono", proveedor.getTelefono());
 		jObj.put("Correo", proveedor.getCorreo());
 		jObj.put("Codigo postal", proveedor.getCodigoPostal());
-		jObj.put("Id", proveedor.getID());
+		jObj.put("ID", proveedor.getID());
 		jObj.put("Activo", proveedor.getActivo());
 		return jObj;
 	}
@@ -126,6 +161,24 @@ public class DAOProveedorImp implements DAOProveedor {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	private TProveedor createTProveedor(JSONObject jProv) {
+		
+		String nombre = jProv.getString("Nombre");
+		int telefono = jProv.getInt("Telefono");
+		String correo = jProv.getString("Correo");
+		int codigoPostal = jProv.getInt("Codigo Postal");
+		int id = jProv.getInt("ID");
+		boolean activo = jProv.getBoolean("Activo");
+		
+		TProveedor proveedor = new TProveedor(nombre, telefono, correo, codigoPostal);
+		proveedor.setActivo(activo);
+		proveedor.setID(id);
+		
+		return proveedor;
+		
+		
 	}
 
 }
