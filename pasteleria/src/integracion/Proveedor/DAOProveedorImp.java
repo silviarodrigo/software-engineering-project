@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.json.JSONArray;
@@ -13,8 +14,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import negocio.Marca.TMarca;
-import negocio.Producto.TDulce;
 import negocio.Proveedor.TProveedor;
 
 public class DAOProveedorImp implements DAOProveedor {
@@ -118,14 +117,53 @@ public class DAOProveedorImp implements DAOProveedor {
 
 	@Override
 	public TProveedor buscarProveedor(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+		JSONObject jDatos = getJSONFromFile();
+		if(jDatos == null) {
+			return null;
+		}else {
+			// Obtenemos los datos del JSON
+			JSONArray jA = jDatos.getJSONArray("Proveedores");
+			if (jA == null) {
+				return null;
+			}
+			
+			JSONObject jProveedor;
+			try {
+				int i = 0; 
+				while (i < jA.length() && !(jA.getJSONObject(i).get("Nombre").equals(nombre))) {
+					i++;
+				}
+				if (i == jA.length()) return null; //no lo ha encontrado
+				else jProveedor = jA.getJSONObject(i);
+			}
+			catch (JSONException e) {
+				return null;
+			}
+			
+			return createTProveedor(jProveedor);
+			
+									
+		}
+		
 	}
 
 	@Override
 	public Collection<TProveedor> listarProveedor() {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<TProveedor> listaProveedores = new ArrayList<TProveedor>();
+		
+		JSONObject jDatos = getJSONFromFile();
+		if(jDatos!=null) {
+			JSONArray jA = jDatos.getJSONArray("Proveedores");
+			
+			if(jA != null) {
+				for	(int i = 0; i<jA.length();i++) {
+					listaProveedores.add(createTProveedor(jA.getJSONObject(i)));
+				}
+			}
+			
+		}
+		
+		return listaProveedores;
 	}
 	
 	
