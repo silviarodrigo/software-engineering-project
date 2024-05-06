@@ -5,7 +5,7 @@ import javax.swing.*;
 import presentacion.Evento;
 import presentacion.IGUI;
 
-public class VistaModificarProveedor extends JDialog implements IGUI {
+public class VistaActualizarProveedor extends JDialog implements IGUI {
 
 	private static final long serialVersionUID = 1L;
 	
