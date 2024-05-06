@@ -46,20 +46,27 @@ public class SAProveedorImp implements SAProveedor{
 
 	@Override
 	public int actualizarProveedor(TProveedor proveedor) {
-		// TODO Auto-generated method stub
-		return 0;
+		DAOProveedor daoProveedor = FactoriaAbstractaIntegracion.getInstance().crearDAOProveedor();
+		TProveedor prov = daoProveedor.buscarProveedor(proveedor.getNombre());
+		
+		if(prov == null) {
+			throw new IllegalArgumentException("Proveedor no existente");
+		}
+		proveedor.setID(prov.getID());
+		return daoProveedor.actualizarProveedor(proveedor);
+		
 	}
 
 	@Override
 	public TProveedor buscarProveedor(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+		DAOProveedor daoProveedor = FactoriaAbstractaIntegracion.getInstance().crearDAOProveedor();
+		return daoProveedor.buscarProveedor(nombre);
 	}
 
 	@Override
 	public Collection<TProveedor> listarProveedores() {
-		// TODO Auto-generated method stub
-		return null;
+		DAOProveedor daoProveedor = FactoriaAbstractaIntegracion.getInstance().crearDAOProveedor();
+		return daoProveedor.listarProveedores();
 	}
 
 }
