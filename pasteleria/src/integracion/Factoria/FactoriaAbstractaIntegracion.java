@@ -28,6 +28,7 @@ public abstract class FactoriaAbstractaIntegracion {
 	public abstract DAOProducto crearDAOProducto();
 	public abstract DAOCliente crearDAOCliente();
 	public abstract DAOEmpleado crearDAOEmpleado();
+	public abstract DAOProveedor crearDAOProveedor();
 
 
 }
