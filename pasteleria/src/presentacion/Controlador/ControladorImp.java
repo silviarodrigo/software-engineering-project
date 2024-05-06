@@ -1,23 +1,28 @@
 package presentacion.Controlador;
 
-import presentacion.Evento;
-import presentacion.factoria.FactoriaAbstractaPresentacion;
-import negocio.Producto.TProducto;
-import negocio.Proveedor.SAProveedor;
-import negocio.Marca.TMarca;
-
 import java.util.Collection;
 
 import javax.swing.JOptionPane;
 
-import negocio.Cliente.*;
+import negocio.Cliente.SACliente;
+import negocio.Cliente.TCliente;
+import negocio.Empleados.SAEmpleado;
+import negocio.Empleados.TEmpleado;
 import negocio.Factoria.FactoriaAbstractaNegocio;
+import negocio.Facturas.Carrito;
 import negocio.Facturas.SAFactura;
-import negocio.Producto.SAProducto;
+import negocio.Facturas.TDatosVenta;
+import negocio.Facturas.TFactura;
+import negocio.Facturas.TFacturasCliente;
+import negocio.Facturas.TLineaFactura;
 import negocio.Marca.SAMarca;
-import negocio.Facturas.*;
-import negocio.Empleados.*;
-import negocio.Proveedor.*;
+import negocio.Marca.TMarca;
+import negocio.Producto.SAProducto;
+import negocio.Producto.TProducto;
+import negocio.Proveedor.SAProveedor;
+import negocio.Proveedor.TProveedor;
+import presentacion.Evento;
+import presentacion.factoria.FactoriaAbstractaPresentacion;
 
 public class ControladorImp extends Controlador {
 	private Carrito carrito;
@@ -665,6 +670,8 @@ public class ControladorImp extends Controlador {
 				.actualizar(Evento.LISTAR_EMPLEADOS, empleados);
 	}
 
+	
+	
 	// PROVEEDORES
 	private void altaProveedor(Object datos) {
 		SAProveedor saProveedor = FactoriaAbstractaNegocio.getInstance().crearSAProveedor();
