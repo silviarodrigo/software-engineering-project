@@ -18,7 +18,7 @@ import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
 
 public class VistaActualizarEmpleados extends JDialog implements IGUI {
-  a
+  
 	private static final long serialVersionUID = 1L;
 	JTextField numeroTelefonoText;
 	JTextField emailText;
