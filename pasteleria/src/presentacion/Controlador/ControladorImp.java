@@ -1,7 +1,6 @@
 package presentacion.Controlador;
 
 import presentacion.Evento;
-
 import presentacion.factoria.FactoriaAbstractaPresentacion;
 import negocio.Producto.TProducto;
 import negocio.Proveedor.SAProveedor;
@@ -398,7 +397,7 @@ public class ControladorImp extends Controlador {
 	private void listarFacturasConCliente(Object datos) {
 		int id_cliente = (int) datos;
 		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
-		Object[] cliente_facturas = saFactura.listarFacturasConCliente(id_cliente);
+		TFacturasCliente cliente_facturas = saFactura.listarFacturasConCliente(id_cliente);
 		if (cliente_facturas != null) {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_CON_CLIENTE)
 					.actualizar(Evento.LISTAR_FACTURAS_CON_CLIENTE_SUCCESS, cliente_facturas);

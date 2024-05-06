@@ -12,7 +12,5 @@ public interface DAOLineaFactura {
 
 	public int crearLineaFactura(TLineaFactura f);
 
-	// public void eliminarLineaFactura(TLineaFactura f);
-
 	public Collection<TLineaFactura> mostrarLineasFactura();
 }

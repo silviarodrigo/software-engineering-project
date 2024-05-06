@@ -22,7 +22,7 @@ public interface SAFactura {
 	// EXTRA
 	public Collection<TFactura> listarFacturasPorCliente(int id_cliente);
 
-	public Object[] listarFacturasConCliente(int id_cliente);
+	public TFacturasCliente listarFacturasConCliente(int id_cliente);
 
 	public boolean devolucionFactura(TLineaFactura lf);
 }

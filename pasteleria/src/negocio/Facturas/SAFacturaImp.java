@@ -35,16 +35,12 @@ public class SAFacturaImp implements SAFactura {
 			return null;
 	}
 
-	public Object[] listarFacturasConCliente(int id_cliente) {// En la posicion 0 guarda el TCliente y en la 1 la
-																// coleccion de facturas
+	public TFacturasCliente listarFacturasConCliente(int id_cliente) {
 		DAOCliente daoCliente = FactoriaAbstractaIntegracion.getInstance().crearDAOCliente();
 		TCliente cliente = daoCliente.buscarCliente(id_cliente);
 		if (cliente != null) {
 			DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
-			Object[] datos = new Object[2];
-			datos[0] = cliente;
-			datos[1] = daoFactura.listarFacturasPorCliente(id_cliente);
-			return datos;
+			return new TFacturasCliente(cliente, daoFactura.listarFacturasPorCliente(id_cliente));
 		} else
 			return null;
 	}
@@ -67,7 +63,7 @@ public class SAFacturaImp implements SAFactura {
 		TEmpleado vendedor = daoEmpleado.buscarEmpleado(datos.getIdVendedor());
 
 		boolean exito = true;
-		if (cliente != null &&cliente.getActivo()/* && vendedor != null &&vendedor.getActivo()*/) {
+		if (cliente != null && cliente.getActivo()/* && vendedor != null &&vendedor.getActivo() */) {
 			int i = 0;
 			// Recorremos las lineas de factura de nuestra nueva factura
 			ArrayList<TLineaFactura> lineas_factura_por_comprobar = datos.getProductos();

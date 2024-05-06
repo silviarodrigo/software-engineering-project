@@ -5,6 +5,7 @@ import java.awt.Dimension;
 
 import negocio.Facturas.TDatosVenta;
 import negocio.Facturas.TFactura;
+import negocio.Facturas.TFacturasCliente;
 import negocio.Facturas.TLineaFactura;
 import negocio.Cliente.TCliente;
 
@@ -134,10 +135,10 @@ public class VistaListarFacturasConCliente extends JFrame implements IGUI {
 		switch (e) {
 		case LISTAR_FACTURAS_CON_CLIENTE_SUCCESS:
 			_pedirIdClientePanel.setVisible(false);
-			Object[] cliente_factura = (Object[]) datos;
-			TCliente cliente= (TCliente) cliente_factura[0];
+			TFacturasCliente cliente_factura = (TFacturasCliente) datos;
+			TCliente cliente= cliente_factura.getCliente();
 			initInfoGUI(cliente);
-			Collection<TFactura> facturas= (Collection<TFactura>) cliente_factura[1];
+			Collection<TFactura> facturas= cliente_factura.getFacturas();
 			_modeloTabla.loadData(facturas);
 			break;
 		case LISTAR_FACTURAS_CON_CLIENTE_ERROR:
