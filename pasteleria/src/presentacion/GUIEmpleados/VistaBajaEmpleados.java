@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
@@ -20,7 +21,7 @@ public class VistaBajaEmpleados extends JDialog implements IGUI {
 
 	
 	private static final long serialVersionUID = 1L;
-	JSpinner idEmployee;
+	JTextField idEmployee;
 	JButton buttonOkey;
 	JButton buttonCancel;
 
@@ -37,8 +38,8 @@ public class VistaBajaEmpleados extends JDialog implements IGUI {
 
 		// IDENTIFICADOR
 		JPanel panelIdentificador = new JPanel();
-		JLabel etiquetaIdentificador = new JLabel("id: ");
-	    idEmployee = new JSpinner(new SpinnerNumberModel(0,0,3000,1));
+		JLabel etiquetaIdentificador = new JLabel("DNI: ");
+	    idEmployee = new JTextField(15);
 		panelIdentificador.add(etiquetaIdentificador);
 		panelIdentificador.add(idEmployee);
 		mainPanel.add(panelIdentificador);
@@ -71,8 +72,8 @@ public class VistaBajaEmpleados extends JDialog implements IGUI {
 	}
 
 	private void bajaEmpleado() {
-		int id = (int) idEmployee.getValue(); //coge el valor de su identificador 
-		Controlador.getInstance().accion(Evento.BAJA_EMPLEADO, id);
+		String dni= idEmployee.getText();
+		Controlador.getInstance().accion(Evento.BAJA_EMPLEADO, dni);
 	}
  
 	private void cancelImp() {

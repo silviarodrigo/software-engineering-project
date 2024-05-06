@@ -65,7 +65,7 @@ public class VistaAltaEmpleados extends JDialog implements IGUI {
 
 		// IDENTIFICADOR
 		JPanel panelIdentificador = new JPanel();
-		this.etiquetaIdentificador = new JLabel("id: ");
+		this.etiquetaIdentificador = new JLabel("DNI: ");
 		this.textoIdentificador = new JTextField(15);
 		panelIdentificador.add(etiquetaIdentificador);
 		panelIdentificador.add(textoIdentificador);

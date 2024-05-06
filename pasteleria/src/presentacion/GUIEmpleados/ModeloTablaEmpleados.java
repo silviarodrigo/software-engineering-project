@@ -18,7 +18,7 @@ public class ModeloTablaEmpleados extends AbstractTableModel{
 	private List<TEmpleado> empleados;
 	
 	//NO SE SI AÑADIR NUMVENTAS... lo tengo como atribtuo
-	private String[] headers = { "Id", "DNI", "Nombre", "Apellido","Email", "Direccion", "Numero de telefono" };
+	private String[] headers = { "Id", "DNI", "Nombre", "Apellido","Email", "Numero de Telefono", "Direccion","NumVentas", "Activo" };
 
 	public ModeloTablaEmpleados() {
 		empleados = new ArrayList<TEmpleado>();
@@ -56,12 +56,21 @@ public class ModeloTablaEmpleados extends AbstractTableModel{
 			return employee.getApellido();
 		}
 		
-		else if (columnIndex == 4) {
-			return employee.getDireccion();
+		else if (columnIndex==4) {
+			return employee.getCorreo();
 		}
-		
+
 		else if (columnIndex == 5) {
 			return employee.getNumTelefono();
+		}
+		else if (columnIndex == 6) {
+			return employee.getDireccion();
+		}
+		else if (columnIndex == 7) {
+			return employee.getNumVentas();
+		}
+		else if (columnIndex == 8) {
+			return employee.getActivo();
 		}
 		else return "Se ha producido un error";
 	}

@@ -23,6 +23,7 @@ public class VistaActualizarEmpleados extends JDialog implements IGUI {
 	JTextField numeroTelefonoText;
 	JTextField emailText;
 	JTextField direccionText;
+	JTextField DNIText;
 	JButton buttonOkey;
 	JButton buttonCancel;
 
@@ -40,7 +41,17 @@ public class VistaActualizarEmpleados extends JDialog implements IGUI {
 		// de los empleados podemos actualizar:
 		// numero de telefono, correo, direccion
 		// lo demás suponemos que no cambia
-
+         
+		
+		//DNI
+		JLabel DNIEtiqueta= new JLabel("DNI: ");
+		DNIText= new JTextField(15);
+		JPanel DNIPanel= new JPanel();
+		DNIPanel.add(DNIEtiqueta);
+		DNIPanel.add(DNIText);
+		mainPanel.add(DNIPanel);
+		
+		
 		// numeroTelefono
 		JLabel numeroTelefonoEtiqueta = new JLabel("Numero de Telefono: ");
 		numeroTelefonoText = new JTextField(15);
@@ -95,7 +106,8 @@ public class VistaActualizarEmpleados extends JDialog implements IGUI {
 
 	private void actualizarEmpleado() {
 		TEmpleado empleado;
-
+        
+		
 
 		String email = emailText.getText();
 		if (email == null || email.equals("")) {

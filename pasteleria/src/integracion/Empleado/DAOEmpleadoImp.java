@@ -6,6 +6,7 @@ import org.json.*;
 import java.io.*;
 
 import negocio.Empleados.*;
+import negocio.Marca.TMarca;
 
 import java.util.ArrayList;
 
@@ -57,9 +58,10 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 		if (jo != null) { // Fichero JSON existente.
 			JSONArray ja = jo.getJSONArray("empleados");
 			JSONObject jEmpleado = ja.getJSONObject(id);
-			jEmpleado.put("activo", false);
+			jEmpleado.put("activo", false); 
 			ja.put(id, jEmpleado);
 			jo.put("empleados", ja);
+			this.saveData(jo);
 		}
 	}
 
@@ -99,13 +101,15 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 		return this.createTEmpleado(ja.getJSONObject(i));
 	}
 
+	
+		
+
 	@Override
 	public int actualizarEmpleado(TEmpleado empleado) {
 		JSONObject jo = this.loadData();
 
 		//Todavía no se ha creado el fichero JSON
-		if (jo == null)
-			return -1; 
+		if (jo == null) return -1; 
 
 		JSONObject jEmpleado = this.createJSON(empleado);
 
@@ -124,6 +128,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 		else return -1; //no se ha podido realizar la actualiación del empleado
 		
 	}
+	
 
 	@Override
 	public Collection<TEmpleado> listarEmpleados() {
@@ -149,7 +154,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 	JSONObject loadData() { 
 		JSONObject jo = new JSONObject();
 		try {
-			InputStream is = new FileInputStream(new File("Empleado/resources/Empleado.json"));
+			InputStream is = new FileInputStream(new File("resources/Empleado.json"));
 			jo = new JSONObject(new JSONTokener(is));
 		} catch (FileNotFoundException e) {
 			jo = null;
@@ -159,10 +164,11 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 
 	private boolean saveData(JSONObject jo) {
 		try {
-			BufferedWriter bufw = new BufferedWriter(new FileWriter("Empleado/resources/Empleado.json", false));
+			BufferedWriter bufw = new BufferedWriter(new FileWriter("resources/Empleado.json", false));
 			bufw.write(jo.toString());
 			bufw.close();
 		} catch (IOException e) {
+			System.out.println(e.getMessage());
 			return false;
 		}
 		return true;
@@ -179,6 +185,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 		jEmpleado.put("numTelefono", empleado.getNumTelefono());
 		jEmpleado.put("direccion", empleado.getDireccion());
 		jEmpleado.put("numVentas", empleado.getNumVentas());
+		jEmpleado.put("activo", empleado.getActivo());
 		
 		return jEmpleado;
 	}
@@ -194,8 +201,9 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 		boolean activo = jo.getBoolean("activo");
 		int id = jo.getInt("id");
         
+ 
 		//aqui en la constructora me falta algo mas seguro
-		return new TEmpleado(nombre, apellidos, dni,email,direccion,numeroTelefono);
+		return new TEmpleado(nombre, apellidos, dni,email,activo,id,direccion,numeroTelefono,numVentas);
 	}
 
 	

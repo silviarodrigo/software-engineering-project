@@ -5,6 +5,10 @@ import java.util.Collection;
 
 import integracion.Empleado.DAOEmpleado;
 import integracion.Factoria.FactoriaAbstractaIntegracion;
+import integracion.Marca.DAOMarca;
+import integracion.Producto.DAOProducto;
+import negocio.Marca.TMarca;
+import negocio.Producto.TProducto;
 
 
 
@@ -55,6 +59,9 @@ public class SAEmpleadoImp implements SAEmpleado {
 		daoEmpleado.bajaEmpleado(empl.getId()); // else, damos de baja al empledao
 		return empl.getId();
 	}
+	
+
+	
 
 	@Override
 	public int actualizarEmpleado(TEmpleado empleado) {
@@ -66,8 +73,11 @@ public class SAEmpleadoImp implements SAEmpleado {
 		}
 
 		empleado.setId(empl.getId());
-		return daoEmpleado.actualizarEmpleado(empl); // lo actualizamos
+		return daoEmpleado.actualizarEmpleado(empleado); // lo actualizamos
 	}
+	
+
+
 
 	@Override
 	public TEmpleado buscarEmpleado(String dni) {

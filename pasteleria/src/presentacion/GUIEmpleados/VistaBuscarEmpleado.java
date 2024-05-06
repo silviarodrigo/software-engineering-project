@@ -2,6 +2,7 @@ package presentacion.GUIEmpleados;
 
 import java.awt.Dimension;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -22,7 +23,7 @@ public class VistaBuscarEmpleado extends JDialog implements IGUI {
 
 
 	private static final long serialVersionUID = 1L;
-	JSpinner idEmployee;
+	JTextField dniText;
 	JButton buttonOkey;
 	JButton buttonCancel;
 	JPanel _idPanel;
@@ -47,12 +48,11 @@ public class VistaBuscarEmpleado extends JDialog implements IGUI {
 		setContentPane(_mainPanel);
 
 		// vamos a poner un JSpinner, y vamos despues a añadirlo todo
-		JLabel idLabel = new JLabel("Id: ");
-		idEmployee = new JSpinner(new SpinnerNumberModel(0, 0, 3000, 1));
-		idEmployee.setPreferredSize(new Dimension(100, 20));
+		JLabel idLabel = new JLabel("DNI: ");
+		dniText= new JTextField(15);
 		JPanel insertID = new JPanel();
 		insertID.add(idLabel);
-		insertID.add(idEmployee);
+		insertID.add(dniText);
 		_idPanel.add(insertID);
 
 		_mainPanel.add(_idPanel); // no se si ponerlo antes o despues
@@ -75,7 +75,8 @@ public class VistaBuscarEmpleado extends JDialog implements IGUI {
 		okCancelPanel.add(buttonCancel);
 
 		// añadimos ambos botones (ok y cancel) al main_panel
-		_mainPanel.add(okCancelPanel);
+		
+		_idPanel.add(okCancelPanel);
 
 		pack();
 		setLocationRelativeTo(null);
@@ -90,7 +91,7 @@ public class VistaBuscarEmpleado extends JDialog implements IGUI {
 		
 		_infoEmpleadoPanel = new JPanel();
 		_infoEmpleadoPanel.setLayout(new BoxLayout(_infoEmpleadoPanel, BoxLayout.Y_AXIS));
-		_mainPanel.add(_infoEmpleadoPanel);
+		
 
 		JLabel idEmpleadoEtiqueta = new JLabel("Id: " + empleado.getId());
 		JLabel nombreEmpleadoEtiqueta = new JLabel("Nombre: " + empleado.getNombre());
@@ -98,7 +99,9 @@ public class VistaBuscarEmpleado extends JDialog implements IGUI {
 		JLabel DNIEmpleadoEtiqueta= new JLabel("DNI: "+ empleado.getDNI());
 		JLabel DireccionEmpleadoEtiqueta = new JLabel("Direccion: " + empleado.getDireccion());
 		JLabel EmailEmpleadoEtiqueta = new JLabel("Email: " + empleado.getCorreo());
-		JLabel numeroTelefonoEmpleadoEtiqueta = new JLabel("Email: " + empleado.getNumTelefono());
+		JLabel numeroTelefonoEmpleadoEtiqueta = new JLabel("NumTelefono: " + empleado.getNumTelefono());
+		JLabel activoEtiqueta= new JLabel("Activo: "+empleado.getActivo());
+		JLabel numVentasEtiqueta= new JLabel("Numero de ventas: "+ empleado.getNumVentas());
 		
 		_infoEmpleadoPanel.add(idEmpleadoEtiqueta);
 		_infoEmpleadoPanel.add(nombreEmpleadoEtiqueta);
@@ -107,19 +110,35 @@ public class VistaBuscarEmpleado extends JDialog implements IGUI {
 		_infoEmpleadoPanel.add(DireccionEmpleadoEtiqueta);
 		_infoEmpleadoPanel.add(EmailEmpleadoEtiqueta);
 		_infoEmpleadoPanel.add(numeroTelefonoEmpleadoEtiqueta);
-		//poner tb numVentasEmpleado???
+		_infoEmpleadoPanel.add(activoEtiqueta);
+		_infoEmpleadoPanel.add(numVentasEtiqueta);
+		
+		_mainPanel.add(_infoEmpleadoPanel);
+		
+		
+		JButton continuarBtn = new JButton("Continuar");
+		continuarBtn.addActionListener((e) -> dispose());
+		_mainPanel.add(Box.createRigidArea(new Dimension(150, 20)));
+		_mainPanel.add(continuarBtn);
 
 		
-		//añadir boton de continuar????
-		//o no hace falta 
 		pack();
+		
 	}
-
+     
+	//cambiar buscar en la vista que lo haga por DNI
 	private void buscarEmpleado() {
 		//buscaremos al empleado por su ID
 		//cada empleado tiene un ID unico
-		int id = (int) idEmployee.getValue();
-		Controlador.getInstance().accion(Evento.BUSCAR_MARCA, id);
+
+		String dni= dniText.getText();
+
+		if (dni == null || dni.equals("")) {
+			JOptionPane.showMessageDialog(this, "Debe indicar un DNI válido", "Buscar Empleado", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		dispose();
+		Controlador.getInstance().accion(Evento.BUSCAR_EMPLEADO, dni);
 	}
 	
 
