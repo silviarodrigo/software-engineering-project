@@ -72,7 +72,7 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 		JPanel btnPanel = new JPanel();
 		JButton acceptBtn = new JButton("Aceptar");
 		acceptBtn.addActionListener((e) -> {
-			cerrarVenta(this._tFIdCliente.getText(), this._tFIdVendedor.getText(), this._tFFecha.getText());
+			cerrarVenta();
 			dispose();
 		});
 		JButton cancelBtn = new JButton("Cancelar");
@@ -86,14 +86,14 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 		setVisible(true);
 	}
 
-	private void cerrarVenta(String id_c, String id_v, String f) {
+	private void cerrarVenta() {
 		int id_cliente;
 		int id_vendedor;
 		String fecha;
 		try {
-			id_cliente = Integer.parseInt(id_c);
-			id_vendedor = Integer.parseInt(id_v);
-			fecha = f;
+			id_cliente = Integer.parseInt(this._tFIdCliente.getText());
+			id_vendedor = Integer.parseInt(this._tFIdVendedor.getText());
+			fecha = this._tFFecha.getText();
 			TFactura factura = new TFactura(0, 0, new TDatosVenta(fecha, id_cliente, id_vendedor, null), true);
 			Controlador.getInstance().accion(Evento.CERRAR_VENTA, factura);
 		} catch (Exception e) {

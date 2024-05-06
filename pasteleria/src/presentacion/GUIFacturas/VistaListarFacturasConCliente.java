@@ -1,6 +1,8 @@
 package presentacion.GUIFacturas;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 
 import negocio.Facturas.TDatosVenta;
@@ -97,9 +99,8 @@ public class VistaListarFacturasConCliente extends JFrame implements IGUI {
 		_infoPanel = new JPanel();
 		_infoPanel.setLayout(new BoxLayout(_infoPanel, BoxLayout.Y_AXIS));
 		_mainPanel.add(_infoPanel);
-		
-		//Mostramos la informacion del cliente
-		TCliente cliente=(TCliente) datos;
+		// Mostramos la informacion del cliente
+		TCliente cliente = (TCliente) datos;
 		JLabel infoLabel = new JLabel("INFORMACION CLIENTE");
 		JLabel idLabel = new JLabel("Id: " + cliente.getId());
 		JLabel nombreLabel = new JLabel("Nombre: " + cliente.getNombre());
@@ -114,19 +115,23 @@ public class VistaListarFacturasConCliente extends JFrame implements IGUI {
 		_infoPanel.add(DNILabel);
 		_infoPanel.add(correoLabel);
 		_infoPanel.add(activoLabel);
+
 		
-		
-		
-		//Creamos la tabla de las facturas
+
+		// Creamos la tabla de las facturas
 		_tablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2),
 				"Facturas del Cliente"));
 		_tablePanel.add(new JScrollPane(new JTable(this._modeloTabla), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 		_infoPanel.add(_tablePanel);
 
+		
+		
+		JPanel continuarPanel = new JPanel();
 		JButton continuarBtn = new JButton("Continuar");
 		continuarBtn.addActionListener((e) -> dispose());
-		_infoPanel.add(continuarBtn);
+		continuarPanel.add(continuarBtn);
+		_mainPanel.add(continuarPanel, BorderLayout.PAGE_END);
 
 		pack();
 	}
@@ -136,9 +141,9 @@ public class VistaListarFacturasConCliente extends JFrame implements IGUI {
 		case LISTAR_FACTURAS_CON_CLIENTE_SUCCESS:
 			_pedirIdClientePanel.setVisible(false);
 			TFacturasCliente cliente_factura = (TFacturasCliente) datos;
-			TCliente cliente= cliente_factura.getCliente();
+			TCliente cliente = cliente_factura.getCliente();
 			initInfoGUI(cliente);
-			Collection<TFactura> facturas= cliente_factura.getFacturas();
+			Collection<TFactura> facturas = cliente_factura.getFacturas();
 			_modeloTabla.loadData(facturas);
 			break;
 		case LISTAR_FACTURAS_CON_CLIENTE_ERROR:

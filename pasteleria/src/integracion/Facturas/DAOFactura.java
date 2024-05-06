@@ -6,14 +6,15 @@ import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
 
 public interface DAOFactura {
-	public boolean modificarFactura(int id_f, int id_c, int id_v, String fechaF);
+	public int crearFactura(TFactura f);
 
 	public TFactura buscarFactura(int id_factura);
 
-	public int crearFactura(TFactura f);
+	public boolean modificarFactura(int id_f, int id_c, int id_v, String fechaF);
 
 	public Collection<TFactura> listarFacturas();
 
+	// EXTRAS
 	public Collection<TFactura> listarFacturasPorCliente(int id_cliente);
 
 	public boolean devolucionFactura(TFactura factura);

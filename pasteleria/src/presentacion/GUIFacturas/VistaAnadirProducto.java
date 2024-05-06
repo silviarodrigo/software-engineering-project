@@ -62,7 +62,7 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 		JPanel btnPanel = new JPanel();
 		JButton acceptBtn = new JButton("Aceptar");
 		acceptBtn.addActionListener((e) -> {
-			anadirProducto(this._tFIdProducto.getText(), this._jSCantidad.getValue().toString());
+			anadirProducto();
 			dispose();
 		});
 		JButton cancelBtn = new JButton("Cancelar");
@@ -76,12 +76,12 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 		setVisible(true);
 	}
 
-	private void anadirProducto(String id_producto, String cant) {
+	private void anadirProducto() {
 		int id_prod;
 		int cantidad;
 		try {
-			id_prod = Integer.parseInt(id_producto);
-			cantidad = Integer.parseInt(cant);
+			id_prod = Integer.parseInt(this._tFIdProducto.getText());
+			cantidad = Integer.parseInt(this._jSCantidad.getValue().toString());
 			if (cantidad <= 0) {
 				JOptionPane.showMessageDialog(this, "Debes indicar una cantidad valida", "Anadir Producto",
 						JOptionPane.ERROR_MESSAGE);

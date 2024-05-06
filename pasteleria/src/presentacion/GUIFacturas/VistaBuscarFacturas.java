@@ -1,5 +1,6 @@
 package presentacion.GUIFacturas;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
@@ -26,7 +27,6 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 	private static final long serialVersionUID = 1L;
 	private JTextField _tFIdFactura;
 	private JPanel _pedirIdFacturaPanel;
-	private JPanel _infoPanel;
 	private JPanel _mainPanel;
 
 	public VistaBuscarFacturas() {
@@ -71,7 +71,7 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 
 	void initInfoGUI(TFactura factura) {
 
-		_infoPanel = new JPanel();
+		JPanel _infoPanel = new JPanel();
 		_infoPanel.setLayout(new BoxLayout(_infoPanel, BoxLayout.Y_AXIS));
 		_mainPanel.add(_infoPanel);
 
@@ -108,9 +108,11 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 			}
 		}
 
+		JPanel continuarPanel = new JPanel();
 		JButton continuarBtn = new JButton("Continuar");
 		continuarBtn.addActionListener((e) -> dispose());
-		_infoPanel.add(continuarBtn);
+		continuarPanel.add(continuarBtn);
+		_mainPanel.add(continuarPanel, BorderLayout.PAGE_END);
 
 		pack();
 	}

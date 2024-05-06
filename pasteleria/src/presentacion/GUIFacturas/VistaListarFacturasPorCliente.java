@@ -1,5 +1,6 @@
 package presentacion.GUIFacturas;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -102,9 +103,11 @@ public class VistaListarFacturasPorCliente extends JFrame implements IGUI {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 		_infoPanel.add(tablePanel);
 
+		JPanel continuarPanel = new JPanel();
 		JButton continuarBtn = new JButton("Continuar");
 		continuarBtn.addActionListener((e) -> dispose());
-		_infoPanel.add(continuarBtn);
+		continuarPanel.add(continuarBtn);
+		_mainPanel.add(continuarPanel, BorderLayout.PAGE_END);
 
 		pack();
 	}

@@ -1,5 +1,6 @@
 package presentacion.GUIFacturas;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import negocio.Facturas.TFactura;
 import java.util.Collection;
@@ -40,9 +41,11 @@ public class VistaListarFacturas extends JFrame implements IGUI {
 		tablePanel.add(new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 
+		JPanel continuarPanel = new JPanel();
 		JButton continuarBtn = new JButton("Continuar");
 		continuarBtn.addActionListener((e) -> dispose());
-		mainPanel.add(continuarBtn);
+		continuarPanel.add(continuarBtn);
+		mainPanel.add(continuarPanel, BorderLayout.PAGE_END);
 
 		pack();
 		setLocationRelativeTo(null);
