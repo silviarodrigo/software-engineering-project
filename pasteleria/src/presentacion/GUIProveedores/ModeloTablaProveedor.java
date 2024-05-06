@@ -13,7 +13,7 @@ public class ModeloTablaProveedor extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
 		
 		private List<TProveedor> proveedores;
-		private String[] headers = {"Nombre", "Telefono", "Correo", "Código Postal" };
+		private String[] headers = {"Nombre", "Telefono", "Correo", "Código Postal", "ID" };
 
 		public ModeloTablaProveedor() {
 			proveedores = new ArrayList<TProveedor>();
@@ -51,6 +51,9 @@ public class ModeloTablaProveedor extends AbstractTableModel {
 			}
 			else if (columnIndex == 4) {
 				return proveedor.getCodigoPostal();
+			}
+			else if(columnIndex == 5) {
+				return proveedor.getID();
 			}
 			else return "error";
 		}
