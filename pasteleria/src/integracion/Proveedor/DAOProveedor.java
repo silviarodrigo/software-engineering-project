@@ -11,7 +11,7 @@ public interface DAOProveedor {
 		public int actualizarProveedor(TProveedor proveedor);
 		public TProveedor buscarProveedor(int id); 
 		public TProveedor buscarProveedor(String nombre); 
-		public Collection<TProveedor> listarProveedor();
+		public Collection<TProveedor> listarProveedores();
 
 
 }

@@ -148,7 +148,7 @@ public class DAOProveedorImp implements DAOProveedor {
 	}
 
 	@Override
-	public Collection<TProveedor> listarProveedor() {
+	public Collection<TProveedor> listarProveedores() {
 		Collection<TProveedor> listaProveedores = new ArrayList<TProveedor>();
 		
 		JSONObject jDatos = getJSONFromFile();
