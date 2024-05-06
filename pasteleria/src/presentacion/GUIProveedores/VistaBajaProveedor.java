@@ -93,7 +93,18 @@ public class VistaBajaProveedor extends JDialog implements IGUI {
 
 		@Override
 		public void actualizar(Evento e, Object datos) {
-			// TODO Auto-generated method stub
+			switch(e) {
+			case BAJA_PROVEEDOR_SUCCESS:
+				JOptionPane.showMessageDialog(this, "Proveedor con id " + datos + " dado de baja con éxito.", "Baja Proveedor", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+				break;
+			case BAJA_PROVEEDOR_ERROR:
+				JOptionPane.showMessageDialog(this, "Error al dar de baja el proveedor: " + datos, "Baja Proveedor", JOptionPane.ERROR_MESSAGE);
+				dispose();
+				break;
+			default:
+				break;
+			}
 			
 		}
 		
