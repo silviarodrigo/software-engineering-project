@@ -5,6 +5,7 @@ import negocio.Empleados.SAEmpleado;
 import negocio.Facturas.SAFactura;
 import negocio.Marca.SAMarca;
 import negocio.Producto.SAProducto;
+import negocio.Proveedor.SAProveedor;
 
 public abstract class FactoriaAbstractaNegocio {
 
@@ -22,6 +23,6 @@ private static FactoriaAbstractaNegocio instance = null;
 	public abstract SAProducto creaSAProducto();
 	public abstract SACliente crearSACliente();
 	public abstract SAEmpleado crearSAEmpleado();
-	public abstract SAEmpleado crearSAProveedor();
+	public abstract SAProveedor crearSAProveedor();
 
 }
