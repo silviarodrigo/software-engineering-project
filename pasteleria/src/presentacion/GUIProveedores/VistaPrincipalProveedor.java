@@ -1,100 +1,70 @@
 package presentacion.GUIProveedores;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import presentacion.Evento;
+import presentacion.IGUI;
+import presentacion.Controlador.Controlador;
 
-public class VistaPrincipalProveedor extends JFrame{
+
+public class VistaPrincipalProveedor extends JDialog implements IGUI{
 
 	//vamos a tener un botón por cada vista
 	//cuando los pulsemos se abrirá su JDialog correspondiente
 	
 	//los botones correspondiente como atributos (Quizá no es necesario que sean atributos)
 	
-	JButton _altaBoton;
-	JButton _bajaBoton;
-	JButton _buscarBoton;
-	JButton _listarBoton;
-	JButton _modificarBoton;
-
-	vistaAltaProveedor _vista;
 	
+	private static final long serialVersionUID = 1L;
 	
-	
-	
-	MainProveedor(){
-		 
+	public VistaPrincipalProveedor() {
 		initGUI();
 	}
 	
-	
-	
-	private void initGUI() {
+	private void initGUI(){
+		setTitle("Subsistema Proveedor");
 		
-		//creamos los paneles
-		JPanel mainPanel = new JPanel(new BorderLayout());
-		this.setContentPane(mainPanel);
+		JPanel mainPanel = new JPanel();
+		setContentPane(mainPanel);
 		
-		//panel de arriba para 3 botones alta baja modificar
-		JPanel panelSuperior = new JPanel();
-		mainPanel.add(panelSuperior, BorderLayout.PAGE_START);
+		JPanel buttonPanel = new JPanel();
+		mainPanel.add(buttonPanel);
 		
-		//panel de arriba para 2 botones listar buscar
-		JPanel panelInferior = new JPanel();
-		mainPanel.add(panelInferior);
+		JButton altaButton = new JButton("Alta Proveedor");
+		altaButton.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_ALTA_PROVEEDOR));
+		buttonPanel.add(altaButton);
 		
-		//creamos los botones,
-		_altaBoton = new JButton("Alta proveedor");
-		//ponemos su actionlistener:
-		_altaBoton.addActionListener((e)->{
-			altaImp();
-		});
-		panelSuperior.add(_altaBoton);
+		JButton bajaButton = new JButton("Baja Proveedor");
+		bajaButton.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_BAJA_PROVEEDOR));
+		buttonPanel.add(bajaButton);
 		
-		_bajaBoton = new JButton("Baja proveedor");
+		JButton actualizarButton = new JButton("Actualizar Proveedor");
+		actualizarButton.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_ACTUALIZAR_PROVEEDOR));
+		buttonPanel.add(actualizarButton);
 		
-		panelSuperior.add(_bajaBoton);
+		JButton buscarButton = new JButton("Buscar Proveedor");
+		buscarButton.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_BUSCAR_PROVEEDOR));
+		buttonPanel.add(buscarButton);
 		
-		
-		_buscarBoton = new JButton("Buscar proveedor");
-		
-		panelInferior.add(_buscarBoton);
-		
-				
-		_listarBoton = new JButton("Listar proveedores");
-		
-		panelInferior.add(_listarBoton);
-		
-		_modificarBoton = new JButton("Modificar proveedor");
-		
-		panelInferior.add(_modificarBoton);
-				
-		
-		//INICIALIZAMOS LAS VISTAS PARA TENER UNA UNICA ISNTANCIA Y QUE SOLO SEA LLAMAR AL METODO OPEN
-		//Y ASI NO HACER NEW CADA VEZ Q PULSAMOS UN BOTON
-		_vista = new vistaAltaProveedor();
-		
-		//cositas de tamaño y visibilidad
-		
+		JButton listarButton = new JButton("Listar Proveedores");
+		listarButton.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_LISTAR_PROVEEDORES));
+		buttonPanel.add(listarButton);
 		
 		pack();
-		this.setLocationRelativeTo(null);
-		setSize(300,250);
+		setResizable(false);
+		setLocationRelativeTo(null);
 		setVisible(true);
-		
-		
+				
 	}
 	
 	
+	private void listenerAbrirVentana(Evento e) {
+		Controlador.getInstance().accion(e, null);
+	}
 	
-	private void altaImp() {
-		SwingUtilities.invokeLater(()->{
-			_vista.open();
-		});
+	@Override
+	public void actualizar(Evento e, Object datos) {
 	}
 	
 	
