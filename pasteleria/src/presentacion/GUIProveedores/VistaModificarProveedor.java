@@ -2,11 +2,21 @@ package presentacion.GUIProveedores;
 
 import javax.swing.*;
 
-public class VistaModificarProveedor extends JDialog {
+import presentacion.Evento;
+import presentacion.IGUI;
 
+public class VistaModificarProveedor extends JDialog implements IGUI {
+
+	private static final long serialVersionUID = 1L;
 	
 	//componentes gráficos
 		private void initGUI() {
+			
+		}
+
+		@Override
+		public void actualizar(Evento e, Object datos) {
+			// TODO Auto-generated method stub
 			
 		}
 	

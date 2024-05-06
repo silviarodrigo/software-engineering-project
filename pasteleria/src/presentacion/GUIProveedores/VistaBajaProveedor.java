@@ -5,8 +5,13 @@ import java.awt.FlowLayout;
 
 import javax.swing.*;
 
-public class vistaAltaProveedor extends JDialog {
+import presentacion.Evento;
+import presentacion.IGUI;
+import presentacion.Controlador.Controlador;
 
+public class VistaBajaProveedor extends JDialog implements IGUI {
+
+	private static final long serialVersionUID = 1L;
 	
 	//vamos a tener atributos para cada información que le queramos pedir del proveedor
 	//por lo que vamos a tener JLabel y JTextFeild
@@ -17,27 +22,19 @@ public class vistaAltaProveedor extends JDialog {
 	JTextField _nombreText;
 	JPanel _nombrePanel;
 	
-	JLabel _codigoPostalLabel;
-	JTextField _codigoPostalText;
-	JPanel _codigoPostalPanel;
-	
-	JLabel _telefonoLabel;
-	JTextField _telefonoText;
-	JPanel _telefonoPanel;
-	
-	
 	
 	//botones ok y cancel
 	JButton _okButton;
 	JButton _cancelButton;
 	JPanel _okCancelPanel;
 	
-	vistaAltaProveedor(){
+	VistaBajaProveedor(){
 		initGUI();
 	}
 	
 	//componentes gráficos
 		private void initGUI() {
+			setTitle("Alta Proveedor");			
 			
 			JPanel mainVistaAltaPanel = new JPanel();
 			this.setContentPane(mainVistaAltaPanel);
@@ -49,34 +46,12 @@ public class vistaAltaProveedor extends JDialog {
 			//NOMBRE
 			_nombreLabel = new JLabel("Nombre: ");
 			_nombreText = new JTextField();
-			_nombreText.setPreferredSize(new Dimension(50, 25));
+			_nombreText.setPreferredSize(new Dimension(100, 20));
 			_nombrePanel = new JPanel(new FlowLayout());
 			_nombrePanel.add(_nombreLabel);
 			_nombrePanel.add(_nombreText);
 			
-			mainVistaAltaPanel.add(_nombrePanel);
-			
-			//TELEFONO
-			_telefonoLabel = new JLabel("Teléfono: ");
-			_telefonoText = new JTextField();
-			_telefonoText.setPreferredSize(new Dimension(50, 25));
-			_telefonoPanel = new JPanel(new FlowLayout());
-			_telefonoPanel.add(_telefonoLabel);
-			_telefonoPanel.add(_telefonoText);
-			
-			mainVistaAltaPanel.add(_telefonoPanel);
-			
-			//CODIGO POSTAL
-			
-			_codigoPostalLabel = new JLabel("Código Postal: ");
-			_codigoPostalText = new JTextField();
-			_codigoPostalText.setPreferredSize(new Dimension(50, 25));
-			_codigoPostalPanel = new JPanel(new FlowLayout());
-			_codigoPostalPanel.add(_codigoPostalLabel);
-			_codigoPostalPanel.add(_codigoPostalText);
-			
-			mainVistaAltaPanel.add(_codigoPostalPanel);
-			
+			mainVistaAltaPanel.add(_nombrePanel);			
 			
 			//AÑADIMOS 2 BOTONES de ok y canel
 			_okCancelPanel = new JPanel(new FlowLayout());
@@ -88,42 +63,38 @@ public class vistaAltaProveedor extends JDialog {
 			
 			_cancelButton = new JButton("Cancelar");
 			_cancelButton.addActionListener((e)->{
-				cancelImp();	
+				dispose();	
 			});
 			_okCancelPanel.add(_cancelButton);
 			
 			mainVistaAltaPanel.add(_okCancelPanel);
 			
-			
-			
-			
-			//metodos no necesarios pues los ponemos en el open
-			//pack();
-			
-			//setSize(500,500);
-			//setVisible(true);
+			pack();
+			setLocationRelativeTo(null);
+			setVisible(true);
 			
 			
 			
 		}
 		
-		public void open() {
-			pack();
-			this.setLocationRelativeTo(null);
-			setVisible(true);
-		}
 		
 		private void okImp() {
-			SwingUtilities.invokeLater(()->{
-				setVisible(false);
-			});
+			String nombre = _nombreText.getText();
+
+			if (nombre == null || nombre.equals("")) {
+				JOptionPane.showMessageDialog(this, "Debe indicar un nombre", "Baja Proveedor", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			Controlador.getInstance().accion(Evento.BAJA_PROVEEDOR, nombre);
 			
 		}
 		
-		private void cancelImp() {
-			SwingUtilities.invokeLater(()->{
-				setVisible(false);
-			});
+
+		@Override
+		public void actualizar(Evento e, Object datos) {
+			// TODO Auto-generated method stub
+			
 		}
 		
 }

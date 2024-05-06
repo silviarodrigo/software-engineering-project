@@ -8,10 +8,12 @@ import javax.swing.*;
 import negocio.Marca.TMarca;
 import negocio.Proveedor.TProveedor;
 import presentacion.Evento;
+import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
 
-public class VistaAltaProveedor extends JDialog {
+public class VistaAltaProveedor extends JDialog implements IGUI {
 
+	private static final long serialVersionUID = 1L;
 	
 	//vamos a tener atributos para cada información que le queramos pedir del proveedor
 	//por lo que vamos a tener JLabel y JTextFeild
@@ -174,6 +176,23 @@ public class VistaAltaProveedor extends JDialog {
 			proveedor = new TProveedor(nombre, telefono, correo, codigoPostal);
 			Controlador.getInstance().accion(Evento.ALTA_PROVEEDOR, proveedor);
 			
+			
+		}
+
+		@Override
+		public void actualizar(Evento e, Object datos) {
+			switch(e) {
+			case ALTA_PROVEEDOR_SUCCESS:
+				JOptionPane.showMessageDialog(this, "Proveedor con id " + datos + " dado de alta con éxito", "Alta Proveedor", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+				break;
+			case ALTA_PROVEEDOR_ERROR:
+				JOptionPane.showMessageDialog(this, "Error al dar de alta el proveedor: " + datos, "Alta Proveedor", JOptionPane.ERROR_MESSAGE);
+				dispose();
+				break;
+			default:
+				break;
+			}
 			
 		}
 		
