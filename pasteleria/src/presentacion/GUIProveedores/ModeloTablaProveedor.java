@@ -13,7 +13,7 @@ public class ModeloTablaProveedor extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
 		
 		private List<TProveedor> proveedores;
-		private String[] headers = {"Nombre", "Telefono", "Correo", "Código Postal", "ID" };
+		private String[] headers = {"ID", "Nombre", "Telefono", "Correo", "Código Postal"};
 
 		public ModeloTablaProveedor() {
 			proveedores = new ArrayList<TProveedor>();

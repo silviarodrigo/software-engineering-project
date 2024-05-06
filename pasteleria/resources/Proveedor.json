@@ -1,1 +1,29 @@
-{"Proveedores":[], "next_id": 0}
+{
+   "Proveedores": [
+      {
+         "Nombre": "pili",
+         "Correo": "pili@.es",
+         "Activo": true,
+         "Telefono": 123456789,
+         "Codigo postal": 12345,
+         "Id": 0
+      },
+      {
+         "Nombre": "laura",
+         "Correo": "laura@.es",
+         "Activo": true,
+         "Telefono": 789456123,
+         "Codigo postal": 56789,
+         "Id": 1
+      },
+      {
+         "Nombre": "alfre",
+         "Correo": "al@.es",
+         "Activo": true,
+         "Telefono": 456789123,
+         "Codigo postal": 98765,
+         "Id": 2
+      }
+   ],
+   "next_id": 3
+}

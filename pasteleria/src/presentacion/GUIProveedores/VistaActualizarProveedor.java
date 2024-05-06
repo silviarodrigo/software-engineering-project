@@ -35,6 +35,10 @@ public class VistaActualizarProveedor extends JDialog implements IGUI {
 	JButton _cancelButton;
 	JPanel _okCancelPanel;
 	
+	public VistaActualizarProveedor() {
+		initGUI();
+	}
+	
 	//componentes gráficos
 		private void initGUI() {
 			setTitle("Alta Proveedor");

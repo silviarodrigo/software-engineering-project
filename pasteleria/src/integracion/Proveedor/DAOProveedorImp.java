@@ -157,7 +157,8 @@ public class DAOProveedorImp implements DAOProveedor {
 			
 			if(jA != null) {
 				for	(int i = 0; i<jA.length();i++) {
-					listaProveedores.add(createTProveedor(jA.getJSONObject(i)));
+					TProveedor aux = createTProveedor(jA.getJSONObject(i));
+					if (aux.getActivo()) listaProveedores.add(aux);
 				}
 			}
 			
@@ -173,7 +174,7 @@ public class DAOProveedorImp implements DAOProveedor {
 		jObj.put("Telefono", proveedor.getTelefono());
 		jObj.put("Correo", proveedor.getCorreo());
 		jObj.put("Codigo postal", proveedor.getCodigoPostal());
-		jObj.put("ID", proveedor.getID());
+		jObj.put("Id", proveedor.getID());
 		jObj.put("Activo", proveedor.getActivo());
 		return jObj;
 	}
@@ -192,7 +193,7 @@ public class DAOProveedorImp implements DAOProveedor {
 	
 	private boolean writeJSONObject(JSONObject JO) {		
 		try {
-			BufferedWriter bW = new BufferedWriter(new FileWriter("resources/Marca.json"));
+			BufferedWriter bW = new BufferedWriter(new FileWriter("resources/Proveedor.json"));
 			bW.write(JO.toString(3));
 			bW.close();
 			return true;
@@ -206,8 +207,8 @@ public class DAOProveedorImp implements DAOProveedor {
 		String nombre = jProv.getString("Nombre");
 		int telefono = jProv.getInt("Telefono");
 		String correo = jProv.getString("Correo");
-		int codigoPostal = jProv.getInt("Codigo Postal");
-		int id = jProv.getInt("ID");
+		int codigoPostal = jProv.getInt("Codigo postal");
+		int id = jProv.getInt("Id");
 		boolean activo = jProv.getBoolean("Activo");
 		
 		TProveedor proveedor = new TProveedor(nombre, telefono, correo, codigoPostal);

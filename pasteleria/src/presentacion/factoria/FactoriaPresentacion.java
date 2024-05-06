@@ -127,7 +127,7 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 		case VISTA_LISTAR_EMPLEADOS:
 			return new VistaListarEmpleados();
 			
-		//EMPLEADOS
+		//PROVEEDOR
 		case VISTA_PRINCIPAL_PROVEEDOR:
 			return new VistaPrincipalProveedor();
 		case VISTA_ALTA_PROVEEDOR:
