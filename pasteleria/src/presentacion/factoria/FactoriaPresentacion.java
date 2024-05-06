@@ -3,6 +3,12 @@ package presentacion.factoria;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.GUIProducto.VistaPrincipalProducto;
+import presentacion.GUIProveedores.VistaActualizarProveedor;
+import presentacion.GUIProveedores.VistaAltaProveedor;
+import presentacion.GUIProveedores.VistaBajaProveedor;
+import presentacion.GUIProveedores.VistaBuscarProveedor;
+import presentacion.GUIProveedores.VistaListarProveedor;
+import presentacion.GUIProveedores.VistaPrincipalProveedor;
 import presentacion.GUIProducto.VistaActualizarProducto;
 import presentacion.GUIProducto.VistaAltaProducto;
 import presentacion.GUIProducto.VistaBajaProducto;
@@ -116,6 +122,20 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 			return new VistaBuscarEmpleado();
 		case VISTA_LISTAR_EMPLEADOS:
 			return new VistaListarEmpleados();
+			
+		//EMPLEADOS
+		case VISTA_PRINCIPAL_PROVEEDOR:
+			return new VistaPrincipalProveedor();
+		case VISTA_ALTA_PROVEEDOR:
+			return new VistaAltaProveedor();
+		case VISTA_BAJA_PROVEEDOR:
+			return new VistaBajaProveedor();
+		case VISTA_ACTUALIZAR_PROVEEDOR:
+			return new VistaActualizarProveedor();
+		case VISTA_BUSCAR_PROVEEDOR:
+			return new VistaBuscarProveedor();
+		case VISTA_LISTAR_PROVEEDORES:
+			return new VistaListarProveedor();	
 		
 		default:
 			return null;
