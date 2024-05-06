@@ -41,7 +41,7 @@ public class VistaAltaProveedor extends JDialog implements IGUI {
 	JButton _cancelButton;
 	JPanel _okCancelPanel;
 	
-	VistaAltaProveedor(){
+	public VistaAltaProveedor(){
 		initGUI();
 	}
 	
