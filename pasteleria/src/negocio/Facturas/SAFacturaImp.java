@@ -146,7 +146,21 @@ public class SAFacturaImp implements SAFactura {
 
 	public boolean devolucionFactura(TLineaFactura lf) {
 		DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
-		return daoFactura.devolucionFactura(lf);
+		DAOLineaFactura daol = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
+		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
+		TFactura factura = buscarFactura(lf.getIdFactura());
+		int cantidad_quitada = daol.modificarLineaFactura(lf, factura.getDatosVentas().getProductos());
+		if (cantidad_quitada != -1) {
+			TProducto producto = daoProducto.buscarProducto(lf.getIdProducto());
+			producto.setStock(producto.getStock() + cantidad_quitada);
+			daoProducto.actualizarProducto(producto);
+			double nuevo_precio = factura.getPrecio_total() - (cantidad_quitada * producto.getPrecio());
+			factura.setPrecio_total(nuevo_precio);
+			return daoFactura.devolucionFactura(factura);
+		}
+		return false;
+
+		
 	}
 
 }

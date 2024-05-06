@@ -52,24 +52,22 @@ public class DAOFacturaImp implements DAOFactura {
 		return exito;
 	}
 
-	public boolean devolucionFactura(TLineaFactura linea) {
-		DAOLineaFactura daol = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
-		double resto_precio = daol.modificarLineaFactura(linea);
-		if (resto_precio == -1) {
-			return false;
-		}
-		TFactura factura = buscarFactura(linea.getIdFactura());
-		factura.setPrecio_total(factura.getPrecio_total() - resto_precio);
-		int i = 0;
-		while (i < factura.getDatosVentas().getProductos().size()
-				&& !factura.getDatosVentas().getProductos().get(i).getActivo()) {
-			i++;
-		}
-		if (i == factura.getDatosVentas().getProductos().size()) {
+	public boolean devolucionFactura(TFactura factura) {
+		if (factura.getPrecio_total() == 0) {
 			factura.setActivo(false);
 		}
-		return modificarFactura(factura.getIdFactura(), factura.getDatosVentas().getIdCliente(),
-				factura.getDatosVentas().getIdVendedor(), factura.getDatosVentas().getFecha());
+		boolean exito = true;
+		try {
+			JSONObject ji = getJSONFromFile(filename);
+			JSONArray ja = ji.getJSONArray("ListaFacturas");
+			int next_id = ji.getInt("next_id");
+			ja.getJSONObject(factura.getIdFactura()).put("precio", factura.getPrecio_total());
+			ja.getJSONObject(factura.getIdFactura()).put("activa", factura.getActivo());
+			writeJSONObject(filename, ja, next_id);
+		} catch (JSONException e) {
+			exito = false;
+		}
+		return exito;
 	}
 
 	public TFactura buscarFactura(int id_factura) {

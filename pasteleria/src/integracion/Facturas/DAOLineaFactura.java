@@ -1,17 +1,18 @@
 package integracion.Facturas;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import negocio.Facturas.TLineaFactura;
 
 public interface DAOLineaFactura {
-	public double modificarLineaFactura(TLineaFactura f);
+	public int modificarLineaFactura(TLineaFactura lf, ArrayList<TLineaFactura> lineas_factura);
 
 	public TLineaFactura buscarLineaFactura(int id);
 
 	public int crearLineaFactura(TLineaFactura f);
 
-	//public void eliminarLineaFactura(TLineaFactura f);
+	// public void eliminarLineaFactura(TLineaFactura f);
 
 	public Collection<TLineaFactura> mostrarLineasFactura();
 }

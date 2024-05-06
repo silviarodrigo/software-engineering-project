@@ -16,5 +16,5 @@ public interface DAOFactura {
 
 	public Collection<TFactura> listarFacturasPorCliente(int id_cliente);
 
-	public boolean devolucionFactura(TLineaFactura linea);
+	public boolean devolucionFactura(TFactura factura);
 }
