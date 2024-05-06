@@ -14,19 +14,19 @@ public class TOAProductosMarca {
 		this.marca = marca;
 	}
 	
-	TMarca getMarca() {
+	public TMarca getMarca() {
 		return marca;
 	}
 	
-	void setMarca(TMarca marca) {
+	public void setMarca(TMarca marca) {
 		this.marca = marca;
 	}
 	
-	Collection<TProducto> getProductos() {
+	public Collection<TProducto> getProductos() {
 		return productos;
 	}
 	
-	void setProductos(Collection<TProducto> productos) {
+	public void setProductos(Collection<TProducto> productos) {
 		this.productos = productos;
 	}
 }

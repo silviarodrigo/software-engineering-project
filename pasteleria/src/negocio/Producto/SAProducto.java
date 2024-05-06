@@ -9,4 +9,5 @@ public interface SAProducto {
 	public int actualizarProducto(TProducto producto);
 	public Collection<TProducto> listarProductos();
 	public Collection<TProducto> listarProductosPorMarca(String nombreMarca);
+	public TOAProductosMarca listarProductosConMarca(String nombreMarca);
 }

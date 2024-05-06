@@ -19,6 +19,7 @@ import negocio.Marca.SAMarca;
 import negocio.Marca.TMarca;
 import negocio.Producto.SAProducto;
 import negocio.Producto.TProducto;
+import negocio.Producto.TOAProductosMarca;
 import negocio.Proveedor.SAProveedor;
 import negocio.Proveedor.TProveedor;
 import presentacion.Evento;
@@ -55,6 +56,9 @@ public class ControladorImp extends Controlador {
 		case VISTA_LISTAR_PRODUCTOS_POR_MARCA:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTOS_POR_MARCA);
 			break;
+		case VISTA_LISTAR_PRODUCTOS_CON_MARCA:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTOS_CON_MARCA);
+			break;
 		case ACTUALIZAR_PRODUCTO:
 			actualizarProducto(datos);
 			break;
@@ -69,6 +73,9 @@ public class ControladorImp extends Controlador {
 			break;
 		case LISTAR_PRODUCTOS_POR_MARCA:
 			listarProductosPorMarca(datos);
+			break;
+		case LISTAR_PRODUCTOS_CON_MARCA:
+			listarProductosConMarca(datos);
 			break;
 
 		// FACTURAS
@@ -335,6 +342,19 @@ public class ControladorImp extends Controlador {
 		} catch (IllegalArgumentException e) {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTOS_POR_MARCA)
 					.actualizar(Evento.LISTAR_PRODUCTOS_POR_MARCA_ERROR, e.getMessage());
+		}
+	}
+	
+	private void listarProductosConMarca(Object datos) {
+		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
+		String nombre = (String) datos;
+		try {
+			TOAProductosMarca productosConMarca = saProducto.listarProductosConMarca(nombre);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTOS_CON_MARCA)
+					.actualizar(Evento.LISTAR_PRODUCTOS_CON_MARCA_SUCCESS, productosConMarca);
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTOS_CON_MARCA)
+					.actualizar(Evento.LISTAR_PRODUCTOS_CON_MARCA_ERROR, e.getMessage());
 		}
 	}
 
