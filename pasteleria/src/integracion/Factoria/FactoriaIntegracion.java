@@ -7,6 +7,8 @@ import integracion.Marca.DAOMarcaProveedor;
 import integracion.Marca.DAOMarcaProveedorImp;
 import integracion.Producto.DAOProducto;
 import integracion.Producto.DAOProductoImp;
+import integracion.Proveedor.DAOProveedor;
+import integracion.Proveedor.DAOProveedorImp;
 import integracion.Cliente.DAOCliente;
 import integracion.Cliente.DAOClienteImp;
 import integracion.Empleado.DAOEmpleado;
@@ -51,6 +53,11 @@ public class FactoriaIntegracion extends FactoriaAbstractaIntegracion {
 	@Override
 	public DAOEmpleado crearDAOEmpleado() {
 		return new DAOEmpleadoImp();
+	}
+
+	@Override
+	public DAOProveedor crearDAOProveedor() {
+		return new DAOProveedorImp();
 	}
 	
 	
