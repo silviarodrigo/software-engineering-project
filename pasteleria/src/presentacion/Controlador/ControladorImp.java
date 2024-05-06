@@ -4,6 +4,7 @@ import presentacion.Evento;
 
 import presentacion.factoria.FactoriaAbstractaPresentacion;
 import negocio.Producto.TProducto;
+import negocio.Proveedor.SAProveedor;
 import negocio.Marca.TMarca;
 
 import java.util.Collection;
@@ -17,6 +18,8 @@ import negocio.Producto.SAProducto;
 import negocio.Marca.SAMarca;
 import negocio.Facturas.*;
 import negocio.Empleados.*;
+import negocio.Proveedor.*;
+
 
 public class ControladorImp extends Controlador {
 	private Carrito carrito;
@@ -213,6 +216,40 @@ public class ControladorImp extends Controlador {
 		case BUSCAR_CLIENTE:
 			this.buscarCliente(datos);
 			break;
+			
+		// PROVEEDORES
+		case VISTA_PRINCIPAL_PROVEEDOR:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_PROVEEDOR);
+			break;
+		case VISTA_ALTA_PROVEEDOR:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_PROVEEDOR);
+			break;
+		case VISTA_BAJA_PROVEEDOR:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_PROVEEDOR);
+			break;
+		case VISTA_ACTUALIZAR_PROVEEDOR:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_PROVEEDOR);
+			break;
+		case VISTA_BUSCAR_PROVEEDOR:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_PROVEEDOR);
+			break;
+		case VISTA_LISTAR_PROVEEDORES:
+			this.listarProveedores(datos);
+			break;
+		case ALTA_PROVEEDOR:
+			this.altaProveedor(datos);
+			break;
+		case BAJA_PROVEEDOR:
+			this.bajaProveedor(datos);
+			break;
+		case ACTUALIZAR_PROVEEDOR:
+			this.actualizarProveedor(datos);
+			break;
+		case BUSCAR_PROVEEDOR:
+			this.buscarProveedor(datos);
+			break;
+			
+			
 		default:
 			break;
 		}
@@ -605,4 +642,67 @@ public class ControladorImp extends Controlador {
 				.actualizar(Evento.LISTAR_EMPLEADOS, empleados);
 	}
 
+	
+	
+	// PROVEEDORES
+	private void altaProveedor(Object datos) {
+		SAProveedor saProveedor = FactoriaAbstractaNegocio.getInstance().crearSAProveedor();
+		TProveedor tProveedor = (TProveedor) datos;
+		try {
+			int id = saProveedor.altaProveedor(tProveedor);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_PROVEEDOR)
+					.actualizar(Evento.ALTA_PROVEEDOR_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
+			// no se habria podido dar de alta al proveedor
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ALTA_PROVEEDOR)
+					.actualizar(Evento.ALTA_PROVEEDOR_ERROR, e.getMessage());
+		}
+	}
+
+	private void bajaProveedor(Object datos) {
+		SAProveedor saProveedor = FactoriaAbstractaNegocio.getInstance().crearSAProveedor();
+		String nombre = (String) datos;
+		try {
+			int id = saProveedor.bajaProveedor(nombre);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_PROVEEDOR)
+					.actualizar(Evento.BAJA_PROVEEDOR_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
+			// no se ha podido dar de baja al proveedor
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BAJA_PROVEEDOR)
+					.actualizar(Evento.BAJA_PROVEEDOR_ERROR, e.getMessage());
+		}
+	}
+
+	private void actualizarProveedor(Object datos) {
+		SAProveedor saProveedor = FactoriaAbstractaNegocio.getInstance().crearSAProveedor();
+		TProveedor tProveedor = (TProveedor) datos;
+		try {
+			int id = saProveedor.actualizarProveedor(tProveedor);
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_PROVEEDOR)
+					.actualizar(Evento.ACTUALIZAR_PROVEEDOR_SUCCESS, id);
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ACTUALIZAR_PROVEEDOR)
+					.actualizar(Evento.ACTUALIZAR_PROVEEDOR_ERROR, e.getMessage());
+		}
+	}
+
+	private void buscarProveedor(Object datos) {
+		SAProveedor saProveedor = FactoriaAbstractaNegocio.getInstance().crearSAProveedor();
+		String id = (String) datos;
+		TProveedor tProveedor = saProveedor.buscarProveedor(id);
+		if (tProveedor == null) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_PROVEEDOR)
+					.actualizar(Evento.BUSCAR_PROVEEDOR_ERROR, "Proveedor no encontrado.");
+		} else {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_PROVEEDOR)
+					.actualizar(Evento.BUSCAR_PROVEEDOR_SUCCESS, tProveedor);
+		}
+	}
+
+	private void listarProveedores(Object datos) {
+		SAProveedor saProveedor = FactoriaAbstractaNegocio.getInstance().crearSAProveedor();
+		Collection<TProveedor> proveedores = saProveedor.listarProveedores();
+		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PROVEEDORES)
+				.actualizar(Evento.LISTAR_PROVEEDOR, proveedores);
+	}	
 }
