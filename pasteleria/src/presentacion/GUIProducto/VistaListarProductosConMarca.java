@@ -52,7 +52,7 @@ public class VistaListarProductosConMarca extends JFrame implements IGUI {
 		
 		JPanel btnPanel = new JPanel();
 		JButton acceptBtn = new JButton("Listar Productos");
-		acceptBtn.addActionListener((e)-> listarPorMarca());
+		acceptBtn.addActionListener((e)-> listarConMarca());
 		JButton cancelBtn = new JButton("Cancelar");
 		cancelBtn.addActionListener((e)-> dispose());
 		btnPanel.add(acceptBtn);
@@ -65,7 +65,7 @@ public class VistaListarProductosConMarca extends JFrame implements IGUI {
 		setVisible(true);
 	}
 	
-	void listarPorMarca() {
+	void listarConMarca() {
 		String nombre = _tFNombre.getText();
 		if (nombre == null || nombre.equals("")) {
 			JOptionPane.showMessageDialog(this, "Debes indicar un nombre de marca", "Listar Productos con Marca", JOptionPane.ERROR_MESSAGE);
