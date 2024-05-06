@@ -52,10 +52,25 @@ public class DAOFacturaImp implements DAOFactura {
 		return exito;
 	}
 
-//	public boolean modificarFactura(TLineaFactura linea) {
-//		DAOLineaFactura daol = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
-//		return daol.modificarLineaFactura(linea);
-//	}
+	public boolean devolucionFactura(TLineaFactura linea) {
+		DAOLineaFactura daol = FactoriaAbstractaIntegracion.getInstance().crearDAOLineaFactura();
+		double resto_precio = daol.modificarLineaFactura(linea);
+		if (resto_precio == -1) {
+			return false;
+		}
+		TFactura factura = buscarFactura(linea.getIdFactura());
+		factura.setPrecio_total(factura.getPrecio_total() - resto_precio);
+		int i = 0;
+		while (i < factura.getDatosVentas().getProductos().size()
+				&& !factura.getDatosVentas().getProductos().get(i).getActivo()) {
+			i++;
+		}
+		if (i == factura.getDatosVentas().getProductos().size()) {
+			factura.setActivo(false);
+		}
+		return modificarFactura(factura.getIdFactura(), factura.getDatosVentas().getIdCliente(),
+				factura.getDatosVentas().getIdVendedor(), factura.getDatosVentas().getFecha());
+	}
 
 	public TFactura buscarFactura(int id_factura) {
 		TFactura factura = null;

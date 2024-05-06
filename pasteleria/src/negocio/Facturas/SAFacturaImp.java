@@ -28,7 +28,7 @@ public class SAFacturaImp implements SAFactura {
 	public Collection<TFactura> listarFacturasPorCliente(int id_cliente) {
 		DAOCliente daoCliente = FactoriaAbstractaIntegracion.getInstance().crearDAOCliente();
 		TCliente cliente = daoCliente.buscarCliente(id_cliente);
-		if (cliente != null && cliente.getActivo()) {//si el cliente
+		if (cliente != null && cliente.getActivo()) {// si el cliente
 			DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
 			return daoFactura.listarFacturasPorCliente(id_cliente);
 		} else
@@ -142,6 +142,11 @@ public class SAFacturaImp implements SAFactura {
 	public boolean modificarFactura(int id_f, int id_c, int id_v, String fecha) {
 		DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
 		return daoFactura.modificarFactura(id_f, id_c, id_v, fecha);
+	}
+
+	public boolean devolucionFactura(TLineaFactura lf) {
+		DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
+		return daoFactura.devolucionFactura(lf);
 	}
 
 }

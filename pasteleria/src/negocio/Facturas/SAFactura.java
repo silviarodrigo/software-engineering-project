@@ -19,8 +19,10 @@ public interface SAFactura {
 
 	public boolean modificarFactura(int id_f, int id_c, int id_v, String fecha);
 
-	//EXTRA
+	// EXTRA
 	public Collection<TFactura> listarFacturasPorCliente(int id_cliente);
-	
+
 	public Object[] listarFacturasConCliente(int id_cliente);
+
+	public boolean devolucionFactura(TLineaFactura lf);
 }

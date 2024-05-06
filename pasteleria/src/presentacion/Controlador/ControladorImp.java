@@ -84,6 +84,9 @@ public class ControladorImp extends Controlador {
 		case VISTA_CERRAR_VENTA:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_CERRAR_VENTA);
 			break;
+		case VISTA_DEVOLUCION_FACTURA:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_DEVOLUCION_FACTURA);
+			break;
 		case ABRIR_VENTA:
 			abrirVenta(datos);
 			break;
@@ -107,6 +110,9 @@ public class ControladorImp extends Controlador {
 			break;
 		case ELIMINAR_PRODUCTO:
 			eliminarProducto(datos);
+			break;
+		case DEVOLUCION_FACTURA:
+			devolucionFactura(datos);
 			break;
 			//extras
 		case VISTA_LISTAR_FACTURAS_POR_CLIENTE:
@@ -348,6 +354,25 @@ public class ControladorImp extends Controlador {
 		} catch (IllegalArgumentException e) {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_MODIFICAR_FACTURA)
 					.actualizar(Evento.MODIFICAR_FACTURA_ERROR, e.getMessage());
+		}
+
+	}
+	
+	private void devolucionFactura(Object datos) {
+		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
+		TLineaFactura linea_factura = (TLineaFactura) datos;
+		try {
+			boolean exito = saFactura.devolucionFactura(linea_factura);
+			if (exito) {
+				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_DEVOLUCION_FACTURA)
+						.actualizar(Evento.DEVOLUCION_FACTURA_SUCCESS, linea_factura.getIdFactura());
+			} else {
+				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_DEVOLUCION_FACTURA)
+						.actualizar(Evento.DEVOLUCION_FACTURA_ERROR, linea_factura.getIdFactura());
+			}
+		} catch (IllegalArgumentException e) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_DEVOLUCION_FACTURA)
+					.actualizar(Evento.DEVOLUCION_FACTURA_ERROR, e.getMessage());
 		}
 
 	}
