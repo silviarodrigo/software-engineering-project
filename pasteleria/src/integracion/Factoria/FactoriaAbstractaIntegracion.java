@@ -3,6 +3,7 @@ package integracion.Factoria;
 import integracion.Marca.DAOMarca;
 import integracion.Marca.DAOMarcaProveedor;
 import integracion.Producto.DAOProducto;
+import integracion.Proveedor.DAOProveedor;
 import integracion.Cliente.DAOCliente;
 import integracion.Facturas.DAOFactura;
 import integracion.Facturas.DAOLineaFactura;
