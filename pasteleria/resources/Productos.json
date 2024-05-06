@@ -7,7 +7,7 @@
          "integral": true,
          "alergenos": "Gluten",
          "id": 0,
-         "stock": 22,
+         "stock": 18,
          "nombre": "PanBimbo",
          "activo": true,
          "sal": true
@@ -19,7 +19,7 @@
          "relleno": "Fresa",
          "alergenos": "1",
          "id": 1,
-         "stock": 9,
+         "stock": 1,
          "nombre": "Donetes",
          "activo": true
       }

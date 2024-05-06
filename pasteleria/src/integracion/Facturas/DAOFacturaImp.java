@@ -123,7 +123,9 @@ public class DAOFacturaImp implements DAOFactura {
 
 		if (ja != null) {
 			for (int i = 0; i < ja.length(); i++) {
-				facturas.add(facturaConLineas(ja, i));
+				if(ja.getJSONObject(i).getBoolean("activa")) {
+					facturas.add(facturaConLineas(ja, i));
+				}
 			}
 		}
 		return facturas;
@@ -135,7 +137,8 @@ public class DAOFacturaImp implements DAOFactura {
 
 		if (ja != null) {
 			for (int i = 0; i < ja.length(); i++) {
-				if (ja.getJSONObject(i).getInt("id_cliente") == id_cliente) {
+				if (ja.getJSONObject(i).getInt("id_cliente") == id_cliente
+						&& ja.getJSONObject(i).getBoolean("activa")) {
 					facturas.add(facturaConLineas(ja, i));
 				}
 			}

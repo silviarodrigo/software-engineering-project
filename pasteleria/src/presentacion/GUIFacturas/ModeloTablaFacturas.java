@@ -11,7 +11,7 @@ public class ModeloTablaFacturas extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 	private List<TFactura> facturas;
-	private String[] headers = { "Id", "Precio", "Fecha", "Id cliente", "Id vendedor" , "Activo"};
+	private String[] headers = { "Id", "Precio", "Fecha", "Id cliente", "Id vendedor"};
 
 	public ModeloTablaFacturas() {
 		facturas = new ArrayList<TFactura>();
@@ -45,8 +45,6 @@ public class ModeloTablaFacturas extends AbstractTableModel {
 			return factura.getDatosVentas().getIdCliente();
 		} else if (columnIndex == 4) {
 			return factura.getDatosVentas().getIdVendedor();
-		}else if (columnIndex == 5) {
-			return factura.getActivo();
 		}
 		return "error";
 	}

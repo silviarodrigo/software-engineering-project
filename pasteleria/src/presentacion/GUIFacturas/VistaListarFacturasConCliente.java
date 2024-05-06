@@ -105,12 +105,14 @@ public class VistaListarFacturasConCliente extends JFrame implements IGUI {
 		JLabel apellidosLabel = new JLabel("Apellidos: " + cliente.getApellidos());
 		JLabel DNILabel = new JLabel("DNI: " + cliente.getDNI());
 		JLabel correoLabel = new JLabel("correo: " + cliente.getCorreo());
+		JLabel activoLabel = new JLabel("activo: " + cliente.getActivo());
 		_infoPanel.add(infoLabel);
 		_infoPanel.add(idLabel);
 		_infoPanel.add(nombreLabel);
 		_infoPanel.add(apellidosLabel);
 		_infoPanel.add(DNILabel);
 		_infoPanel.add(correoLabel);
+		_infoPanel.add(activoLabel);
 		
 		
 		

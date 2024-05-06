@@ -20,7 +20,6 @@ import negocio.Facturas.*;
 import negocio.Empleados.*;
 import negocio.Proveedor.*;
 
-
 public class ControladorImp extends Controlador {
 	private Carrito carrito;
 
@@ -114,7 +113,7 @@ public class ControladorImp extends Controlador {
 		case DEVOLUCION_FACTURA:
 			devolucionFactura(datos);
 			break;
-			//extras
+		// extras
 		case VISTA_LISTAR_FACTURAS_POR_CLIENTE:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE);
 			break;
@@ -222,7 +221,7 @@ public class ControladorImp extends Controlador {
 		case BUSCAR_CLIENTE:
 			this.buscarCliente(datos);
 			break;
-			
+
 		// PROVEEDORES
 		case VISTA_PRINCIPAL_PROVEEDOR:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_PRINCIPAL_PROVEEDOR);
@@ -254,8 +253,7 @@ public class ControladorImp extends Controlador {
 		case BUSCAR_PROVEEDOR:
 			this.buscarProveedor(datos);
 			break;
-			
-			
+
 		default:
 			break;
 		}
@@ -322,7 +320,7 @@ public class ControladorImp extends Controlador {
 		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PRODUCTO)
 				.actualizar(Evento.LISTAR_PRODUCTO, productos);
 	}
-	
+
 	private void listarProductosPorMarca(Object datos) {
 		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
 		String nombre = (String) datos;
@@ -357,7 +355,7 @@ public class ControladorImp extends Controlador {
 		}
 
 	}
-	
+
 	private void devolucionFactura(Object datos) {
 		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
 		TLineaFactura linea_factura = (TLineaFactura) datos;
@@ -396,7 +394,7 @@ public class ControladorImp extends Controlador {
 					.actualizar(Evento.LISTAR_FACTURAS_POR_CLIENTE_ERROR, "Cliente no encontrado");
 		}
 	}
-	
+
 	private void listarFacturasConCliente(Object datos) {
 		int id_cliente = (int) datos;
 		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
@@ -477,6 +475,7 @@ public class ControladorImp extends Controlador {
 			if (id_factura != -1) {
 				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_CERRAR_VENTA)
 						.actualizar(Evento.CERRAR_VENTA_SUCCESS, id_factura);
+				this.carrito = null;
 			} else {
 				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_CERRAR_VENTA)
 						.actualizar(Evento.CERRAR_VENTA_ERROR, "la venta no se ha podido cerrar");
@@ -667,8 +666,6 @@ public class ControladorImp extends Controlador {
 				.actualizar(Evento.LISTAR_EMPLEADOS, empleados);
 	}
 
-	
-	
 	// PROVEEDORES
 	private void altaProveedor(Object datos) {
 		SAProveedor saProveedor = FactoriaAbstractaNegocio.getInstance().crearSAProveedor();
@@ -729,5 +726,5 @@ public class ControladorImp extends Controlador {
 		Collection<TProveedor> proveedores = saProveedor.listarProveedores();
 		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_PROVEEDORES)
 				.actualizar(Evento.LISTAR_PROVEEDOR, proveedores);
-	}	
+	}
 }
