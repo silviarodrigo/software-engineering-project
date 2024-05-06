@@ -132,8 +132,11 @@ public class DAOClienteImp implements DAOCliente {
 		if (jo != null) {
 			JSONArray ja = jo.getJSONArray("clientes");
 
-			for (int i = 0; i < ja.length(); i++) {
-				listaClientes.add(this.createTCliente(ja.getJSONObject(i)));
+			for (int i = 0; i < ja.length(); i++) { // Solo listamos los clientes dados de alta.
+				JSONObject cl = ja.getJSONObject(i);
+				if (cl.getBoolean("activo")) {
+					listaClientes.add(this.createTCliente(cl));
+				}
 			}
 		}
 
