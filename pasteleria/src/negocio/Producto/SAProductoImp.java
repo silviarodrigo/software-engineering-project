@@ -21,6 +21,9 @@ public class SAProductoImp implements SAProducto {
 		if (marca == null) {
 			throw new IllegalArgumentException("Marca no existente.");
 		}
+		else if (!marca.getActivo()) {
+			throw new IllegalArgumentException("Marca no activa.");
+		}
 		if(prod == null) {
 			id = daoProducto.altaProducto(producto);
 		}
@@ -63,6 +66,9 @@ public class SAProductoImp implements SAProducto {
 		if (marca == null) {
 			throw new IllegalArgumentException("Marca no existente.");
 		}
+		else if (!marca.getActivo()) {
+			throw new IllegalArgumentException("Marca no activa.");
+		}
 		if(prod == null) {
 			throw new IllegalArgumentException("Producto no existente.");
 		}
@@ -87,12 +93,33 @@ public class SAProductoImp implements SAProducto {
 			int marcaId = marca.getID();
 			DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
 			Collection<TProducto> productos = daoProducto.listarProductos();
-			ArrayList<TProducto> productosMarca = new ArrayList<TProducto>();
+			ArrayList<TProducto> productosPorMarca = new ArrayList<TProducto>();
 			for (TProducto producto : productos) {
 				if (producto.getMarca() == marcaId) {
-					productosMarca.add(producto);
+					productosPorMarca.add(producto);
 				}
 			}
+			return productosPorMarca;
+		}
+	}
+	
+	public TOAProductosMarca listarProductosConMarca(String nombreMarca) {
+		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
+		TMarca marca  = daoMarca.buscarMarca(nombreMarca);
+		if (marca == null) {
+			throw new IllegalArgumentException("Marca no existente");
+		}
+		else {
+			int marcaId = marca.getID();
+			DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
+			Collection<TProducto> productos = daoProducto.listarProductos();
+			ArrayList<TProducto> productosPorMarca = new ArrayList<TProducto>();
+			for (TProducto producto : productos) {
+				if (producto.getMarca() == marcaId) {
+					productosPorMarca.add(producto);
+				}
+			}
+			TOAProductosMarca productosMarca = new TOAProductosMarca(productos, marca);
 			return productosMarca;
 		}
 	}

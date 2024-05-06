@@ -73,6 +73,9 @@ public class SAEmpleadoImp implements SAEmpleado {
 		}
 
 		empleado.setId(empl.getId());
+		empleado.setNombre(empl.getNombre());
+		empleado.setApellidos(empl.getApellido());
+		empleado.setNumVentas(empl.getNumVentas());
 		return daoEmpleado.actualizarEmpleado(empleado); // lo actualizamos
 	}
 	

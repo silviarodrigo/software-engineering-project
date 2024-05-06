@@ -34,6 +34,14 @@ public class TEmpleado {
 		this.activo=true;
 	}
 	
+	public TEmpleado(String dni, String email, String direccion, String numeroTelefono) {
+		this.dni = dni;
+		this.email =email;
+		this.direccion=direccion;
+		this.numTelefono=numeroTelefono;
+		this.activo=true;
+	}
+	
 	
 	
 	public TEmpleado(String nombre, String apellidos, String dni, String email, boolean activo, int id, String direccion,String numeroTelefono, int ventas) {
@@ -94,7 +102,7 @@ public class TEmpleado {
 	}
 	
 	public void setApellidos(String apellidos) {
-		this.apellido = apellido;
+		this.apellido = apellidos;
 	}
 
 	public void setId(String dni) {

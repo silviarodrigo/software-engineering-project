@@ -107,7 +107,19 @@ public class VistaActualizarEmpleados extends JDialog implements IGUI {
 	private void actualizarEmpleado() {
 		TEmpleado empleado;
         
-		
+		String identificador = DNIText.getText();
+		if (identificador == null || identificador.equals("")) {
+			JOptionPane.showMessageDialog(this, "Debe indicar un DNI", "Alta Empleado", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		else if (identificador.length() > 9) {
+			// ||//!identificador.contains(letra))
+
+			JOptionPane.showMessageDialog(this, "Debe indicar un DNI válido", "Alta Empleado",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 
 		String email = emailText.getText();
 		if (email == null || email.equals("")) {
@@ -140,7 +152,7 @@ public class VistaActualizarEmpleados extends JDialog implements IGUI {
 			return;
 		}
 
-		empleado = new TEmpleado(email, direccion, numeroTelefono);
+		empleado = new TEmpleado(identificador, email, direccion, numeroTelefono);
 		Controlador.getInstance().accion(Evento.ACTUALIZAR_EMPLEADO, empleado);
 	}
 

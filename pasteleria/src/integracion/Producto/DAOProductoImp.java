@@ -122,7 +122,10 @@ public class DAOProductoImp implements DAOProducto {
 		JSONArray ja = getProductosJArray();
 		if (ja != null) {
 			for (int i = 0; i < ja.length(); i++) {
-				listaProductos.add(createTProducto(ja.getJSONObject(i)));
+				TProducto prod = createTProducto(ja.getJSONObject(i));
+				if (prod.getActivo()) {
+					listaProductos.add(prod);
+				}
 			}
 		}
 		return listaProductos;
