@@ -3,9 +3,7 @@ package negocio.Proveedor;
 import java.util.Collection;
 
 import integracion.Factoria.FactoriaAbstractaIntegracion;
-import integracion.Marca.DAOMarca;
 import integracion.Proveedor.DAOProveedor;
-import negocio.Marca.TMarca;
 
 public class SAProveedorImp implements SAProveedor{
 
