@@ -174,6 +174,13 @@ public class VistaAltaProveedor extends JDialog implements IGUI {
 			}
 			
 			proveedor = new TProveedor(nombre, telefono, correo, codigoPostal);
+			
+			//bucle que mientras te lea marcas, 
+			//dada esa marca, busca su id 
+			//crea el tmarcaprovedor
+			
+			
+			
 			Controlador.getInstance().accion(Evento.ALTA_PROVEEDOR, proveedor);
 			
 			
