@@ -22,5 +22,6 @@ private static FactoriaAbstractaNegocio instance = null;
 	public abstract SAProducto creaSAProducto();
 	public abstract SACliente crearSACliente();
 	public abstract SAEmpleado crearSAEmpleado();
+	public abstract SAEmpleado crearSAProveedor();
 
 }
