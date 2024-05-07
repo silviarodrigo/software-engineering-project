@@ -1,13 +1,10 @@
 package integracion.Facturas;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.ArrayList;
@@ -16,12 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import integracion.Factoria.FactoriaAbstractaIntegracion;
-import integracion.Producto.DAOProducto;
-import negocio.Facturas.TDatosVenta;
 import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
-import negocio.Producto.TProducto;
 
 public class DAOLineaFacturaImp implements DAOLineaFactura {
 	private String filename = "resources/LineasFactura.json";
@@ -29,12 +22,14 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 	public int crearLineaFactura(TLineaFactura lf) {
 		boolean exito = true;
 		try {
+			// Accedemos al json
 			JSONObject ji = getJSONFromFile(filename);
 			JSONArray ja = ji.getJSONArray("ListaLineasFacturas");
 			int next_id = ji.getInt("next_id");
 
+			// Asignamos el id y lo dejamos preparado para la siguiente linea factura
 			lf.setIdLinea(next_id);
-			next_id++;// lo dejamos preparado para la siguiente factura
+			next_id++;
 
 			// Creamos el json de la nueva linea factura
 			JSONObject jo = new JSONObject();
@@ -49,7 +44,7 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 			}
 			ja.put(jo);// lo añadimos a nuestra lista de lineas de facturas
 
-			// Escribimos el fichero otra vez con los datos actualizados
+			/// Escribimos en el json
 			writeJSONObject(filename, ja, next_id);
 
 		} catch (JSONException e) {
@@ -62,27 +57,35 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 	}
 
 	public TLineaFactura buscarLineaFactura(int id) {
+		// Accedemos al json
+		TLineaFactura linea_factura = null;
 		JSONArray ja = getLineasFacturasJArray(filename);
-		int i = searchInJArray(id, ja);
 
+		// Buscamos la factura en nuestro array
+		int i = searchInJArray(id, ja);
 		if (i != -1) {
-			return new TLineaFactura(ja.getJSONObject(i).getInt("id_producto"),
+			// Si la linea factura existe la creamos
+			linea_factura = new TLineaFactura(ja.getJSONObject(i).getInt("id_producto"),
 					ja.getJSONObject(i).getInt("id_factura"), ja.getJSONObject(i).getInt("id_linea"),
 					ja.getJSONObject(i).getInt("cantidad"), ja.getJSONObject(i).getBoolean("activa"));
-		} else {
-			return null;
 		}
+		return linea_factura;
 	}
 
 	public Collection<TLineaFactura> mostrarLineasFactura() {
-		ArrayList<TLineaFactura> lineas_factura = new ArrayList<TLineaFactura>();
 		// Accedemos al json
+		ArrayList<TLineaFactura> lineas_factura = new ArrayList<TLineaFactura>();
 		JSONArray ja = getLineasFacturasJArray(filename);
 
-		for (int i = 0; i < ja.length(); i++) {
-			lineas_factura.add(new TLineaFactura(ja.getJSONObject(i).getInt("id_producto"),
-					ja.getJSONObject(i).getInt("id_factura"), ja.getJSONObject(i).getInt("id_linea"),
-					ja.getJSONObject(i).getInt("cantidad"), ja.getJSONObject(i).getBoolean("activa")));
+		// Si existe el array lo recorremos y añadimos las lineas de facturas
+		// (como solo mostramos las lineas al buscar la factura tenemos que añadir tanto
+		// las activas como las no activas)
+		if (ja != null) {
+			for (int i = 0; i < ja.length(); i++) {
+				lineas_factura.add(new TLineaFactura(ja.getJSONObject(i).getInt("id_producto"),
+						ja.getJSONObject(i).getInt("id_factura"), ja.getJSONObject(i).getInt("id_linea"),
+						ja.getJSONObject(i).getInt("cantidad"), ja.getJSONObject(i).getBoolean("activa")));
+			}
 		}
 		return lineas_factura;
 	}
@@ -91,26 +94,33 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 	public int modificarLineaFactura(TLineaFactura lf, ArrayList<TLineaFactura> lineas_factura) {
 		int sol = -1;
 		try {
+			// Accedemos al json
 			JSONObject ji = getJSONFromFile(filename);
 			JSONArray ja = ji.getJSONArray("ListaLineasFacturas");
 			int next_id = ji.getInt("next_id");
-			// buscamos la linea
+			// buscamos la linea en la lista de lineas de nuestra factura
+			// cada producto tiene asociada una sola linea, la buscamos por id de producto
 			int i = 0;
 			while (i < lineas_factura.size() && lineas_factura.get(i).getIdProducto() != lf.getIdProducto()) {
 				i++;
 			}
+
 			if (i < lineas_factura.size()) {
+				// Si existe el producto en la factura buscamos su linea
 				TLineaFactura linea_factura = buscarLineaFactura(lineas_factura.get(i).getIdLinea());
+				// si sobran unidades despues de quitar las devueltas
 				if (lf.getCantidad() < linea_factura.getCantidad()) {
 					linea_factura.setCantidadProducto(linea_factura.getCantidad() - lf.getCantidad());
 					sol = lf.getCantidad();
-				} else {
+				} else {// si no sobran unidades despues de quitar las devueltas la linea "se borra"
 					sol = linea_factura.getCantidad();
 					linea_factura.setCantidadProducto(0);
 					linea_factura.setActivo(false);
 					ja.getJSONObject(linea_factura.getIdLinea()).put("activa", "false");
 				}
 				ja.getJSONObject(linea_factura.getIdLinea()).put("cantidad", linea_factura.getCantidad());
+				
+				//Escribimos en el json
 				writeJSONObject(filename, ja, next_id);
 			}
 		} catch (JSONException e) {
@@ -120,7 +130,7 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 
 // FUNCIONES AUXILIARES
 	private int searchInJArray(int id_l, JSONArray ja) {
-		// devuele la posicion de la factura en el array, o -1 si no existe
+		// devuele la posicion de la linea factura en el array, o -1 si no existe
 		if (ja == null) {
 			return -1;
 		}
