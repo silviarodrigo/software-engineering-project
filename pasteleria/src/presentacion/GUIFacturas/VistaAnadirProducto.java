@@ -1,7 +1,10 @@
 package presentacion.GUIFacturas;
 
 import java.awt.Dimension;
+import java.util.HashMap;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -14,9 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 
 import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
+import negocio.Producto.TProducto;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
@@ -27,12 +32,15 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 
 	private JTextField _tFIdProducto;
 	private JSpinner _jSCantidad;
+	private JTextField _tFPrecio;
+	private Map<Integer, TProducto> _mapaProductos;
 
 	public VistaAnadirProducto() {
+		this._mapaProductos = new HashMap<>();
 		initGUI();
 	}
 
-	void initGUI() {
+	private void initGUI() {
 		setTitle("Anadir Producto");
 
 		JPanel _mainPanel = new JPanel();
@@ -52,12 +60,51 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 		_anadirPanel.add(nombrePanel);
 
 		JLabel cantidadLabel = new JLabel("Cantidad: ");
-		_jSCantidad = new JSpinner();
+		_jSCantidad = new JSpinner(new SpinnerNumberModel(0, 0, null, 1));
 		_jSCantidad.setPreferredSize(new Dimension(100, 20));
 		JPanel cantidadPanel = new JPanel();
 		cantidadPanel.add(cantidadLabel);
 		cantidadPanel.add(_jSCantidad);
 		_anadirPanel.add(cantidadPanel);
+
+		JLabel precioLabel = new JLabel("Precio: ");
+		_tFPrecio = new JTextField();
+		_tFPrecio.setEditable(false);
+		_tFPrecio.setPreferredSize(new Dimension(100, 20));
+		JPanel precioPanel = new JPanel();
+		nombrePanel.add(precioLabel);
+		nombrePanel.add(_tFPrecio);
+		_anadirPanel.add(precioPanel);
+
+		_jSCantidad.addChangeListener((e) -> {
+			int id_prod;
+			int cantidad;
+			boolean id_valido = true;
+			try {
+				id_prod = Integer.parseInt(this._tFIdProducto.getText());
+				TProducto producto = this._mapaProductos.get(id_prod);
+				if (producto == null) {
+					id_valido = false;
+				} else {
+					try {
+						cantidad = Integer.parseInt(this._jSCantidad.getValue().toString());
+						// si el producto y la cantidad so validos calculamos lo que costaria
+						double precio = producto.getPrecio() * cantidad;
+						_tFPrecio.setText(String.valueOf(precio));
+					} catch (Exception exception) {
+						JOptionPane.showMessageDialog(this, "Debes indicar una cantidad valida", "Anadir Producto",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			} catch (Exception exception) {
+				id_valido = false;
+			}
+			if (!id_valido) {
+				JOptionPane.showMessageDialog(this, "Debes indicar un id de producto valido", "Anadir Producto",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+		});
 
 		JPanel btnPanel = new JPanel();
 		JButton acceptBtn = new JButton("Aceptar");
@@ -97,6 +144,13 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 
 	public void actualizar(Evento e, Object datos) {
 		switch (e) {
+		case ANADIR_PRODUCTO_CARGA:
+			ArrayList<TProducto> productos = (ArrayList<TProducto>) datos;
+			this._mapaProductos.clear();
+			for (TProducto p : productos) {
+				this._mapaProductos.put(p.getId(), p);
+			}
+			break;
 		case ANADIR_PRODUCTO_SUCCESS:
 			JOptionPane.showMessageDialog(this, datos, "Anadir Producto", JOptionPane.INFORMATION_MESSAGE);
 			dispose();

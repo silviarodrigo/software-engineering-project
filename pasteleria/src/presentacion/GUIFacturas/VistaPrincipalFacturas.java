@@ -30,7 +30,7 @@ public class VistaPrincipalFacturas extends JFrame implements IGUI {
 		buttonPanel.add(abrirBtn);
 		
 		JButton annadirBtn = new JButton("Anadir producto");
-		annadirBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_ANADIR_PRODUCTO));
+		annadirBtn.addActionListener((e) -> listenerAbrirVentana(Evento.ANADIR_PRODUCTO_CARGA));
 		buttonPanel.add(annadirBtn);
 		
 		JButton eliminarBtn = new JButton("Eliminar producto");

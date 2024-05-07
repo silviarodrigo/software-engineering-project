@@ -33,7 +33,7 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 		initGUI();
 	}
 
-	void initGUI() {
+	private void initGUI() {
 		setTitle("Buscar Factura");
 
 		_mainPanel = new JPanel();

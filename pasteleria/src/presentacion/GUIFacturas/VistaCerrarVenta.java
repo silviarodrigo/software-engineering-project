@@ -34,7 +34,7 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 		initGUI();
 	}
 
-	void initGUI() {
+	private void initGUI() {
 		setTitle("Cerrar Venta");
 
 		JPanel _mainPanel = new JPanel();

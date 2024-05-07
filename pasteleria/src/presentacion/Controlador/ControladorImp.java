@@ -124,6 +124,9 @@ public class ControladorImp extends Controlador {
 		case DEVOLUCION_FACTURA:
 			devolucionFactura(datos);
 			break;
+		case ANADIR_PRODUCTO_CARGA:
+			cargarProductos(datos);
+			break;
 		// extras
 		case VISTA_LISTAR_FACTURAS_POR_CLIENTE:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE);
@@ -470,6 +473,13 @@ public class ControladorImp extends Controlador {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ANADIR_PRODUCTO)
 					.actualizar(Evento.ANADIR_PRODUCTO_ERROR, "producto no encontrado.");
 		}
+	}
+	
+	private void cargarProductos(Object datos) {
+		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
+		Collection<TProducto> productos = saProducto.listarProductos();
+		FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ANADIR_PRODUCTO)
+		.actualizar(Evento.ANADIR_PRODUCTO_CARGA, productos);
 	}
 
 	private void eliminarProducto(Object datos) {
