@@ -63,7 +63,7 @@ public class SAFacturaImp implements SAFactura {
 		TEmpleado vendedor = daoEmpleado.buscarEmpleado(datos.getIdVendedor());
 
 		boolean exito = true;
-		if (cliente != null && cliente.getActivo()/* && vendedor != null &&vendedor.getActivo() */) {
+		if (cliente != null && cliente.getActivo()&& vendedor != null &&vendedor.getActivo()) {
 			int i = 0;
 			// Recorremos las lineas de factura de nuestra nueva factura
 			ArrayList<TLineaFactura> lineas_factura_por_comprobar = datos.getProductos();
@@ -96,8 +96,8 @@ public class SAFacturaImp implements SAFactura {
 				lf.setIdFactura(id_factura);
 				daoLineaFactura.crearLineaFactura(lf);
 			}
-			// vendedor.setNumVentas(vendedor.getNumVentas() + 1);
-			// daoEmpleado.actualizarEmpleado(vendedor);
+			vendedor.setNumVentas(vendedor.getNumVentas() + 1);
+			daoEmpleado.actualizarEmpleado(vendedor);
 		}
 		return id_factura;
 	}

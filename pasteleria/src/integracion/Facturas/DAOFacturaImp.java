@@ -2,25 +2,17 @@ package integracion.Facturas;
 
 import java.util.Collection;
 import negocio.Facturas.TDatosVenta;
-import java.io.BufferedReader;
 import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
-import negocio.Producto.TProducto;
-
 import org.json.*;
-
 import integracion.Factoria.FactoriaAbstractaIntegracion;
-
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class DAOFacturaImp implements DAOFactura {
 	private String filename = "resources/Facturas.json";
@@ -28,12 +20,14 @@ public class DAOFacturaImp implements DAOFactura {
 	public int crearFactura(TFactura f) {
 		boolean exito = true;
 		try {
+			//Accedemos al json
 			JSONObject ji = getJSONFromFile(filename);
 			JSONArray ja = ji.getJSONArray("ListaFacturas");
 			int next_id = ji.getInt("next_id");
 
+			// Asignamos el id y lo dejamos preparado para la siguiente factura
 			f.setIdFactura(next_id);
-			next_id++;// lo dejamos preparado para la siguiente factura
+			next_id++;
 
 			TDatosVenta datos_factura = f.getDatosVentas();
 			// Creamos el json de la nueva factura
@@ -50,6 +44,7 @@ public class DAOFacturaImp implements DAOFactura {
 			}
 			ja.put(jo);// lo añadimos a nuestra lista de facturas
 
+			//Escribimos en el json
 			writeJSONObject(filename, ja, next_id);
 
 		} catch (JSONException e) {
@@ -62,11 +57,14 @@ public class DAOFacturaImp implements DAOFactura {
 	}
 
 	public TFactura buscarFactura(int id_factura) {
+		//Accedemos al json
 		TFactura factura = null;
 		JSONArray ja = getFacturasJArray(filename);
 
+		//Buscamos la factura en nuestro array
 		int i = searchInJArray(id_factura, ja);
 		if (i != -1) {
+			//Si la factura existe buscamos sus lineas
 			factura = facturaConLineas(ja, i);
 		}
 		return factura;
@@ -75,17 +73,20 @@ public class DAOFacturaImp implements DAOFactura {
 	public boolean modificarFactura(int id_f, int id_c, int id_v, String fecha) {
 		boolean exito = false;
 		try {
+			//Accedemos al json
 			JSONObject ji = getJSONFromFile(filename);
 			JSONArray ja = ji.getJSONArray("ListaFacturas");
 			int next_id = ji.getInt("next_id");
+			//Buscamos la factura en nuestro array
 			int i = searchInJArray(id_f, ja);
-
 			if (i != -1) {
+				//Si la factura existe la modificamos
 				exito = true;
 				ja.getJSONObject(i).put("fecha", fecha);
 				ja.getJSONObject(i).put("id_cliente", id_c);
 				ja.getJSONObject(i).put("id_vendedor", id_v);
 
+				//Escribimos en el json
 				writeJSONObject(filename, ja, next_id);
 			}
 		} catch (JSONException e) {
@@ -95,9 +96,11 @@ public class DAOFacturaImp implements DAOFactura {
 	}
 
 	public Collection<TFactura> listarFacturas() {
+		//Accedemos al json
 		ArrayList<TFactura> facturas = new ArrayList<TFactura>();
 		JSONArray ja = getFacturasJArray(filename);
 
+		//Si existe el array lo recorremos y añadimos las facturas activas
 		if (ja != null) {
 			for (int i = 0; i < ja.length(); i++) {
 				if (ja.getJSONObject(i).getBoolean("activa")) {
@@ -110,9 +113,11 @@ public class DAOFacturaImp implements DAOFactura {
 
 //EXTRAS
 	public Collection<TFactura> listarFacturasPorCliente(int id_cliente) {
+		//Accedemos al json
 		ArrayList<TFactura> facturas = new ArrayList<TFactura>();
 		JSONArray ja = getFacturasJArray(filename);
 
+		//Si existe el array lo recorremos y añadimos las facturas activas del cliente pedido
 		if (ja != null) {
 			for (int i = 0; i < ja.length(); i++) {
 				if (ja.getJSONObject(i).getInt("id_cliente") == id_cliente
@@ -125,16 +130,20 @@ public class DAOFacturaImp implements DAOFactura {
 	}
 
 	public boolean devolucionFactura(TFactura factura) {
+		//Si se ha devuelto todo la factura "se borra"
 		if (factura.getPrecio_total() == 0) {
 			factura.setActivo(false);
 		}
 		boolean exito = true;
 		try {
+			//Accedemos al json
 			JSONObject ji = getJSONFromFile(filename);
 			JSONArray ja = ji.getJSONArray("ListaFacturas");
 			int next_id = ji.getInt("next_id");
+			//cambiamos el precio final y, si es necesario, su estado
 			ja.getJSONObject(factura.getIdFactura()).put("precio", factura.getPrecio_total());
 			ja.getJSONObject(factura.getIdFactura()).put("activa", factura.getActivo());
+			//Escribimos en el json
 			writeJSONObject(filename, ja, next_id);
 		} catch (JSONException e) {
 			exito = false;
