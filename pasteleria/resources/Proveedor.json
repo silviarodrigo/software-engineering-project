@@ -3,7 +3,7 @@
       {
          "Nombre": "pili",
          "Correo": "pili@.es",
-         "Activo": true,
+         "Activo": false,
          "Telefono": 123456789,
          "Codigo postal": 12345,
          "Id": 0

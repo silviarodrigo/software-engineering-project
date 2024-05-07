@@ -61,7 +61,7 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 	}
 
 	@Override
-	public boolean bajaMarcaProveedor(int id) { //bucle en el que vamos dando de baja todas las entradas
+	public boolean bajaMarcaProveedor(String nombreMarca, String nombreProv) { //bucle en el que vamos dando de baja todas las entradas
 		//Accedemos a los datos guardados
 		JSONObject JO = getJSONFromFile();
 		JSONArray JA;
@@ -71,13 +71,29 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 		}
 		else {
 			JA = JO.getJSONArray("ListaMarcasProveedor");
-			JSONObject jo = JA.getJSONObject(id);
 			
-			jo.put("Activo", false);
-			JA.put(id, jo);
+			String nombre, nombreJSON;
+			if (nombreMarca != null) {
+				nombreJSON = "Nombre Marca";
+				nombre = nombreMarca;
+			}
+			else {
+				nombreJSON = "Nombre Proveedor";
+				nombre = nombreProv;
+			}
+				
+			
+			int i = 0; 
+			while (i < JA.length()) {
+				JSONObject jo = JA.getJSONObject(i);
+				if(jo.get(nombreJSON).equals(nombre)) {
+					jo.put("Activo", false);
+				}
+				JA.put(i, jo);
+				i++;
+			}
 			JO.put("ListaMarcasProveedor", JA);
-		}
-		
+			}
 		return writeJSONObject(JO);
 	}
 

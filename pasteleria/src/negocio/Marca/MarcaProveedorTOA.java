@@ -29,36 +29,24 @@ public class MarcaProveedorTOA {
 		
 	}
 	
-public void bajaMarcaProveedor(String nombreMarca, String nombreProv) throws IllegalArgumentException { //la marca solo tiene bien el nombre
+	public void bajaMarcaProveedor(String nombreMarca, String nombreProv) { //la marca solo tiene bien el nombre
+		Object prueba;
 		if (nombreMarca != null) { //hay que dar de baja todas las entradas que tengan esa marca
 			DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
-			TMarca prueba = daoMarca.buscarMarca(nombreMarca);
-			if (prueba == null) { //no existe la marca 
-				throw new IllegalArgumentException("Marca no existente.");
-			}
-			else if (!prueba.getActivo()) { //sí está pero "inactiva"
-				throw new IllegalArgumentException("La marca no está activa.");
-			} 
-			
-			DAOMarcaProveedor daoMarcaProv = FactoriaAbstractaIntegracion.getInstance().crearDAOMarcaProveedor();
-			daoMarcaProv.bajaMarcaProveedor(marcaProv);
-			
+			prueba = daoMarca.buscarMarca(nombreMarca);
 		}
-		else { //hay que dar de baja todas las entradas que tengan ese proveedor 
-			DAOProveedor daoProv = FactoriaAbstractaIntegracion.getInstance().crearDAOProveedor();
-			TProveedor prueba = daoProv.buscarProveedor(nombreProv);
-			if (prueba == null) { //no existe el proveedor 
-				throw new IllegalArgumentException("Proveedor no existente.");
-			}
-			else if (!prueba.getActivo()) { //sí está pero "inactivo"
-				throw new IllegalArgumentException("El proveedor no está activo.");
-			} 
-			
-			DAOMarcaProveedor daoMarcaProv = FactoriaAbstractaIntegracion.getInstance().crearDAOMarcaProveedor();
-			daoMarcaProv.bajaMarcaProveedor(marcaProv);
+		else {
+			DAOProveedor daoProveedor = FactoriaAbstractaIntegracion.getInstance().crearDAOProveedor();
+			prueba = daoProveedor.buscarProveedor(nombreProv);
 		}
 		
+		if (prueba == null) return;
+		else {
+			DAOMarcaProveedor daoMarcaProv = FactoriaAbstractaIntegracion.getInstance().crearDAOMarcaProveedor();
+			daoMarcaProv.bajaMarcaProveedor(nombreMarca, nombreProv);
+		}
+		
+		
 	}
-	
 	
 }

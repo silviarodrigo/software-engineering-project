@@ -38,6 +38,10 @@ public class VistaAltaProveedor extends JDialog implements IGUI {
 	JTextField _codigoPostalText;
 	JPanel _codigoPostalPanel;
 	
+	JLabel _marcasLabel;
+	JTextField _marcasText;
+	JPanel _marcasPanel;
+	
 	//botones ok y cancel
 	JButton _okButton;
 	JButton _cancelButton;
@@ -101,6 +105,17 @@ public class VistaAltaProveedor extends JDialog implements IGUI {
 			
 			mainVistaAltaPanel.add(_codigoPostalPanel);
 			
+			
+			//MARCAS
+			
+			_marcasLabel = new JLabel("Marcas: ");
+			_marcasText = new JTextField();
+			_marcasText.setPreferredSize(new Dimension(100, 20));
+			_marcasPanel = new JPanel(new FlowLayout());
+			_marcasPanel.add(_marcasLabel);
+			_marcasPanel.add(_marcasText);
+			
+			mainVistaAltaPanel.add(_marcasPanel);
 			
 			//AÑADIMOS 2 BOTONES de ok y canel
 			_okCancelPanel = new JPanel(new FlowLayout());
@@ -178,9 +193,14 @@ public class VistaAltaProveedor extends JDialog implements IGUI {
 			proveedor = new TProveedor(nombre, telefono, correo, codigoPostal);
 			
 			
-			MarcaProveedorTOA marcaProvTOA; boolean ok = false;
-			while (se lean marcas de la entrada) {
-				String nombreMarca; //lo lees
+			String marcasCjto = _marcasText.getText();			
+			String[] marcas= marcasCjto.split(",");
+			
+			MarcaProveedorTOA marcaProvTOA = new MarcaProveedorTOA(); 
+			boolean ok = false;
+			 
+			for (int i = 0; i < marcas.length; i++) {
+				String nombreMarca = marcas[i]; //lo lees
 				TMarca marca = new TMarca(nombreMarca);
 				
 				try {
