@@ -5,7 +5,9 @@ import java.awt.FlowLayout;
 
 import javax.swing.*;
 
+import negocio.Marca.MarcaProveedorTOA;
 import negocio.Marca.TMarca;
+import negocio.Marca.TMarcaProveedor;
 import negocio.Proveedor.TProveedor;
 import presentacion.Evento;
 import presentacion.IGUI;
@@ -176,8 +178,26 @@ public class VistaAltaProveedor extends JDialog implements IGUI {
 			proveedor = new TProveedor(nombre, telefono, correo, codigoPostal);
 			
 			
-			Controlador.getInstance().accion(Evento.ALTA_PROVEEDOR, proveedor);
+			MarcaProveedorTOA marcaProvTOA; boolean ok = false;
+			while (se lean marcas de la entrada) {
+				String nombreMarca; //lo lees
+				TMarca marca = new TMarca(nombreMarca);
+				
+				try {
+					/*TMarcaProveedor marcaProv = */marcaProvTOA.altaMarcaProveedor(marca, proveedor);
+					ok = true; //al menos una marca de las introducidas es correcta
+					
+				} catch (IllegalArgumentException e) { //la marca estaba mal 
+					JOptionPane.showMessageDialog(this, "La marca " + nombreMarca + "no existe", "Alta Proveedor", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+			}
 			
+			if (ok) Controlador.getInstance().accion(Evento.ALTA_PROVEEDOR, proveedor);
+			else {
+				JOptionPane.showMessageDialog(this, "Ninguna marca introducida es correcta", "Alta Proveedor", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 		}
 
 		@Override

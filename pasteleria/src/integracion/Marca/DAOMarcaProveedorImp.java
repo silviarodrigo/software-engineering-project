@@ -61,7 +61,7 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 	}
 
 	@Override
-	public boolean bajaMarcaProveedor(int id) {
+	public boolean bajaMarcaProveedor(int id) { //bucle en el que vamos dando de baja todas las entradas
 		//Accedemos a los datos guardados
 		JSONObject JO = getJSONFromFile();
 		JSONArray JA;
@@ -122,11 +122,11 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 				return null;
 			}
 		
-			int idMarca = jo.getInt("Id Marca");
-			int idProveedor = jo.getInt("Id Proveedor");
+			String nombreMarca = jo.getString("Nombre Marca");
+			String nombreProveedor = jo.getString("Nombre Proveedor");
 			boolean activo = jo.getBoolean("Activo");
 			
-			return new TMarcaProveedor(id, idMarca, idProveedor, activo);
+			return new TMarcaProveedor(id, nombreMarca, nombreProveedor, activo);
 		}
 	}
 
@@ -145,7 +145,7 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 				JSONObject jo = JA.getJSONObject(i);
 
 				if (jo.getBoolean("Activo")) {
-					lista.add(new TMarcaProveedor(i, jo.getInt("Id Marca"), jo.getInt("Id Proveedor"), jo.getBoolean("Activo")));
+					lista.add(new TMarcaProveedor(i, jo.getString("Nombre Marca"), jo.getString("Nombre Proveedor"), jo.getBoolean("Activo")));
 				}
 			}
 		}
@@ -170,8 +170,8 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 		private JSONObject createJSON(TMarcaProveedor marcaProv) {
 			JSONObject jo = new JSONObject();
 			jo.put("Id", marcaProv.getID());
-			jo.put("Id Marca", marcaProv.getIDMarca());
-			jo.put("Id Proveedor", marcaProv.getIDProveedor());
+			jo.put("Nombre Marca", marcaProv.getTMarca().getNombre());
+			jo.put("Nombre Proveedor", marcaProv.getTProveedor().getNombre());
 			jo.put("Activo", marcaProv.getActivo());
 			return jo;
 		}

@@ -86,6 +86,9 @@ public class VistaBajaProveedor extends JDialog implements IGUI {
 				return;
 			}
 			
+			
+			//DAMOS DE BAJA TODAS LAS LINEAS DE MARCAPROVEEDOR
+			//Creamos un String marca y lo ponemosa null
 			Controlador.getInstance().accion(Evento.BAJA_PROVEEDOR, nombre);
 			
 		}
