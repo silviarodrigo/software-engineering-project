@@ -6,11 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
+
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -98,28 +96,7 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 	}
 
 	@Override
-	public int actualizarMarcaProveedor(TMarcaProveedor marcaProveedor) {
-		//cargamos los datos de la nueva marca en un JSON
-		JSONObject jo = createJSON(marcaProveedor);
-		
-		//Accedemos a los datos guardados
-		JSONObject JO = getJSONFromFile();
-		
-		if (JO == null) {
-			return -1; 
-		}
-		else {
-			JSONArray JA = JO.getJSONArray("ListaMarcasProveedor");
-			JA.put(marcaProveedor.getID(), jo); 
-			JO.put("ListaMarcasProveedor", JA);
-		}
-			
-		if (writeJSONObject(JO)) return marcaProveedor.getID();
-		else return -1;
-	}
-
-	@Override
-	public TMarcaProveedor buscarMarcaProveedor(int id) {
+	public TMarcaProveedor buscarMarcaProveedor(String nombreMarca, String nombreProv) {
 		//Accedemos a los datos guardados
 		JSONObject JO = getJSONFromFile();
 		
@@ -130,44 +107,19 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 			// Obtenemos los datos del JSON
 			JSONArray JA = JO.getJSONArray("ListaMarcasProveedor");
 
-			JSONObject jo;
-			try {
-				jo = JA.getJSONObject(id);
+			int i = 0; 
+			while (i < JA.length() && !(JA.getJSONObject(i).get("Nombre Marca").equals(nombreMarca) && JA.getJSONObject(i).get("Nombre Proveedor").equals(nombreProv))) {
+				i++;
 			}
-			catch (JSONException e) {
-				return null;
+			if (i == JA.length()) return null;
+			else {
+				boolean activo = JA.getJSONObject(i).getBoolean("Activo");
+				return new TMarcaProveedor(i, nombreMarca, nombreProv, activo);
 			}
-		
-			String nombreMarca = jo.getString("Nombre Marca");
-			String nombreProveedor = jo.getString("Nombre Proveedor");
-			boolean activo = jo.getBoolean("Activo");
-			
-			return new TMarcaProveedor(id, nombreMarca, nombreProveedor, activo);
 		}
 	}
 
-	@Override
-	public Collection<TMarcaProveedor> listarMarcaProveedor() {
-		Collection<TMarcaProveedor> lista = new ArrayList<TMarcaProveedor>();
 
-		// Accedemos a los datos guardados
-		JSONObject JO = getJSONFromFile();
-
-		if (JO != null) {
-			// Obtenemos los datos del JSON
-			JSONArray JA = JO.getJSONArray("ListaMarcasProveedor");
-
-			for (int i = 0; i < JA.length(); i++) {
-				JSONObject jo = JA.getJSONObject(i);
-
-				if (jo.getBoolean("Activo")) {
-					lista.add(new TMarcaProveedor(i, jo.getString("Nombre Marca"), jo.getString("Nombre Proveedor"), jo.getBoolean("Activo")));
-				}
-			}
-		}
-		return lista;
-	}
-	
 	
 	
 	//Funciones auxiliares
@@ -186,8 +138,8 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 		private JSONObject createJSON(TMarcaProveedor marcaProv) {
 			JSONObject jo = new JSONObject();
 			jo.put("Id", marcaProv.getID());
-			jo.put("Nombre Marca", marcaProv.getTMarca().getNombre());
-			jo.put("Nombre Proveedor", marcaProv.getTProveedor().getNombre());
+			jo.put("Nombre Marca", marcaProv.getNombreMarca());
+			jo.put("Nombre Proveedor", marcaProv.getNombreProv());
 			jo.put("Activo", marcaProv.getActivo());
 			return jo;
 		}

@@ -2,25 +2,25 @@
    "Proveedores": [
       {
          "Nombre": "pili",
-         "Correo": "pili@.es",
-         "Activo": false,
-         "Telefono": 123456789,
-         "Codigo postal": 12345,
+         "Correo": "pili.es",
+         "Activo": true,
+         "Telefono": 987654321,
+         "Codigo postal": 98765,
          "Id": 0
       },
       {
          "Nombre": "laura",
          "Correo": "laura@.es",
          "Activo": true,
-         "Telefono": 789456123,
-         "Codigo postal": 56789,
+         "Telefono": 123456789,
+         "Codigo postal": 12345,
          "Id": 1
       },
       {
-         "Nombre": "alfre",
-         "Correo": "al@.es",
+         "Nombre": "miguel",
+         "Correo": "miguel@.es",
          "Activo": true,
-         "Telefono": 456789123,
+         "Telefono": 987654321,
          "Codigo postal": 98765,
          "Id": 2
       }

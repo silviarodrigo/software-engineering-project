@@ -4,16 +4,14 @@ import integracion.Factoria.FactoriaAbstractaIntegracion;
 import integracion.Marca.DAOMarca;
 import integracion.Marca.DAOMarcaProveedor;
 import integracion.Proveedor.DAOProveedor;
-import negocio.Proveedor.TProveedor;
-import negocio.Marca.TMarcaProveedor;
 
 public class MarcaProveedorTOA {
 	
 	
-	public void altaMarcaProveedor(TMarca marca, TProveedor proveedor) throws IllegalArgumentException { //la marca solo tiene bien el nombre
+	public void altaMarcaProveedor(String nombreMarca, String nombreProveedor) throws IllegalArgumentException {
 		
 		DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();
-		TMarca prueba = daoMarca.buscarMarca(marca.getNombre());
+		TMarca prueba = daoMarca.buscarMarca(nombreMarca);
 		if (prueba == null) { //no existe la marca 
 			throw new IllegalArgumentException("Marca no existente.");
 		}
@@ -21,12 +19,13 @@ public class MarcaProveedorTOA {
 			throw new IllegalArgumentException("La marca no  está activa.");
 		}
 
-		TMarcaProveedor marcaProv = new TMarcaProveedor(prueba, proveedor);
-		
+		TMarcaProveedor marcaProv = new TMarcaProveedor(nombreMarca, nombreProveedor);
 		
 		DAOMarcaProveedor daoMarcaProv = FactoriaAbstractaIntegracion.getInstance().crearDAOMarcaProveedor();
-		daoMarcaProv.altaMarcaProveedor(marcaProv);
-		
+		if (daoMarcaProv.buscarMarcaProveedor(nombreMarca, nombreProveedor) == null) {
+			daoMarcaProv.altaMarcaProveedor(marcaProv);
+		}
+		else throw new IllegalArgumentException("La marca " + nombreMarca + " ya está registrada con el proveedor " + nombreProveedor);
 	}
 	
 	public void bajaMarcaProveedor(String nombreMarca, String nombreProv) { //la marca solo tiene bien el nombre
@@ -45,8 +44,11 @@ public class MarcaProveedorTOA {
 			DAOMarcaProveedor daoMarcaProv = FactoriaAbstractaIntegracion.getInstance().crearDAOMarcaProveedor();
 			daoMarcaProv.bajaMarcaProveedor(nombreMarca, nombreProv);
 		}
-		
-		
+	}
+	
+	public TMarcaProveedor buscarMarcaProveedor(String nombreMarca, String nombreProveedor) {
+		DAOMarcaProveedor daoMarcaProveedor = FactoriaAbstractaIntegracion.getInstance().crearDAOMarcaProveedor();
+		return daoMarcaProveedor.buscarMarcaProveedor(nombreMarca, nombreProveedor );
 	}
 	
 }
