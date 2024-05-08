@@ -37,11 +37,7 @@ public class DAOFacturaImp implements DAOFactura {
 			jo.put("id_cliente", datos_factura.getIdCliente());
 			jo.put("id_vendedor", datos_factura.getIdVendedor());
 			jo.put("precio", f.getPrecio_total());
-			if (f.getActivo()) {
-				jo.put("activa", "true");
-			} else {
-				jo.put("activa", "false");
-			}
+			jo.put("activa", true);
 			ja.put(jo);// lo añadimos a nuestra lista de facturas
 
 			//Escribimos en el json

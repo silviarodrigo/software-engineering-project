@@ -5,127 +5,141 @@
          "id_linea": 0,
          "id_producto": 0,
          "cantidad": 3,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 0,
          "id_linea": 1,
          "id_producto": 1,
          "cantidad": 10,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 1,
          "id_linea": 2,
          "id_producto": 1,
          "cantidad": 2,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 2,
          "id_linea": 3,
          "id_producto": 0,
          "cantidad": 15,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 3,
          "id_linea": 4,
          "id_producto": 0,
          "cantidad": 0,
-         "activa": "false"
+         "activa": false
       },
       {
          "id_factura": 3,
          "id_linea": 5,
          "id_producto": 1,
          "cantidad": 1,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 4,
          "id_linea": 6,
          "id_producto": 0,
          "cantidad": 3,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 5,
          "id_linea": 7,
          "id_producto": 1,
          "cantidad": 0,
-         "activa": "false"
+         "activa": false
       },
       {
          "id_factura": 6,
          "id_linea": 8,
          "id_producto": 0,
          "cantidad": 25,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 7,
          "id_linea": 9,
          "id_producto": 1,
          "cantidad": 20,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 8,
          "id_linea": 10,
          "id_producto": 0,
          "cantidad": 0,
-         "activa": "false"
+         "activa": false
       },
       {
          "id_factura": 9,
          "id_linea": 11,
          "id_producto": 0,
          "cantidad": 2,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 9,
          "id_linea": 12,
          "id_producto": 1,
          "cantidad": 5,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 10,
          "id_linea": 13,
          "id_producto": 0,
          "cantidad": 2,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 10,
          "id_linea": 14,
          "id_producto": 1,
          "cantidad": 3,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 11,
          "id_linea": 15,
          "id_producto": 0,
          "cantidad": 10,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 12,
          "id_linea": 16,
          "id_producto": 0,
          "cantidad": 3,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 12,
          "id_linea": 17,
          "id_producto": 1,
          "cantidad": 2,
-         "activa": "true"
+         "activa": true
+      },
+      {
+         "id_factura": 13,
+         "id_linea": 18,
+         "id_producto": 0,
+         "cantidad": 2,
+         "activa": true
+      },
+      {
+         "id_factura": 13,
+         "id_linea": 19,
+         "id_producto": 1,
+         "cantidad": 1,
+         "activa": true
       }
    ],
-   "next_id": 18
+   "next_id": 20
 }

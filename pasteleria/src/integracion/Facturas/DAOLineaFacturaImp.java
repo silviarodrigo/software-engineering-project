@@ -35,11 +35,7 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 			jo.put("id_factura", lf.getIdFactura());
 			jo.put("id_producto", lf.getIdProducto());
 			jo.put("cantidad", lf.getCantidad());
-			if (lf.getActivo()) {
-				jo.put("activa", "true");
-			} else {
-				jo.put("activa", "false");
-			}
+			jo.put("activa", lf.getActivo());
 			ja.put(jo);// lo añadimos a nuestra lista de lineas de facturas
 
 			/// Escribimos en el json
@@ -114,7 +110,7 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 					sol = linea_factura.getCantidad();
 					linea_factura.setCantidadProducto(0);
 					linea_factura.setActivo(false);
-					ja.getJSONObject(linea_factura.getIdLinea()).put("activa", "false");
+					ja.getJSONObject(linea_factura.getIdLinea()).put("activa", false);
 				}
 				ja.getJSONObject(linea_factura.getIdLinea()).put("cantidad", linea_factura.getCantidad());
 				

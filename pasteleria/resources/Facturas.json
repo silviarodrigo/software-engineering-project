@@ -6,7 +6,7 @@
          "precio": 32,
          "id_cliente": 0,
          "id_vendedor": 2,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 1,
@@ -14,7 +14,7 @@
          "precio": 4,
          "id_cliente": 2,
          "id_vendedor": 5,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 2,
@@ -22,7 +22,7 @@
          "precio": 60,
          "id_cliente": 1,
          "id_vendedor": 1,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 3,
@@ -38,7 +38,7 @@
          "precio": 12,
          "id_cliente": 1,
          "id_vendedor": 6,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 5,
@@ -54,7 +54,7 @@
          "precio": 100,
          "id_cliente": 2,
          "id_vendedor": 5,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 7,
@@ -62,7 +62,7 @@
          "precio": 40,
          "id_cliente": 1,
          "id_vendedor": 1,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 8,
@@ -78,7 +78,7 @@
          "precio": 18,
          "id_cliente": 0,
          "id_vendedor": 4,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 10,
@@ -86,7 +86,7 @@
          "precio": 14,
          "id_cliente": 2,
          "id_vendedor": 1,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 11,
@@ -94,7 +94,7 @@
          "precio": 40,
          "id_cliente": 0,
          "id_vendedor": 6,
-         "activa": "true"
+         "activa": true
       },
       {
          "id_factura": 12,
@@ -102,8 +102,16 @@
          "precio": 16,
          "id_cliente": 1,
          "id_vendedor": 5,
-         "activa": "true"
+         "activa": true
+      },
+      {
+         "id_factura": 13,
+         "fecha": "9/5/2024",
+         "precio": 10,
+         "id_cliente": 2,
+         "id_vendedor": 6,
+         "activa": true
       }
    ],
-   "next_id": 13
+   "next_id": 14
 }
