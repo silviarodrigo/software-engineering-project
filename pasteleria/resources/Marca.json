@@ -1,35 +1,23 @@
 {
    "Marcas": [
       {
-         "Nombre": "Nico",
-         "Correo": "nico@nico.es",
+         "Nombre": "Nespresso",
+         "Correo": "compras@nespresso.com",
          "Activo": true,
          "Id": 0
       },
       {
-         "Nombre": "Mac",
-         "Correo": "mac@mac.es",
+         "Nombre": "Coca Cola",
+         "Correo": "cccompras@cocacola.es",
          "Activo": true,
          "Id": 1
       },
       {
-         "Nombre": "Ig",
-         "Correo": "ig@ig.es",
+         "Nombre": "Bimbo",
+         "Correo": "compras@bimbo.es",
          "Activo": true,
          "Id": 2
-      },
-      {
-         "Nombre": "Paula",
-         "Correo": "paula@laguapa.com",
-         "Activo": true,
-         "Id": 3
-      },
-      {
-         "Nombre": "Rodri",
-         "Correo": "rodri@rodri.com",
-         "Activo": true,
-         "Id": 4
       }
    ],
-   "next_id": 5
+   "next_id": 3
 }

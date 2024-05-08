@@ -35,6 +35,7 @@ private ModeloTablaMarca _modeloTabla;
 		
 		_modeloTabla = new ModeloTablaMarca();
 		JTable table = new JTable(_modeloTabla);
+		
 		JPanel tablePanel = new JPanel();
 		mainPanel.add(tablePanel);
 		
