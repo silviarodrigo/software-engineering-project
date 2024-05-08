@@ -10,8 +10,7 @@ import javax.swing.JButton;
 
 public class MainWindow extends JFrame implements IGUI {
 	private static final long serialVersionUID = 7062033845360986187L;
-	public static final String ANSI_RESET = "\u001B[0m";
-	public static final String ANSI_BLUE = "\u001B[34m";
+
 	
 	public MainWindow() {
 		
