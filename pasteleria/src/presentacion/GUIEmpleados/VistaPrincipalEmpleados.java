@@ -1,7 +1,8 @@
 package presentacion.GUIEmpleados;
 
+import java.awt.GridLayout;
+
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -24,7 +25,9 @@ public class VistaPrincipalEmpleados extends JFrame implements IGUI{
 		JPanel mainPanel = new JPanel();
 		setContentPane(mainPanel);
 		
+		GridLayout grid=new GridLayout(2,0);
 		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(grid);
 		mainPanel.add(buttonPanel);
 		
 		JButton altaBtn = new JButton("Alta Empleado");
