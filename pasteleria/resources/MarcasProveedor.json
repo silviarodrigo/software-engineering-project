@@ -2,7 +2,7 @@
    "ListaMarcasProveedor": [
       {
          "Nombre Proveedor": "a",
-         "Activo": true,
+         "Activo": false,
          "Nombre Marca": "Mac",
          "Id": 0
       },
