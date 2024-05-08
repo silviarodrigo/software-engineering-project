@@ -8,7 +8,7 @@
          "alergenos": "leche",
          "id": 0,
          "stock": 20,
-         "nombre": "LecheEnteraPascual",
+         "nombre": "LecheEnteraNespresso",
          "activo": true
       },
       {
@@ -25,7 +25,7 @@
       {
          "precio": 3.5,
          "tipo": "Dulce",
-         "marcaId": 3,
+         "marcaId": 2,
          "relleno": "nocilla",
          "alergenos": "chocolate, avellanas",
          "id": 2,
@@ -36,15 +36,27 @@
       {
          "precio": 3.7,
          "tipo": "Pan",
-         "marcaId": 4,
-         "integral": true,
+         "marcaId": 2,
+         "integral": false,
          "alergenos": "gluten",
          "id": 3,
          "stock": 30,
          "nombre": "PanBimboSinCorteza",
          "activo": true,
          "sal": true
+      },
+      {
+         "precio": 3,
+         "tipo": "Pan",
+         "marcaId": 2,
+         "integral": false,
+         "alergenos": "gluten",
+         "id": 4,
+         "stock": 30,
+         "nombre": "PanBimbo",
+         "activo": true,
+         "sal": true
       }
    ],
-   "next_id": 4
+   "next_id": 5
 }
