@@ -1,32 +1,22 @@
 package presentacion.GUIFacturas;
 
 import java.awt.Dimension;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.CardLayout;
-
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 import negocio.Facturas.TFactura;
 import negocio.Facturas.TDatosVenta;
-
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JCheckBox;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
 
 public class VistaModificarFacturas extends JFrame implements IGUI {
 
+	private static final long serialVersionUID = 1L;
 	private JTextField _tFIdFactura;
 	private JTextField _tFIdVendedor;
 	private JTextField _tFIdCliente;

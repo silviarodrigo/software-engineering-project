@@ -2,7 +2,6 @@ package presentacion.GUIFacturas;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,14 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import negocio.Producto.TProducto;
-import negocio.Producto.TDulce;
-import negocio.Producto.TPan;
 import negocio.Facturas.TDatosVenta;
 import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
-import negocio.Producto.TBebida;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;

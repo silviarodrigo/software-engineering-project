@@ -2,17 +2,11 @@ package presentacion.GUIFacturas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-
-import negocio.Facturas.TDatosVenta;
 import negocio.Facturas.TFactura;
 import negocio.Facturas.TFacturasCliente;
-import negocio.Facturas.TLineaFactura;
 import negocio.Cliente.TCliente;
-
 import java.util.Collection;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -23,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;

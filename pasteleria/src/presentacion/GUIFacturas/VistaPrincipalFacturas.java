@@ -1,11 +1,10 @@
 package presentacion.GUIFacturas;
 
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import java.awt.GridLayout;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
@@ -23,8 +22,10 @@ public class VistaPrincipalFacturas extends JFrame implements IGUI {
 		JPanel mainPanel = new JPanel();
 		setContentPane(mainPanel);		
 		
+		GridLayout grid=new GridLayout(2,0);
 		JPanel buttonPanel = new JPanel();
 		mainPanel.add(buttonPanel);
+		buttonPanel.setLayout(grid);
 		
 		JButton abrirBtn = new JButton("Abrir venta");
 		abrirBtn.addActionListener((e) -> listenerAbrirVentana(Evento.ABRIR_VENTA));

@@ -1,15 +1,11 @@
 package negocio.Facturas;
 
-import java.util.ArrayList;
-
 public class TFactura {
 	private TDatosVenta datos;
 	private double precio_total;
 	private boolean activo;
 	private int id_factura;
 
-//	public TFactura() {
-//	}
 	public TFactura(int id, double total, TDatosVenta datos, boolean Activo) {
 		this.id_factura = id;
 		this.precio_total = total;

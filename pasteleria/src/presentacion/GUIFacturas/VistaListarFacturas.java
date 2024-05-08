@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import negocio.Facturas.TFactura;
 import java.util.Collection;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -14,7 +13,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import presentacion.Evento;
 import presentacion.IGUI;
-import presentacion.Controlador.Controlador;
 
 public class VistaListarFacturas extends JFrame implements IGUI {
 	private static final long serialVersionUID = 1L;

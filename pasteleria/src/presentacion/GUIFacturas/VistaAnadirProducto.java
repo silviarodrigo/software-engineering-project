@@ -2,24 +2,17 @@ package presentacion.GUIFacturas;
 
 import java.awt.Dimension;
 import java.util.HashMap;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Map;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-
-import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
 import negocio.Producto.TProducto;
 import presentacion.Evento;
