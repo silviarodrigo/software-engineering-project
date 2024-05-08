@@ -63,7 +63,7 @@ public class TProveedor {
 			return this.codigoPostal ;
 		}
 		
-		public void setStock(int codigoPostal) {
+		public void setCodigoPostal(int codigoPostal) {
 			this.codigoPostal = codigoPostal;
 		}
 		
