@@ -1,28 +1,50 @@
 {
    "productos": [
       {
-         "precio": 4,
-         "tipo": "Pan",
-         "marcaId": 2,
-         "integral": true,
-         "alergenos": "Gluten",
+         "precio": 2.15,
+         "tipo": "Bebida",
+         "tamaño": "mediano",
+         "marcaId": 0,
+         "alergenos": "leche",
          "id": 0,
-         "stock": 1335,
-         "nombre": "PanBimbo",
-         "activo": true,
-         "sal": true
+         "stock": 20,
+         "nombre": "LecheEnteraPascual",
+         "activo": true
       },
       {
-         "precio": 2,
+         "precio": 4,
          "tipo": "Dulce",
-         "marcaId": 2,
-         "relleno": "Fresa",
-         "alergenos": "1",
+         "marcaId": 1,
+         "relleno": "chocolate",
+         "alergenos": "chocolate",
          "id": 1,
-         "stock": 6956,
-         "nombre": "Donetes",
+         "stock": 10,
+         "nombre": "DonettesDeRayas",
          "activo": true
+      },
+      {
+         "precio": 3.5,
+         "tipo": "Dulce",
+         "marcaId": 3,
+         "relleno": "nocilla",
+         "alergenos": "chocolate, avellanas",
+         "id": 2,
+         "stock": 5,
+         "nombre": "DonutsNocilla",
+         "activo": false
+      },
+      {
+         "precio": 3.7,
+         "tipo": "Pan",
+         "marcaId": 4,
+         "integral": true,
+         "alergenos": "gluten",
+         "id": 3,
+         "stock": 30,
+         "nombre": "PanBimboSinCorteza",
+         "activo": true,
+         "sal": true
       }
    ],
-   "next_id": 2
+   "next_id": 4
 }

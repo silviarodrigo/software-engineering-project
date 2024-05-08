@@ -254,7 +254,7 @@ public class VistaActualizarProducto extends JFrame implements IGUI {
 		
 		else if (_panRB.isSelected()) {
 			boolean sal = _salCB.isSelected();
-			boolean integral = _salCB.isSelected();
+			boolean integral = _integralCB.isSelected();
 			producto = new TPan(nombre, precio, alergenos, stock, marcaId, sal, integral);
 
 		}
