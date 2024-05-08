@@ -91,25 +91,31 @@ public class VistaListarFacturasConCliente extends JFrame implements IGUI {
 
 	private void initInfoGUI(Object datos) {
 		_infoPanel = new JPanel();
+		JPanel _infoClientePanel = new JPanel();
+		JPanel _clientePanel = new JPanel();
 		_infoPanel.setLayout(new BoxLayout(_infoPanel, BoxLayout.Y_AXIS));
 		_mainPanel.add(_infoPanel);
-
+		
 		// Mostramos la informacion del cliente
 		TCliente cliente = (TCliente) datos;
-		JLabel infoLabel = new JLabel("INFORMACION CLIENTE");
-		JLabel idLabel = new JLabel("Id: " + cliente.getId());
+		JLabel idLabel = new JLabel("Id:" + cliente.getId());
 		JLabel nombreLabel = new JLabel("Nombre: " + cliente.getNombre());
 		JLabel apellidosLabel = new JLabel("Apellidos: " + cliente.getApellidos());
 		JLabel DNILabel = new JLabel("DNI: " + cliente.getDNI());
 		JLabel correoLabel = new JLabel("correo: " + cliente.getCorreo());
 		JLabel activoLabel = new JLabel("activo: " + cliente.getActivo());
-		_infoPanel.add(infoLabel);
-		_infoPanel.add(idLabel);
-		_infoPanel.add(nombreLabel);
-		_infoPanel.add(apellidosLabel);
-		_infoPanel.add(DNILabel);
-		_infoPanel.add(correoLabel);
-		_infoPanel.add(activoLabel);
+		_clientePanel.add(idLabel);
+		_clientePanel.add(nombreLabel);
+		_clientePanel.add(apellidosLabel);
+		_clientePanel.add(DNILabel);
+		_clientePanel.add(correoLabel);
+		_clientePanel.add(activoLabel);
+
+		_clientePanel.setLayout(new BoxLayout(_clientePanel, BoxLayout.Y_AXIS));
+		_infoClientePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2),
+				"Informacion del Cliente"));
+		_infoClientePanel.add(_clientePanel);
+		_infoPanel.add(_infoClientePanel);
 
 		// Creamos la tabla de las facturas
 		_tablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2),
@@ -118,7 +124,6 @@ public class VistaListarFacturasConCliente extends JFrame implements IGUI {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 		_infoPanel.add(_tablePanel);
 
-		// Continuar
 		JPanel continuarPanel = new JPanel();
 		JButton continuarBtn = new JButton("Continuar");
 		continuarBtn.addActionListener((e) -> dispose());

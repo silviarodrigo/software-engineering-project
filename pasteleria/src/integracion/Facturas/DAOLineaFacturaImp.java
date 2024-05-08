@@ -169,10 +169,10 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 		// Escribimos el fichero otra vez con los datos actualizados
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
-			JSONObject jo2 = new JSONObject();
-			jo2.put("ListaLineasFacturas", ja);
-			jo2.put("next_id", next_id);
-			bw.write(jo2.toString());
+			JSONObject jo = new JSONObject();
+			jo.put("ListaLineasFacturas", ja);
+			jo.put("next_id", next_id);
+			bw.write(jo.toString(3));
 
 			if (bw != null) {// cerramos el fichero siempre
 				bw.close();

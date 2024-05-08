@@ -216,10 +216,10 @@ public class DAOFacturaImp implements DAOFactura {
 		// Escribimos el fichero otra vez con los datos actualizados
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
-			JSONObject jo2 = new JSONObject();
-			jo2.put("ListaFacturas", ja);
-			jo2.put("next_id", next_id);
-			bw.write(jo2.toString());
+			JSONObject jo = new JSONObject();
+			jo.put("ListaFacturas", ja);
+			jo.put("next_id", next_id);
+			bw.write(jo.toString(3));
 
 			if (bw != null) {// cerramos el fichero siempre
 				bw.close();
