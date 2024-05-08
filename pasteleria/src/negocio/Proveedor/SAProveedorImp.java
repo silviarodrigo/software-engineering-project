@@ -17,7 +17,7 @@ public class SAProveedorImp implements SAProveedor{
 			id = daoProveedor.altaProveedor(proveedor);	
 		}
 		else if (!prov.getActivo()) { //sí existía pero no activo
-			proveedor.setID(proveedor.getID());
+			proveedor.setID(prov.getID());
 			proveedor.setActivo(true);
 			id = daoProveedor.actualizarProveedor(proveedor);
 		}

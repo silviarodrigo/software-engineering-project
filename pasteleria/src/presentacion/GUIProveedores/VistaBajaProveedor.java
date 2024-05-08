@@ -35,7 +35,7 @@ public class VistaBajaProveedor extends JDialog implements IGUI {
 	
 	//componentes gráficos
 		private void initGUI() {
-			setTitle("Alta Proveedor");			
+			setTitle("Actualizar Proveedor");			
 			
 			JPanel mainVistaAltaPanel = new JPanel();
 			this.setContentPane(mainVistaAltaPanel);
