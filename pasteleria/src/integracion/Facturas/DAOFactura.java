@@ -3,7 +3,6 @@ package integracion.Facturas;
 import java.util.Collection;
 
 import negocio.Facturas.TFactura;
-import negocio.Facturas.TLineaFactura;
 
 public interface DAOFactura {
 	public int crearFactura(TFactura f);

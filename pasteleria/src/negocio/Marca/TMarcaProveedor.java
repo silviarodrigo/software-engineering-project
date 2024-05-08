@@ -1,25 +1,48 @@
 package negocio.Marca;
 
+import negocio.Proveedor.TProveedor;
+
 public class TMarcaProveedor {
 
 	private int id;
-	private int idMarca;
-	private int idProveedor;
+	private TMarca marca;
+	private TProveedor proveedor;
 	private boolean activo;
 	
+	private String nombreMarca;
+	private String nombreProv;
+
 	
-	public TMarcaProveedor(int idMarca,  int idProveedor){
+	public TMarcaProveedor(TMarca marca,  TProveedor proveedor){
 		this.id = 0;
-		this.idMarca = idMarca;
-		this.idProveedor = idProveedor;
+		this.marca = marca;
+		this.proveedor = proveedor;
+		this.activo = true;
+		this.nombreMarca = marca.getNombre();
+		this.nombreProv = proveedor.getNombre();
+	}
+	
+	public TMarcaProveedor(String marca,  String proveedor){
+		this.id = 0;
+		this.nombreMarca = marca;
+		this.nombreProv = proveedor;
 		this.activo = true;
 	}
 	
-	public TMarcaProveedor(int id, int idMarca,  int idProveedor, boolean activo){
+	public TMarcaProveedor(int id, String nombreMarca,  String nombreProv, boolean activo){
 		this.id = id;
-		this.idMarca = idMarca;
-		this.idProveedor = idProveedor;
+		this.nombreMarca = nombreMarca;
+		this.nombreProv = nombreProv;
 		this.activo = activo;
+	}
+	
+	public TMarcaProveedor(int id, TMarca marca,  TProveedor proveedor, boolean activo){
+		this.id = id;
+		this.marca = marca;
+		this.proveedor = proveedor;
+		this.activo = activo;
+		this.nombreMarca = marca.getNombre();
+		this.nombreProv = proveedor.getNombre();
 	}
 	
 	public int getID() {
@@ -30,20 +53,28 @@ public class TMarcaProveedor {
 		this.id = id;
 	}
 		
-	public int getIDMarca() {
-		return this.idMarca;
+	public TMarca getTMarca() {
+		return this.marca;
 	}
 	
-	public void setIDMarca(int idMarca) {
-		this.idMarca = idMarca;
+	public void setTMarca(TMarca marca) {
+		this.marca = marca;
 	}
 	
-	public int getIDProveedor() {
-		return this.idProveedor;
+	public String getNombreMarca() {
+		return this.nombreMarca;
 	}
 	
-	public void setIDProveedor(int idProveedor) {
-		this.idProveedor = idProveedor;
+	public TProveedor getTProveedor() {
+		return this.proveedor;
+	}
+	
+	public void setTProveedor(TProveedor proveedor) {
+		this.proveedor = proveedor;
+	}
+	
+	public String getNombreProv() {
+		return this.nombreProv;
 	}
 	
 	public boolean getActivo() {

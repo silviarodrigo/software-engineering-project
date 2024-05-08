@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.*;
 
+import negocio.Marca.MarcaProveedorTOA;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
@@ -34,7 +35,7 @@ public class VistaBajaProveedor extends JDialog implements IGUI {
 	
 	//componentes gráficos
 		private void initGUI() {
-			setTitle("Alta Proveedor");			
+			setTitle("Actualizar Proveedor");			
 			
 			JPanel mainVistaAltaPanel = new JPanel();
 			this.setContentPane(mainVistaAltaPanel);
@@ -86,6 +87,12 @@ public class VistaBajaProveedor extends JDialog implements IGUI {
 				return;
 			}
 			
+			//Damos de baja todas las lineas de MarcaProveedor
+			String nombreMarca = null;
+			MarcaProveedorTOA marcaProvTOA = new MarcaProveedorTOA();
+			marcaProvTOA.bajaMarcaProveedor(nombreMarca, nombre); //no hace falta lanzar la excepción porque si no existe la marca ya salta en bajaMarca();
+			
+
 			Controlador.getInstance().accion(Evento.BAJA_PROVEEDOR, nombre);
 			
 		}

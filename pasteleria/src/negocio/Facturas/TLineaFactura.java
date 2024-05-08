@@ -7,9 +7,6 @@ public class TLineaFactura {
 	private int id_linea;
 	private boolean activa;
 
-// CONSTRUCTORA
-	// no hay constructora por defecto porque exigimos que la venta tenga datos
-
 	public TLineaFactura(int id_prod, int id_fact, int id, int cant, boolean act) {
 		this.id_producto = id_prod;
 		this.cantidad = cant;

@@ -33,9 +33,10 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 		initGUI();
 	}
 
-	void initGUI() {
+	private void initGUI() {
 		setTitle("Buscar Factura");
 
+		// creamos los paneles
 		_mainPanel = new JPanel();
 		_mainPanel.setLayout(new BoxLayout(_mainPanel, BoxLayout.Y_AXIS));
 		_pedirIdFacturaPanel = new JPanel();
@@ -43,6 +44,7 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 		setContentPane(_mainPanel);
 		_mainPanel.add(_pedirIdFacturaPanel);
 
+		// Id factura
 		_tFIdFactura = new JTextField();
 		_tFIdFactura.setPreferredSize(new Dimension(100, 20));
 		JPanel idFacturaPanel = new JPanel();
@@ -50,6 +52,7 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 		idFacturaPanel.add(_tFIdFactura);
 		_pedirIdFacturaPanel.add(idFacturaPanel);
 
+		// Buscar y cancelar
 		JPanel btnPanel = new JPanel();
 		JButton acceptBtn = new JButton("Buscar");
 		acceptBtn.addActionListener((e) -> {
@@ -69,12 +72,14 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 		setVisible(true);
 	}
 
-	void initInfoGUI(TFactura factura) {
+	private void initInfoGUI(TFactura factura) {
 
 		JPanel _infoPanel = new JPanel();
 		_infoPanel.setLayout(new BoxLayout(_infoPanel, BoxLayout.Y_AXIS));
 		_mainPanel.add(_infoPanel);
 
+		// Imprimimos toda la informacion de la factura
+		// la factura
 		TDatosVenta datos_venta = factura.getDatosVentas();
 		JLabel infoLabel = new JLabel("INFORMACION FACTURA");
 		JLabel idLabel = new JLabel("Id: " + factura.getIdFactura());
@@ -90,6 +95,7 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 		_infoPanel.add(id_clienteLabel);
 		_infoPanel.add(id_vendedor);
 		_infoPanel.add(activafacturaLabel);
+		// las lineas de factura
 		if (datos_venta.getProductos() != null) {
 			JLabel infoLineaLabel = new JLabel("INFORMACION LINEAS DE FACTURA");
 			_infoPanel.add(infoLineaLabel);
@@ -108,6 +114,7 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 			}
 		}
 
+		// continuar
 		JPanel continuarPanel = new JPanel();
 		JButton continuarBtn = new JButton("Continuar");
 		continuarBtn.addActionListener((e) -> dispose());
@@ -126,11 +133,9 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-
 		Controlador.getInstance().accion(Evento.BUSCAR_FACTURA, id_factura);
 	}
 
-	@Override
 	public void actualizar(Evento e, Object datos) {
 		switch (e) {
 		case BUSCAR_FACTURA_SUCCESS:

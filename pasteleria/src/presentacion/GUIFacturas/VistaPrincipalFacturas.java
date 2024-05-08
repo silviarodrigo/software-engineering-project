@@ -1,6 +1,7 @@
 package presentacion.GUIFacturas;
 
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ public class VistaPrincipalFacturas extends JFrame implements IGUI {
 		setTitle("Subsistema Facturas");
 		
 		JPanel mainPanel = new JPanel();
-		setContentPane(mainPanel);
+		setContentPane(mainPanel);		
 		
 		JPanel buttonPanel = new JPanel();
 		mainPanel.add(buttonPanel);
@@ -30,7 +31,7 @@ public class VistaPrincipalFacturas extends JFrame implements IGUI {
 		buttonPanel.add(abrirBtn);
 		
 		JButton annadirBtn = new JButton("Anadir producto");
-		annadirBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_ANADIR_PRODUCTO));
+		annadirBtn.addActionListener((e) -> listenerAbrirVentana(Evento.ANADIR_PRODUCTO_CARGA));
 		buttonPanel.add(annadirBtn);
 		
 		JButton eliminarBtn = new JButton("Eliminar producto");

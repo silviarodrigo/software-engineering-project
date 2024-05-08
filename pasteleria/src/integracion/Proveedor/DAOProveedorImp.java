@@ -27,6 +27,7 @@ public class DAOProveedorImp implements DAOProveedor {
 		
 		//si no tenemos datos preexistentes
 		if (jDatos == null) {
+			System.out.println("Sueños de libertad");
 			jDatos = new JSONObject();
 			jA = new JSONArray();
 			next_id = 0;

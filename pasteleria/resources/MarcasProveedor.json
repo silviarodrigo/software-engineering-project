@@ -1,1 +1,41 @@
-{"ListaMarcasProveedor":[], "next_id": 0}
+{
+   "ListaMarcasProveedor": [
+      {
+         "Nombre Proveedor": "a",
+         "Activo": true,
+         "Nombre Marca": "Mac",
+         "Id": 0
+      },
+      {
+         "Nombre Proveedor": "a",
+         "Activo": true,
+         "Nombre Marca": "Nico",
+         "Id": 1
+      },
+      {
+         "Nombre Proveedor": "a",
+         "Activo": true,
+         "Nombre Marca": "Ig",
+         "Id": 2
+      },
+      {
+         "Nombre Proveedor": "a",
+         "Activo": true,
+         "Nombre Marca": "Paula",
+         "Id": 3
+      },
+      {
+         "Nombre Proveedor": "miguel",
+         "Activo": true,
+         "Nombre Marca": "Paula",
+         "Id": 4
+      },
+      {
+         "Nombre Proveedor": "miguel",
+         "Activo": true,
+         "Nombre Marca": "Nico",
+         "Id": 5
+      }
+   ],
+   "next_id": 6
+}

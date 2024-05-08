@@ -2,6 +2,7 @@ package negocio.Producto;
 
 import java.util.Collection;
 
+
 import negocio.Marca.TMarca;
 
 public class TOAProductosMarca {

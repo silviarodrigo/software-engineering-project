@@ -6,11 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
+
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -61,7 +59,7 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 	}
 
 	@Override
-	public boolean bajaMarcaProveedor(int id) {
+	public boolean bajaMarcaProveedor(String nombreMarca, String nombreProv) { //bucle en el que vamos dando de baja todas las entradas
 		//Accedemos a los datos guardados
 		JSONObject JO = getJSONFromFile();
 		JSONArray JA;
@@ -71,39 +69,34 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 		}
 		else {
 			JA = JO.getJSONArray("ListaMarcasProveedor");
-			JSONObject jo = JA.getJSONObject(id);
 			
-			jo.put("Activo", false);
-			JA.put(id, jo);
+			String nombre, nombreJSON;
+			if (nombreMarca != null) {
+				nombreJSON = "Nombre Marca";
+				nombre = nombreMarca;
+			}
+			else {
+				nombreJSON = "Nombre Proveedor";
+				nombre = nombreProv;
+			}
+				
+			
+			int i = 0; 
+			while (i < JA.length()) {
+				JSONObject jo = JA.getJSONObject(i);
+				if(jo.get(nombreJSON).equals(nombre)) {
+					jo.put("Activo", false);
+				}
+				JA.put(i, jo);
+				i++;
+			}
 			JO.put("ListaMarcasProveedor", JA);
-		}
-		
+			}
 		return writeJSONObject(JO);
 	}
 
 	@Override
-	public int actualizarMarcaProveedor(TMarcaProveedor marcaProveedor) {
-		//cargamos los datos de la nueva marca en un JSON
-		JSONObject jo = createJSON(marcaProveedor);
-		
-		//Accedemos a los datos guardados
-		JSONObject JO = getJSONFromFile();
-		
-		if (JO == null) {
-			return -1; 
-		}
-		else {
-			JSONArray JA = JO.getJSONArray("ListaMarcasProveedor");
-			JA.put(marcaProveedor.getID(), jo); 
-			JO.put("ListaMarcasProveedor", JA);
-		}
-			
-		if (writeJSONObject(JO)) return marcaProveedor.getID();
-		else return -1;
-	}
-
-	@Override
-	public TMarcaProveedor buscarMarcaProveedor(int id) {
+	public TMarcaProveedor buscarMarcaProveedor(String nombreMarca, String nombreProv) {
 		//Accedemos a los datos guardados
 		JSONObject JO = getJSONFromFile();
 		
@@ -114,44 +107,19 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 			// Obtenemos los datos del JSON
 			JSONArray JA = JO.getJSONArray("ListaMarcasProveedor");
 
-			JSONObject jo;
-			try {
-				jo = JA.getJSONObject(id);
+			int i = 0; 
+			while (i < JA.length() && !(JA.getJSONObject(i).get("Nombre Marca").equals(nombreMarca) && JA.getJSONObject(i).get("Nombre Proveedor").equals(nombreProv))) {
+				i++;
 			}
-			catch (JSONException e) {
-				return null;
+			if (i == JA.length()) return null;
+			else {
+				boolean activo = JA.getJSONObject(i).getBoolean("Activo");
+				return new TMarcaProveedor(i, nombreMarca, nombreProv, activo);
 			}
-		
-			int idMarca = jo.getInt("Id Marca");
-			int idProveedor = jo.getInt("Id Proveedor");
-			boolean activo = jo.getBoolean("Activo");
-			
-			return new TMarcaProveedor(id, idMarca, idProveedor, activo);
 		}
 	}
 
-	@Override
-	public Collection<TMarcaProveedor> listarMarcaProveedor() {
-		Collection<TMarcaProveedor> lista = new ArrayList<TMarcaProveedor>();
 
-		// Accedemos a los datos guardados
-		JSONObject JO = getJSONFromFile();
-
-		if (JO != null) {
-			// Obtenemos los datos del JSON
-			JSONArray JA = JO.getJSONArray("ListaMarcasProveedor");
-
-			for (int i = 0; i < JA.length(); i++) {
-				JSONObject jo = JA.getJSONObject(i);
-
-				if (jo.getBoolean("Activo")) {
-					lista.add(new TMarcaProveedor(i, jo.getInt("Id Marca"), jo.getInt("Id Proveedor"), jo.getBoolean("Activo")));
-				}
-			}
-		}
-		return lista;
-	}
-	
 	
 	
 	//Funciones auxiliares
@@ -170,8 +138,8 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 		private JSONObject createJSON(TMarcaProveedor marcaProv) {
 			JSONObject jo = new JSONObject();
 			jo.put("Id", marcaProv.getID());
-			jo.put("Id Marca", marcaProv.getIDMarca());
-			jo.put("Id Proveedor", marcaProv.getIDProveedor());
+			jo.put("Nombre Marca", marcaProv.getNombreMarca());
+			jo.put("Nombre Proveedor", marcaProv.getNombreProv());
 			jo.put("Activo", marcaProv.getActivo());
 			return jo;
 		}

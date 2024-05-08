@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import negocio.Marca.MarcaProveedorTOA;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
@@ -64,6 +65,13 @@ public class VistaBajaMarca extends JDialog implements IGUI{
 			JOptionPane.showMessageDialog(this, "Debe indicar un nombre", "Baja Marca", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		
+		
+		//Damos de baja todas las lineas de MarcaProveedor
+		String nombreProv = null;
+		MarcaProveedorTOA marcaProvTOA = new MarcaProveedorTOA();
+		marcaProvTOA.bajaMarcaProveedor(nombre, nombreProv); //no hace falta lanzar la excepción porque si no existe la marca ya salta en bajaMarca();
+		
 		
 		Controlador.getInstance().accion(Evento.BAJA_MARCA, nombre);
 	}

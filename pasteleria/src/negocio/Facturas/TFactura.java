@@ -8,10 +8,8 @@ public class TFactura {
 	private boolean activo;
 	private int id_factura;
 
-//CONSTRUCTORAS
-	public TFactura() {
-	}
-
+//	public TFactura() {
+//	}
 	public TFactura(int id, double total, TDatosVenta datos, boolean Activo) {
 		this.id_factura = id;
 		this.precio_total = total;

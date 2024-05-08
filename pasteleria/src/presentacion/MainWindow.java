@@ -2,11 +2,8 @@ package presentacion;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import presentacion.Controlador.Controlador;
-
-import java.awt.GraphicsConfiguration;
-
+import java.awt.GridLayout;
 import javax.swing.JButton;
 
 
@@ -22,12 +19,14 @@ public class MainWindow extends JFrame implements IGUI {
 	}
 	
 	private void initGUI() {
+		GridLayout grid=new GridLayout(2,0);
 		JPanel mainPanel = new JPanel();
 		setContentPane(mainPanel);
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBackground(java.awt.Color.white);
 		mainPanel.add(buttonPanel);
+		buttonPanel.setLayout(grid);
 		mainPanel.setBackground(java.awt.Color.LIGHT_GRAY);
 		
 		JButton productoBtn = new JButton("Producto");

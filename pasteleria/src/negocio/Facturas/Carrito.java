@@ -2,9 +2,6 @@ package negocio.Facturas;
 
 import java.util.ArrayList;
 
-import integracion.Factoria.FactoriaAbstractaIntegracion;
-import integracion.Facturas.DAOLineaFactura;
-
 public class Carrito {
 	private ArrayList<TLineaFactura> lista_productos;
 
@@ -19,8 +16,10 @@ public class Carrito {
 	public void anadirProducto(TLineaFactura linea) {
 		int i = buscarEnLista(linea);
 		if (i == -1) {
+			// si el producto no existe creamos una nueva linea
 			this.lista_productos.add(linea);
 		} else {
+			// si ya existe una linea actualizamos su cantidad
 			this.lista_productos.get(i)
 					.setCantidadProducto(this.lista_productos.get(i).getCantidad() + linea.getCantidad());
 		}
@@ -29,19 +28,23 @@ public class Carrito {
 	public boolean eliminarProducto(TLineaFactura linea) {
 		int i = buscarEnLista(linea);
 		if (i == -1) {
+			// no se puede eliminar un producto que no existe
 			return false;
 		} else {
 			this.lista_productos.get(i)
 					.setCantidadProducto(this.lista_productos.get(i).getCantidad() - linea.getCantidad());
+			// si hemos quitado mas productos de los que hay borramos la linea
 			if (this.lista_productos.get(i).getCantidad() <= 0) {
-				this.lista_productos.get(i).setCantidadProducto(0);
-				this.lista_productos.get(i).setActivo(false);
+				// que como no ha sido creada podemos borrarla de verdad)
+				this.lista_productos.remove(i);
 			}
 			return true;
 		}
 	}
 
+	// busca si ya existe el producto en el carrito
 	private int buscarEnLista(TLineaFactura linea) {
+		// devuelve la posicion de la linea que lo trata o -1 si no existe
 		boolean encontrado = false;
 		int i = 0;
 		while (i < this.lista_productos.size() && !encontrado) {
