@@ -2,17 +2,11 @@ package presentacion.GUIFacturas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-
-import negocio.Facturas.TDatosVenta;
 import negocio.Facturas.TFactura;
 import negocio.Facturas.TFacturasCliente;
-import negocio.Facturas.TLineaFactura;
 import negocio.Cliente.TCliente;
-
 import java.util.Collection;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -23,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
@@ -41,9 +34,10 @@ public class VistaListarFacturasConCliente extends JFrame implements IGUI {
 		initGUI();
 	}
 
-	void initGUI() {
+	private void initGUI() {
 		setTitle("Listar Facturas Con Cliente");
 
+		// Creamos el panel
 		_mainPanel = new JPanel();
 		_mainPanel.setLayout(new BoxLayout(_mainPanel, BoxLayout.Y_AXIS));
 		_pedirIdClientePanel = new JPanel();
@@ -51,6 +45,7 @@ public class VistaListarFacturasConCliente extends JFrame implements IGUI {
 		setContentPane(_mainPanel);
 		_mainPanel.add(_pedirIdClientePanel);
 
+		// Id cliente
 		_tFIdCliente = new JTextField();
 		_tFIdCliente.setPreferredSize(new Dimension(100, 20));
 		JPanel idFacturaPanel = new JPanel();
@@ -58,10 +53,11 @@ public class VistaListarFacturasConCliente extends JFrame implements IGUI {
 		idFacturaPanel.add(_tFIdCliente);
 		_pedirIdClientePanel.add(idFacturaPanel);
 
+		// creamos el modelo de la tabla
 		this._modeloTabla = new ModeloTablaFacturas();
-		// JTable table = ;
 		this._tablePanel = new JPanel();
 
+		// Buscar y cancelar
 		JPanel btnPanel = new JPanel();
 		JButton acceptBtn = new JButton("Buscar");
 		acceptBtn.addActionListener((e) -> {
@@ -90,33 +86,36 @@ public class VistaListarFacturasConCliente extends JFrame implements IGUI {
 					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-
 		Controlador.getInstance().accion(Evento.LISTAR_FACTURAS_CON_CLIENTE, id_cliente);
 	}
 
-	void initInfoGUI(Object datos) {
-
+	private void initInfoGUI(Object datos) {
 		_infoPanel = new JPanel();
+		JPanel _infoClientePanel = new JPanel();
+		JPanel _clientePanel = new JPanel();
 		_infoPanel.setLayout(new BoxLayout(_infoPanel, BoxLayout.Y_AXIS));
 		_mainPanel.add(_infoPanel);
+		
 		// Mostramos la informacion del cliente
 		TCliente cliente = (TCliente) datos;
-		JLabel infoLabel = new JLabel("INFORMACION CLIENTE");
-		JLabel idLabel = new JLabel("Id: " + cliente.getId());
+		JLabel idLabel = new JLabel("Id:" + cliente.getId());
 		JLabel nombreLabel = new JLabel("Nombre: " + cliente.getNombre());
 		JLabel apellidosLabel = new JLabel("Apellidos: " + cliente.getApellidos());
 		JLabel DNILabel = new JLabel("DNI: " + cliente.getDNI());
 		JLabel correoLabel = new JLabel("correo: " + cliente.getCorreo());
 		JLabel activoLabel = new JLabel("activo: " + cliente.getActivo());
-		_infoPanel.add(infoLabel);
-		_infoPanel.add(idLabel);
-		_infoPanel.add(nombreLabel);
-		_infoPanel.add(apellidosLabel);
-		_infoPanel.add(DNILabel);
-		_infoPanel.add(correoLabel);
-		_infoPanel.add(activoLabel);
+		_clientePanel.add(idLabel);
+		_clientePanel.add(nombreLabel);
+		_clientePanel.add(apellidosLabel);
+		_clientePanel.add(DNILabel);
+		_clientePanel.add(correoLabel);
+		_clientePanel.add(activoLabel);
 
-		
+		_clientePanel.setLayout(new BoxLayout(_clientePanel, BoxLayout.Y_AXIS));
+		_infoClientePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2),
+				"Informacion del Cliente"));
+		_infoClientePanel.add(_clientePanel);
+		_infoPanel.add(_infoClientePanel);
 
 		// Creamos la tabla de las facturas
 		_tablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2),
@@ -125,8 +124,6 @@ public class VistaListarFacturasConCliente extends JFrame implements IGUI {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 		_infoPanel.add(_tablePanel);
 
-		
-		
 		JPanel continuarPanel = new JPanel();
 		JButton continuarBtn = new JButton("Continuar");
 		continuarBtn.addActionListener((e) -> dispose());
@@ -141,8 +138,10 @@ public class VistaListarFacturasConCliente extends JFrame implements IGUI {
 		case LISTAR_FACTURAS_CON_CLIENTE_SUCCESS:
 			_pedirIdClientePanel.setVisible(false);
 			TFacturasCliente cliente_factura = (TFacturasCliente) datos;
+			// mostramos el cliente
 			TCliente cliente = cliente_factura.getCliente();
 			initInfoGUI(cliente);
+			// mostramos las facturas
 			Collection<TFactura> facturas = cliente_factura.getFacturas();
 			_modeloTabla.loadData(facturas);
 			break;

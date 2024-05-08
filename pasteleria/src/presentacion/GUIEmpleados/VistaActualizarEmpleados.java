@@ -1,6 +1,5 @@
 package presentacion.GUIEmpleados;
 
-import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -12,7 +11,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import negocio.Empleados.TEmpleado;
-import negocio.Marca.TMarca;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;

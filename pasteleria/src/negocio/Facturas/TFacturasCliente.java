@@ -13,6 +13,7 @@ public class TFacturasCliente {
 		this.facturas = f;
 	}
 
+//GETTERS
 	public TCliente getCliente() {
 		return this.cliente;
 	}

@@ -1,34 +1,22 @@
 package presentacion.GUIFacturas;
 
 import java.awt.Dimension;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.CardLayout;
-
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
-import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
-import negocio.Facturas.TDatosVenta;
-
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
-import javax.swing.JCheckBox;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
 
 public class VistaDevolucionFacturas extends JFrame implements IGUI {
 
+	private static final long serialVersionUID = 1L;
 	private JTextField _tFIdFactura;
 	private JTextField _tFIdProducto;
 	private JSpinner _jSCantidad;
@@ -40,11 +28,12 @@ public class VistaDevolucionFacturas extends JFrame implements IGUI {
 	private void initGUI() {
 		setTitle("Devolucion Factura");
 
+		// creamos el panel
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		setContentPane(mainPanel);
 
-		// Campos comunes
+		// Id factura
 		JLabel idFacturaLabel = new JLabel("Id factura: ");
 		_tFIdFactura = new JTextField();
 		_tFIdFactura.setPreferredSize(new Dimension(100, 20));
@@ -53,6 +42,7 @@ public class VistaDevolucionFacturas extends JFrame implements IGUI {
 		idFacturaPanel.add(_tFIdFactura);
 		mainPanel.add(idFacturaPanel);
 
+		// Id producto
 		JLabel idProductoLabel = new JLabel("Id producto: ");
 		_tFIdProducto = new JTextField();
 		_tFIdProducto.setPreferredSize(new Dimension(100, 20));
@@ -61,6 +51,7 @@ public class VistaDevolucionFacturas extends JFrame implements IGUI {
 		idProductoPanel.add(_tFIdProducto);
 		mainPanel.add(idProductoPanel);
 
+		// Cantidad
 		JLabel cantidadLabel = new JLabel("Cantidad: ");
 		_jSCantidad = new JSpinner();
 		_jSCantidad.setPreferredSize(new Dimension(100, 20));
@@ -69,6 +60,7 @@ public class VistaDevolucionFacturas extends JFrame implements IGUI {
 		cantidadPanel.add(_jSCantidad);
 		mainPanel.add(cantidadPanel);
 
+		// Aceptar y cancelar
 		JPanel endPanel = new JPanel();
 		JButton acceptBtn = new JButton("Aceptar");
 		acceptBtn.addActionListener((e) -> {
@@ -88,7 +80,6 @@ public class VistaDevolucionFacturas extends JFrame implements IGUI {
 	}
 
 	private void devolucionFactura() {
-
 		int id_factura;
 		try {
 			id_factura = Integer.parseInt(this._tFIdFactura.getText());
@@ -114,12 +105,12 @@ public class VistaDevolucionFacturas extends JFrame implements IGUI {
 			return;
 		}
 
+		// si todos los datos son correctos creamos la linea de factura con los datos a quitar
 		TLineaFactura linea_factura = new TLineaFactura(id_producto, id_factura, 0, cantidad, true);
 		Controlador.getInstance().accion(Evento.DEVOLUCION_FACTURA, linea_factura);
 
 	}
 
-	@Override
 	public void actualizar(Evento e, Object datos) {
 		switch (e) {
 		case DEVOLUCION_FACTURA_SUCCESS:

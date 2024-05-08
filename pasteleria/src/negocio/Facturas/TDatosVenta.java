@@ -8,9 +8,6 @@ public class TDatosVenta {
 	private int id_vendedor;
 	private ArrayList<TLineaFactura> productos;
 
-//CONSTRUCTORA
-	// no hay constructora por defecto porque exigimos que la venta tenga datos
-
 	public TDatosVenta(String f, int id_c, int id_v, ArrayList<TLineaFactura> prod) {
 		this.fecha = f;
 		this.id_cliente = id_c;

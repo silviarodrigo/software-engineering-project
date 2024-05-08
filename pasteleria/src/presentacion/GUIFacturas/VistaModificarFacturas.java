@@ -1,32 +1,22 @@
 package presentacion.GUIFacturas;
 
 import java.awt.Dimension;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.CardLayout;
-
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 import negocio.Facturas.TFactura;
 import negocio.Facturas.TDatosVenta;
-
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JCheckBox;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
 
 public class VistaModificarFacturas extends JFrame implements IGUI {
 
+	private static final long serialVersionUID = 1L;
 	private JTextField _tFIdFactura;
 	private JTextField _tFIdVendedor;
 	private JTextField _tFIdCliente;
@@ -39,11 +29,12 @@ public class VistaModificarFacturas extends JFrame implements IGUI {
 	private void initGUI() {
 		setTitle("Modificar Factura");
 
+		// Creamos el panel
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		setContentPane(mainPanel);
 
-		// Campos comunes
+		// Id factura
 		JLabel idFacturaLabel = new JLabel("Id factura: ");
 		_tFIdFactura = new JTextField();
 		_tFIdFactura.setPreferredSize(new Dimension(100, 20));
@@ -52,6 +43,7 @@ public class VistaModificarFacturas extends JFrame implements IGUI {
 		idFacturaPanel.add(_tFIdFactura);
 		mainPanel.add(idFacturaPanel);
 
+		// Id cliente
 		JLabel idClienteLabel = new JLabel("Id cliente: ");
 		_tFIdCliente = new JTextField();
 		_tFIdCliente.setPreferredSize(new Dimension(100, 20));
@@ -60,6 +52,7 @@ public class VistaModificarFacturas extends JFrame implements IGUI {
 		idClientePanel.add(_tFIdCliente);
 		mainPanel.add(idClientePanel);
 
+		// Id vendedor
 		JLabel idVendedorLabel = new JLabel("Id vendedor: ");
 		_tFIdVendedor = new JTextField();
 		_tFIdVendedor.setPreferredSize(new Dimension(100, 20));
@@ -68,6 +61,7 @@ public class VistaModificarFacturas extends JFrame implements IGUI {
 		idVendedorPanel.add(_tFIdVendedor);
 		mainPanel.add(idVendedorPanel);
 
+		// Fecha
 		JLabel fechaLabel = new JLabel("Fecha: ");
 		_tFFecha = new JTextField();
 		_tFFecha.setPreferredSize(new Dimension(100, 20));
@@ -76,6 +70,7 @@ public class VistaModificarFacturas extends JFrame implements IGUI {
 		fechaPanel.add(_tFFecha);
 		mainPanel.add(fechaPanel);
 
+		// Aceptar y cancelar
 		JPanel endPanel = new JPanel();
 		JButton acceptBtn = new JButton("Aceptar");
 		acceptBtn.addActionListener((e) -> {
@@ -95,7 +90,6 @@ public class VistaModificarFacturas extends JFrame implements IGUI {
 	}
 
 	private void modificarFactura() {
-
 		int id_factura;
 		try {
 			id_factura = Integer.parseInt(this._tFIdFactura.getText());
@@ -130,12 +124,11 @@ public class VistaModificarFacturas extends JFrame implements IGUI {
 			return;
 		}
 
+		// si todos los datos son validos creamos la nueva factura con los datos a modificar
 		TFactura factura = new TFactura(id_factura, 0, new TDatosVenta(fecha, id_cliente, id_vendedor, null), true);
 		Controlador.getInstance().accion(Evento.MODIFICAR_FACTURA, factura);
-
 	}
 
-	@Override
 	public void actualizar(Evento e, Object datos) {
 		switch (e) {
 		case MODIFICAR_FACTURA_SUCCESS:

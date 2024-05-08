@@ -11,28 +11,24 @@ public class ModeloTablaFacturas extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 	private List<TFactura> facturas;
-	private String[] headers = { "Id", "Precio", "Fecha", "Id cliente", "Id vendedor"};
+	private String[] headers = { "Id", "Precio", "Fecha", "Id cliente", "Id vendedor" };
 
 	public ModeloTablaFacturas() {
 		facturas = new ArrayList<TFactura>();
 	}
 
-	@Override
 	public int getRowCount() {
 		return facturas.size();
 	}
 
-	@Override
 	public int getColumnCount() {
 		return headers.length;
 	}
 
-	@Override
 	public String getColumnName(int col) {
 		return headers[col];
 	}
 
-	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		TFactura factura = facturas.get(rowIndex);
 		if (columnIndex == 0) {
@@ -50,7 +46,7 @@ public class ModeloTablaFacturas extends AbstractTableModel {
 	}
 
 	public void loadData(Collection<TFactura> data) {
-		if(data!=null) {//solo si hay facturas en la lista
+		if (data != null) {// solo si hay facturas en la lista
 			facturas = new ArrayList<TFactura>(data);
 		}
 		fireTableDataChanged();

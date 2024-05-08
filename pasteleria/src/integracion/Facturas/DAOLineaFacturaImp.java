@@ -12,8 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
-import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
 
 public class DAOLineaFacturaImp implements DAOLineaFactura {
@@ -37,11 +35,7 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 			jo.put("id_factura", lf.getIdFactura());
 			jo.put("id_producto", lf.getIdProducto());
 			jo.put("cantidad", lf.getCantidad());
-			if (lf.getActivo()) {
-				jo.put("activa", "true");
-			} else {
-				jo.put("activa", "false");
-			}
+			jo.put("activa", lf.getActivo());
 			ja.put(jo);// lo añadimos a nuestra lista de lineas de facturas
 
 			/// Escribimos en el json
@@ -116,7 +110,7 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 					sol = linea_factura.getCantidad();
 					linea_factura.setCantidadProducto(0);
 					linea_factura.setActivo(false);
-					ja.getJSONObject(linea_factura.getIdLinea()).put("activa", "false");
+					ja.getJSONObject(linea_factura.getIdLinea()).put("activa", false);
 				}
 				ja.getJSONObject(linea_factura.getIdLinea()).put("cantidad", linea_factura.getCantidad());
 				
@@ -171,10 +165,10 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 		// Escribimos el fichero otra vez con los datos actualizados
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
-			JSONObject jo2 = new JSONObject();
-			jo2.put("ListaLineasFacturas", ja);
-			jo2.put("next_id", next_id);
-			bw.write(jo2.toString());
+			JSONObject jo = new JSONObject();
+			jo.put("ListaLineasFacturas", ja);
+			jo.put("next_id", next_id);
+			bw.write(jo.toString(3));
 
 			if (bw != null) {// cerramos el fichero siempre
 				bw.close();

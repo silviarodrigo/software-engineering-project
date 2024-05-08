@@ -1,23 +1,15 @@
 package presentacion.GUIFacturas;
 
 import java.awt.Dimension;
-import java.text.ParseException;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
-
 import negocio.Facturas.TDatosVenta;
 import negocio.Facturas.TFactura;
-import negocio.Facturas.TLineaFactura;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
@@ -37,6 +29,7 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 	private void initGUI() {
 		setTitle("Cerrar Venta");
 
+		// Creamos los paneles
 		JPanel _mainPanel = new JPanel();
 		_mainPanel.setLayout(new BoxLayout(_mainPanel, BoxLayout.Y_AXIS));
 
@@ -45,6 +38,7 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 		setContentPane(_mainPanel);
 		_mainPanel.add(_anadirPanel);
 
+		// Id cliente
 		JLabel idClienteLabel = new JLabel("Id cliente: ");
 		_tFIdCliente = new JTextField();
 		_tFIdCliente.setPreferredSize(new Dimension(100, 20));
@@ -53,6 +47,7 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 		clientePanel.add(_tFIdCliente);
 		_anadirPanel.add(clientePanel);
 
+		// Id vendedor
 		JLabel idVendedorLabel = new JLabel("Id vendedor: ");
 		_tFIdVendedor = new JTextField();
 		_tFIdVendedor.setPreferredSize(new Dimension(100, 20));
@@ -61,6 +56,7 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 		vendedorPanel.add(_tFIdVendedor);
 		_anadirPanel.add(vendedorPanel);
 
+		// Fecha
 		JLabel fechaLabel = new JLabel("Fecha: ");
 		_tFFecha = new JTextField();
 		_tFFecha.setPreferredSize(new Dimension(100, 20));
@@ -69,6 +65,7 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 		fechaPanel.add(_tFFecha);
 		_anadirPanel.add(fechaPanel);
 
+		// Aceptar y cancelar
 		JPanel btnPanel = new JPanel();
 		JButton acceptBtn = new JButton("Aceptar");
 		acceptBtn.addActionListener((e) -> {
@@ -94,6 +91,7 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 			id_cliente = Integer.parseInt(this._tFIdCliente.getText());
 			id_vendedor = Integer.parseInt(this._tFIdVendedor.getText());
 			fecha = this._tFFecha.getText();
+			// si todo es valido creamos la nueva factura
 			TFactura factura = new TFactura(0, 0, new TDatosVenta(fecha, id_cliente, id_vendedor, null), true);
 			Controlador.getInstance().accion(Evento.CERRAR_VENTA, factura);
 		} catch (Exception e) {

@@ -5,10 +5,6 @@ import java.util.Collection;
 
 import integracion.Empleado.DAOEmpleado;
 import integracion.Factoria.FactoriaAbstractaIntegracion;
-import integracion.Marca.DAOMarca;
-import integracion.Producto.DAOProducto;
-import negocio.Marca.TMarca;
-import negocio.Producto.TProducto;
 
 
 

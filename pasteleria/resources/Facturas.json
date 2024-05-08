@@ -1,1 +1,117 @@
-{"ListaFacturas":[{"id_factura":0,"fecha":"17/8/2004","precio":3.2,"id_cliente":1,"id_vendedor":2,"activa":true},{"id_factura":1,"fecha":"fecha","precio":2,"id_cliente":0,"id_vendedor":0,"activa":"false"},{"id_factura":2,"fecha":"paulina","precio":2,"id_cliente":2,"id_vendedor":5,"activa":"true"},{"id_factura":3,"fecha":"hello","precio":8,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":4,"fecha":"prueba","precio":8,"id_cliente":4,"id_vendedor":5,"activa":"true"},{"id_factura":5,"fecha":"777777","precio":8,"id_cliente":7,"id_vendedor":7,"activa":"true"},{"id_factura":6,"fecha":"777777","precio":8,"id_cliente":0,"id_vendedor":7,"activa":"true"},{"id_factura":7,"fecha":"PAULA","precio":8,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":8,"fecha":"PAULA","precio":8,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":9,"fecha":"j","precio":8,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":10,"fecha":"w","precio":8,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":11,"fecha":"hoy","precio":40,"id_cliente":0,"id_vendedor":1,"activa":"true"},{"id_factura":12,"fecha":"wwww","precio":80,"id_cliente":0,"id_vendedor":1,"activa":"true"},{"id_factura":13,"fecha":"pruebaaa","precio":80,"id_cliente":0,"id_vendedor":2,"activa":"true"},{"id_factura":14,"fecha":"lalalallalalalal","precio":40,"id_cliente":0,"id_vendedor":67777,"activa":"true"},{"id_factura":15,"fecha":"otra factura mas","precio":42,"id_cliente":0,"id_vendedor":33,"activa":"true"},{"id_factura":16,"fecha":"lululu","precio":38,"id_cliente":0,"id_vendedor":55,"activa":"true"},{"id_factura":17,"fecha":"prueba3","precio":28,"id_cliente":0,"id_vendedor":45,"activa":"true"},{"id_factura":18,"fecha":"mucha esperanza","precio":48,"id_cliente":23,"id_vendedor":0,"activa":"true"},{"id_factura":19,"fecha":"3/8/19","precio":0,"id_cliente":0,"id_vendedor":0,"activa":false},{"id_factura":20,"fecha":"tutu","precio":0,"id_cliente":23,"id_vendedor":0,"activa":"true"},{"id_factura":21,"fecha":"tyyyyy","precio":2,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":22,"fecha":"34343","precio":0,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":23,"fecha":"RTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT","precio":4,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":24,"fecha":"0","precio":0,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":25,"fecha":"hghdhahgj","precio":6,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":26,"fecha":"1","precio":2,"id_cliente":1,"id_vendedor":0,"activa":"true"},{"id_factura":27,"fecha":"43","precio":12,"id_cliente":23,"id_vendedor":0,"activa":"true"},{"id_factura":28,"fecha":"wwww","precio":2,"id_cliente":1,"id_vendedor":54,"activa":"true"},{"id_factura":29,"fecha":"pepe","precio":4,"id_cliente":2,"id_vendedor":23,"activa":"true"},{"id_factura":30,"fecha":"ewewewe","precio":2,"id_cliente":2,"id_vendedor":4,"activa":"true"},{"id_factura":31,"fecha":"4","precio":2,"id_cliente":2,"id_vendedor":3,"activa":"true"},{"id_factura":32,"fecha":"2","precio":2,"id_cliente":2,"id_vendedor":2,"activa":"true"},{"id_factura":33,"fecha":"r","precio":4,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":34,"fecha":"6/8/9","precio":0,"id_cliente":0,"id_vendedor":1,"activa":false},{"id_factura":35,"fecha":"ghhghg","precio":0,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":36,"fecha":"utututu","precio":4,"id_cliente":0,"id_vendedor":3,"activa":"true"},{"id_factura":37,"fecha":"ratatui","precio":4,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":38,"fecha":"ytyty","precio":6,"id_cliente":0,"id_vendedor":0,"activa":"true"},{"id_factura":39,"fecha":"rt","precio":0,"id_cliente":0,"id_vendedor":1,"activa":"true"}],"next_id":40}
+{
+   "ListaFacturas": [
+      {
+         "id_factura": 0,
+         "fecha": "4/2/2024",
+         "precio": 32,
+         "id_cliente": 0,
+         "id_vendedor": 2,
+         "activa": true
+      },
+      {
+         "id_factura": 1,
+         "fecha": "14/2/2024",
+         "precio": 4,
+         "id_cliente": 2,
+         "id_vendedor": 5,
+         "activa": true
+      },
+      {
+         "id_factura": 2,
+         "fecha": "20/2/2024",
+         "precio": 60,
+         "id_cliente": 1,
+         "id_vendedor": 1,
+         "activa": true
+      },
+      {
+         "id_factura": 3,
+         "fecha": "4/3/2024",
+         "precio": 2,
+         "id_cliente": 2,
+         "id_vendedor": 4,
+         "activa": true
+      },
+      {
+         "id_factura": 4,
+         "fecha": "10/3/2024",
+         "precio": 12,
+         "id_cliente": 1,
+         "id_vendedor": 6,
+         "activa": true
+      },
+      {
+         "id_factura": 5,
+         "fecha": "30/3/2024",
+         "precio": 0,
+         "id_cliente": 0,
+         "id_vendedor": 2,
+         "activa": false
+      },
+      {
+         "id_factura": 6,
+         "fecha": "2/4/2024",
+         "precio": 100,
+         "id_cliente": 2,
+         "id_vendedor": 5,
+         "activa": true
+      },
+      {
+         "id_factura": 7,
+         "fecha": "15/4/2024",
+         "precio": 40,
+         "id_cliente": 1,
+         "id_vendedor": 1,
+         "activa": true
+      },
+      {
+         "id_factura": 8,
+         "fecha": "17/4/2024",
+         "precio": 0,
+         "id_cliente": 2,
+         "id_vendedor": 6,
+         "activa": false
+      },
+      {
+         "id_factura": 9,
+         "fecha": "24/3/2024",
+         "precio": 18,
+         "id_cliente": 0,
+         "id_vendedor": 4,
+         "activa": true
+      },
+      {
+         "id_factura": 10,
+         "fecha": "4/5/2024",
+         "precio": 14,
+         "id_cliente": 2,
+         "id_vendedor": 1,
+         "activa": true
+      },
+      {
+         "id_factura": 11,
+         "fecha": "6/5/2024",
+         "precio": 40,
+         "id_cliente": 0,
+         "id_vendedor": 6,
+         "activa": true
+      },
+      {
+         "id_factura": 12,
+         "fecha": "8/5/2024",
+         "precio": 16,
+         "id_cliente": 1,
+         "id_vendedor": 5,
+         "activa": true
+      },
+      {
+         "id_factura": 13,
+         "fecha": "9/5/2024",
+         "precio": 10,
+         "id_cliente": 2,
+         "id_vendedor": 6,
+         "activa": true
+      }
+   ],
+   "next_id": 14
+}

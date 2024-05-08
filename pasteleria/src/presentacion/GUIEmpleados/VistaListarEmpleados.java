@@ -12,7 +12,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import integracion.Empleado.*;
 import negocio.Empleados.*;
 
 

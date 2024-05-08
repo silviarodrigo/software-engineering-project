@@ -2,24 +2,17 @@ package presentacion.GUIFacturas;
 
 import java.awt.Dimension;
 import java.util.HashMap;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Map;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-
-import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
 import negocio.Producto.TProducto;
 import presentacion.Evento;
@@ -33,7 +26,7 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 	private JTextField _tFIdProducto;
 	private JSpinner _jSCantidad;
 	private JTextField _tFPrecio;
-	private Map<Integer, TProducto> _mapaProductos;
+	private Map<Integer, TProducto> _mapaProductos; // id producto, producto
 
 	public VistaAnadirProducto() {
 		this._mapaProductos = new HashMap<>();
@@ -43,6 +36,7 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 	private void initGUI() {
 		setTitle("Anadir Producto");
 
+		// creamos los paneles
 		JPanel _mainPanel = new JPanel();
 		_mainPanel.setLayout(new BoxLayout(_mainPanel, BoxLayout.Y_AXIS));
 
@@ -51,6 +45,7 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 		setContentPane(_mainPanel);
 		_mainPanel.add(_anadirPanel);
 
+		// ID producto
 		JLabel idLabel = new JLabel("Id producto: ");
 		_tFIdProducto = new JTextField();
 		_tFIdProducto.setPreferredSize(new Dimension(100, 20));
@@ -59,6 +54,7 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 		nombrePanel.add(_tFIdProducto);
 		_anadirPanel.add(nombrePanel);
 
+		// cantidad del producto
 		JLabel cantidadLabel = new JLabel("Cantidad: ");
 		_jSCantidad = new JSpinner(new SpinnerNumberModel(0, 0, null, 1));
 		_jSCantidad.setPreferredSize(new Dimension(100, 20));
@@ -67,6 +63,7 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 		cantidadPanel.add(_jSCantidad);
 		_anadirPanel.add(cantidadPanel);
 
+		// precio que costaria
 		JLabel precioLabel = new JLabel("Precio: ");
 		_tFPrecio = new JTextField();
 		_tFPrecio.setEditable(false);
@@ -76,6 +73,7 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 		nombrePanel.add(_tFPrecio);
 		_anadirPanel.add(precioPanel);
 
+		// cada vez que cambie la cantidad cambiara el precio
 		_jSCantidad.addChangeListener((e) -> {
 			int id_prod;
 			int cantidad;
@@ -85,7 +83,7 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 				TProducto producto = this._mapaProductos.get(id_prod);
 				if (producto == null) {
 					id_valido = false;
-				} else {
+				} else {// si existe el producto seleccionado podemos calcular su precio
 					try {
 						cantidad = Integer.parseInt(this._jSCantidad.getValue().toString());
 						// si el producto y la cantidad so validos calculamos lo que costaria
@@ -106,6 +104,7 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 
 		});
 
+		// Aceptar y cancelar
 		JPanel btnPanel = new JPanel();
 		JButton acceptBtn = new JButton("Aceptar");
 		acceptBtn.addActionListener((e) -> {
@@ -134,6 +133,7 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+			// si todo es valido crea la linea de factura
 			TLineaFactura linea = new TLineaFactura(id_prod, 0, 0, cantidad, true);
 			Controlador.getInstance().accion(Evento.ANADIR_PRODUCTO, linea);
 		} catch (Exception e) {
@@ -144,7 +144,7 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 
 	public void actualizar(Evento e, Object datos) {
 		switch (e) {
-		case ANADIR_PRODUCTO_CARGA:
+		case ANADIR_PRODUCTO_CARGA:// cargamos los datos de los productos y su precio
 			ArrayList<TProducto> productos = (ArrayList<TProducto>) datos;
 			this._mapaProductos.clear();
 			for (TProducto p : productos) {

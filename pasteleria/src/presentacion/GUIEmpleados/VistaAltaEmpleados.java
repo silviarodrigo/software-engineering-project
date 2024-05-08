@@ -1,20 +1,14 @@
 package presentacion.GUIEmpleados;
 
-import java.awt.Font;
-import java.awt.Frame;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-//import presentacionEmpleados.IGUI; interfaz grafica?
 
 import negocio.Empleados.TEmpleado;
 import presentacion.Evento;

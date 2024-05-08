@@ -37,11 +37,7 @@ public class DAOFacturaImp implements DAOFactura {
 			jo.put("id_cliente", datos_factura.getIdCliente());
 			jo.put("id_vendedor", datos_factura.getIdVendedor());
 			jo.put("precio", f.getPrecio_total());
-			if (f.getActivo()) {
-				jo.put("activa", "true");
-			} else {
-				jo.put("activa", "false");
-			}
+			jo.put("activa", true);
 			ja.put(jo);// lo añadimos a nuestra lista de facturas
 
 			//Escribimos en el json
@@ -216,10 +212,10 @@ public class DAOFacturaImp implements DAOFactura {
 		// Escribimos el fichero otra vez con los datos actualizados
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
-			JSONObject jo2 = new JSONObject();
-			jo2.put("ListaFacturas", ja);
-			jo2.put("next_id", next_id);
-			bw.write(jo2.toString());
+			JSONObject jo = new JSONObject();
+			jo.put("ListaFacturas", ja);
+			jo.put("next_id", next_id);
+			bw.write(jo.toString(3));
 
 			if (bw != null) {// cerramos el fichero siempre
 				bw.close();

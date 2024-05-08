@@ -48,7 +48,7 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 		switch (id) {
 		case MAIN_WINDOW:
 			return new MainWindow();
-		//PRODUCTO
+		// PRODUCTO
 		case VISTA_PRINCIPAL_PRODUCTO:
 			return new VistaPrincipalProducto();
 		case VISTA_ALTA_PRODUCTO:
@@ -65,7 +65,8 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 			return new VistaListarProductosPorMarca();
 		case VISTA_LISTAR_PRODUCTOS_CON_MARCA:
 			return new VistaListarProductosConMarca();
-		//FACTURAS
+
+		// FACTURAS
 		case VISTA_PRINCIPAL_FACTURAS:
 			return new VistaPrincipalFacturas();
 		case VISTA_BUSCAR_FACTURA:
@@ -80,15 +81,15 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 			return new VistaEliminarProducto();
 		case VISTA_CERRAR_VENTA:
 			return new VistaCerrarVenta();
-			//EXTRA
+			// extra
 		case VISTA_LISTAR_FACTURAS_POR_CLIENTE:
 			return new VistaListarFacturasPorCliente();
 		case VISTA_LISTAR_FACTURAS_CON_CLIENTE:
 			return new VistaListarFacturasConCliente();
 		case VISTA_DEVOLUCION_FACTURA:
 			return new VistaDevolucionFacturas();
-			
-		//MARCA
+
+		// MARCA
 		case VISTA_PRINCIPAL_MARCA:
 			return new VistaPrincipalMarca();
 		case VISTA_ALTA_MARCA:
@@ -101,7 +102,7 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 			return new VistaBuscarMarca();
 		case VISTA_LISTAR_MARCAS:
 			return new VistaListarMarca();
-			
+
 		// CLIENTE
 		case VISTA_PRINCIPAL_CLIENTE:
 			return new VistaPrincipalCliente();
@@ -115,8 +116,8 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 			return new VistaBuscarCliente();
 		case VISTA_LISTAR_CLIENTES:
 			return new VistaListarClientes();
-			
-		//EMPLEADOS
+
+		// EMPLEADOS
 		case VISTA_PRINCIPAL_EMPLEADOS:
 			return new VistaPrincipalEmpleados();
 		case VISTA_ALTA_EMPLEADO:
@@ -129,8 +130,8 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 			return new VistaBuscarEmpleado();
 		case VISTA_LISTAR_EMPLEADOS:
 			return new VistaListarEmpleados();
-			
-		//PROVEEDOR
+
+		// PROVEEDOR
 		case VISTA_PRINCIPAL_PROVEEDOR:
 			return new VistaPrincipalProveedor();
 		case VISTA_ALTA_PROVEEDOR:
@@ -142,8 +143,8 @@ public class FactoriaPresentacion extends FactoriaAbstractaPresentacion {
 		case VISTA_BUSCAR_PROVEEDOR:
 			return new VistaBuscarProveedor();
 		case VISTA_LISTAR_PROVEEDORES:
-			return new VistaListarProveedor();	
-		
+			return new VistaListarProveedor();
+
 		default:
 			return null;
 		}

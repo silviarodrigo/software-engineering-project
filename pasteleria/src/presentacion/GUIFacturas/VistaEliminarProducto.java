@@ -1,21 +1,14 @@
 package presentacion.GUIFacturas;
 
 import java.awt.Dimension;
-import java.text.ParseException;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
-
-import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
 import presentacion.Evento;
 import presentacion.IGUI;
@@ -32,9 +25,10 @@ public class VistaEliminarProducto extends JFrame implements IGUI {
 		initGUI();
 	}
 
-	void initGUI() {
+	private void initGUI() {
 		setTitle("Eliminar Producto");
 
+		// Creamos los paneles
 		JPanel _mainPanel = new JPanel();
 		_mainPanel.setLayout(new BoxLayout(_mainPanel, BoxLayout.Y_AXIS));
 
@@ -43,6 +37,7 @@ public class VistaEliminarProducto extends JFrame implements IGUI {
 		setContentPane(_mainPanel);
 		_mainPanel.add(_anadirPanel);
 
+		// Id producto
 		JLabel idLabel = new JLabel("Id producto: ");
 		_tFIdProducto = new JTextField();
 		_tFIdProducto.setPreferredSize(new Dimension(100, 20));
@@ -51,6 +46,7 @@ public class VistaEliminarProducto extends JFrame implements IGUI {
 		nombrePanel.add(_tFIdProducto);
 		_anadirPanel.add(nombrePanel);
 
+		// Cantidad
 		JLabel cantidadLabel = new JLabel("Cantidad: ");
 		_jSCantidad = new JSpinner();
 		_jSCantidad.setPreferredSize(new Dimension(100, 20));
@@ -59,6 +55,7 @@ public class VistaEliminarProducto extends JFrame implements IGUI {
 		cantidadPanel.add(_jSCantidad);
 		_anadirPanel.add(cantidadPanel);
 
+		// Aceptar y cancelar
 		JPanel btnPanel = new JPanel();
 		JButton acceptBtn = new JButton("Aceptar");
 		acceptBtn.addActionListener((e) -> {
@@ -87,6 +84,7 @@ public class VistaEliminarProducto extends JFrame implements IGUI {
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+			// si todo es correcto creamos la linea de factura de producto a quitar
 			TLineaFactura linea = new TLineaFactura(id_prod, 0, 0, cantidad, true);
 			Controlador.getInstance().accion(Evento.ELIMINAR_PRODUCTO, linea);
 		} catch (Exception e) {
