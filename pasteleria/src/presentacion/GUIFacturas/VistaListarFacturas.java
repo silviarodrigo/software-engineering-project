@@ -24,13 +24,15 @@ public class VistaListarFacturas extends JFrame implements IGUI {
 		initGUI();
 	}
 
-	void initGUI() {
+	private void initGUI() {
 		setTitle("Listar Facturas");
 
+		// Creamos el panel
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		setContentPane(mainPanel);
 
+		// Creamos la tabla
 		this._modeloTabla = new ModeloTablaFacturas();
 		JTable table = new JTable(this._modeloTabla);
 		JPanel tablePanel = new JPanel();
@@ -41,6 +43,7 @@ public class VistaListarFacturas extends JFrame implements IGUI {
 		tablePanel.add(new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 
+		// Continuar
 		JPanel continuarPanel = new JPanel();
 		JButton continuarBtn = new JButton("Continuar");
 		continuarBtn.addActionListener((e) -> dispose());
@@ -52,7 +55,6 @@ public class VistaListarFacturas extends JFrame implements IGUI {
 		setVisible(true);
 	}
 
-	@Override
 	public void actualizar(Evento e, Object datos) {
 		switch (e) {
 		case LISTAR_FACTURAS:

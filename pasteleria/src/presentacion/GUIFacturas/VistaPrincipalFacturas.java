@@ -1,6 +1,7 @@
 package presentacion.GUIFacturas;
 
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,7 +21,7 @@ public class VistaPrincipalFacturas extends JFrame implements IGUI {
 		setTitle("Subsistema Facturas");
 		
 		JPanel mainPanel = new JPanel();
-		setContentPane(mainPanel);
+		setContentPane(mainPanel);		
 		
 		JPanel buttonPanel = new JPanel();
 		mainPanel.add(buttonPanel);

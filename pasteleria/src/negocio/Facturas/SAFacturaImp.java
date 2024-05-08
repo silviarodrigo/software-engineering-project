@@ -25,28 +25,6 @@ public class SAFacturaImp implements SAFactura {
 		return daoFactura.listarFacturas();
 	}
 
-	public Collection<TFactura> listarFacturasPorCliente(int id_cliente) {
-		DAOCliente daoCliente = FactoriaAbstractaIntegracion.getInstance().crearDAOCliente();
-		TCliente cliente = daoCliente.buscarCliente(id_cliente);
-		if (cliente != null) {// si el cliente existe
-			DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
-			return daoFactura.listarFacturasPorCliente(id_cliente);
-		} else
-			return null;
-	}
-
-	public TFacturasCliente listarFacturasConCliente(int id_cliente) {
-		DAOCliente daoCliente = FactoriaAbstractaIntegracion.getInstance().crearDAOCliente();
-		TCliente cliente = daoCliente.buscarCliente(id_cliente);
-		if (cliente != null) {
-			DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
-			// creamos nuestro TFacturasCliente para poder devolver la coleccion y el
-			// TCliente a la vez
-			return new TFacturasCliente(cliente, daoFactura.listarFacturasPorCliente(id_cliente));
-		} else
-			return null;
-	}
-
 	public int crearFactura(TDatosVenta datos) {
 		// creamos los dao
 		DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
@@ -145,7 +123,30 @@ public class SAFacturaImp implements SAFactura {
 		DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
 		return daoFactura.modificarFactura(id_f, id_c, id_v, fecha);
 	}
-
+	
+//EXTRAS
+	public Collection<TFactura> listarFacturasPorCliente(int id_cliente) {
+		DAOCliente daoCliente = FactoriaAbstractaIntegracion.getInstance().crearDAOCliente();
+		TCliente cliente = daoCliente.buscarCliente(id_cliente);
+		if (cliente != null) {// si el cliente existe
+			DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
+			return daoFactura.listarFacturasPorCliente(id_cliente);
+		} else
+			return null;
+	}
+	
+	public TFacturasCliente listarFacturasConCliente(int id_cliente) {
+		DAOCliente daoCliente = FactoriaAbstractaIntegracion.getInstance().crearDAOCliente();
+		TCliente cliente = daoCliente.buscarCliente(id_cliente);
+		if (cliente != null) {
+			DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
+			// creamos nuestro TFacturasCliente para poder devolver la coleccion y el
+			// TCliente a la vez
+			return new TFacturasCliente(cliente, daoFactura.listarFacturasPorCliente(id_cliente));
+		} else
+			return null;
+	}
+	
 	public boolean devolucionFactura(TLineaFactura lf) {
 		// creamos los DAO
 		DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
