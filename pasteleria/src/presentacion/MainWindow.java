@@ -125,10 +125,12 @@ public class MainWindow extends JFrame implements IGUI {
 		gbc.gridy = gbc.SOUTH;
 		buttonPanel.add(proveedorBtn,gbc);
 		
+		
+		
 		pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Para que acabe el programa al cerrar la ventana.
-		setResizable(true);
-		setSize(new Dimension(600,600));
+		setResizable(false);
+		setSize(new Dimension(600,550));
 		
 		setLocationRelativeTo(null);
 		setVisible(true);
