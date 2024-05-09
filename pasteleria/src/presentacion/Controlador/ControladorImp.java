@@ -2,7 +2,6 @@ package presentacion.Controlador;
 
 import java.util.Collection;
 
-import javax.swing.JOptionPane;
 
 import negocio.Cliente.SACliente;
 import negocio.Cliente.TCliente;

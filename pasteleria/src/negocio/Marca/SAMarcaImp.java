@@ -5,7 +5,6 @@ import java.util.Collection;
 import negocio.Producto.TProducto;
 import integracion.Factoria.FactoriaAbstractaIntegracion;
 import integracion.Marca.DAOMarca;
-import integracion.Marca.DAOMarcaProveedor;
 import integracion.Producto.DAOProducto;
 
 //"Negocio pide a integración que lo añada"

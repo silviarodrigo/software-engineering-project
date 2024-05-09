@@ -7,20 +7,20 @@ public class TMarca {
 	private boolean activo;
 
 	public TMarca(String nombre) {
-		this.id = 0; // siempre lo inicializo a 0
+		this.id = 0;
 		this.nombre = nombre;
 		this.correo = "";
 		this.activo = true;
 	}
 
-	public TMarca(String nombre, String correo) { //para alta
+	public TMarca(String nombre, String correo) {
 		this.id = 0;
 		this.nombre = nombre;
 		this.correo = correo;
 		this.activo = true;
 	}
 
-	public TMarca(int id, String nombre, String correo, boolean activo) { //para actualizar
+	public TMarca(int id, String nombre, String correo, boolean activo) {
 		this.id = id;
 		this.nombre = nombre;
 		this.correo = correo;

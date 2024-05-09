@@ -60,7 +60,7 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 	}
 
 	@Override
-	public boolean bajaMarcaProveedor(String nombreMarca, String nombreProv) { //bucle en el que vamos dando de baja todas las entradas
+	public boolean bajaMarcaProveedor(String nombreMarca, String nombreProv) { //bucle en el que vamos dando de baja todas las lineas
 		//Accedemos a los datos guardados
 		JSONObject JO = getJSONFromFile();
 		JSONArray JA;

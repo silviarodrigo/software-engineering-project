@@ -76,7 +76,6 @@ public class VistaBajaMarca extends JDialog implements IGUI{
 	}
 	
 	
-	
 	@Override
 	public void actualizar(Evento e, Object datos) {
 		switch(e) {
