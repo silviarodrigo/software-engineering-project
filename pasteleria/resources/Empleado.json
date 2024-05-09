@@ -164,7 +164,18 @@
          "DNI": "45678987K",
          "email": "rafacampos@ucm.es",
          "activo": false
+      },
+      {
+         "apellidos": "Martinez",
+         "numTelefono": "654345123",
+         "numVentas": 0,
+         "direccion": "cuatro caminos,23",
+         "id": 15,
+         "nombre": "Laura",
+         "DNI": "45670897G",
+         "email": "laumart@ucm.es",
+         "activo": true
       }
    ],
-   "next_id": 15
+   "next_id": 16
 }
