@@ -20,7 +20,7 @@
          "id": 1,
          "stock": 26,
          "nombre": "DonettesDeRayas",
-         "activo": true
+         "activo": false
       },
       {
          "precio": 3.5,
