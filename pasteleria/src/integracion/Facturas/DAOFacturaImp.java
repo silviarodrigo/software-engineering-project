@@ -76,7 +76,8 @@ public class DAOFacturaImp implements DAOFactura {
 			int next_id = ji.getInt("next_id");
 			// Buscamos la factura en nuestro array
 			int i = searchInJArray(id_f, ja);
-			if (i != -1) {
+			//solo se puede modificar la factura solo si existe y si esta activa
+			if (i != -1&&ja.getJSONObject(i).getBoolean("activa")) {
 				// Si la factura existe la modificamos
 				exito = true;
 				ja.getJSONObject(i).put("fecha", fecha);

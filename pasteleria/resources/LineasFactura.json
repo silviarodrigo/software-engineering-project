@@ -31,7 +31,23 @@
          "id_producto": 0,
          "cantidad": 1,
          "activa": true
+      },
+      {
+         "id_factura": 4,
+         "precio": 6.449999999999999,
+         "id_linea": 4,
+         "id_producto": 0,
+         "cantidad": 3,
+         "activa": true
+      },
+      {
+         "id_factura": 5,
+         "precio": 6.449999999999999,
+         "id_linea": 5,
+         "id_producto": 0,
+         "cantidad": 3,
+         "activa": true
       }
    ],
-   "next_id": 4
+   "next_id": 6
 }

@@ -73,7 +73,7 @@ public class SAFacturaImp implements SAFactura {
 						|| producto.getPrecio() < 0) {
 					;
 				} else {
-					if (producto.getStock() < linea_factura.getCantidad()) {
+					if (producto.getStock() <= linea_factura.getCantidad()) {
 						linea_factura.setCantidadProducto(producto.getStock());
 					}
 					// actualizamos los precios
@@ -107,42 +107,23 @@ public class SAFacturaImp implements SAFactura {
 		return id_factura;
 	}
 
-//	public boolean anadirProducto(TLineaFactura linea, Carrito c) {
-//		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
-//		TProducto producto = daoProducto.buscarProducto(linea.getIdProducto());
-//		// si el producto existe y se puede comprar:
-//		if (producto != null && producto.getActivo()) {
-//			c.anadirProducto(linea);
-//		} else {
-//			return false;
-//		}
-//		return true;
-//	}
-//
-//	public boolean eliminarProducto(TLineaFactura linea, Carrito c) {
-//		boolean exito = true;
-//		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
-//		TProducto producto = daoProducto.buscarProducto(linea.getIdProducto());
-//		// si el producto existe y se puede comprar:
-//		if (producto != null && producto.getActivo()) {
-//			exito = c.eliminarProducto(linea);
-//		} else {
-//			exito = false;
-//		}
-//		return exito;
-//	}
-
 	public int cerrarVenta(TDatosVenta datos) {
 		return crearFactura(datos);
 	}
 
-//	public Carrito abrirVenta() {
-//		return new Carrito();
-//	}
-
 	public boolean modificarFactura(int id_f, int id_c, int id_v, String fecha) {
-		DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
-		return daoFactura.modificarFactura(id_f, id_c, id_v, fecha);
+		DAOCliente daoCliente = FactoriaAbstractaIntegracion.getInstance().crearDAOCliente();
+		DAOEmpleado daoEmpleado = FactoriaAbstractaIntegracion.getInstance().crearDAOEmpleado();
+		// buscamos el cliente y el vendedor
+		TCliente cliente = daoCliente.buscarCliente(id_c);
+		TEmpleado vendedor = daoEmpleado.buscarEmpleado(id_v);
+
+		// solo si existen y estan activos podemos modificar la factura
+		if (cliente != null && cliente.getActivo() && vendedor != null && vendedor.getActivo()) {
+			DAOFactura daoFactura = FactoriaAbstractaIntegracion.getInstance().crearDAOFactura();
+			return daoFactura.modificarFactura(id_f, id_c, id_v, fecha);
+		}
+		return false;
 	}
 
 //EXTRAS
@@ -176,7 +157,7 @@ public class SAFacturaImp implements SAFactura {
 		// buscamos la factura
 		TFacturaLineaFacturas factura_lineasFactura = buscarFactura(lf.getIdFactura());
 		if (factura_lineasFactura != null) {
-			//modificamos la linea de factura
+			// modificamos la linea de factura
 			int cantidad_quitada = daol.modificarLineaFactura(lf, factura_lineasFactura.getLineasFactura());
 			if (cantidad_quitada != -1) {
 				TProducto producto = daoProducto.buscarProducto(lf.getIdProducto());
@@ -184,7 +165,7 @@ public class SAFacturaImp implements SAFactura {
 				// validadas
 				producto.setStock(producto.getStock() + cantidad_quitada);
 				daoProducto.actualizarProducto(producto);
-				//modificamos la factura
+				// modificamos la factura
 				double nuevo_precio = factura_lineasFactura.getTFactura().getPrecio_total()
 						- (cantidad_quitada * producto.getPrecio());
 				factura_lineasFactura.getTFactura().setPrecio_total(nuevo_precio);
