@@ -29,84 +29,102 @@ public class VistaPrincipalFacturas extends JFrame implements IGUI {
 		JPanel mainPanel = new JPanel();
 		setContentPane(mainPanel);
 
-		GridLayout grid = new GridLayout(2, 0);
+		GridLayout grid = new GridLayout(4, 0);
 		JPanel buttonPanel = new JPanel();
 		mainPanel.add(buttonPanel);
 		buttonPanel.setLayout(grid);
 
+		// Abrir Venta
 		JButton abrirBtn = new JButton("Abrir venta");
 		abrirBtn.addActionListener((e) -> {
 			if (ControladorImp.carrito != null) {
 				JOptionPane.showMessageDialog(null, "Ya hay una venta en curso, por favor cierre la venta primero",
 						"Abrir Venta", 0);
 			} else {
-				SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
 				ControladorImp.carrito = new Carrito();
 				JOptionPane.showMessageDialog(null, "Carrito creado con exito", "Abrir Venta", 1);
 			}
 		});
 		buttonPanel.add(abrirBtn);
 
+		// Anadir Producto
 		JButton annadirBtn = new JButton("Anadir producto");
 		annadirBtn.addActionListener((e) -> {
 			if (ControladorImp.carrito == null) {
-				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ANADIR_PRODUCTO)
-						.actualizar(Evento.ANADIR_PRODUCTO_ERROR, "por favor abra una venta primero");
-			}else {
+				JOptionPane.showMessageDialog(null, "Por favor abra una venta primero", "Anadir producto", 0);
+			} else {
 				listenerAbrirVentana(Evento.ANADIR_PRODUCTO_CARGA);
 			}
 		});
 		buttonPanel.add(annadirBtn);
 
+		// Eliminar Producto
 		JButton eliminarBtn = new JButton("Eliminar producto");
 		eliminarBtn.addActionListener((e) -> {
 			if (ControladorImp.carrito == null) {
-				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ELIMINAR_PRODUCTO)
-						.actualizar(Evento.ELIMINAR_PRODUCTO_ERROR, "por favor abra una venta primero");
-			}
-			else {
+				JOptionPane.showMessageDialog(null, "Por favor abra una venta primero", "Eliminar producto", 0);
+			} else {
 				listenerAbrirVentana(Evento.VISTA_ELIMINAR_PRODUCTO);
 			}
 		});
 		buttonPanel.add(eliminarBtn);
 
+		// Cerrar Venta
 		JButton cerrarBtn = new JButton("Cerrar venta");
 		cerrarBtn.addActionListener((e) -> {
 			if (ControladorImp.carrito == null) {
 				JOptionPane.showMessageDialog(null, "por favor abra una venta primero", "Cerrar Venta", 0);
-			}
-			else {
+			} else {
 				listenerAbrirVentana(Evento.VISTA_CERRAR_VENTA);
 			}
 		});
 		buttonPanel.add(cerrarBtn);
 
+		// Vaciar Carrito
 		JButton carritoBtn = new JButton("Vaciar carrito");
 		carritoBtn.addActionListener((e) -> {
 			ControladorImp.carrito = new Carrito();
+			JOptionPane.showMessageDialog(null, "Carrito vaciado con exito", "Vaciar carrito", 1);
 		});
 		buttonPanel.add(carritoBtn);
 
+		// Ver Carrito
+		JButton verCarritoBtn = new JButton("Ver carrito");
+		verCarritoBtn.addActionListener((e) -> {
+			if (ControladorImp.carrito == null) {
+				JOptionPane.showMessageDialog(null, "Por favor abra una venta primero", "Ver carrito", 0);
+			} else {
+				listenerAbrirVentana(Evento.VISTA_VER_CARRITO);
+			}
+		});
+		buttonPanel.add(verCarritoBtn);
+
+		// Modificar factura
 		JButton bajaBtn = new JButton("Modificar factura");
 		bajaBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_MODIFICAR_FACTURA));
 		buttonPanel.add(bajaBtn);
 
+		// Buscar factura
 		JButton actualizarBtn = new JButton("Buscar factura");
 		actualizarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_BUSCAR_FACTURA));
 		buttonPanel.add(actualizarBtn);
 
+		// Listar factura
 		JButton listarBtn = new JButton("Listar Facturas");
 		listarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_LISTAR_FACTURAS));
 		buttonPanel.add(listarBtn);
 
+		// Listar factura POR cliente
 		JButton listarPorClienteBtn = new JButton("Listar Facturas Por Cliente");
 		listarPorClienteBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE));
 		buttonPanel.add(listarPorClienteBtn);
 
+		// Listar factura CON cliente
 		JButton listarConClienteBtn = new JButton("Listar Facturas Con Cliente");
 		listarConClienteBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_LISTAR_FACTURAS_CON_CLIENTE));
 		buttonPanel.add(listarConClienteBtn);
 
+		// Devolucion factura
 		JButton devolucionFacturaBtn = new JButton("Devolucion Factura");
 		devolucionFacturaBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_DEVOLUCION_FACTURA));
 		buttonPanel.add(devolucionFacturaBtn);

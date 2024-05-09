@@ -47,7 +47,31 @@
          "id_cliente": 0,
          "id_vendedor": 1,
          "activa": true
+      },
+      {
+         "id_factura": 6,
+         "fecha": "hdgjdhs",
+         "precio": 0,
+         "id_cliente": 0,
+         "id_vendedor": 1,
+         "activa": true
+      },
+      {
+         "id_factura": 7,
+         "fecha": "djhvueri",
+         "precio": 6.45,
+         "id_cliente": 0,
+         "id_vendedor": 1,
+         "activa": true
+      },
+      {
+         "id_factura": 8,
+         "fecha": "jhiunh",
+         "precio": 26.45,
+         "id_cliente": 0,
+         "id_vendedor": 1,
+         "activa": true
       }
    ],
-   "next_id": 6
+   "next_id": 9
 }

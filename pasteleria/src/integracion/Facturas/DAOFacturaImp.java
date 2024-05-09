@@ -35,7 +35,7 @@ public class DAOFacturaImp implements DAOFactura {
 			jo.put("fecha", f.getFecha());
 			jo.put("id_cliente", f.getIdCliente());
 			jo.put("id_vendedor", f.getIdVendedor());
-			jo.put("precio", f.getPrecio_total());
+			jo.put("precio", Math.round(f.getPrecio_total() * 1000.0) / 1000.0);
 			jo.put("activa", true);
 			ja.put(jo);// lo añadimos a nuestra lista de facturas
 
@@ -76,8 +76,8 @@ public class DAOFacturaImp implements DAOFactura {
 			int next_id = ji.getInt("next_id");
 			// Buscamos la factura en nuestro array
 			int i = searchInJArray(id_f, ja);
-			//solo se puede modificar la factura solo si existe y si esta activa
-			if (i != -1&&ja.getJSONObject(i).getBoolean("activa")) {
+			// solo se puede modificar la factura solo si existe y si esta activa
+			if (i != -1 && ja.getJSONObject(i).getBoolean("activa")) {
 				// Si la factura existe la modificamos
 				exito = true;
 				ja.getJSONObject(i).put("fecha", fecha);
@@ -147,7 +147,8 @@ public class DAOFacturaImp implements DAOFactura {
 			JSONArray ja = ji.getJSONArray("ListaFacturas");
 			int next_id = ji.getInt("next_id");
 			// cambiamos el precio final y, si es necesario, su estado
-			ja.getJSONObject(factura.getIdFactura()).put("precio", factura.getPrecio_total());
+			ja.getJSONObject(factura.getIdFactura()).put("precio",
+					Math.round(factura.getPrecio_total() * 1000.0) / 1000.0);
 			ja.getJSONObject(factura.getIdFactura()).put("activa", factura.getActivo());
 			// Escribimos en el json
 			writeJSONObject(filename, ja, next_id);

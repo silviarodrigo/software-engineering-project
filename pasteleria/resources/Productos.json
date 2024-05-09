@@ -7,7 +7,7 @@
          "marcaId": 0,
          "alergenos": "leche",
          "id": 0,
-         "stock": 9,
+         "stock": 34,
          "nombre": "LecheEnteraNespresso",
          "activo": true
       },
@@ -18,7 +18,7 @@
          "relleno": "chocolate",
          "alergenos": "chocolate",
          "id": 1,
-         "stock": 10,
+         "stock": 5,
          "nombre": "DonettesDeRayas",
          "activo": true
       },

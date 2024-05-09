@@ -47,7 +47,39 @@
          "id_producto": 0,
          "cantidad": 3,
          "activa": true
+      },
+      {
+         "id_factura": 6,
+         "precio": 0,
+         "id_linea": 6,
+         "id_producto": 0,
+         "cantidad": 0,
+         "activa": true
+      },
+      {
+         "id_factura": 7,
+         "precio": 6.45,
+         "id_linea": 7,
+         "id_producto": 0,
+         "cantidad": 3,
+         "activa": true
+      },
+      {
+         "id_factura": 8,
+         "precio": 6.45,
+         "id_linea": 8,
+         "id_producto": 0,
+         "cantidad": 3,
+         "activa": true
+      },
+      {
+         "id_factura": 8,
+         "precio": 20,
+         "id_linea": 9,
+         "id_producto": 1,
+         "cantidad": 5,
+         "activa": true
       }
    ],
-   "next_id": 6
+   "next_id": 10
 }

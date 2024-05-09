@@ -94,7 +94,7 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 						cantidad = Integer.parseInt(this._jSCantidad.getValue().toString());
 						// si el producto y la cantidad so validos calculamos lo que costaria
 						double precio = producto.getPrecio() * cantidad;
-						_tFPrecio.setText(String.valueOf(precio));
+						_tFPrecio.setText(String.format("%.2f", precio));
 					} catch (Exception exception) {
 						JOptionPane.showMessageDialog(this, "Debes indicar una cantidad valida", "Anadir Producto",
 								JOptionPane.ERROR_MESSAGE);

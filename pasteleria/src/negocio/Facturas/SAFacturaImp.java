@@ -69,7 +69,7 @@ public class SAFacturaImp implements SAFactura {
 				TLineaFactura linea_factura = lineas_factura_por_comprobar.get(i);
 				// comprobamos que es una linea válida
 				TProducto producto = daoProducto.buscarProducto(linea_factura.getIdProducto());
-				if (producto == null || linea_factura.getCantidad() < 0 || producto.getStock() < 0
+				if (producto == null || linea_factura.getCantidad() < 0 || producto.getStock() <= 0
 						|| producto.getPrecio() < 0) {
 					;
 				} else {

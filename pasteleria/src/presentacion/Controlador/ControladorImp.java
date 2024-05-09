@@ -132,6 +132,9 @@ public class ControladorImp extends Controlador {
 		case DEVOLUCION_FACTURA:
 			devolucionFactura(datos);
 			break;
+		case VISTA_VER_CARRITO:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_VER_CARRITO);
+			break;
 
 		// MARCA
 		case VISTA_PRINCIPAL_MARCA:
