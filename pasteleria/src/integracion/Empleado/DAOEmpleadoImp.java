@@ -165,7 +165,7 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 	private boolean saveData(JSONObject jo) {
 		try {
 			BufferedWriter bufw = new BufferedWriter(new FileWriter("resources/Empleado.json", false));
-			bufw.write(jo.toString());
+			bufw.write(jo.toString(3));
 			bufw.close();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
@@ -177,15 +177,15 @@ public class DAOEmpleadoImp implements DAOEmpleado {
 	//creamos el JSON con la info de todo el empleado
 	private JSONObject createJSON(TEmpleado empleado) {
 		JSONObject jEmpleado = new JSONObject();
-		jEmpleado.put("id", empleado.getId()).toString();
-		jEmpleado.put("nombre", empleado.getNombre()).toString();
-		jEmpleado.put("apellidos", empleado.getApellido()).toString();
-		jEmpleado.put("DNI", empleado.getDNI()).toString();
-		jEmpleado.put("email", empleado.getCorreo()).toString();
-		jEmpleado.put("numTelefono", empleado.getNumTelefono()).toString();
-		jEmpleado.put("direccion", empleado.getDireccion()).toString();
-		jEmpleado.put("numVentas", empleado.getNumVentas()).toString();
-		jEmpleado.put("activo", empleado.getActivo()).toString();
+		jEmpleado.put("id", empleado.getId());
+		jEmpleado.put("nombre", empleado.getNombre());
+		jEmpleado.put("apellidos", empleado.getApellido());
+		jEmpleado.put("DNI", empleado.getDNI());
+		jEmpleado.put("email", empleado.getCorreo());
+		jEmpleado.put("numTelefono", empleado.getNumTelefono());
+		jEmpleado.put("direccion", empleado.getDireccion());
+		jEmpleado.put("numVentas", empleado.getNumVentas());
+		jEmpleado.put("activo", empleado.getActivo());
 		
 		return jEmpleado;
 	}
