@@ -20,14 +20,14 @@
       },
       {
          "Nombre Proveedor": "AlAndalus Productos",
-         "Activo": true,
-         "Nombre Marca": "Nespresso",
+         "Activo": false,
+         "Nombre Marca": "Codan",
          "Id": 3
       },
       {
          "Nombre Proveedor": "Velton Spain",
-         "Activo": true,
-         "Nombre Marca": "Nespresso",
+         "Activo": false,
+         "Nombre Marca": "Codan",
          "Id": 4
       },
       {

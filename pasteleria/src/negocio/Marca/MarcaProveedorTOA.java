@@ -28,7 +28,7 @@ public class MarcaProveedorTOA {
 		else throw new IllegalArgumentException("La marca " + nombreMarca + " ya está registrada con el proveedor " + nombreProveedor);
 	}
 	
-	public void bajaMarcaProveedor(String nombreMarca, String nombreProv) { //la marca solo tiene bien el nombre
+	public void bajaMarcaProveedor(String nombreMarca, String nombreProv) {
 		Object prueba;
 		if (nombreMarca != null) { //hay que dar de baja todas las entradas que tengan esa marca
 			DAOMarca daoMarca = FactoriaAbstractaIntegracion.getInstance().crearDAOMarca();

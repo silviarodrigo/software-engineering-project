@@ -3,14 +3,12 @@ package negocio.Marca;
 import java.util.Collection;
 
 import negocio.Producto.TProducto;
-import negocio.Proveedor.TProveedor;
 import integracion.Factoria.FactoriaAbstractaIntegracion;
 import integracion.Marca.DAOMarca;
+import integracion.Marca.DAOMarcaProveedor;
 import integracion.Producto.DAOProducto;
-import integracion.Proveedor.DAOProveedor;
 
 //"Negocio pide a integración que lo añada"
-
 //Accede al DAOMarca, DAOProducto (comprobar que no hay ningun producto con esa marca la eliminarla) y a DAOMarcaProveedor
 
 public class SAMarcaImp implements SAMarca{
@@ -51,29 +49,16 @@ public class SAMarcaImp implements SAMarca{
 		int id = marca.getID();
 		//Comprobamos que no haya ningun producto con esa marca 
 		DAOProducto daoProducto = FactoriaAbstractaIntegracion.getInstance().crearDAOProducto();
-		int cont1 = 0;
+		int cont = 0;
 		for (TProducto prod : daoProducto.listarProductos()) {
 			if (prod.getMarca() == id) {
-				cont1++;
+				cont++;
 			}
 		}
-		if (cont1 != 0) throw new IllegalArgumentException("Existen productos con esta marca.");
+		if (cont != 0) throw new IllegalArgumentException("Existen productos con esta marca.");
 		
-		/* LO TENGO QUE HACER CON MARCAPROVEEDOR, AÑADIR LISTAR()
-		//Comprobamos que no haya ningún proveedor que nos de esa marca
-		DAOProveedor daoProveedor = FactoriaAbstractaIntegracion.getInstance().crearDAOProveedor();
-		int cont2 = 0;
-		for (TProveedor prov : daoProveedor.listarProveedores()) {
-			if (prov.get == id) {
-				cont2++;
-			}
-		}
-		if (cont2 != 0) throw new IllegalArgumentException("Existen productos con esta marca.");
-		
-		*/
-			daoMarca.bajaMarca(id);
-			return id;
-		
+		daoMarca.bajaMarca(id);
+		return id;
 	}
 	
 	

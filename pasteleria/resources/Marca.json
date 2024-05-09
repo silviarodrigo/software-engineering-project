@@ -8,7 +8,7 @@
       },
       {
          "Nombre": "Coca Cola",
-         "Correo": "cccompras@cocacola.es",
+         "Correo": "cc@cocacola.es",
          "Activo": true,
          "Id": 1
       },
@@ -17,7 +17,25 @@
          "Correo": "compras@bimbo.es",
          "Activo": true,
          "Id": 2
+      },
+      {
+         "Nombre": "Pascual",
+         "Correo": "leche@pascual.es",
+         "Activo": true,
+         "Id": 3
+      },
+      {
+         "Nombre": "Cuetara",
+         "Correo": "cue@tara.es",
+         "Activo": true,
+         "Id": 4
+      },
+      {
+         "Nombre": "Codan",
+         "Correo": "bolleria@codan.es",
+         "Activo": true,
+         "Id": 5
       }
    ],
-   "next_id": 3
+   "next_id": 6
 }
