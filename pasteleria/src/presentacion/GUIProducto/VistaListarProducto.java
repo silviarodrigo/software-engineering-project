@@ -1,7 +1,6 @@
 package presentacion.GUIProducto;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.util.Collection;
 
 import javax.swing.BorderFactory;
@@ -15,7 +14,6 @@ import javax.swing.JTable;
 import negocio.Producto.TProducto;
 import presentacion.Evento;
 import presentacion.IGUI;
-import presentacion.Controlador.Controlador;
 
 public class VistaListarProducto extends JFrame implements IGUI {
 	private static final long serialVersionUID = -3264311669905931506L;

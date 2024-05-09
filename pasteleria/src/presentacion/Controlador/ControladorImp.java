@@ -132,9 +132,6 @@ public class ControladorImp extends Controlador {
 		case DEVOLUCION_FACTURA:
 			devolucionFactura(datos);
 			break;
-		case VISTA_VER_CARRITO:
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_VER_CARRITO);
-			break;
 
 		// MARCA
 		case VISTA_PRINCIPAL_MARCA:
@@ -312,8 +309,6 @@ public class ControladorImp extends Controlador {
 		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
 		String nombre = (String) datos;
 		TProducto producto = saProducto.buscarProducto(nombre);
-		// No se si hay que crear nueva vista o tenerla guardada en el controlador (o en
-		// la factoria)
 		if (producto != null) {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_PRODUCTO)
 					.actualizar(Evento.BUSCAR_PRODUCTO_SUCCESS, producto);
@@ -709,3 +704,4 @@ public class ControladorImp extends Controlador {
 				.actualizar(Evento.LISTAR_PROVEEDOR, proveedores);
 	}
 }
+>>>>>>> branch 'main' of https://github.com/Yodaskywall/RepoIS2.git

@@ -6,7 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.InputStream;
-
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -119,7 +120,27 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 		}
 	}
 	
-	//AÑADIR LISTAR
+	@Override
+	public Collection<TMarcaProveedor> listarMarcaProveedor() {
+		Collection<TMarcaProveedor> lista = new ArrayList<TMarcaProveedor>();
+		
+		//Accedemos a los datos guardados
+		JSONObject JO = getJSONFromFile();
+		
+		if (JO != null) {
+			// Obtenemos los datos del JSON
+			JSONArray JA = JO.getJSONArray("ListaMarcasProveedor");
+			
+			for (int i = 0; i < JA.length(); i++) {
+				JSONObject jo = JA.getJSONObject(i);
+				
+				if(jo.getBoolean("Activo")) {
+					lista.add(new TMarcaProveedor(i , jo.getString("Nombre Marca"), jo.getString("Nombre Proveedor"), jo.getBoolean("Activo")));
+				}
+			}
+		}
+		return lista;
+	}
 
 
 	
@@ -156,5 +177,4 @@ public class DAOMarcaProveedorImp implements DAOMarcaProveedor {
 				return false;
 			}
 		}
-	
 }

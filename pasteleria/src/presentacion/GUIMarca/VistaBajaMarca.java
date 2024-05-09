@@ -66,11 +66,10 @@ public class VistaBajaMarca extends JDialog implements IGUI{
 			return;
 		}
 		
-		
 		//Damos de baja todas las lineas de MarcaProveedor
 		String nombreProv = null;
 		MarcaProveedorTOA marcaProvTOA = new MarcaProveedorTOA();
-		marcaProvTOA.bajaMarcaProveedor(nombre, nombreProv); //no hace falta lanzar la excepción porque si no existe la marca ya salta en bajaMarca();
+		marcaProvTOA.bajaMarcaProveedor(nombre, nombreProv); //no hace falta lanzar la excepción porque si no existe la marca ya salta en DAObajaMarca();
 		
 		
 		Controlador.getInstance().accion(Evento.BAJA_MARCA, nombre);

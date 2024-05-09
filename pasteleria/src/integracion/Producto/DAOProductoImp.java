@@ -199,7 +199,7 @@ public class DAOProductoImp implements DAOProducto {
 	
 	
 	private JSONArray getProductosJArray() {
-		// Devuelve el JSONArray guardado en el archivo filename
+		// Devuelve el JSONArray guardado en el archivo productos
 		JSONObject jO = getJSONFromFile(); 
 		if (jO == null) {
 			return null;
