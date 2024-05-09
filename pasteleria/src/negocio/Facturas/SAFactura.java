@@ -7,15 +7,7 @@ public interface SAFactura {
 
 	public Collection<TFactura> listarFacturas();
 
-	//public int crearFactura(TDatosVenta datos);
-
-//	public boolean anadirProducto(TLineaFactura linea, Carrito c);
-//
-//	public boolean eliminarProducto(TLineaFactura linea, Carrito c);
-
 	public int cerrarVenta(TDatosVenta datos);
-
-	//public Carrito abrirVenta();
 
 	public boolean modificarFactura(int id_f, int id_c, int id_v, String fecha);
 

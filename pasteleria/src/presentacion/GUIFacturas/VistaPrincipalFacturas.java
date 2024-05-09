@@ -4,17 +4,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import negocio.Factoria.FactoriaAbstractaNegocio;
 import negocio.Facturas.Carrito;
-import negocio.Facturas.SAFactura;
-
 import java.awt.GridLayout;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
 import presentacion.Controlador.ControladorImp;
-import presentacion.factoria.FactoriaAbstractaPresentacion;
 
 public class VistaPrincipalFacturas extends JFrame implements IGUI {
 	private static final long serialVersionUID = 1L;
@@ -80,14 +75,6 @@ public class VistaPrincipalFacturas extends JFrame implements IGUI {
 		});
 		buttonPanel.add(cerrarBtn);
 
-		// Vaciar Carrito
-		JButton carritoBtn = new JButton("Vaciar carrito");
-		carritoBtn.addActionListener((e) -> {
-			ControladorImp.carrito = new Carrito();
-			JOptionPane.showMessageDialog(null, "Carrito vaciado con exito", "Vaciar carrito", 1);
-		});
-		buttonPanel.add(carritoBtn);
-
 		// Ver Carrito
 		JButton verCarritoBtn = new JButton("Ver carrito");
 		verCarritoBtn.addActionListener((e) -> {
@@ -99,15 +86,13 @@ public class VistaPrincipalFacturas extends JFrame implements IGUI {
 		});
 		buttonPanel.add(verCarritoBtn);
 
-		// Modificar factura
-		JButton bajaBtn = new JButton("Modificar factura");
-		bajaBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_MODIFICAR_FACTURA));
-		buttonPanel.add(bajaBtn);
-
-		// Buscar factura
-		JButton actualizarBtn = new JButton("Buscar factura");
-		actualizarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_BUSCAR_FACTURA));
-		buttonPanel.add(actualizarBtn);
+		// Vaciar Carrito
+		JButton carritoBtn = new JButton("Vaciar carrito");
+		carritoBtn.addActionListener((e) -> {
+			ControladorImp.carrito = new Carrito();
+			JOptionPane.showMessageDialog(null, "Carrito vaciado con exito", "Vaciar carrito", 1);
+		});
+		buttonPanel.add(carritoBtn);
 
 		// Listar factura
 		JButton listarBtn = new JButton("Listar Facturas");
@@ -123,6 +108,16 @@ public class VistaPrincipalFacturas extends JFrame implements IGUI {
 		JButton listarConClienteBtn = new JButton("Listar Facturas Con Cliente");
 		listarConClienteBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_LISTAR_FACTURAS_CON_CLIENTE));
 		buttonPanel.add(listarConClienteBtn);
+
+		// Buscar factura
+		JButton actualizarBtn = new JButton("Buscar factura");
+		actualizarBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_BUSCAR_FACTURA));
+		buttonPanel.add(actualizarBtn);
+
+		// Modificar factura
+		JButton bajaBtn = new JButton("Modificar factura");
+		bajaBtn.addActionListener((e) -> listenerAbrirVentana(Evento.VISTA_MODIFICAR_FACTURA));
+		buttonPanel.add(bajaBtn);
 
 		// Devolucion factura
 		JButton devolucionFacturaBtn = new JButton("Devolucion Factura");

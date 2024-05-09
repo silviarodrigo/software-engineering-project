@@ -7,7 +7,7 @@
          "marcaId": 0,
          "alergenos": "leche",
          "id": 0,
-         "stock": 34,
+         "stock": 9,
          "nombre": "LecheEnteraNespresso",
          "activo": true
       },
@@ -18,7 +18,7 @@
          "relleno": "chocolate",
          "alergenos": "chocolate",
          "id": 1,
-         "stock": 5,
+         "stock": 26,
          "nombre": "DonettesDeRayas",
          "activo": true
       },
@@ -29,9 +29,9 @@
          "relleno": "nocilla",
          "alergenos": "chocolate, avellanas",
          "id": 2,
-         "stock": 5,
+         "stock": 12,
          "nombre": "DonutsNocilla",
-         "activo": false
+         "activo": true
       },
       {
          "precio": 3.7,
@@ -40,9 +40,9 @@
          "integral": false,
          "alergenos": "gluten",
          "id": 3,
-         "stock": 30,
+         "stock": 9,
          "nombre": "PanBimboSinCorteza",
-         "activo": true,
+         "activo": false,
          "sal": true
       },
       {
@@ -52,7 +52,7 @@
          "integral": false,
          "alergenos": "gluten",
          "id": 4,
-         "stock": 30,
+         "stock": 2,
          "nombre": "PanBimbo",
          "activo": true,
          "sal": true

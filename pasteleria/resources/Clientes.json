@@ -14,7 +14,7 @@
          "id": 1,
          "nombre": "Alfredo",
          "DNI": "455312554H",
-         "activo": true
+         "activo": false
       },
       {
          "apellidos": "Ramos Ramírez",

@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-{"empleados":[{"apellidos":"Fernández","numTelefono":"678909879","numVentas":0,"direccion":"Francisco de Silvela,3","id":0,"nombre":"Victoria","DNI":"45670890L","email":"victoriafernandez@ucm.es","activo":false},{"apellidos":"Martínez","numTelefono":"678123456","numVentas":9,"direccion":"Porfesor Aranguren, 25","id":1,"nombre":"Marcos","DNI":"45328786K","email":"marcosmartinez@ucm.es","activo":true},{"apellidos":"Suárez","numTelefono":"678543126","numVentas":0,"direccion":"Lagasca 45","id":2,"nombre":"Alejandro","DNI":"45909123M","email":"alesuarez@gmail.com","activo":false},{"apellidos":"López","numTelefono":"657234890","numVentas":0,"direccion":"Príncipe de Vergara, 8","id":3,"nombre":"Daniela","DNI":"43890675V","email":"danielalopez@hotmail.es","activo":true}],"next_id":4}
-=======
 {
    "empleados": [
       {
          "apellidos": "Fernández",
          "numTelefono": "657890987",
-         "numVentas": 0,
+         "numVentas": 1,
          "direccion": "ramiro de maeztu",
          "id": 0,
          "nombre": "Maria",
@@ -28,7 +25,7 @@
       {
          "apellidos": "López",
          "numTelefono": "675123456",
-         "numVentas": 0,
+         "numVentas": 2,
          "direccion": "Gran Vía,34",
          "id": 2,
          "nombre": "Laura",
@@ -39,7 +36,7 @@
       {
          "apellidos": "Hernández",
          "numTelefono": "675432789",
-         "numVentas": 0,
+         "numVentas": 1,
          "direccion": "Francisco Silvela, 45",
          "id": 3,
          "nombre": "45679897L",
@@ -56,7 +53,7 @@
          "nombre": "Mario",
          "DNI": "45678908K",
          "email": "mariofuentes@ucm.es",
-         "activo": false
+         "activo": true
       },
       {
          "apellidos": "García",
@@ -67,12 +64,12 @@
          "nombre": "Daniel",
          "DNI": "45678456K",
          "email": "danigarcia@hotmail.com",
-         "activo": false
+         "activo": true
       },
       {
          "apellidos": "de las Heras",
          "numTelefono": "654325678",
-         "numVentas": 0,
+         "numVentas": 2,
          "direccion": "Ramiro de Maeztu,4",
          "id": 6,
          "nombre": "Macarena",
@@ -83,18 +80,18 @@
       {
          "apellidos": "Montes",
          "numTelefono": "678900989",
-         "numVentas": 0,
+         "numVentas": 1,
          "direccion": "Garcia Morato,5",
          "id": 7,
          "nombre": "Gabriela",
          "DNI": "45324564G",
          "email": "gabrimontes@ucm.es",
-         "activo": true
+         "activo": false
       },
       {
          "apellidos": "Pérez",
          "numTelefono": "722456321",
-         "numVentas": 0,
+         "numVentas": 1,
          "direccion": "Profesor Aranguren,20",
          "id": 8,
          "nombre": "Sergio",
@@ -105,13 +102,13 @@
       {
          "apellidos": "Martinez",
          "numTelefono": "678543457",
-         "numVentas": 0,
+         "numVentas": 1,
          "direccion": "Cuatro Caminos,46",
          "id": 9,
          "nombre": "Marcos",
          "DNI": "45678987J",
          "email": "mmartinez@gmail.com",
-         "activo": false
+         "activo": true
       },
       {
          "apellidos": "Chacón",
@@ -127,7 +124,7 @@
       {
          "apellidos": "Fraile",
          "numTelefono": "677543123",
-         "numVentas": 0,
+         "numVentas": 1,
          "direccion": "Lagasca 23",
          "id": 11,
          "nombre": "Martina",
@@ -138,35 +135,35 @@
       {
          "apellidos": "Suárez",
          "numTelefono": "654456765",
-         "numVentas": 0,
+         "numVentas": 1,
          "direccion": "Gran Vía,87",
          "id": 12,
          "nombre": "Manuel",
          "DNI": "43213456H",
          "email": "manusuarez@ucm.es",
-         "activo": false
+         "activo": true
       },
       {
          "apellidos": "Blanco",
          "numTelefono": "656432124",
-         "numVentas": 0,
+         "numVentas": 3,
          "direccion": "Beatriz de Bobadilla,2",
          "id": 13,
          "nombre": "Vega",
          "DNI": "45324564B",
          "email": "vblanco@gmail.com",
-         "activo": true
+         "activo": false
       },
       {
          "apellidos": "Campos",
          "numTelefono": "657890987",
-         "numVentas": 0,
+         "numVentas": 1,
          "direccion": "Fernández de los Ríos,56",
          "id": 14,
          "nombre": "Rafael",
          "DNI": "45678987K",
          "email": "rafacampos@ucm.es",
-         "activo": false
+         "activo": true
       },
       {
          "apellidos": "Martinez",
@@ -177,9 +174,8 @@
          "nombre": "Laura",
          "DNI": "45670897G",
          "email": "laumart@ucm.es",
-         "activo": true
+         "activo": false
       }
    ],
    "next_id": 16
 }
->>>>>>> branch 'main' of https://github.com/Yodaskywall/RepoIS2.git

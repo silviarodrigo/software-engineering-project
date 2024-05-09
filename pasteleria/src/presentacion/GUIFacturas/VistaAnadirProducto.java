@@ -13,15 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-
-import negocio.Factoria.FactoriaAbstractaNegocio;
-import negocio.Facturas.Carrito;
-import negocio.Facturas.SAFactura;
 import negocio.Facturas.TLineaFactura;
 import negocio.Producto.TProducto;
 import presentacion.Evento;
 import presentacion.IGUI;
-import presentacion.Controlador.Controlador;
 import presentacion.Controlador.ControladorImp;
 import presentacion.factoria.FactoriaAbstractaPresentacion;
 
@@ -141,9 +136,6 @@ public class VistaAnadirProducto extends JFrame implements IGUI {
 			}
 			// si todo es valido crea la linea de factura
 			TLineaFactura linea = new TLineaFactura(id_prod, 0, 0, cantidad, 0, true);
-
-			// Controlador.getInstance().accion(Evento.ANADIR_PRODUCTO, linea);
-			SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
 			if (this._mapaProductos.containsKey(id_prod)) {
 				ControladorImp.carrito.anadirProducto(linea);
 				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ANADIR_PRODUCTO)

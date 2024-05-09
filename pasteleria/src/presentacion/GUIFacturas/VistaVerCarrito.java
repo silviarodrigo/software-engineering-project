@@ -3,11 +3,8 @@ package presentacion.GUIFacturas;
 import java.awt.BorderLayout;
 
 import java.awt.Color;
-import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;

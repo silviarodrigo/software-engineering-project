@@ -1,17 +1,19 @@
 package presentacion.GUIFacturas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
-
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-import negocio.Facturas.TDatosVenta;
 import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
 import negocio.Facturas.TFacturaLineaFacturas;
@@ -75,6 +77,16 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 		_infoPanel.setLayout(new BoxLayout(_infoPanel, BoxLayout.Y_AXIS));
 		_mainPanel.add(_infoPanel);
 
+		// Creamos la tabla
+		ModeloTablaLineaFactura _modeloTabla = new ModeloTablaLineaFactura();
+		JTable table = new JTable(_modeloTabla);
+		JPanel tablePanel = new JPanel();
+
+		tablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2),
+				"Lineas de Facturas"));
+		tablePanel.add(new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+
 		// Imprimimos toda la informacion de la factura
 		// la factura
 		TFactura factura = factura_lineasFactura.getTFactura();
@@ -88,17 +100,8 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 		// las lineas de factura
 		ArrayList<TLineaFactura> lineas_factura = factura_lineasFactura.getLineasFactura();
 		if (lineas_factura.size() > 0) {
-			JLabel infoLineaLabel = new JLabel("INFORMACION LINEAS DE FACTURA");
-			_infoPanel.add(infoLineaLabel);
-			for (TLineaFactura lf : lineas_factura) {
-				_infoPanel.add(new JLabel("Id linea: " + lf.getIdLinea()));
-				_infoPanel.add(new JLabel("Id producto: " + lf.getIdProducto()));
-				_infoPanel.add(new JLabel("Cantidad: " + lf.getCantidad()));
-				_infoPanel.add(new JLabel("Precio: " + lf.getPrecio()));
-				_infoPanel.add(new JLabel("Activa: " + lf.getActivo()));
-				_infoPanel.add(new JLabel("."));
-
-			}
+			_infoPanel.add(tablePanel);
+			_modeloTabla.loadData(lineas_factura);
 		}
 
 		// continuar

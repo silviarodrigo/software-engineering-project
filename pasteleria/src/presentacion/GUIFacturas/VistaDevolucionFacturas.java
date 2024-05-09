@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+
 import negocio.Facturas.TLineaFactura;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -53,7 +55,7 @@ public class VistaDevolucionFacturas extends JFrame implements IGUI {
 
 		// Cantidad
 		JLabel cantidadLabel = new JLabel("Cantidad: ");
-		_jSCantidad = new JSpinner();
+		_jSCantidad = new JSpinner(new SpinnerNumberModel(0, 0, null, 1));
 		_jSCantidad.setPreferredSize(new Dimension(100, 20));
 		JPanel cantidadPanel = new JPanel();
 		cantidadPanel.add(cantidadLabel);
@@ -76,7 +78,6 @@ public class VistaDevolucionFacturas extends JFrame implements IGUI {
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
-
 	}
 
 	private void devolucionFactura() {
@@ -105,11 +106,9 @@ public class VistaDevolucionFacturas extends JFrame implements IGUI {
 			return;
 		}
 
-		// si todos los datos son correctos creamos la linea de factura con los datos a
-		// quitar
+		// si todos los datos son correctos creamos la linea de factura con los datos a quitar
 		TLineaFactura linea_factura = new TLineaFactura(id_producto, id_factura, 0, cantidad, 0, true);
 		Controlador.getInstance().accion(Evento.DEVOLUCION_FACTURA, linea_factura);
-
 	}
 
 	public void actualizar(Evento e, Object datos) {

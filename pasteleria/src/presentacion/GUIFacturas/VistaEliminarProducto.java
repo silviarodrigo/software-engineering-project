@@ -9,13 +9,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
-
-import negocio.Factoria.FactoriaAbstractaNegocio;
-import negocio.Facturas.SAFactura;
+import javax.swing.SpinnerNumberModel;
 import negocio.Facturas.TLineaFactura;
 import presentacion.Evento;
 import presentacion.IGUI;
-import presentacion.Controlador.Controlador;
 import presentacion.Controlador.ControladorImp;
 import presentacion.factoria.FactoriaAbstractaPresentacion;
 
@@ -53,7 +50,7 @@ public class VistaEliminarProducto extends JFrame implements IGUI {
 
 		// Cantidad
 		JLabel cantidadLabel = new JLabel("Cantidad: ");
-		_jSCantidad = new JSpinner();
+		_jSCantidad = new JSpinner(new SpinnerNumberModel(0, 0, null, 1));
 		_jSCantidad.setPreferredSize(new Dimension(100, 20));
 		JPanel cantidadPanel = new JPanel();
 		cantidadPanel.add(cantidadLabel);
@@ -98,7 +95,6 @@ public class VistaEliminarProducto extends JFrame implements IGUI {
 				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ELIMINAR_PRODUCTO)
 						.actualizar(Evento.ELIMINAR_PRODUCTO_ERROR, "producto no encontrado");
 			}
-			Controlador.getInstance().accion(Evento.ELIMINAR_PRODUCTO, linea);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Debes indicar un id de producto valido", "Eliminar Producto",
 					JOptionPane.ERROR_MESSAGE);

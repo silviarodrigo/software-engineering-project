@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import negocio.Facturas.TFactura;
-import negocio.Facturas.TDatosVenta;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import presentacion.Evento;

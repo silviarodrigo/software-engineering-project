@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.table.AbstractTableModel;
-
-import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
 
 public class ModeloTablaLineaFacturaCarrito extends AbstractTableModel {
