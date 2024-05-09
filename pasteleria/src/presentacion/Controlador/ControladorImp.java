@@ -132,6 +132,9 @@ public class ControladorImp extends Controlador {
 		case DEVOLUCION_FACTURA:
 			devolucionFactura(datos);
 			break;
+		case VISTA_VER_CARRITO:
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_VER_CARRITO);
+			break;
 
 		// MARCA
 		case VISTA_PRINCIPAL_MARCA:
@@ -704,4 +707,3 @@ public class ControladorImp extends Controlador {
 				.actualizar(Evento.LISTAR_PROVEEDOR, proveedores);
 	}
 }
->>>>>>> branch 'main' of https://github.com/Yodaskywall/RepoIS2.git
