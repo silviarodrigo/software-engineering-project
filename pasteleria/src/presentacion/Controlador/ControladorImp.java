@@ -309,8 +309,6 @@ public class ControladorImp extends Controlador {
 		SAProducto saProducto = FactoriaAbstractaNegocio.getInstance().creaSAProducto();
 		String nombre = (String) datos;
 		TProducto producto = saProducto.buscarProducto(nombre);
-		// No se si hay que crear nueva vista o tenerla guardada en el controlador (o en
-		// la factoria)
 		if (producto != null) {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_PRODUCTO)
 					.actualizar(Evento.BUSCAR_PRODUCTO_SUCCESS, producto);
