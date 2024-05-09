@@ -13,6 +13,7 @@ import negocio.Facturas.TFactura;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
+import presentacion.Controlador.ControladorImp;
 
 public class VistaCerrarVenta extends JFrame implements IGUI {
 
@@ -91,9 +92,10 @@ public class VistaCerrarVenta extends JFrame implements IGUI {
 			id_cliente = Integer.parseInt(this._tFIdCliente.getText());
 			id_vendedor = Integer.parseInt(this._tFIdVendedor.getText());
 			fecha = this._tFFecha.getText();
-			// si todo es valido creamos la nueva factura
-			TFactura factura = new TFactura(0, 0, new TDatosVenta(fecha, id_cliente, id_vendedor, null), true);
-			Controlador.getInstance().accion(Evento.CERRAR_VENTA, factura);
+			// si todo es valido creamos los datos de la venta
+			TDatosVenta datos_venta = new TDatosVenta(id_cliente, id_vendedor, fecha,
+					ControladorImp.carrito.getProductos());
+			Controlador.getInstance().accion(Evento.CERRAR_VENTA, datos_venta);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Debes indicar un id valido", "Cerrar Venta",
 					JOptionPane.ERROR_MESSAGE);

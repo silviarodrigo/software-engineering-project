@@ -105,8 +105,9 @@ public class VistaDevolucionFacturas extends JFrame implements IGUI {
 			return;
 		}
 
-		// si todos los datos son correctos creamos la linea de factura con los datos a quitar
-		TLineaFactura linea_factura = new TLineaFactura(id_producto, id_factura, 0, cantidad, true);
+		// si todos los datos son correctos creamos la linea de factura con los datos a
+		// quitar
+		TLineaFactura linea_factura = new TLineaFactura(id_producto, id_factura, 0, cantidad, 0, true);
 		Controlador.getInstance().accion(Evento.DEVOLUCION_FACTURA, linea_factura);
 
 	}

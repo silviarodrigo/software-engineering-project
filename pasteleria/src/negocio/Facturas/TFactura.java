@@ -1,16 +1,20 @@
 package negocio.Facturas;
 
 public class TFactura {
-	private TDatosVenta datos;
 	private double precio_total;
 	private boolean activo;
 	private int id_factura;
+	private int id_vendedor;
+	private int id_cliente;
+	private String fecha;
 
-	public TFactura(int id, double total, TDatosVenta datos, boolean Activo) {
-		this.id_factura = id;
+	public TFactura(int id_f, int id_c, int id_v, double total,String fecha,boolean Activo) {
+		this.id_factura = id_f;
+		this.id_cliente = id_c;
+		this.id_vendedor = id_v;
 		this.precio_total = total;
-		this.datos = datos;
 		this.activo = Activo;
+		this.fecha = fecha;
 	}
 
 //GETTERS	
@@ -18,8 +22,16 @@ public class TFactura {
 		return this.id_factura;
 	}
 
-	public TDatosVenta getDatosVentas() {
-		return this.datos;
+	public int getIdCliente() {
+		return this.id_cliente;
+	}
+
+	public int getIdVendedor() {
+		return this.id_vendedor;
+	}
+
+	public String getFecha() {
+		return this.fecha;
 	}
 
 	public double getPrecio_total() {
@@ -35,8 +47,16 @@ public class TFactura {
 		this.id_factura = Id;
 	}
 
-	public void setDatosVentas(TDatosVenta datos) {
-		this.datos = datos;
+	public void setIdCliente(int Id) {
+		this.id_cliente = Id;
+	}
+
+	public void setIdVendedor(int Id) {
+		this.id_vendedor = Id;
+	}
+
+	public void setFecha(String Fecha) {
+		this.fecha = Fecha;
 	}
 
 	public void setPrecio_total(double Precio_total) {

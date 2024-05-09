@@ -13,6 +13,7 @@ import negocio.Facturas.Carrito;
 import negocio.Facturas.SAFactura;
 import negocio.Facturas.TDatosVenta;
 import negocio.Facturas.TFactura;
+import negocio.Facturas.TFacturaLineaFacturas;
 import negocio.Facturas.TFacturasCliente;
 import negocio.Facturas.TLineaFactura;
 import negocio.Marca.SAMarca;
@@ -26,7 +27,7 @@ import presentacion.Evento;
 import presentacion.factoria.FactoriaAbstractaPresentacion;
 
 public class ControladorImp extends Controlador {
-	private Carrito carrito;
+	public static Carrito carrito;
 
 	public void accion(Evento evento, Object datos) {
 		switch (evento) {
@@ -100,9 +101,9 @@ public class ControladorImp extends Controlador {
 		case VISTA_BUSCAR_FACTURA:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_FACTURA);
 			break;
-		case ABRIR_VENTA:
-			abrirVenta(datos);
-			break;
+//		case ABRIR_VENTA:
+//			abrirVenta(datos);
+//			break;
 		case CERRAR_VENTA:
 			cerrarVenta(datos);
 			break;
@@ -115,12 +116,12 @@ public class ControladorImp extends Controlador {
 		case ANADIR_PRODUCTO_CARGA:
 			cargarProductos(datos);
 			break;
-		case ANADIR_PRODUCTO:
-			anadirProducto(datos);
-			break;
-		case ELIMINAR_PRODUCTO:
-			eliminarProducto(datos);
-			break;
+//		case ANADIR_PRODUCTO:
+//			anadirProducto(datos);
+//			break;
+//		case ELIMINAR_PRODUCTO:
+//			eliminarProducto(datos);
+//			break;
 		// extras
 		case VISTA_LISTAR_FACTURAS_POR_CLIENTE:
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_LISTAR_FACTURAS_POR_CLIENTE);
@@ -362,74 +363,67 @@ public class ControladorImp extends Controlador {
 	}
 
 //FACTURAS
-	private void abrirVenta(Object datos) {
-		if (this.carrito != null) {
-			JOptionPane.showMessageDialog(null, "Ya hay una venta en curso, por favor cierre la venta primero",
-					"Abrir Venta", 0);
-		} else {
-			SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
-			this.carrito = saFactura.abrirVenta();
-			JOptionPane.showMessageDialog(null, "Carrito creado con exito", "Abrir Venta", 1);
-		}
-	}
+//	private void abrirVenta(Object datos) {
+//		if (this.carrito != null) {
+//			JOptionPane.showMessageDialog(null, "Ya hay una venta en curso, por favor cierre la venta primero",
+//					"Abrir Venta", 0);
+//		} else {
+//			SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
+//			this.carrito = saFactura.abrirVenta();
+//			JOptionPane.showMessageDialog(null, "Carrito creado con exito", "Abrir Venta", 1);
+//		}
+//	}
 
 	private void cerrarVenta(Object datos) {
-		if (this.carrito == null) {
-			JOptionPane.showMessageDialog(null, "por favor abra una venta primero", "Cerrar Venta", 0);
+		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
+		TDatosVenta datos_venta = (TDatosVenta) datos;
+		int id_factura = saFactura.cerrarVenta(datos_venta);
+		if (id_factura != -1) {
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_CERRAR_VENTA)
+					.actualizar(Evento.CERRAR_VENTA_SUCCESS, id_factura);
+			ControladorImp.carrito = null;
 		} else {
-			SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
-			TFactura factura = (TFactura) datos;
-			TDatosVenta datos_venta = factura.getDatosVentas();
-			int id_factura = saFactura.cerrarVenta(this.carrito, datos_venta.getIdCliente(),
-					datos_venta.getIdVendedor(), datos_venta.getFecha());
-			if (id_factura != -1) {
-				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_CERRAR_VENTA)
-						.actualizar(Evento.CERRAR_VENTA_SUCCESS, id_factura);
-				this.carrito = null;
-			} else {
-				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_CERRAR_VENTA)
-						.actualizar(Evento.CERRAR_VENTA_ERROR, "la venta no se ha podido cerrar");
-			}
+			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_CERRAR_VENTA)
+					.actualizar(Evento.CERRAR_VENTA_ERROR, "la venta no se ha podido cerrar");
 		}
 	}
 
-	private void anadirProducto(Object datos) {
-		if (this.carrito == null) {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ANADIR_PRODUCTO)
-					.actualizar(Evento.ANADIR_PRODUCTO_ERROR, "por favor abra una venta primero");
-		}
-		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
-		if (saFactura.anadirProducto((TLineaFactura) datos, this.carrito)) {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ANADIR_PRODUCTO)
-					.actualizar(Evento.ANADIR_PRODUCTO_SUCCESS, "producto anadido al carrito con exito");
-		} else {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ANADIR_PRODUCTO)
-					.actualizar(Evento.ANADIR_PRODUCTO_ERROR, "producto no encontrado.");
-		}
-	}
+//	private void anadirProducto(Object datos) {
+//		if (this.carrito == null) {
+//			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ANADIR_PRODUCTO)
+//					.actualizar(Evento.ANADIR_PRODUCTO_ERROR, "por favor abra una venta primero");
+//		}
+//		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
+//		if (saFactura.anadirProducto((TLineaFactura) datos, this.carrito)) {
+//			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ANADIR_PRODUCTO)
+//					.actualizar(Evento.ANADIR_PRODUCTO_SUCCESS, "producto anadido al carrito con exito");
+//		} else {
+//			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ANADIR_PRODUCTO)
+//					.actualizar(Evento.ANADIR_PRODUCTO_ERROR, "producto no encontrado.");
+//		}
+//	}
 
-	private void eliminarProducto(Object datos) {
-		if (this.carrito == null) {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ELIMINAR_PRODUCTO)
-					.actualizar(Evento.ELIMINAR_PRODUCTO_ERROR, "por favor abra una venta primero");
-		}
-		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
-		if (saFactura.eliminarProducto((TLineaFactura) datos, this.carrito)) {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ELIMINAR_PRODUCTO)
-					.actualizar(Evento.ELIMINAR_PRODUCTO_SUCCESS, "producto eliminado del carrito con exito");
-		} else {
-			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ELIMINAR_PRODUCTO)
-					.actualizar(Evento.ELIMINAR_PRODUCTO_ERROR, "producto no encontrado.");
-		}
-	}
+//	private void eliminarProducto(Object datos) {
+//		if (this.carrito == null) {
+//			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ELIMINAR_PRODUCTO)
+//					.actualizar(Evento.ELIMINAR_PRODUCTO_ERROR, "por favor abra una venta primero");
+//		}
+//		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
+//		if (saFactura.eliminarProducto((TLineaFactura) datos, this.carrito)) {
+//			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ELIMINAR_PRODUCTO)
+//					.actualizar(Evento.ELIMINAR_PRODUCTO_SUCCESS, "producto eliminado del carrito con exito");
+//		} else {
+//			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ELIMINAR_PRODUCTO)
+//					.actualizar(Evento.ELIMINAR_PRODUCTO_ERROR, "producto no encontrado.");
+//		}
+//	}
 
 	private void modificarFactura(Object datos) {
 		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
 		TFactura factura = (TFactura) datos;
-		TDatosVenta datos_venta = factura.getDatosVentas();
 		try {
-			boolean exito = saFactura.modificarFactura(factura.getIdFactura(), datos_venta.getIdCliente(),
-					datos_venta.getIdVendedor(), datos_venta.getFecha());
+			boolean exito = saFactura.modificarFactura(factura.getIdFactura(), factura.getIdCliente(),
+					factura.getIdVendedor(), factura.getFecha());
 			if (exito) {
 				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_MODIFICAR_FACTURA)
 						.actualizar(Evento.MODIFICAR_FACTURA_SUCCESS, factura.getIdFactura());
@@ -453,10 +447,10 @@ public class ControladorImp extends Controlador {
 	private void buscarFactura(Object datos) {
 		SAFactura saFactura = FactoriaAbstractaNegocio.getInstance().crearSAFactura();
 		int id_factura = (int) datos;
-		TFactura factura = saFactura.buscarFactura(id_factura);
-		if (factura != null) {
+		TFacturaLineaFacturas factura_lineaFactura = saFactura.buscarFactura(id_factura);
+		if (factura_lineaFactura != null) {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_FACTURA)
-					.actualizar(Evento.BUSCAR_FACTURA_SUCCESS, factura);
+					.actualizar(Evento.BUSCAR_FACTURA_SUCCESS, factura_lineaFactura);
 		} else {
 			FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_BUSCAR_FACTURA)
 					.actualizar(Evento.BUSCAR_FACTURA_ERROR, "factura no encontrada.");

@@ -12,6 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+
+import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
 
 public class DAOLineaFacturaImp implements DAOLineaFactura {
@@ -35,6 +37,7 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 			jo.put("id_factura", lf.getIdFactura());
 			jo.put("id_producto", lf.getIdProducto());
 			jo.put("cantidad", lf.getCantidad());
+			jo.put("precio", lf.getPrecio());
 			jo.put("activa", lf.getActivo());
 			ja.put(jo);// lo añadimos a nuestra lista de lineas de facturas
 
@@ -61,7 +64,8 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 			// Si la linea factura existe la creamos
 			linea_factura = new TLineaFactura(ja.getJSONObject(i).getInt("id_producto"),
 					ja.getJSONObject(i).getInt("id_factura"), ja.getJSONObject(i).getInt("id_linea"),
-					ja.getJSONObject(i).getInt("cantidad"), ja.getJSONObject(i).getBoolean("activa"));
+					ja.getJSONObject(i).getInt("cantidad"), ja.getJSONObject(i).getDouble("precio"),
+					ja.getJSONObject(i).getBoolean("activa"));
 		}
 		return linea_factura;
 	}
@@ -78,7 +82,8 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 			for (int i = 0; i < ja.length(); i++) {
 				lineas_factura.add(new TLineaFactura(ja.getJSONObject(i).getInt("id_producto"),
 						ja.getJSONObject(i).getInt("id_factura"), ja.getJSONObject(i).getInt("id_linea"),
-						ja.getJSONObject(i).getInt("cantidad"), ja.getJSONObject(i).getBoolean("activa")));
+						ja.getJSONObject(i).getInt("cantidad"), ja.getJSONObject(i).getDouble("precio"),
+						ja.getJSONObject(i).getBoolean("activa")));
 			}
 		}
 		return lineas_factura;
@@ -102,19 +107,24 @@ public class DAOLineaFacturaImp implements DAOLineaFactura {
 			if (i < lineas_factura.size()) {
 				// Si existe el producto en la factura buscamos su linea
 				TLineaFactura linea_factura = buscarLineaFactura(lineas_factura.get(i).getIdLinea());
+				// calculamos el precio del producto
+				double precio = linea_factura.getPrecio() / linea_factura.getCantidad();
 				// si sobran unidades despues de quitar las devueltas
 				if (lf.getCantidad() < linea_factura.getCantidad()) {
 					linea_factura.setCantidadProducto(linea_factura.getCantidad() - lf.getCantidad());
+					linea_factura.setPrecio(linea_factura.getPrecio() - (lf.getCantidad() * precio));
 					sol = lf.getCantidad();
 				} else {// si no sobran unidades despues de quitar las devueltas la linea "se borra"
 					sol = linea_factura.getCantidad();
 					linea_factura.setCantidadProducto(0);
+					linea_factura.setPrecio(0);
 					linea_factura.setActivo(false);
 					ja.getJSONObject(linea_factura.getIdLinea()).put("activa", false);
 				}
 				ja.getJSONObject(linea_factura.getIdLinea()).put("cantidad", linea_factura.getCantidad());
-				
-				//Escribimos en el json
+				ja.getJSONObject(linea_factura.getIdLinea()).put("precio", linea_factura.getPrecio());
+
+				// Escribimos en el json
 				writeJSONObject(filename, ja, next_id);
 			}
 		} catch (JSONException e) {

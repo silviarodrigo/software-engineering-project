@@ -2,116 +2,36 @@
    "ListaFacturas": [
       {
          "id_factura": 0,
-         "fecha": "4/2/2024",
-         "precio": 32,
+         "fecha": "hjh",
+         "precio": -0.2999999999999998,
          "id_cliente": 0,
-         "id_vendedor": 2,
+         "id_vendedor": 1,
          "activa": true
       },
       {
          "id_factura": 1,
-         "fecha": "14/2/2024",
-         "precio": 4,
-         "id_cliente": 2,
-         "id_vendedor": 5,
-         "activa": true
+         "fecha": "hjh",
+         "precio": 0,
+         "id_cliente": 0,
+         "id_vendedor": 1,
+         "activa": false
       },
       {
          "id_factura": 2,
-         "fecha": "20/2/2024",
-         "precio": 60,
-         "id_cliente": 1,
+         "fecha": "5",
+         "precio": 8.6,
+         "id_cliente": 0,
          "id_vendedor": 1,
          "activa": true
       },
       {
          "id_factura": 3,
-         "fecha": "4/3/2024",
-         "precio": 2,
-         "id_cliente": 2,
-         "id_vendedor": 4,
-         "activa": true
-      },
-      {
-         "id_factura": 4,
-         "fecha": "10/3/2024",
-         "precio": 12,
-         "id_cliente": 1,
-         "id_vendedor": 6,
-         "activa": true
-      },
-      {
-         "id_factura": 5,
-         "fecha": "30/3/2024",
-         "precio": 0,
+         "fecha": "ww",
+         "precio": 2.15,
          "id_cliente": 0,
-         "id_vendedor": 2,
-         "activa": false
-      },
-      {
-         "id_factura": 6,
-         "fecha": "2/4/2024",
-         "precio": 100,
-         "id_cliente": 2,
-         "id_vendedor": 5,
-         "activa": true
-      },
-      {
-         "id_factura": 7,
-         "fecha": "15/4/2024",
-         "precio": 40,
-         "id_cliente": 1,
          "id_vendedor": 1,
-         "activa": true
-      },
-      {
-         "id_factura": 8,
-         "fecha": "17/4/2024",
-         "precio": 0,
-         "id_cliente": 2,
-         "id_vendedor": 6,
-         "activa": false
-      },
-      {
-         "id_factura": 9,
-         "fecha": "24/3/2024",
-         "precio": 18,
-         "id_cliente": 0,
-         "id_vendedor": 4,
-         "activa": true
-      },
-      {
-         "id_factura": 10,
-         "fecha": "4/5/2024",
-         "precio": 14,
-         "id_cliente": 2,
-         "id_vendedor": 1,
-         "activa": true
-      },
-      {
-         "id_factura": 11,
-         "fecha": "6/5/2024",
-         "precio": 40,
-         "id_cliente": 0,
-         "id_vendedor": 6,
-         "activa": true
-      },
-      {
-         "id_factura": 12,
-         "fecha": "8/5/2024",
-         "precio": 16,
-         "id_cliente": 1,
-         "id_vendedor": 5,
-         "activa": true
-      },
-      {
-         "id_factura": 13,
-         "fecha": "9/5/2024",
-         "precio": 10,
-         "id_cliente": 2,
-         "id_vendedor": 6,
          "activa": true
       }
    ],
-   "next_id": 14
+   "next_id": 4
 }

@@ -9,10 +9,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+
+import negocio.Factoria.FactoriaAbstractaNegocio;
+import negocio.Facturas.SAFactura;
 import negocio.Facturas.TLineaFactura;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
+import presentacion.Controlador.ControladorImp;
+import presentacion.factoria.FactoriaAbstractaPresentacion;
 
 public class VistaEliminarProducto extends JFrame implements IGUI {
 
@@ -85,7 +90,14 @@ public class VistaEliminarProducto extends JFrame implements IGUI {
 				return;
 			}
 			// si todo es correcto creamos la linea de factura de producto a quitar
-			TLineaFactura linea = new TLineaFactura(id_prod, 0, 0, cantidad, true);
+			TLineaFactura linea = new TLineaFactura(id_prod, 0, 0, cantidad, 0,true);
+			if (ControladorImp.carrito.eliminarProducto(linea)) {
+				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ELIMINAR_PRODUCTO)
+						.actualizar(Evento.ELIMINAR_PRODUCTO_SUCCESS, "producto eliminado del carrito con exito");
+			} else {
+				FactoriaAbstractaPresentacion.getInstance().createVista(Evento.VISTA_ELIMINAR_PRODUCTO)
+						.actualizar(Evento.ELIMINAR_PRODUCTO_ERROR, "producto no encontrado");
+			}
 			Controlador.getInstance().accion(Evento.ELIMINAR_PRODUCTO, linea);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Debes indicar un id de producto valido", "Eliminar Producto",

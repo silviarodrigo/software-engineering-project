@@ -3,16 +3,16 @@ package negocio.Facturas;
 import java.util.ArrayList;
 
 public class TDatosVenta {
-	private String fecha;
 	private int id_cliente;
 	private int id_vendedor;
-	private ArrayList<TLineaFactura> productos;
+	private String fecha;
+	private ArrayList<TLineaFactura> carrito;
 
-	public TDatosVenta(String f, int id_c, int id_v, ArrayList<TLineaFactura> prod) {
-		this.fecha = f;
+	public TDatosVenta(int id_c, int id_v, String fecha, ArrayList<TLineaFactura> prod) {
 		this.id_cliente = id_c;
 		this.id_vendedor = id_v;
-		this.productos = prod;
+		this.carrito = prod;
+		this.fecha = fecha;
 	}
 
 //GETTERS
@@ -28,8 +28,8 @@ public class TDatosVenta {
 		return this.fecha;
 	}
 
-	public ArrayList<TLineaFactura> getProductos() {
-		return this.productos;
+	public ArrayList<TLineaFactura> getCarrito() {
+		return this.carrito;
 	}
 
 //SETTERS
@@ -45,7 +45,7 @@ public class TDatosVenta {
 		this.fecha = Fecha;
 	}
 
-	public void setProductos(ArrayList<TLineaFactura> prods) {
-		this.productos = prods;
+	public void setCarrito(ArrayList<TLineaFactura> prods) {
+		this.carrito = prods;
 	}
 }

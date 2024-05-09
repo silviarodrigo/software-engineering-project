@@ -5,13 +5,15 @@ public class TLineaFactura {
 	private int cantidad;
 	private int id_factura;
 	private int id_linea;
+	private double precio;
 	private boolean activa;
 
-	public TLineaFactura(int id_prod, int id_fact, int id, int cant, boolean act) {
+	public TLineaFactura(int id_prod, int id_fact, int id, int cant, double precio, boolean act) {
 		this.id_producto = id_prod;
 		this.cantidad = cant;
 		this.id_factura = id_fact;
 		this.id_linea = id;
+		this.precio = precio;
 		this.activa = act;
 	}
 
@@ -30,6 +32,10 @@ public class TLineaFactura {
 
 	public int getIdLinea() {
 		return this.id_linea;
+	}
+
+	public double getPrecio() {
+		return this.precio;
 	}
 
 	public boolean getActivo() {
@@ -51,6 +57,10 @@ public class TLineaFactura {
 
 	public void setIdLinea(int id) {
 		this.id_linea = id;
+	}
+
+	public void setPrecio(double p) {
+		this.precio = p;
 	}
 
 	public void setActivo(boolean activo) {

@@ -124,8 +124,9 @@ public class VistaModificarFacturas extends JFrame implements IGUI {
 			return;
 		}
 
-		// si todos los datos son validos creamos la nueva factura con los datos a modificar
-		TFactura factura = new TFactura(id_factura, 0, new TDatosVenta(fecha, id_cliente, id_vendedor, null), true);
+		// si todos los datos son validos creamos la nueva factura con los datos a
+		// modificar
+		TFactura factura = new TFactura(id_factura, id_cliente, id_vendedor, 0, fecha, true);
 		Controlador.getInstance().accion(Evento.MODIFICAR_FACTURA, factura);
 	}
 

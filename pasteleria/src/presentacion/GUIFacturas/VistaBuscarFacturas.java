@@ -2,6 +2,8 @@ package presentacion.GUIFacturas;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.ArrayList;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +14,7 @@ import javax.swing.JTextField;
 import negocio.Facturas.TDatosVenta;
 import negocio.Facturas.TFactura;
 import negocio.Facturas.TLineaFactura;
+import negocio.Facturas.TFacturaLineaFacturas;
 import presentacion.Evento;
 import presentacion.IGUI;
 import presentacion.Controlador.Controlador;
@@ -66,7 +69,7 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 		setVisible(true);
 	}
 
-	private void initInfoGUI(TFactura factura) {
+	private void initInfoGUI(TFacturaLineaFacturas factura_lineasFactura) {
 
 		JPanel _infoPanel = new JPanel();
 		_infoPanel.setLayout(new BoxLayout(_infoPanel, BoxLayout.Y_AXIS));
@@ -74,36 +77,26 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 
 		// Imprimimos toda la informacion de la factura
 		// la factura
-		TDatosVenta datos_venta = factura.getDatosVentas();
-		JLabel infoLabel = new JLabel("INFORMACION FACTURA");
-		JLabel idLabel = new JLabel("Id: " + factura.getIdFactura());
-		JLabel precioLabel = new JLabel("Precio: " + factura.getPrecio_total());
-		JLabel fechaLabel = new JLabel("Fecha: " + datos_venta.getFecha());
-		JLabel id_clienteLabel = new JLabel("Id cliente: " + datos_venta.getIdCliente());
-		JLabel id_vendedor = new JLabel("Id vendedor: " + datos_venta.getIdVendedor());
-		JLabel activafacturaLabel = new JLabel("Activa: " + factura.getActivo());
-		_infoPanel.add(infoLabel);
-		_infoPanel.add(idLabel);
-		_infoPanel.add(precioLabel);
-		_infoPanel.add(fechaLabel);
-		_infoPanel.add(id_clienteLabel);
-		_infoPanel.add(id_vendedor);
-		_infoPanel.add(activafacturaLabel);
+		TFactura factura = factura_lineasFactura.getTFactura();
+		_infoPanel.add(new JLabel("INFORMACION FACTURA"));
+		_infoPanel.add(new JLabel("Id: " + factura.getIdFactura()));
+		_infoPanel.add(new JLabel("Precio: " + factura.getPrecio_total()));
+		_infoPanel.add(new JLabel("Fecha: " + factura.getFecha()));
+		_infoPanel.add(new JLabel("Id cliente: " + factura.getIdCliente()));
+		_infoPanel.add(new JLabel("Id vendedor: " + factura.getIdVendedor()));
+		_infoPanel.add(new JLabel("Activa: " + factura.getActivo()));
 		// las lineas de factura
-		if (datos_venta.getProductos() != null) {
+		ArrayList<TLineaFactura> lineas_factura = factura_lineasFactura.getLineasFactura();
+		if (lineas_factura.size() > 0) {
 			JLabel infoLineaLabel = new JLabel("INFORMACION LINEAS DE FACTURA");
 			_infoPanel.add(infoLineaLabel);
-			for (TLineaFactura lf : datos_venta.getProductos()) {
-				JLabel idlineaLabel = new JLabel("Id linea: " + lf.getIdLinea());
-				JLabel productoLabel = new JLabel("Id producto: " + lf.getIdProducto());
-				JLabel cantidadLabel = new JLabel("Cantidad: " + lf.getCantidad());
-				JLabel activaLabel = new JLabel("Activa: " + lf.getActivo());
-				JLabel separacionLabel = new JLabel(".");
-				_infoPanel.add(idlineaLabel);
-				_infoPanel.add(productoLabel);
-				_infoPanel.add(cantidadLabel);
-				_infoPanel.add(activaLabel);
-				_infoPanel.add(separacionLabel);
+			for (TLineaFactura lf : lineas_factura) {
+				_infoPanel.add(new JLabel("Id linea: " + lf.getIdLinea()));
+				_infoPanel.add(new JLabel("Id producto: " + lf.getIdProducto()));
+				_infoPanel.add(new JLabel("Cantidad: " + lf.getCantidad()));
+				_infoPanel.add(new JLabel("Precio: " + lf.getPrecio()));
+				_infoPanel.add(new JLabel("Activa: " + lf.getActivo()));
+				_infoPanel.add(new JLabel("."));
 
 			}
 		}
@@ -134,7 +127,7 @@ public class VistaBuscarFacturas extends JFrame implements IGUI {
 		switch (e) {
 		case BUSCAR_FACTURA_SUCCESS:
 			_pedirIdFacturaPanel.setVisible(false);
-			initInfoGUI((TFactura) datos);
+			initInfoGUI((TFacturaLineaFacturas) datos);
 			break;
 		case BUSCAR_FACTURA_ERROR:
 			JOptionPane.showMessageDialog(this, "ERROR: " + datos, "Buscar Factura", JOptionPane.ERROR_MESSAGE);

@@ -36,11 +36,11 @@ public class ModeloTablaFacturas extends AbstractTableModel {
 		} else if (columnIndex == 1) {
 			return factura.getPrecio_total();
 		} else if (columnIndex == 2) {
-			return factura.getDatosVentas().getFecha();
+			return factura.getFecha();
 		} else if (columnIndex == 3) {
-			return factura.getDatosVentas().getIdCliente();
+			return factura.getIdCliente();
 		} else if (columnIndex == 4) {
-			return factura.getDatosVentas().getIdVendedor();
+			return factura.getIdVendedor();
 		}
 		return "error";
 	}
